@@ -85,7 +85,7 @@ function addEventListenerClean() {
     cartItemSelector.forEach(element => element.remove());
     totalprice = 0;
     const spann = document.querySelector('.total-price');
-    spann.innerText = `${parseFloat(totalprice.toFixed(2))}`;
+    spann.innerText = `${parseFloat(totalprice.toFixed(3))}`;
   });
 }
 
