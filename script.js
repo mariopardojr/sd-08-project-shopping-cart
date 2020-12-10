@@ -32,7 +32,7 @@ function getSkuFromProductItem(item) {
 }
 
 async function cartItemClickListener(event) {
-  return event
+  return event;
 }
 
 function itemsFetch() {
