@@ -56,7 +56,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 const createListSaved = () => {
   const ol = document.querySelector('.cart__items');
   const listSaved = JSON.parse(localStorage.getItem('list'));
-  if (listSaved.length !== 0 && listSaved !== null) {
+  if (listSaved !== null) {
     listSaved.forEach((element) => {
       const li = createCustomElement('li', 'cart__item', element);
       li.addEventListener('click', cartItemClickListener);
