@@ -1,5 +1,3 @@
-window.onload = function onload() {};
-
 function loadCartList() {
   const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = localStorage.getItem('cart');
@@ -88,4 +86,5 @@ const displayList = async () => {
   loadCartList();
   document.querySelectorAll('.cart__item').forEach(item => item.addEventListener('click', cartItemClickListener));
 };
-displayList();
+
+window.onload = function onload() {displayList()};
