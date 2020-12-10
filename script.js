@@ -1,9 +1,3 @@
-function cartItemClickListener(event) {
-  event.target.parentNode.removeChild(event.target);
-  checkCurrentPrice();
-  saveLocalStorage();
-}
-
 function createLoading() {
   const cart = document.querySelector('.cart');
   const h2 = document.createElement('h2');
@@ -25,15 +19,31 @@ function createCartEvents() {
   });
 }
 
+async function checkCurrentPrice() {
+  const cart = document.querySelector('.cart__items');
+  const priceTag = document.querySelector('.total-price');
+  let price = 0;
+  cart.childNodes.forEach((li) => {
+    price += getItemPrice(li);
+  });
+  priceTag.innerText = price;
+}
+
 function saveLocalStorage() {
   const cart = document.querySelector('.cart__items');
   localStorage.setItem('cartContent', cart.innerHTML);
 }
 
+function cartItemClickListener(event) {
+  event.target.parentNode.removeChild(event.target);
+  checkCurrentPrice();
+  saveLocalStorage();
+}
+
 function getLocalStorage() {
   const cart = document.querySelector('.cart__items');
   const storageContent = localStorage.getItem('cartContent');
-  cart.innerHTML = storageContent ? storageContent : '';
+  cart.innerHTML = storageContent;
   createCartEvents();
 }
 
@@ -53,16 +63,6 @@ function createCustomElement(element, className, innerText) {
   e.className = className;
   e.innerText = innerText;
   return e;
-}
-
-async function checkCurrentPrice() {
-  const cart = document.querySelector('.cart__items');
-  const priceTag = document.querySelector('.total-price');
-  let price = 0;
-  await cart.childNodes.forEach((li) => {
-    price += getItemPrice(li);
-  });
-  priceTag.innerText = price;
 }
 
 function getSkuFromProductItem(item) {
