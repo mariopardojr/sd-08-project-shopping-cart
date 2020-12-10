@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -50,9 +48,9 @@ const fetchSelectedItem = (event) => {
   .then((response) => {
     response.json().then((data) => {
       const obj = {
-        sku: [data.id],
-        name: [data.title],
-        salePrice: [data.price],
+        sku: data.id,
+        name: data.title,
+        salePrice: data.price,
       };
       const item = createCartItemElement(obj);
       document.querySelector('.cart__items').appendChild(item);
@@ -66,9 +64,9 @@ const fetchItems = () => {
       response.json().then((data) => {
         data.results.forEach((product, index) => {
           const obj = {
-            sku: [product.id],
-            name: [product.title],
-            image: [product.thumbnail],
+            sku: product.id,
+            name: product.title,
+            image: product.thumbnail,
           };
           const item = createProductItemElement(obj);
           document.querySelector('.items').appendChild(item);
@@ -79,4 +77,6 @@ const fetchItems = () => {
     });
 };
 
-fetchItems();
+window.onload = function onload() {
+  fetchItems();
+};
