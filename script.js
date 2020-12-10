@@ -55,5 +55,5 @@ const appendObject = (object) => {
 window.onload = function onload() {
   return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(data => appendObject(data.results))
+    .then(data => appendObject(data.results));
 };
