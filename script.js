@@ -47,6 +47,7 @@ function createProductItemElement({ sku, name, image }) {
     const cartAdded = createCartItemElement(cartObjectTransformed);
     const cart = document.querySelector('.cart__items');
     cart.appendChild(cartAdded);
+    cartAdded.addEventListener('change', () => localStorage.setItem('cart', cart.innerHTML))
   });
 
   return section;
@@ -68,6 +69,12 @@ const retrieveProducts = async (product) => {
   });
 };
 
+// const loadedCart = localStorage.getItem('cart');
+//   if (loadedCart !== null) {
+//     shoppingCart.appendChild(loadedCart)
+//   }
+
 window.onload = function onload() {
   retrieveProducts('computador');
+  console.log(localStorage)
 };
