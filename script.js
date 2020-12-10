@@ -1,7 +1,3 @@
-window.onload = function onload() { 
-  fetchItems();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -16,7 +12,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ id: sku, title: name, thumbnail: image}) {
+function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -63,3 +59,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() { 
+  fetchItems();
+};
