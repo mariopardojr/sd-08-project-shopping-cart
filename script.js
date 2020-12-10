@@ -1,3 +1,4 @@
+// Teste para primeiro commit
 window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
