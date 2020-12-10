@@ -31,7 +31,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  const elementToRemove = event.target;
+  elementToRemove.parentElement.removeChild(elementToRemove);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -62,8 +63,8 @@ function addItemToCart() {
     if (event.target.classList.contains('item__add')) {
       const parentElement = event.target.parentElement;
       const sku = getSkuFromProductItem(parentElement);
-      const idURL = `https://api.mercadolibre.com/items/${sku}`;
-      fetch(idURL)
+      const skuURL = `https://api.mercadolibre.com/items/${sku}`;
+      fetch(skuURL)
         .then(response => response.json())
         .then((data) => {
           const obj = {
