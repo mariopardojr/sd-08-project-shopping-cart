@@ -103,7 +103,6 @@ async function fetchItemData(itemId) {
 async function addToCart(event) {
   const olContainer = document.querySelector('.cart__items');
   const itemId = getSkuFromProductItem(event);
-  const loadingDiv = document.querySelector('.loading ');
   await fetchItemData(itemId).then(itemdata =>
     itemdata.json().then((result) => {
       const itemCart = createCartItemElement(result);
