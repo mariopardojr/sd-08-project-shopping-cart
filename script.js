@@ -27,7 +27,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function appendAllItemsElements(allInfo) {
-  allInfo.forEach(element => {
+  allInfo.forEach((element) => {
     const section = createProductItemElement(element);
     const sectionItens = document.querySelector('.items');
     sectionItens.appendChild(section);
@@ -79,7 +79,7 @@ function pickElementFromApi(id) {
 function checkButtonClicks() {
   const buttons = document.querySelectorAll('.item__add');
   buttons.forEach((item) => {
-    item.addEventListener('click', element => {
+    item.addEventListener('click', (element) => {
       pickElementFromApi(element.target.parentNode.childNodes[0].innerText);
     });
   });
@@ -94,4 +94,5 @@ function getResultsFromApi(key) {
 
 window.onload = function onload() {
   getResultsFromApi('computador');
+  checkButtonClicks();
 };
