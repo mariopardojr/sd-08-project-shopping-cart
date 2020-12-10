@@ -1,3 +1,7 @@
+body {
+  background-color: darkgray;
+}
+
 .top-bar {
   align-items: center;
   display: flex;
