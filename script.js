@@ -12,11 +12,21 @@ function removeLoading() {
   cart.removeChild(h2);
 }
 
+function cartItemClickListener(event) {
+  event.target.parentNode.removeChild(event.target);
+  checkCurrentPrice();
+  saveLocalStorage();
+}
+
 function createCartEvents() {
   const cart = document.querySelector('.cart__items');
   cart.childNodes.forEach((li) => {
     li.addEventListener('click', cartItemClickListener);
   });
+}
+
+function getItemPrice(item) {
+  return parseFloat(item.innerText.split('PRICE: $')[1]);
 }
 
 async function checkCurrentPrice() {
@@ -34,12 +44,6 @@ function saveLocalStorage() {
   localStorage.setItem('cartContent', cart.innerHTML);
 }
 
-function cartItemClickListener(event) {
-  event.target.parentNode.removeChild(event.target);
-  checkCurrentPrice();
-  saveLocalStorage();
-}
-
 function getLocalStorage() {
   const cart = document.querySelector('.cart__items');
   const storageContent = localStorage.getItem('cartContent');
@@ -52,10 +56,6 @@ function createProductImageElement(imageSource) {
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-}
-
-function getItemPrice(item) {
-  return parseFloat(item.innerText.split('PRICE: $')[1]);
 }
 
 function createCustomElement(element, className, innerText) {
