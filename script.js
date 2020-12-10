@@ -48,6 +48,17 @@ function cartItemClickListener(event) {
   updateLocalStorage();
 }
 
+function createCartItemElement({ id, title, price }) {
+  const li = document.createElement('li');
+  /*   const pId = document.createElement('p');
+  const pTitle = document.createElement('p');
+  const pPrice = document.createElement('p'); */
+  li.className = 'cart__item';
+  li.innerText = `Id: ${id} | NAME: ${title} | PRICE: $${price}`;
+  li.addEventListener('click', e => cartItemClickListener(e));
+  return li;
+}
+
 function applyEventTocartItems() {
   const currentCartitems = document.querySelectorAll('.cart__item');
   currentCartitems.forEach(item =>
@@ -94,7 +105,7 @@ async function addToCart(event) {
   const itemId = getSkuFromProductItem(event);
   const loadingDiv = document.querySelector('.loading ');
   loadingDiv.style.display = 'block';
-  const itemData = await fetchItemData(itemId).then(itemdata =>
+  await fetchItemData(itemId).then(itemdata =>
     itemdata.json().then(result => {
       const itemCart = createCartItemElement(result);
       olContainer.appendChild(itemCart);
@@ -120,17 +131,6 @@ async function fetchDataFromMLB() {
     )
   );
   loadingDiv.style.display = 'none';
-}
-
-function createCartItemElement({ id, title, price }) {
-  const li = document.createElement('li');
-  /*   const pId = document.createElement('p');
-  const pTitle = document.createElement('p');
-  const pPrice = document.createElement('p'); */
-  li.className = 'cart__item';
-  li.innerText = `Id: ${id} | NAME: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', e => cartItemClickListener(e));
-  return li;
 }
 
 window.onload = function onload() {
