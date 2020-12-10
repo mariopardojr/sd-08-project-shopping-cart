@@ -35,10 +35,10 @@ const productList = () => {
             name: produtos.title,
             image: produtos.thumbnail,
           });
-        return document.querySelector('.items').appendChild(upItens);
+          return document.querySelector('.items').appendChild(upItens);
+        });
       });
     });
-  });
 };
 
 function getSkuFromProductItem(item) {
