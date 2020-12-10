@@ -1,4 +1,6 @@
-// window.onload = function onload() { };
+window.onload = function onload() {
+  fecthProduct();
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -26,7 +28,7 @@ const fecthProduct = () => {
       })
     })
 }
-fecthProduct();
+
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
