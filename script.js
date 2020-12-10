@@ -20,8 +20,7 @@ const getProduct = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then((response) => response.json())
       .then((data) => {
-        const queryResult = data.results;
-        const productFormat = queryResult.forEach((product) => (
+        data.results.forEach((product) => (
           const object = {
             sku: product.id,
             name: product.title,
