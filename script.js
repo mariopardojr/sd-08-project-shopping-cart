@@ -32,7 +32,7 @@ const productList = () => {
         arrayData.map((produtos) => {
           const upItens = createProductItemElement({
             sku: produtos.id,
-            name: produtos.tittle,
+            name: produtos.title,
             image: produtos.thumbnail,
           });
           return document.querySelector('.items').appendChild(upItens);
