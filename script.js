@@ -56,11 +56,13 @@ function createCartItemElement({ sku, name, salePrice }) {
 const createListSaved = () => {
   const ol = document.querySelector('.cart__items');
   const listSaved = JSON.parse(localStorage.getItem('list'));
-  for (let index = 0; index < listSaved.length; index += 1) {
-    const li = createCustomElement('li', 'cart__item', listSaved[index]);
-    li.addEventListener('click', cartItemClickListener);
-    li.addEventListener('click', saveList);
-    ol.appendChild(li);
+  if (listSaved.length !== 0) {
+    listSaved.forEach((element) => {
+      const li = createCustomElement('li', 'cart__item', element);
+      li.addEventListener('click', cartItemClickListener);
+      li.addEventListener('click', saveList);
+      ol.appendChild(li);
+    });
   }
 };
 
