@@ -18,7 +18,7 @@ function createCustomElement(element, className, innerText) {
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
-  section.className = 'item';
+  section.className = '.item';
   const itemsLocal = document.querySelector('.items');
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
@@ -37,7 +37,6 @@ const fetchMBL = () => {
           sku: element.id,
           name: element.title,
           image: element.thumbnail,
-          salePrice: element.price,
         }
       ));
       compMBL.forEach((element) => {
@@ -53,8 +52,13 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui - simboraaaaa
+  // const itemClick = event.target.innerHTML;
+  // console.log(itemClick);
+  // fetch(`https://api.mercadolibre.com/items/${sku}`)
 }
+
+// const itemLocal = document.querySelector('.item__add');
+// itemLocal.addEventListener('click', cartItemClickListener);
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
