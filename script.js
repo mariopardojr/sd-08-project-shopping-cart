@@ -22,7 +22,7 @@ const getProduct = () => {
       .then((data) => {
         const queryResult = data.results;
         const productFormat = queryResult.forEach((product) => (
-          let object = {
+          const object = {
             sku: product.id,
             name: product.title,
             image: product.thumbnail,
