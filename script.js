@@ -34,15 +34,6 @@ function cartItemClickListener(event) {
   ol.removeChild(event.target);
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  li.addEventListener('click', saveList);
-  return li;
-}
-
 const saveList = () => {
   localStorage.clear();
   const ol = document.querySelector('.cart__items');
@@ -53,9 +44,18 @@ const saveList = () => {
   localStorage.setItem('list', JSON.stringify(arr));
 };
 
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', saveList);
+  return li;
+}
+
 const createListSaved = () => {
   const ol = document.querySelector('.cart__items');
-  let listSaved = JSON.parse(localStorage.getItem('list'));
+  const listSaved = JSON.parse(localStorage.getItem('list'));
   listSaved.forEach((element) => {
     const li = createCustomElement('li', 'cart__item', element);
     li.addEventListener('click', cartItemClickListener);
