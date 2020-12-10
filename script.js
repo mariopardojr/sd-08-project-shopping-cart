@@ -3,7 +3,7 @@ function clearCartList() {
   while (cartList.firstChild) {
     cartList.removeChild(cartList.firstChild);
   }
-  localStorage.setItem('cart','');
+  localStorage.setItem('cart', '');
 }
 
 function loadCartList() {
@@ -93,7 +93,7 @@ const displayList = async () => {
   });
   loadCartList();
   document.querySelectorAll('.cart__item').forEach(item => item.addEventListener('click', cartItemClickListener));
-  document.querySelector('.empty-cart').addEventListener('click',clearCartList);
+  document.querySelector('.empty-cart').addEventListener('click', clearCartList);
 };
 
 window.onload = function onload() {
