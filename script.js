@@ -39,8 +39,30 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', saveList);
   return li;
 }
+
+const saveList = () => {
+  localStorage.clear();
+  const ol = document.querySelector('.cart__items');
+  const arr = [];
+  for (let index = 0; index < ol.children.length; index += 1) {
+    arr.push(ol.children[index].innerText);
+  }
+  localStorage.setItem('list', JSON.stringify(arr));
+};
+
+const createListSaved = () => {
+  const ol = document.querySelector('.cart__items');
+  let listSaved = JSON.parse(localStorage.getItem('list'));
+  listSaved.forEach((element) => {
+    const li = createCustomElement('li', 'cart__item', element);
+    li.addEventListener('click', cartItemClickListener);
+    li.addEventListener('click', saveList);
+    ol.appendChild(li);
+  });
+};
 
 const fetchSelectedItem = (event) => {
   const itemId = event.currentTarget.parentNode.firstChild.innerText;
@@ -54,6 +76,7 @@ const fetchSelectedItem = (event) => {
       };
       const item = createCartItemElement(obj);
       document.querySelector('.cart__items').appendChild(item);
+      saveList();
     });
   });
 };
@@ -79,4 +102,5 @@ const fetchItems = () => {
 
 window.onload = function onload() {
   fetchItems();
+  createListSaved();
 };
