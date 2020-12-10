@@ -27,8 +27,12 @@ function createProductItemElement({ sku, name, image }) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
-function cartItemClickListener() {
-  // coloque seu código aqui
+function cartItemClickListener(event) {
+  document.querySelectorAll('.cart__item').forEach((item) => {
+    item.addEventListener('click', () => {
+      document.querySelector('.cart__items').removeChild(event.target);
+    });
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -79,4 +83,5 @@ function buttonsAdd() {
 window.onload = async function onload() {
   await setFetch();
   await buttonsAdd();
+  await fetchId(id);
 };
