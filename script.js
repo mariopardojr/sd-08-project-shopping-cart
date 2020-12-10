@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  retrieveProducts('computador');
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -58,4 +54,8 @@ const retrieveProducts = async (product) => {
     const items = document.querySelector('.items');
     items.appendChild(createProduct);
   });
+};
+
+window.onload = function onload() {
+  retrieveProducts('computador');
 };
