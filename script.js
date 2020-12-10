@@ -28,11 +28,10 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-const fetchMBL = () => {
-  return new Promise((resolve, reject) => {
+const fetchMBL = () => new Promise((resolve) => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
-    .then(async(data) => {
+    .then( async(data) => {
       const compMBL = await data.results.map(element => (
         {
           sku: element.id,
@@ -45,8 +44,7 @@ const fetchMBL = () => {
       });
       // cartItemClickListener();
     });
-  });
-};
+});
 
 fetchMBL();
 
