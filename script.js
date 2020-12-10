@@ -1,5 +1,3 @@
-// window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -56,4 +54,6 @@ async function setFetch() {
     });
 }
 
-window.onload = setFetch();
+window.onload = function onload() {
+  setFetch();
+};
