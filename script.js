@@ -55,4 +55,5 @@ async function fetchAPI() {
     });
 }
 
+
 fetchAPI();
