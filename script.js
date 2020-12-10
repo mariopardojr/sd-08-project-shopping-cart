@@ -33,7 +33,10 @@ const getProduct = () => {
       .then((data) => {
         const arrayResults = data.results;
         arrayResults.map((prod) => {
-          const apply = createProductItemElement({ sku: prod.id, name: prod.title, image: prod.thumbnail });
+          const apply = createProductItemElement({
+            sku: prod.id,
+            name: prod.title,
+            image: prod.thumbnail });
           return document.querySelector('.items').appendChild(apply);
         });
       });
@@ -58,4 +61,4 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 window.onload = function onload() {
   getProduct();
-  };
+};
