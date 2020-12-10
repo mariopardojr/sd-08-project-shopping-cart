@@ -29,7 +29,13 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  document.getElementsByClassName('cart__items')[0].removeChild(event.target);
+  const cartItems = document.getElementsByClassName('cart__items')[0];
+  const pos = Array.prototype.indexOf.call(cartItems.children, event.target);
+  cartItems.removeChild(event.target);
+
+  const localItens = JSON.parse(window.localStorage.getItem('cart'));
+  localItens.splice(pos, 1);
+  window.localStorage.setItem('cart', JSON.stringify(localItens));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -40,20 +46,42 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+const addItemToLocalStorage = (item) => {
+  const data = window.localStorage.getItem('cart') || '[]';
+  const loaded = JSON.parse(data);
+  const curr = [...loaded, item];
+  window.localStorage.setItem('cart', JSON.stringify(curr));
+};
+
 const itemToCartBtn = async (event) => {
   const itemId = getSkuFromProductItem(event.target.parentNode);
   const url = `https://api.mercadolibre.com/items/${itemId}`;
   try {
     const response = await fetch(url);
     const { id, title, price } = await response.json();
-    const li = createCartItemElement({ sku: id, name: title, salePrice: price });
+    const itemAdd = { sku: id, name: title, salePrice: price };
+    const li = createCartItemElement(itemAdd);
+    addItemToLocalStorage(itemAdd);
     document.getElementsByClassName('cart__items')[0].appendChild(li);
   } catch (err) {
     console.log(err);
   }
 };
 
+const loadCart = () => {
+  const cart = JSON.parse(window.localStorage.getItem('cart'));
+  cart.forEach((item) => {
+    const li = createCartItemElement(item);
+    document.getElementsByClassName('cart__items')[0].appendChild(li);
+  });
+};
+
 window.onload = function onload() {
+  const localStorage = window.localStorage;
+  if (localStorage.getItem('cart') !== null) {
+    loadCart();
+  }
+
   const urlAPI = 'https://api.mercadolibre.com/sites/MLB/search?q=';
   const items = document.getElementsByClassName('items')[0];
   fetch(`${urlAPI}computador`)
