@@ -86,8 +86,20 @@ function buttonsAdd() {
   });
 }
 
+function removeItems() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    const node = document.querySelector('.cart__items');
+    while (node.hasChildNodes()) {
+      node.removeChild(node.lastChild);
+    }
+    localStorage.clear();
+  });
+}
+
+
 window.onload = async function onload() {
   await setFetch();
   await buttonsAdd();
   await loadItems();
+  removeItems();
 };
