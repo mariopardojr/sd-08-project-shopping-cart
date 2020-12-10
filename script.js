@@ -49,10 +49,26 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function createLoading() {
+  const body = document.body;
+  const loading = document.createElement('h1');
+  loading.className = 'loading';
+  loading.innerHTML = 'loading...';
+  body.appendChild(loading);
+}
+
+function removeLoading() {
+  const body = document.body;
+  const loading = document.querySelector('.loading');
+  body.removeChild(loading);
+}
+
 function generateItemsList(url) {
+  createLoading();
   fetch(url)
     .then(response => response.json())
-    .then(data =>
+    .then((data) => {
+      removeLoading();
       data.results.forEach((item) => {
         const obj = {
           sku: item.id,
@@ -60,8 +76,8 @@ function generateItemsList(url) {
           image: item.thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(obj));
-      }),
-    );
+      });
+    });
 }
 
 function addItemToCart() {
