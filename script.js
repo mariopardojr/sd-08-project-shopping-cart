@@ -47,7 +47,7 @@ const getCartTotal = () => (
 
 const updateCartTotal = async () => {
   const total = await getCartTotal();
-  const totalElement = document.querySelector('.cart__total');
+  const totalElement = document.querySelector('.total-price');
   totalElement.textContent = `Total: R$${total.toFixed(2).replace('.', ',')}`;
 };
 
