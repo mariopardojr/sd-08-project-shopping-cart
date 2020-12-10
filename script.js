@@ -51,7 +51,7 @@ const getProductList = async () => {
   return (await data.json()).results;
 };
 
-const addCart = sku => async event => {
+const addCart = sku => async (event) => {
   const url = `https://api.mercadolibre.com/items/${sku}`;
   const product = await (await fetch(url)).json();
   document.querySelector('.cart__items').appendChild(
