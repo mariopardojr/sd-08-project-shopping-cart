@@ -62,7 +62,7 @@ function createCartItemElement({ id, title, price }) {
 function applyEventTocartItems() {
   const currentCartitems = document.querySelectorAll('.cart__item');
   currentCartitems.forEach(item =>
-    item.addEventListener('click', event => cartItemClickListener(event))
+    item.addEventListener('click', event => cartItemClickListener(event)),
   );
 }
 
@@ -109,7 +109,7 @@ async function addToCart(event) {
     itemdata.json().then((result) => {
       const itemCart = createCartItemElement(result);
       olContainer.appendChild(itemCart);
-    })
+    }),
   );
   loadingDiv.style.display = 'none';
   updatePrice();
@@ -127,8 +127,8 @@ async function fetchDataFromMLB() {
         const buttonAdicionar = productHTML.childNodes[3];
         buttonAdicionar.addEventListener('click', e => addToCart(e.path[1]));
         containerItems.appendChild(productHTML);
-      })
-    )
+      }),
+    ),
   );
   loadingDiv.style.display = 'none';
 }
