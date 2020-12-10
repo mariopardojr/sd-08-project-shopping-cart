@@ -1,7 +1,7 @@
 async function updatePrice() {
   const currentCartitems = document.querySelectorAll('.cart__item');
   let totalPrice = 0;
-  currentCartitems.forEach(element => {
+  currentCartitems.forEach((element) => {
     const text = element.innerHTML;
     const price = +text.slice(text.lastIndexOf('$') + 1);
     totalPrice += price;
@@ -106,7 +106,7 @@ async function addToCart(event) {
   const loadingDiv = document.querySelector('.loading ');
   loadingDiv.style.display = 'block';
   await fetchItemData(itemId).then(itemdata =>
-    itemdata.json().then(result => {
+    itemdata.json().then((result) => {
       const itemCart = createCartItemElement(result);
       olContainer.appendChild(itemCart);
     })
@@ -122,7 +122,7 @@ async function fetchDataFromMLB() {
   loadingDiv.style.display = 'block';
   await fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador').then(result =>
     result.json().then(data =>
-      data.results.forEach(product => {
+      data.results.forEach((product) => {
         const productHTML = createProductItemElement(product);
         const buttonAdicionar = productHTML.childNodes[3];
         buttonAdicionar.addEventListener('click', e => addToCart(e.path[1]));
