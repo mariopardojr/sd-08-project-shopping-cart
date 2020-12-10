@@ -74,3 +74,16 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  font-size: 40px;
+  background-color: lightgray;
+  display: none;
+}
