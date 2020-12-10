@@ -18,7 +18,7 @@ function createCustomElement(element, className, innerText) {
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
-  section.className = '.item';
+  section.className = 'item';
   const itemsLocal = document.querySelector('.items');
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
@@ -29,10 +29,11 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 const fetchMBL = () => {
+  return new Promise((resolve, reject) => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
-    .then((data) => {
-      const compMBL = data.results.map(element => (
+    .then(async(data) => {
+      const compMBL = await data.results.map(element => (
         {
           sku: element.id,
           name: element.title,
@@ -42,7 +43,9 @@ const fetchMBL = () => {
       compMBL.forEach((element) => {
         createProductItemElement(element);
       });
+      // cartItemClickListener();
     });
+  });
 };
 
 fetchMBL();
@@ -51,14 +54,26 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  // const itemClick = event.target.innerHTML;
-  // console.log(itemClick);
-  // fetch(`https://api.mercadolibre.com/items/${sku}`)
-}
+// const cartItemClickListener = async() => {
+//     const itemsLocal = await document.querySelector('.items');
+//     await mouseOver(itemsLocal);
+//     const botaoLocal = await document.querySelector('.add-cart');
+//     botaoLocal.addEventListener('click', function() {
+//         console.log('entrei')
+//     });
+//     // fetch(`https://api.mercadolibre.com/items/${sku}`)
+// };
 
-// const itemLocal = document.querySelector('.item__add');
-// itemLocal.addEventListener('click', cartItemClickListener);
+// const mouseOver = (local) => {
+//   let classNameAntigo = '';
+//   local.addEventListener('mouseover', function(event) {
+//     classNameAntigo = event.target.className;
+//     event.target.className += ' add-cart';
+//   });
+//   local.addEventListener('mouseleave', function(event) {
+//     event.target.className = classNameAntigo;
+//   });
+// };
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
