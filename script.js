@@ -15,7 +15,7 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({
   sku,
   name,
-  image
+  image,
 }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -32,15 +32,15 @@ function getSkuFromProductItem(item) {
 }
 
 async function cartItemClickListener(event) {
-
+  return event
 }
 
-async function itemsFetch() {
-  return await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=computador`)
+function itemsFetch() {
+  return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then((response) => {
       response.json()
         .then((data) => {
-          data.results.forEach(element => {
+          data.results.forEach((element) => {
             const obj = {
               sku: element.id,
               name: element.title,
@@ -53,13 +53,13 @@ async function itemsFetch() {
 }
 
 window.onload = async function onload() {
-  itemsFetch()
+  itemsFetch();
 };
 
 function createCartItemElement({
   sku,
   name,
-  salePrice
+  salePrice,
 }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
