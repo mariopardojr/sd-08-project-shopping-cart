@@ -87,4 +87,6 @@ const displayList = async () => {
   document.querySelectorAll('.cart__item').forEach(item => item.addEventListener('click', cartItemClickListener));
 };
 
-window.onload = function onload() {displayList()};
+window.onload = function onload() { 
+  displayList(); 
+};
