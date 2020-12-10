@@ -34,10 +34,10 @@ const fetchMBL = () => {
     .then((data) => {
       const compMBL = data.results.map(element => (
         {
-          'sku': element.id,
-          'name': element.title,
-          'image': element.thumbnail,
-          'salePrice': element.price,
+          sku: element.id,
+          name: element.title,
+          image: element.thumbnail,
+          salePrice: element.price,
         }
       ));
       compMBL.forEach((element) => {
