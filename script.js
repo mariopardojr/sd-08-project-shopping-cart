@@ -61,12 +61,12 @@ function getResultsFromApi(key) {
           .json()
           .then(data => data.results)
           .then(results => results.map((result) => {
-              const obj = {
-                sku: result.id,
-                name: result.title,
-                image: result.thumbnail,
-              };
-              return obj;
+            const obj = {
+              sku: result.id,
+              name: result.title,
+              image: result.thumbnail,
+            };
+            return obj;
           }),
           )
           .then((teste) => {
