@@ -51,7 +51,7 @@ const getProductList = async () => {
   return (await data.json()).results;
 };
 
-const addCart = (sku) => async (event) => {
+const addCart = sku => async event => {
   const url = `https://api.mercadolibre.com/items/${sku}`;
   const product = await (await fetch(url)).json();
   document.querySelector('.cart__items').appendChild(
@@ -59,7 +59,7 @@ const addCart = (sku) => async (event) => {
       sku: product.id,
       name: product.title,
       salePrice: product.price,
-    })
+    }),
   );
 };
 
@@ -70,7 +70,7 @@ const displayList = async () => {
     image: item.thumbnail,
     salePrice: item.price,
   }));
-  productList.forEach(item => {
+  productList.forEach((item) => {
     const product = createProductItemElement(item);
     product
       .querySelector('button')
