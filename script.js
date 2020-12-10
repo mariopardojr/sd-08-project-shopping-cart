@@ -27,7 +27,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function appendAllItemsElements(allInfo) {
-  allInfo.forEach(element => {
+  allInfo.forEach((element) => {
     const section = createProductItemElement(element);
     const sectionItens = document.querySelector('.items');
     sectionItens.appendChild(section);
@@ -56,20 +56,20 @@ function getResultsFromApi(key) {
       reject();
     }
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${key}`).then(
-      response => {
+      (response) => {
         response
           .json()
           .then(data => data.results)
-          .then(results => {
-            return results.map(result => {
-              return {
+          .then((results) => results.map((result) => {
+              const obj = {
                 sku: result.id,
                 name: result.title,
                 image: result.thumbnail,
               };
-            });
-          })
-          .then(teste => {
+              return obj;
+            })
+          )
+          .then((teste) => {
             appendAllItemsElements(teste);
             resolve();
           });
