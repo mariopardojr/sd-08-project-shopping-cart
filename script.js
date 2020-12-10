@@ -47,14 +47,14 @@ const retrieveProducts = async (product) => {
   const object = await response.json();
   object.results
   .forEach((item) => {
-    let newComputer = { 
+    const newComputer = {
       sku: item.id,
       name: item.title,
-      image: item.thumbnail
-    }
-    let createProduct = createProductItemElement(newComputer);
-    const items = document.querySelector(".items");
+      image: item.thumbnail,
+    };
+    const createProduct = createProductItemElement(newComputer);
+    const items = document.querySelector('.items');
     items.appendChild(createProduct);
-  })
+  });
 };
 retrieveProducts('computador');
