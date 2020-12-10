@@ -95,8 +95,16 @@ function loadFromLocalStorage() {
   }));
 }
 
+function clearCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveInLocalStorage();
+  });
+}
+
 window.onload = function onload() {
   loadFromLocalStorage();
   generateItemsList(API_URL);
   addItemToCart();
+  clearCart();
 };
