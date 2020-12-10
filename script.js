@@ -96,18 +96,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__id').innerText;
 }
 
-function createLoadingDiv(){
-	const loadingDiv = document.createElement('div');
-	loadingDiv.className = 'loading'
-	loadingDiv.innerHTML = 'loading...'
-	const container = document.querySelector('.container');
-	container.appendChild(loadingDiv);
+function createLoadingDiv() {
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'loading';
+  loadingDiv.innerHTML = 'loading...';
+  const container = document.querySelector('.container');
+  container.appendChild(loadingDiv);
 }
 
-function removeLoadingDiv(){
-	const container = document.querySelector('.container');
-	const loadingDiv = document.querySelector('.loading');
-	container.removeChild(loadingDiv);
+function removeLoadingDiv() {
+  const container = document.querySelector('.container');
+  const loadingDiv = document.querySelector('.loading');
+  container.removeChild(loadingDiv);
 }
 
 async function fetchItemData(itemId) {
@@ -131,7 +131,7 @@ async function addToCart(event) {
 
 async function fetchDataFromMLB() {
   const containerItems = document.querySelector('.items');
- 	createLoadingDiv();
+  createLoadingDiv();
   await fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador').then(result =>
     result.json().then(data =>
       data.results.forEach((product) => {
