@@ -5,6 +5,13 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+const updateTotalPrice = () => {
+  const data = window.localStorage.getItem('cart') || '[]';
+  const loaded = JSON.parse(data);
+  const total = loaded.reduce((acc, { salePrice }) => acc + parseFloat(salePrice), 0);
+  document.getElementsByClassName('total-price')[0].innerText = total;
+};
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -36,6 +43,7 @@ function cartItemClickListener(event) {
   const localItens = JSON.parse(window.localStorage.getItem('cart'));
   localItens.splice(pos, 1);
   window.localStorage.setItem('cart', JSON.stringify(localItens));
+  updateTotalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -53,6 +61,17 @@ const addItemToLocalStorage = (item) => {
   window.localStorage.setItem('cart', JSON.stringify(curr));
 };
 
+
+const increaseTotalPrice = async (value) => {
+  try {
+    const currPrice = await document.getElementsByClassName('total-price')[0];
+    const newPrice = await parseFloat(currPrice.innerText) + value;
+    currPrice.innerText = newPrice;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const itemToCartBtn = async (event) => {
   const itemId = getSkuFromProductItem(event.target.parentNode);
   const url = `https://api.mercadolibre.com/items/${itemId}`;
@@ -60,6 +79,7 @@ const itemToCartBtn = async (event) => {
     const response = await fetch(url);
     const { id, title, price } = await response.json();
     const itemAdd = { sku: id, name: title, salePrice: price };
+    increaseTotalPrice(price);
     const li = createCartItemElement(itemAdd);
     addItemToLocalStorage(itemAdd);
     document.getElementsByClassName('cart__items')[0].appendChild(li);
@@ -94,4 +114,9 @@ window.onload = function onload() {
         item.addEventListener('click', itemToCartBtn);
       }))
     .catch(err => console.log(err));
+
+  const price = document.createElement('span');
+  price.className = 'total-price';
+  document.getElementsByClassName('cart')[0].appendChild(price);
+  updateTotalPrice();
 };
