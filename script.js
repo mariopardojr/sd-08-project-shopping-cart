@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -38,6 +38,19 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+const itemToCartBtn = async event => {
+  const itemId = getSkuFromProductItem(event.target.parentNode);
+  const url = `https://api.mercadolibre.com/items/${itemId}`;
+  try {
+    const response = await fetch(url);
+    const { id, title, price } = await response.json();
+    const li = createCartItemElement({ sku: id, name: title, salePrice: price });
+    document.getElementsByClassName('cart__items')[0].appendChild(li);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 window.onload = function onload() {
@@ -50,6 +63,7 @@ window.onload = function onload() {
       respArr.forEach(({ id, title, thumbnail }) => {
         const item = createProductItemElement({ sku: id, name: title, image: thumbnail });
         items.appendChild(item);
+        item.addEventListener('click', itemToCartBtn);
       }))
     .catch(err => console.log(err));
 };
