@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  // coloque seu código aqui - mudança apenas para pull request
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
