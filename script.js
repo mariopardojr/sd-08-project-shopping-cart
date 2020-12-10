@@ -1,3 +1,5 @@
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -28,8 +30,31 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const getItem = id => (
+  fetch(`https://api.mercadolibre.com/items/${id}`)
+    .then(response => response.json())
+    .then(data => data)
+);
+
+const getCartTotal = () => (
+  new Promise(async (resolve) => {
+    const itemsPromises = cartItems.map(cartItem => getItem(cartItem.id));
+    const items = await Promise.all(itemsPromises).then(data => data);
+    const total = items.reduce((acc, cur) => acc + cur.price, 0);
+    resolve(total);
+  })
+);
+
+const updateCartTotal = async () => {
+  const total = await getCartTotal();
+  const totalElement = document.querySelector('.cart__total');
+  totalElement.textContent = `Total: R$${total.toFixed(2).replace('.', ',')}`;
+};
+
 function cartItemClickListener(event) {
+  cartItems = cartItems.filter(item => item.elem !== event.target);
   event.target.remove();
+  updateCartTotal();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -40,20 +65,21 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const createCartItem = async (id, parent) => {
-  const item = await fetch(`https://api.mercadolibre.com/items/${id}`)
-    .then(response => response.json())
-    .then(data => data);
+const createCartItem = async (id) => {
+  const cart = document.querySelector('.cart__items');
+  const item = await getItem(id);
   const { id: sku, title: name, price: salePrice } = item;
-  parent.appendChild(createCartItemElement({ sku, name, salePrice }));
+  const newCartItem = createCartItemElement({ sku, name, salePrice });
+  cart.appendChild(newCartItem);
+  cartItems.push({ id: sku, elem: newCartItem });
+  updateCartTotal();
 };
 
 const addItemToCartHandler = (event) => {
   if (event.target.classList.contains('item__add')) {
-    const cart = document.querySelector('.cart__items');
     const parent = event.target.parentNode;
     const id = getSkuFromProductItem(parent);
-    createCartItem(id, cart);
+    createCartItem(id);
   }
 };
 
@@ -74,10 +100,12 @@ const createItems = async () => {
 const clearCart = () => {
   const cart = document.querySelector('.cart__items');
   Array.from(cart.children).forEach(children => children.remove());
-}
+};
 
 window.onload = function onload() {
-  createItems();
   const clearCartButton = document.querySelector('.empty-cart');
+
+  createItems();
+
   clearCartButton.addEventListener('click', clearCart);
 };
