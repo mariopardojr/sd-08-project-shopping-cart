@@ -63,7 +63,7 @@ const createItem = (item) => {
       const sku = event.currentTarget.firstChild.innerText;
       fetchProductItem(sku);
     }
-  })
+  });
 };
 
 const fetchApi = () => {
