@@ -40,7 +40,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const itemToCartBtn = async event => {
+const itemToCartBtn = async (event) => {
   const itemId = getSkuFromProductItem(event.target.parentNode);
   const url = `https://api.mercadolibre.com/items/${itemId}`;
   try {
@@ -51,7 +51,7 @@ const itemToCartBtn = async event => {
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 window.onload = function onload() {
   const urlAPI = 'https://api.mercadolibre.com/sites/MLB/search?q=';
