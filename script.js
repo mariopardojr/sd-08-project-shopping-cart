@@ -15,6 +15,10 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+}
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
@@ -23,7 +27,7 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  // li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -48,12 +52,7 @@ function createProductItemElement({ sku, name, image }) {
     mlGetProductByID(getSkuFromProductItem(event.target.parentNode));
   });
   section.appendChild(btnAddCartProduct);
- 
   return section;
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
 }
 
 // Requisito 1
