@@ -8,7 +8,7 @@ async function updatePrice() {
   });
   const totalPriceP = document.querySelector('.total-price');
   totalPrice = Math.floor(totalPrice * 100) / 100;
-  totalPriceP.innerHTML = `R$${totalPrice}`;
+  totalPriceP.innerHTML = `${totalPrice}`;
 }
 
 function saveCartToLocal() {
@@ -54,7 +54,7 @@ function createCartItemElement({ id, title, price }) {
   const pTitle = document.createElement('p');
   const pPrice = document.createElement('p'); */
   li.className = 'cart__item';
-  li.innerText = `Id: ${id} | NAME: ${title} | PRICE: $${price}`;
+  li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
   li.addEventListener('click', e => cartItemClickListener(e));
   return li;
 }
@@ -134,8 +134,8 @@ async function fetchDataFromMLB() {
 }
 
 window.onload = function onload() {
-  fetchDataFromMLB();
   loadLocalStorageCart();
   applyEventTocartItems();
+  fetchDataFromMLB();
   addEventToLimparCarrinho();
 };
