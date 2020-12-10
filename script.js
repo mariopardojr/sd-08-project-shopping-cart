@@ -1,6 +1,4 @@
-window.onload = function onload() {
-  listProduct();
-};
+window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -38,6 +36,7 @@ const listProduct = async () => {
     items.appendChild(createProductItemElement({ sku, name, image }));
   });
 };
+listProduct();
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
