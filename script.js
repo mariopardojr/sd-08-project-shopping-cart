@@ -71,7 +71,8 @@ const HandleButton = (event) => {
 };
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  let parent = event.target.parentNode;
+  parent.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
