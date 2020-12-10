@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  getProduct();
- };
-
 // const fetch = require("node-fetch");
 
 function createProductImageElement(imageSource) {
@@ -18,21 +14,6 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-const getProduct = () => {
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then(response => {
-      response.json()
-      .then((data) => {
-        const arrayResults = data.results;
-        arrayResults.map((product) => {
-          const applyFunction = createProductItemElement({ sku: product.id, name: product.title, image: product.thumbnail});
-          document.querySelector('.items').appendChild(applyFunction);
-        });
-      });
-    });
-}
-
-
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -44,6 +25,20 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
+
+const getProduct = () => {
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+    .then((response) => {
+      response.json()
+      .then((data) => {
+        const arrayResults = data.results;
+        arrayResults.map((prod) => {
+          const apply = createProductItemElement({ sku: prod.id, name: prod.title, image: prod.thumbnail });
+          return document.querySelector('.items').appendChild(apply);
+        });
+      });
+    });
+};
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
@@ -61,4 +56,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-// commit inicial
+window.onload = function onload() {
+  getProduct();
+  };
