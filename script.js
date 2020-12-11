@@ -61,5 +61,5 @@ const getProducts = (product) => {
       sectionItems.appendChild(createProductItemElement({ sku, name, image }));
     });
   });
-}
+};
 getProducts('computador');
