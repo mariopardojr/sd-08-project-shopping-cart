@@ -1,3 +1,13 @@
+const getItemStorage = () => {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = localStorage.cartItems;
+}
+
+const setItem = () => {
+  const cartItems = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cartItems', cartItems);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -60,6 +70,7 @@ const appendInCart = (object) => {
     salePrice: object.price,
   };
   cart.appendChild(createCartItemElement(newObject));
+  setItem();
 };
 
 const fetchToCart = id =>
@@ -96,4 +107,5 @@ window.onload = function onload() {
     .then(data => appendObject(data.results));
   addToCart();
   buttonEmptyCart();
+  getItemStorage();
 };
