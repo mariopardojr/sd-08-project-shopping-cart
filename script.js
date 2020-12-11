@@ -64,7 +64,7 @@ const addToCart = () => {
   productItems.addEventListener('click', () => {
     productSku = productItems.sku;
     getProductToCart(productSku);
-  };
+  }
   )
 }
 
@@ -81,4 +81,3 @@ const getProductToCart = (sku) => {
 window.onload = function onload() {
   getProduct();
 };
-
