@@ -23,29 +23,28 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
 
-function cartItemClickListener(e) {
-  // Depois
-}
+// function cartItemClickListener(e) {
+// Depois
+// }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice.toFixed(2)}`;
+  // li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
 const createProductList = async (product) => {
-  const itemslist = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
+  const itemsList = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
       .then(data => data.results);
-
   const itemsContainer = document.querySelector('.items');
-  itemslist.forEach(({ id, title, thumbnail }) => {
+  itemsList.forEach(({ id, title, thumbnail }) => {
     itemsContainer.appendChild(createProductItemElement({
       sku: id,
       name: title,
@@ -70,10 +69,48 @@ const cartUpdate = () => {
   }
 };
 
+// const total = document.createElement('span');
+// document.querySelector('.total-price').appendChild(total);
+
+// const getPriceAndSum = async () => {
+//   let totalPrice = 0;
+//   const listStorage = [];
+//   Object.keys(localStorage).forEach(key => listStorage.push(localStorage.getItem(key)));
+//   for (let index = listStorage.length - 1; index >= 0; index -= 1) {
+//     const item = await fetch(`https://api.mercadolibre.com/items/${listStorage[index]}`)
+//       .then(response => response.json());
+//     const { price: salePrice } = item;
+//     const price = (parseFloat(Object.values({ salePrice })));
+//     totalPrice += price;
+//   }
+//   total.innerText = `R$${(totalPrice.toFixed(2))}`;
+// };
+
+const total = document.createElement('span');
+document.querySelector('.total-price').appendChild(total);
+
+const getPriceAndSum = async () => {
+  let totalPrice = 0;
+  const showPrice = (value) => {
+    total.innerText = `R$${(value.toFixed(2))}`;
+  };
+  const listStorage = [];
+  Object.keys(localStorage).forEach(key => listStorage.push(localStorage.getItem(key)));
+  listStorage.forEach(async (id) => {
+    const item = await fetch(`https://api.mercadolibre.com/items/${id}`)
+      .then(response => response.json());
+    const { price: salePrice } = item;
+    const price = (parseFloat(Object.values({ salePrice })));
+    totalPrice += price;
+    showPrice(totalPrice);
+  });
+};
+
 const deleteItemCart = (evtDel) => {
   const evt = evtDel;
   evt.target.outerHTML = '';
   cartUpdate();
+  getPriceAndSum();
 };
 
 const functionLi = () => {
@@ -85,10 +122,11 @@ const functionLi = () => {
 
 const addToCart = async (id) => {
   const itemById = await fetch(`https://api.mercadolibre.com/items/${id}`)
-  .then(response => response.json());
+    .then(response => response.json());
   const { id: sku, title: name, price: salePrice } = itemById;
   document.querySelector('.cart__items').appendChild(createCartItemElement({ sku, name, salePrice }));
   cartUpdate();
+  getPriceAndSum();
   functionLi();
 };
 
@@ -102,7 +140,7 @@ const functionAddBtn = () => {
   functionBtnGenerator(btnAddToCart, getItemToCart);
 };
 
-const cartListRecovery = () => {
+const cartListRecovery = async () => {
   const recovery = Object.keys(localStorage);
   if (recovery.length > 0) {
     for (let indexRec = 0; indexRec < recovery.length; indexRec += 1) {
@@ -114,6 +152,6 @@ const cartListRecovery = () => {
 window.onload = async function onload() {
   await createProductList('computador');
   functionAddBtn();
-  cartListRecovery();
+  await cartListRecovery();
   functionLi();
 };
