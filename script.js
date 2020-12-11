@@ -1,3 +1,8 @@
+const requestSpecs = {
+  method: 'GET',
+  headers: { 'Accept': 'application/json' }
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -11,11 +16,6 @@ function createCustomElement(element, className, innerText) {
   e.innerText = innerText;
   return e;
 }
-
-const requestSpecs = {
-  method: 'GET',
-  headers: { 'Accept': 'application/json' }
-};
 
 const getProductRequest = (item) => {
 
@@ -74,7 +74,7 @@ async function getStoraged() {
 }
 
 const updateSoraged = () => {
-  const listArray =  document.getElementsByTagName('li');
+  const listArray = document.getElementsByTagName('li');
   const storagedList = [];
   for (let i = 0; i < listArray.length; i += 1) {
     storagedList.push(listArray[i].innerHTML)
@@ -83,6 +83,32 @@ const updateSoraged = () => {
   localStorage.setItem('storagedList', JSON.stringify(storagedList));
   
 };
+
+const createSumCart = (totalPrice) => {
+  const span = document.createElement('span');
+  span.className = 'total-price';
+  span.innerHTML = `Preço Total: ${totalPrice.toFixed(2)}`;
+  return span;
+};
+
+
+
+async function sumPrices() {
+  let totalPrice = 0;
+  const section = document.querySelector('.cart');
+  const li = document.getElementsByTagName('li');
+  for (let i = 0; i < li.length; i += 1) {
+    let price = li[i].innerHTML.split(' $', 2)[1];
+    totalPrice += parseFloat(price);
+  }
+
+  if (section.lastChild.className === 'total-price') {
+    section.removeChild(document.querySelector('.total-price'));
+  }
+  section.appendChild(createSumCart(totalPrice));
+}
+
+
 
 const HandleButton = (event) => {
   let item = event.target.parentNode;
@@ -95,14 +121,15 @@ const HandleButton = (event) => {
       const product = createCartItemElement({ sku: item.id, name: item.title, salePrice: item.price });
       cartList.appendChild(product);
       updateSoraged();
-    })
-    ;
+      sumPrices();
+    });
 };
 
 function cartItemClickListener(event) {
   let parent = event.target.parentNode;
   parent.removeChild(event.target);
   updateSoraged();
+  sumPrices();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -115,5 +142,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 window.onload = function onload() {
   getStoraged();
+  sumPrices();
  };
 
