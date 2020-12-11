@@ -42,6 +42,7 @@ function cartItemClickListener() {
   addEventListener('click', (event) => {
     if (event.target.className === 'cart__item') {
       event.target.remove();
+      updateLocalStorage();
     }
   });
 }
@@ -74,10 +75,16 @@ function addElementToCart(result) {
   document.querySelector('ol.cart__items').appendChild(li);
 }
 
+function updateLocalStorage() {
+  const ol = document.querySelector('.cart__items');
+  localStorage.list = ol.innerHTML;
+}
+
 function pickElementFromApi(id) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
-    .then(resultInfos => addElementToCart(resultInfos));
+    .then(resultInfos => addElementToCart(resultInfos))
+    .then(() => updateLocalStorage());
 }
 // prettier-ignore
 function checkButtonClicks() {
@@ -96,7 +103,15 @@ function getResultsFromApi(key) {
     .then(() => checkButtonClicks());
 }
 
+function updateCart() {
+  if (localStorage.list !== undefined) {
+    const ol = document.querySelector('.cart__items');
+    ol.innerHTML = localStorage.list;
+  }
+}
+
 window.onload = function onload() {
+  updateCart();
   getResultsFromApi('computador');
   checkButtonClicks();
   cartItemClickListener();
