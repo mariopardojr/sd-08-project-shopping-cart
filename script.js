@@ -54,9 +54,9 @@ const getItens = async (computador) => {
             const element = {
               sku: result.id,
               name: result.title,
-              image: result.thumbnail
-            }
-            const { sku, name, image } = element
+              image: result.thumbnail,
+            };
+            const { sku, name, image } = element;
             const ProductItemElement = createProductItemElement({ sku, name, image });
             createItemOnScreen(ProductItemElement);
             return false;
