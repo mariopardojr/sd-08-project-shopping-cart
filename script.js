@@ -1,3 +1,23 @@
+const saveStorage = (id, title, price) => {
+  if (Storage) {
+    const cartItems = JSON.parse(localStorage.getItem('cart'));
+    const arrayItems = (cartItems === null ? [] : cartItems);
+    arrayItems.push({ id, title, price });
+    localStorage.setItem('cart', JSON.stringify(arrayItems))
+  }
+}
+
+const regainStorage = () => {
+  if (Storage) {
+    const regainItems = JSON.parse(localStorage.getItem('cart'));
+    arrayItems = (regainItems === null ? [] : regainItems);
+    arrayItems.forEach((element) => {
+      const itemProduct = createCartItemElement(element);
+      addToCart(itemProduct);
+    });
+  }
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -44,6 +64,7 @@ const fetchProductItem = (sku) => {
     .then((data) => {
       const itemProduct = createCartItemElement(data);
       addToCart(itemProduct);
+      saveStorage(data.id, data.title, data.price);
     });
 };
 
@@ -81,4 +102,5 @@ const fetchApi = () => {
 
 window.onload = function onload() {
   fetchApi();
+  regainStorage()
 };
