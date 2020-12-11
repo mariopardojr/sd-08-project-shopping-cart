@@ -87,8 +87,8 @@ const buttonEmptyCart = () => {
     while (cart.firstChild) {
       cart.removeChild(cart.firstChild);
     }
-  })
-}
+  });
+};
 
 window.onload = function onload() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
