@@ -15,7 +15,7 @@ function createCustomElement(element, className, innerText) {
 }
 
 function cartItemClickListener(event) {
-  const olCartLocal = document.querySelector('ol, .cart__items'); 
+  const olCartLocal = document.querySelector('ol, .cart__items');
   olCartLocal.removeChild(event.target);
 }
 
