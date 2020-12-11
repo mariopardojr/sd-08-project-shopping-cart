@@ -111,8 +111,17 @@ function updateCart() {
   }
 }
 
+function buttonClearCart() {
+  const btnClear = document.querySelector('.empty-cart');
+  btnClear.addEventListener('click', () => {
+    document.querySelector('ol.cart__items').innerHTML = '';
+    updateLocalStorage();
+  });
+}
+
 window.onload = function onload() {
   updateCart();
+  buttonClearCart();
   getResultsFromApi('computador');
   checkButtonClicks();
   cartItemClickListener();
