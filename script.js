@@ -39,7 +39,9 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+  console.log('ops')
   event.target.remove();
+  // saveCartItemToLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -80,6 +82,7 @@ const getItemById = async (ItemID) => {
           const salePrice = pratala.price;
           const item = createCartItemElement({ sku, name, salePrice });
           createItemOnCart(item);
+          saveCartItemToLocalStorage();
           return false;
         });
     });
@@ -95,6 +98,19 @@ const getButtonOfAddToCart = (e) => {
 
 window.addEventListener('click', getButtonOfAddToCart);
 
+const saveCartItemToLocalStorage = () => {
+  const itensAdded = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('Itens', itensAdded);
+}
+
+const getItensFromLocalStorage = () => {
+  const itensOnLocalStorage = localStorage.getItem('Itens');
+  let getOl = document.querySelector('.cart__items');
+  getOl.innerHTML = itensOnLocalStorage;
+  document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
+}
+
 window.onload = async function onload() {
   getItens('computador');
+  getItensFromLocalStorage();
 };
