@@ -49,15 +49,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function innerCartNewElement(idElemento) {
-  fetch(`https://api.mercadolibre.com/items/${idElemento}`)
-            .then(response => response.json())
-              .then((data2) => {
-                const { id: sku, title: name, price: salePrice } = data2;
-                const olCartLocal = document.querySelector('ol, .cart__items');
-                olCartLocal.appendChild(createCartItemElement({ sku, name, salePrice }));
-                sumCartPrices();
-              });
+async function innerCartNewElement(idElemento) {
+  const dataEle = await fetch(`https://api.mercadolibre.com/items/${idElemento}`)
+    .then(response => response.json());
+  const { id: sku, title: name, price: salePrice } = await dataEle;
+  const olCartLocal = await document.querySelector('ol, .cart__items');
+  await olCartLocal.appendChild(createCartItemElement({ sku, name, salePrice }));
+  await sumCartPrices();
 }
 
 function getSkuFromProductItem(item) {
