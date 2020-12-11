@@ -82,17 +82,17 @@ const createListSaved = () => {
 
 const loadingAppear = () => {
   const div = createCustomElement('div', 'loading', 'loading...');
-  const spot = document.querySelector('.loading_spot')
+  const spot = document.querySelector('.loading_spot');
   spot.appendChild(div);
   spot.style.display = 'contents';
 };
 
 const loadingDisappear = () => {
   const div = document.querySelector('.loading');
-  const spot = document.querySelector('.loading_spot')
+  const spot = document.querySelector('.loading_spot');
   spot.removeChild(div);
   spot.style.display = 'none';
-}
+};
 
 const fetchSelectedItem = async (event) => {
   const itemId = event.currentTarget.parentNode.firstChild.innerText;
@@ -132,7 +132,7 @@ const fetchItems = async () => {
         });
       });
     });
-    loadingDisappear();
+  loadingDisappear();
 };
 
 const eraseCart = () => {
