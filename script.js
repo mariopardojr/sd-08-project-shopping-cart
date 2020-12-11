@@ -52,7 +52,7 @@ function createProductItemElement({ sku, name, image }) {
     const cartAdded = createCartItemElement(cartObjectTransformed);
     const cart = document.querySelector('.cart__items');
     cart.appendChild(cartAdded);
-    saveLocalStorage();   
+    saveLocalStorage();
   });
 
   return section;
@@ -87,5 +87,5 @@ window.onload = function onload() {
     document.querySelector('.cart__items').innerHTML = local;
   }
   document.querySelectorAll('li')
-  .forEach(element => element.addEventListener('click', cartItemClickListener))
+  .forEach(element => element.addEventListener('click', cartItemClickListener));
 };
