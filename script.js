@@ -44,6 +44,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+function roundUp(num, decimal) {
+  return parseFloat((num + (4 / ((10 ** (decimal + 1))))).toFixed(decimal));
+}
 
 function verifyPrice(resultado) {
   if (resultado.length === 1) {
@@ -53,7 +56,7 @@ function verifyPrice(resultado) {
     if (cartPrice.innerText.length !== 0) {
       accumulator = parseFloat(cartPrice.innerText);
       const number = accumulator + resultado[0].price;
-      cartPrice.innerText = number;
+      cartPrice.innerText = roundUp(number, 2);
     } else {
       cartPrice.innerText = resultado[0].price;
     }
