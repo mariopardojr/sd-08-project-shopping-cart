@@ -75,6 +75,11 @@
   text-align: center;
 }
 
-.loading {
+.loading_spot {
   display: none;
+}
+
+.loading {
+  font-size: large;
+  text-align: center;
 }
