@@ -28,6 +28,8 @@ const recoverCart = () => {
   if (localStorage.cartList) {
     const cartItems = document.querySelector('ol.cart__items');
     cartItems.innerHTML = localStorage.cartList;
+    const itemsRecovered = document.querySelectorAll('li.cart__item');
+    itemsRecovered.forEach(item => item.addEventListener('click', cartItemClickListener));
   }
 };
 // ---------------------------------------------------------
@@ -44,6 +46,12 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+// // REQ 5: Summing cart's total
+// const sumCartTotal = async () => {
+//   document.querySelectorAll('li.cart__item')
+//     .forEach()
+// };
 
 // REQ 2: Adding listener to Fetch product's info and append it to the cart list
 const addToCartListener = (event) => {
