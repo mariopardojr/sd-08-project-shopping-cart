@@ -18,6 +18,7 @@ function cartItemClickListener(event) {
   const olCartLocal = document.querySelector('ol, .cart__items');
   olCartLocal.removeChild(event.target);
   localStorage.removeItem(String(event.target.id));
+  sumCartPrices();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -30,13 +31,14 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function innerCartNewElement(idElemento) {
+function innerCartNewElement (idElemento) {
   fetch(`https://api.mercadolibre.com/items/${idElemento}`)
             .then(response => response.json())
               .then((data2) => {
                 const { id: sku, title: name, price: salePrice } = data2;
                 const olCartLocal = document.querySelector('ol, .cart__items');
                 olCartLocal.appendChild(createCartItemElement({ sku, name, salePrice }));
+                sumCartPrices();
               });
 }
 
@@ -64,7 +66,7 @@ function createProductItemElement({ sku, name, image }) {
 const fetchMBL = () => new Promise(() => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
-    .then((data) => {
+    .then((data) => { 
       const compMBL = data.results.map(el => ({ sku: el.id, name: el.title, image: el.thumbnail }));
       compMBL.forEach((element) => {
         const itemsLocal = document.querySelector('.items');
@@ -90,7 +92,26 @@ function openLocalStorage() {
   }
 }
 
+const sumCartPrices = () => {
+  let sum = 0;
+  const olCartLocal = document.querySelectorAll('.cart__item');
+  for (let index = 0; index < olCartLocal.length; index += 1) {
+    const idElemento = String(olCartLocal[index].innerText).split('$')[1];
+    sum += Number(idElemento);
+  }
+  const cartLocal = document.querySelector('.cart');
+  if (cartLocal.lastChild.className === 'total-price') {
+    cartLocal.lastChild.innerText = `Preço total: R$${sum}`;
+  } else {
+    const span = document.createElement('span');
+    span.className = 'total-price';
+    span.innerText = `Preço total: R$${sum}`;
+    cartLocal.appendChild(span);
+  }
+}
+
 window.onload = function onload() {
   fetchMBL();
   openLocalStorage();
+  sumCartPrices();
 };
