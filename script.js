@@ -50,7 +50,8 @@ const createSumCart = (totalPrice) => {
 
 async function sumPrices() {
   let totalPrice = 0;
-  const section = document.querySelector('.cart');
+  const section = document.querySelector('.total');
+
   const li = document.getElementsByTagName('li');
   for (let i = 0; i < li.length; i += 1) {
     const price = li[i].innerHTML.split(' $', 2)[1];
@@ -119,10 +120,14 @@ const HandleButton = (event) => {
 };
 
 function createProductItemElement({ sku, name, image }) {
+  const itemsContainer = document.querySelector('.items');
+  const loadingSpan = document.querySelector('.loading');
+  if (itemsContainer.contains(loadingSpan)) {
+    itemsContainer.removeChild(loadingSpan);
+  }
+
   const section = document.createElement('section');
   section.className = 'item';
-
-  document.querySelector('.loading').style.display = 'none';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
