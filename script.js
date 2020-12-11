@@ -1,20 +1,16 @@
-window.onload = function onload() {
-  api();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-};
+}
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
   return e;
-};
+}
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -26,15 +22,15 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
   return section;
-};
+}
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-};
+}
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-};
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -42,10 +38,14 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+const addProductsOnScreen = (array) => {
+  const items = document.querySelector('.items');
+  array.forEach(element => items.appendChild(createProductItemElement(element)));
 };
 
-const api = () => {
-  return new Promise((resolve, reject) => {
+const api = () => new Promise((resolve, reject) => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
   .then(data => data.results)
@@ -55,14 +55,9 @@ const api = () => {
     image: product.thumbnail,
   })))
   .then(newArray => addProductsOnScreen(newArray))
-  .then(results => resolve(results))
-  .catch(results => reject(console.log('Não faço ideia!')));
-  });
-};
+  .then(results => resolve(results));
+});
 
-const addProductsOnScreen = (array) => {
-  const items = document.querySelector('.items')
-  array.forEach(element => {
-    items.appendChild(createProductItemElement(element));
-  });
-}
+window.onload = function onload() {
+  api();
+};
