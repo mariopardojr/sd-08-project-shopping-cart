@@ -14,6 +14,15 @@ function sumCartItems() {
   span.innerHTML = totalPrice;
 }
 
+function emptyCart() {
+  const emptyButton = document.querySelector('.empty-cart');
+  emptyButton.addEventListener('click', () => {    
+    document.querySelector('.cart__items').innerHTML = '';
+    sumCartItems();
+    localStorage.clear();
+  })
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -96,4 +105,5 @@ window.onload = function onload() {
   document.querySelectorAll('li')
   .forEach(element => element.addEventListener('click', cartItemClickListener));
   sumCartItems();
+  emptyCart();
 };
