@@ -57,18 +57,18 @@ function createCartItem(id) {
 }
 
 async function addCartItem(id) {
+  const itemsContainer = document.querySelector('.cart__items');
   const newItem = await createCartItem(id);
   cartItems.push({ id, elem: newItem });
   await updateCartTotal();
-  const itemsContainer = document.querySelector('.cart__items');
   itemsContainer.appendChild(newItem);
   updateStorage();
 }
 
 async function init() {
   const savedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  savedItems.reduce((curPromise, item) => (
-    curPromise.then(() => addCartItem(item))
+  savedItems.reduce((curPromise, id) => (
+    curPromise.then(() => addCartItem(id))
   ), Promise.resolve());
 }
 
@@ -134,8 +134,7 @@ async function createItems() {
 }
 
 window.onload = function onload() {
-  init();
-  const clearCartButton = document.querySelector('.empty-cart');
   createItems();
-  clearCartButton.addEventListener('click', clearCart);
+  init();
+  document.querySelector('.empty-cart').addEventListener('click', clearCart);
 };
