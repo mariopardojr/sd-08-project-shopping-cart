@@ -25,9 +25,9 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
-
+//prettier-ignore
 function appendAllItemsElements(allInfo) {
-  allInfo.forEach(element => {
+  allInfo.forEach((element) => {
     const section = createProductItemElement(element);
     const sectionItens = document.querySelector('.items');
     sectionItens.appendChild(section);
@@ -37,9 +37,9 @@ function appendAllItemsElements(allInfo) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
+//prettier-ignore
 function cartItemClickListener() {
-  addEventListener('click', event => {
+  addEventListener('click', (event) => {
     if (event.target.className === 'cart__item') {
       event.target.remove();
     }
@@ -53,9 +53,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
+//prettier-ignore
 function putCartsOnPage(results) {
-  const justNeedInfos = results.map(result => {
+  const justNeedInfos = results.map((result) => {
     const obj = {
       sku: result.id,
       name: result.title,
@@ -79,11 +79,11 @@ function pickElementFromApi(id) {
     .then(response => response.json())
     .then(resultInfos => addElementToCart(resultInfos));
 }
-
+//prettier-ignore
 function checkButtonClicks() {
   const buttons = document.querySelectorAll('.item__add');
-  buttons.forEach(item => {
-    item.addEventListener('click', element => {
+  buttons.forEach((item) => {
+    item.addEventListener('click', (element) => {
       pickElementFromApi(element.target.parentNode.childNodes[0].innerText);
     });
   });
