@@ -1,13 +1,11 @@
-const getPrice = (item) => {
-  return parseFloat(item.innerHTML.split('PRICE: $')[1]);
-};
+const getPrice = item => parseFloat(item.innerHTML.split('PRICE: $')[1]);
 
-async function getTotalPrice () {
+async function getTotalPrice() {
   const totalPrice = document.querySelector('.total-price');
   const cartItems = document.querySelector('.cart__items');
   let sumOfPrices = 0;
   cartItems.childNodes.forEach((element) => {
-    let price = getPrice(element);
+    const price = getPrice(element);
     sumOfPrices += price;
   });
   totalPrice.innerHTML = sumOfPrices.toFixed(2);
@@ -86,7 +84,7 @@ const appendInCart = (object) => {
   };
   cart.appendChild(createCartItemElement(newObject));
   setItem();
-  getTotalPrice(); 
+  getTotalPrice();
 };
 
 const fetchToCart = id =>
