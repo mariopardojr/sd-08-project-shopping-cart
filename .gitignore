@@ -5,3 +5,9 @@
 node_modules/
 cypress/reports
 .prettierrc
+cypress
+forestadmin
+cypress.json
+package-lock.json
+package.json
+reporter.json
