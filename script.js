@@ -88,7 +88,19 @@ const addToCart = () => {
   });
 };
 
+// Clear Cart
+const clearCart = () => {
+  const clear = document.getElementsByClassName('empty-cart')[0];
+  clear.addEventListener('click', (event) => {
+    if (event.target.classList.contains('empty-cart')) {
+      const ol = document.querySelectorAll('.cart__items')[0];
+      ol.innerHTML = '';
+    }
+  });
+};
+
 window.onload = function onload() {
   fecthProduct();
   addToCart();
+  clearCart();
 };
