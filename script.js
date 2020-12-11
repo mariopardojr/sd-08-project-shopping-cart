@@ -38,6 +38,11 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const saveCartItemToLocalStorage = () => {
+  const itensAdded = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('Itens', itensAdded);
+};
+
 function cartItemClickListener(event) {
   event.target.remove();
   saveCartItemToLocalStorage();
@@ -96,11 +101,6 @@ const getButtonOfAddToCart = (e) => {
 };
 
 window.addEventListener('click', getButtonOfAddToCart);
-
-const saveCartItemToLocalStorage = () => {
-  const itensAdded = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('Itens', itensAdded);
-};
 
 const getItensFromLocalStorage = () => {
   const itensOnLocalStorage = localStorage.getItem('Itens');
