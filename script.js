@@ -74,13 +74,13 @@ const getItemById = async (ItemID) => {
   await fetch(`https://api.mercadolibre.com/items/${ItemID}`)
     .then((response) => {
       response.json()
-        .then((data) => {
-          const element = {
-            sku: data.id,
-            name: data.title,
-            salePrice: data.price,
+        .then((pratala) => {
+          const orogoto = {
+            sku: pratala.id,
+            name: pratala.title,
+            salePrice: pratala.price,
           };
-          const { sku, name, salePrice } = element;
+          const { sku, name, salePrice } = orogoto;
           const item = createCartItemElement({ sku, name, salePrice });
           createItemOnCart(item);
           return false;
