@@ -24,6 +24,51 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
+const fecthProductId = (productId) => {
+  fetch(`https://api.mercadolibre.com/items/${productId}`)
+    .then((response) => {
+      response.json().then((data) => {
+        const addProduct = {
+          sku: data.id,
+          name: data.title,
+          salePrice: data.title,
+        }
+        console.log(createCartItemElement(addProduct))
+        return createCartItemElement(addProduct);
+      });
+    });
+};
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+const addToCart = () => {
+  document.querySelector('.items').addEventListener('click', (event) => {
+    if (event.target.classList.contains('item__add')) {
+      const adiciona = event.target.parentElement;
+      console.log(adiciona)
+      const teste = fecthProductId(adiciona)
+      console.log(adiciona)
+      // const selCart = querySelector('.cart__items');
+      // selCart.appendChild(adiciona);
+    }
+
+  })
+}
+
+function cartItemClickListener(event) {
+  //remover do carrinho
+}
+
 const fecthProduct = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then((response) => {
@@ -40,22 +85,10 @@ const fecthProduct = () => {
     });
 };
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+//fecthProductId('MLB1341706310');
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
 
 window.onload = function onload() {
   fecthProduct();
+  addToCart()
 };
