@@ -1,7 +1,7 @@
 const loadingApi = () => {
   const loading = document.createElement('span');
   loading.className = 'loading';
-  loading.innerText = 'Loading...';
+  loading.innerText = 'Carregando...';
   const parent = document.querySelector('.items');
   parent.appendChild(loading);
 };
