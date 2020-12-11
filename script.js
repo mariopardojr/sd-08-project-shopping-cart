@@ -62,7 +62,7 @@ const FetchMercadoLibrePrice = async (item) => {
     .appendChild(createCartItemElement(cart));
 };
 const addCart = () => {
-  document.querySelectorAll('.item__add').forEach(element => element.addEventListener('click', ({target}) => {
+  document.querySelectorAll('.item__add').forEach(element => element.addEventListener('click', ({ target }) => {
     const selected = getSkuFromProductItem(target.parentNode);
     FetchMercadoLibrePrice(selected);
   }));
@@ -73,7 +73,7 @@ function rightContentClear() {
     .addEventListener('click', () => {
       const getRightContent = document.querySelector('.cart__items');
       while (getRightContent.hasChildNodes()) {
-      getRightContent.removeChild(getRightContent.firstChild);
+        getRightContent.removeChild(getRightContent.firstChild);
       }
     });
 }
