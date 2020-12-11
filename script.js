@@ -141,6 +141,7 @@ const loadItems = () => {
 window.onload = function onload() {
   const price = document.createElement('span');
   price.className = 'total-price';
+  price.innerText = 0;
   document.getElementsByClassName('cart')[0].appendChild(price);
   const localStorage = window.localStorage;
   if (localStorage.getItem('cart') !== null) {
