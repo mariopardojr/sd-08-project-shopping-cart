@@ -138,7 +138,7 @@ const createProductItemElement = ({ id: sku, title: name, thumbnail: image, pric
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('span', 'item__price', `R$${(price)}`));
+  section.appendChild(createCustomElement('span', 'item__price', `R$${(price).toFixed(2)}`));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho'));
 
   return section;
@@ -160,4 +160,5 @@ window.onload = function onload() {
   getStorage();
   calcPrice();
   emptyCart();
+  calcPrice();
 };
