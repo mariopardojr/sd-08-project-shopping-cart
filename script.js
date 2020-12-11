@@ -46,7 +46,7 @@ const fetchMBL = () => new Promise(() => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
     .then((data) => {
-      const compMBL = data.results.map(element => ({ sku: element.id, name: element.title, image: element.thumbnail }));
+      const compMBL = data.results.map(el => ({ sku: el.id, name: el.title, image: el.thumbnail }));
       compMBL.forEach((element) => {
         const itemsLocal = document.querySelector('.items');
         itemsLocal.appendChild(createProductItemElement(element));
