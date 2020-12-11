@@ -14,6 +14,24 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+const sumCartPrices = () => {
+  let sum = 0;
+  const olCartLocal = document.querySelectorAll('.cart__item');
+  for (let index = 0; index < olCartLocal.length; index += 1) {
+    const idElemento = String(olCartLocal[index].innerText).split('$')[1];
+    sum += Number(idElemento);
+  }
+  const cartLocal = document.querySelector('.cart');
+  if (cartLocal.lastChild.className === 'total-price') {
+    cartLocal.lastChild.innerText = `Preço total: R$${sum}`;
+  } else {
+    const span = document.createElement('span');
+    span.className = 'total-price';
+    span.innerText = `Preço total: R$${sum}`;
+    cartLocal.appendChild(span);
+  }
+};
+
 function cartItemClickListener(event) {
   const olCartLocal = document.querySelector('ol, .cart__items');
   olCartLocal.removeChild(event.target);
@@ -31,7 +49,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function innerCartNewElement (idElemento) {
+function innerCartNewElement(idElemento) {
   fetch(`https://api.mercadolibre.com/items/${idElemento}`)
             .then(response => response.json())
               .then((data2) => {
@@ -66,7 +84,7 @@ function createProductItemElement({ sku, name, image }) {
 const fetchMBL = () => new Promise(() => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
-    .then((data) => { 
+    .then((data) => {
       const compMBL = data.results.map(el => ({ sku: el.id, name: el.title, image: el.thumbnail }));
       compMBL.forEach((element) => {
         const itemsLocal = document.querySelector('.items');
@@ -89,24 +107,6 @@ function openLocalStorage() {
       li.id = lSArrayKeys[index];
       olCartLocal.appendChild(li);
     }
-  }
-}
-
-const sumCartPrices = () => {
-  let sum = 0;
-  const olCartLocal = document.querySelectorAll('.cart__item');
-  for (let index = 0; index < olCartLocal.length; index += 1) {
-    const idElemento = String(olCartLocal[index].innerText).split('$')[1];
-    sum += Number(idElemento);
-  }
-  const cartLocal = document.querySelector('.cart');
-  if (cartLocal.lastChild.className === 'total-price') {
-    cartLocal.lastChild.innerText = `Preço total: R$${sum}`;
-  } else {
-    const span = document.createElement('span');
-    span.className = 'total-price';
-    span.innerText = `Preço total: R$${sum}`;
-    cartLocal.appendChild(span);
   }
 }
 
