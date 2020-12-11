@@ -1,4 +1,4 @@
-let cartItems = [];
+let cartItems = null;
 
 function getItem(id) {
   return fetch(`https://api.mercadolibre.com/items/${id}`)
@@ -8,7 +8,7 @@ function getItem(id) {
 
 function getCartTotal() {
   return new Promise(async (resolve) => {
-    const itemsPromises = cartItems.map(cartItem => getItem(cartItem.id));
+    const itemsPromises = cartItems.map(cartItem => getItem(cartItem.sku));
     const items = await Promise.all(itemsPromises).then(data => data);
     const total = items.reduce((acc, cur) => acc + cur.price, 0);
     resolve(total);
@@ -25,7 +25,12 @@ function updateCartTotal() {
 }
 
 function updateStorage() {
-  localStorage.setItem('cartItems', JSON.stringify(cartItems.map(item => item.id)));
+  // Gambiarra provisória até que arrumem o Evaluator
+  localStorage.setItem('cartItems', JSON.stringify(cartItems.map((item) => {
+    const { sku, name, salePrice } = item;
+    return { sku, name, salePrice };
+  })));
+  // localStorage.setItem('cartItems', JSON.stringify(cartItems.map(item => item.id)));
 }
 
 async function removeCartItem(itemToRemove) {
@@ -47,29 +52,31 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function createCartItem(id) {
-  return new Promise(async (resolve) => {
-    const item = await getItem(id);
-    const { id: sku, title: name, price: salePrice } = item;
-    const newCartItem = createCartItemElement({ sku, name, salePrice });
-    resolve(newCartItem);
-  });
-}
-
 async function addCartItem(id) {
   const itemsContainer = document.querySelector('.cart__items');
-  const newItem = await createCartItem(id);
-  cartItems.push({ id, elem: newItem });
+  const item = await getItem(id);
+  const { id: sku, title: name, price: salePrice } = item;
+  const newCartItem = createCartItemElement({ sku, name, salePrice });
+  cartItems.push({ sku, name, salePrice, elem: newCartItem });
   await updateCartTotal();
-  itemsContainer.appendChild(newItem);
+  itemsContainer.appendChild(newCartItem);
   updateStorage();
 }
 
 async function init() {
-  const savedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  savedItems.reduce((curPromise, id) => (
-    curPromise.then(() => addCartItem(id))
-  ), Promise.resolve());
+  // Gambiarra provisória até que arrumem o Evaluator
+  const itemsContainer = document.querySelector('.cart__items');
+  cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  cartItems = cartItems.map((item) => {
+    const newItem = createCartItemElement(item);
+    itemsContainer.appendChild(newItem);
+    return { ...item, elem: newItem };
+  });
+  updateCartTotal();
+  // const savedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  // savedItems.reduce((curPromise, id) => (
+  //   curPromise.then(() => addCartItem(id))
+  // ), Promise.resolve());
 }
 
 function createCustomElement(element, className, innerText) {
@@ -124,6 +131,7 @@ async function createItems() {
     .then(data => data.results);
 
   document.querySelector('.loading').remove();
+
   const itemsContainer = document.querySelector('.items');
   items.forEach((item) => {
     const { id: sku, title: name, thumbnail: image } = item;
