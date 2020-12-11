@@ -54,10 +54,10 @@ const getProducts = async () => {
       const add = createProductItemElement({ sku, name, image });
       things.appendChild(add);
       return products;
-  });
+    });
   } catch (error) {
-      console.log(error);
-    }
+    console.log(error);
+  }
 };
 
 window.onload = function onload() { getProducts(); };
