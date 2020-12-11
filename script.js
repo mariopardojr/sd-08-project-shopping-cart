@@ -43,7 +43,6 @@ const createProductList = async (product) => {
   const itemslist = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
       .then(data => data.results);
-  console.log(itemslist);
 
   const itemsContainer = document.querySelector('.items');
   itemslist.forEach(({ id, title, thumbnail }) => {
@@ -61,9 +60,20 @@ const functionBtnGenerator = (array, func) => {
   }
 };
 
+const cartUpdate = () => {
+  localStorage.clear();
+  const cartList = document.querySelectorAll('.cart__item');
+  if (document.querySelectorAll('.cart__item').length > 0) {
+    for (let indexCart = 0; indexCart < cartList.length; indexCart += 1) {
+      localStorage.setItem(indexCart, cartList[indexCart].innerText.slice(5, 18));
+    }
+  }
+};
+
 const deleteItemCart = (evtDel) => {
   const evt = evtDel;
   evt.target.outerHTML = '';
+  cartUpdate();
 };
 
 const functionLi = () => {
@@ -73,21 +83,37 @@ const functionLi = () => {
   }
 };
 
-const addToCart = async (evtAdd) => {
-  const productId = evtAdd.target.parentElement.firstChild.innerText;
-  const itemById = await fetch(`https://api.mercadolibre.com/items/${productId}`)
-    .then(response => response.json());
+const addToCart = async (id) => {
+  const itemById = await fetch(`https://api.mercadolibre.com/items/${id}`)
+  .then(response => response.json());
   const { id: sku, title: name, price: salePrice } = itemById;
   document.querySelector('.cart__items').appendChild(createCartItemElement({ sku, name, salePrice }));
+  cartUpdate();
   functionLi();
+};
+
+const getItemToCart = (evtAdd) => {
+  const productId = evtAdd.target.parentElement.firstChild.innerText;
+  addToCart(productId);
 };
 
 const functionAddBtn = () => {
   const btnAddToCart = document.getElementsByClassName('item__add');
-  functionBtnGenerator(btnAddToCart, addToCart);
+  functionBtnGenerator(btnAddToCart, getItemToCart);
+};
+
+const cartListRecovery = () => {
+  const recovery = Object.keys(localStorage);
+  if (recovery.length > 0) {
+    for (let indexRec = 0; indexRec < recovery.length; indexRec += 1) {
+      addToCart(localStorage.getItem(indexRec));
+    }
+  }
 };
 
 window.onload = async function onload() {
   await createProductList('computador');
   functionAddBtn();
+  cartListRecovery();
+  functionLi();
 };
