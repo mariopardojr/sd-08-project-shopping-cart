@@ -6,8 +6,9 @@ function sumCartItems() {
   const items = document.querySelectorAll('.cart__item');
   const itemsArray = Array.from(items);
   const totalPrice = itemsArray.reduce((acc, curr) => {
+    let total = acc;
     acc += parseFloat(curr.innerText.split('$')[1]);
-    return acc;
+    return total;
   }, 0);
   const span = document.querySelector('.total-price');
   span.innerHTML = totalPrice;
