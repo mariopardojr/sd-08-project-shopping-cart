@@ -2,18 +2,6 @@ function saveLocalStorage() {
   localStorage.setItem('cartlist', document.querySelector('.cart__items').innerHTML);
 }
 
-function showLoadingText() {
-  const loadingText = createCustomElement("h1", "loading", "Carregando...");
-  const loadingArea = document.querySelector('.items');
-  loadingArea.appendChild(loadingText);
-}
-
-function removeLoadingText() {
-  const loadingTextParent = document.querySelector('.items');
-  const textToRemove = document.querySelector('.loading');
-  loadingTextParent.removeChild(textToRemove);
-}
-
 function sumCartItems() {
   const items = document.querySelectorAll('.cart__item');
   const itemsArray = Array.from(items);
@@ -66,6 +54,18 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function showLoadingText() {
+  const loadingText = createCustomElement('h1', 'loading', 'Carregando...');
+  const loadingArea = document.querySelector('.items');
+  loadingArea.appendChild(loadingText);
+}
+
+function removeLoadingText() {
+  const loadingTextParent = document.querySelector('.items');
+  const textToRemove = document.querySelector('.loading');
+  loadingTextParent.removeChild(textToRemove);
 }
 
 function createProductItemElement({ sku, name, image }) {
