@@ -25,7 +25,7 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
-//prettier-ignore
+// prettier-ignore
 function appendAllItemsElements(allInfo) {
   allInfo.forEach((element) => {
     const section = createProductItemElement(element);
@@ -37,7 +37,7 @@ function appendAllItemsElements(allInfo) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-//prettier-ignore
+// prettier-ignore
 function cartItemClickListener() {
   addEventListener('click', (event) => {
     if (event.target.className === 'cart__item') {
@@ -53,7 +53,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-//prettier-ignore
+// prettier-ignore
 function putCartsOnPage(results) {
   const justNeedInfos = results.map((result) => {
     const obj = {
@@ -79,7 +79,7 @@ function pickElementFromApi(id) {
     .then(response => response.json())
     .then(resultInfos => addElementToCart(resultInfos));
 }
-//prettier-ignore
+// prettier-ignore
 function checkButtonClicks() {
   const buttons = document.querySelectorAll('.item__add');
   buttons.forEach((item) => {
