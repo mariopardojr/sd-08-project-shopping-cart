@@ -5,11 +5,10 @@ function saveLocalStorage() {
 function sumCartItems() {
   const items = document.querySelectorAll('.cart__item');
   const itemsArray = Array.from(items);
-  console.log(itemsArray)
   const totalPrice = itemsArray.reduce((acc, curr) => {
-    acc = acc + parseFloat(curr.innerText.split('$')[1]);
+    acc += parseFloat(curr.innerText.split('$')[1]);
     return acc;
-  }, 0);  
+  }, 0);
   const span = document.querySelector('.total-price');
   span.innerHTML = totalPrice;
 }
