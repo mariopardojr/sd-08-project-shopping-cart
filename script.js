@@ -20,28 +20,48 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  section.addEventListener('click', addToCar);
 
   return section;
 }
 
-// function getSkuFromProductItem(item) {
-//   return item.querySelector('span.item__sku').innerText;
-// }
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
 
-// function cartItemClickListener(event) {
-//   // coloque seu código aqui
-// }
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+}
 
-// function createCartItemElement({ sku, name, salePrice }) {
-//   const li = document.createElement('li');
-//   li.className = 'cart__item';
-//   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-//   li.addEventListener('click', cartItemClickListener);
-//   return li;
-// }
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  const ol = document.querySelector('.cart__items');
+  li.appendChild(ol);
+  return li;
+}
+
+const addToCar = (event) => {
+  const select = event.target.parentNode;
+  console.log(select);
+  const getId = getSkuFromProductItem(select);
+  console.log(getId);
+  fetch(`https://api.mercadolibre.com/items/${getId}`)
+    .then(resp => resp.json())
+    .then(data => {
+      const product = {
+        sku: data.id,
+        name: data.title,
+        salePrice: data.price,
+      };
+      createCartItemElement(product);
+    })
+};
 
 window.onload = function onload() {
-  return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(resp => resp.json())
     .then(data => data.results
       .forEach((elem) => {
