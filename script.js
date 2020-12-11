@@ -88,10 +88,15 @@ const itemToCartBtn = async (event) => {
   const itemId = getSkuFromProductItem(event.target.parentNode);
   const url = `https://api.mercadolibre.com/items/${itemId}`;
   try {
+    const loadingMessage = document.createElement('div');
+    loadingMessage.innerText = 'loading';
+    loadingMessage.className = 'loading';
+    cartItems.appendChild(loadingMessage);
     const response = await fetch(url);
     const { id, title, price } = await response.json();
     const itemAdd = { sku: id, name: title, salePrice: price };
     increaseTotalPrice(price);
+    cartItems.removeChild(loadingMessage);
     const li = createCartItemElement(itemAdd);
     addItemToLocalStorage(itemAdd);
     cartItems.appendChild(li);
@@ -107,18 +112,22 @@ const loadCart = () => {
     const li = createCartItemElement(item);
     cartItems.appendChild(li);
   });
+  updateTotalPrice();
 };
 
-window.onload = function onload() {
-  const localStorage = window.localStorage;
-  if (localStorage.getItem('cart') !== null) {
-    loadCart();
-  }
-
+const loadItems = () => {
   const urlAPI = 'https://api.mercadolibre.com/sites/MLB/search?q=';
   const items = document.getElementsByClassName('items')[0];
+  const loadingMessage = document.createElement('div');
+  loadingMessage.innerText = 'loading';
+  loadingMessage.className = 'loading';
+  loadingMessage.style.display = 'inline';
+  items.appendChild(loadingMessage);
   fetch(`${urlAPI}computador`)
-    .then(resp => resp.json())
+    .then((resp) => {
+      items.removeChild(loadingMessage);
+      return resp.json();
+    })
     .then(({ results }) => results)
     .then(respArr =>
       respArr.forEach(({ id, title, thumbnail }) => {
@@ -127,10 +136,18 @@ window.onload = function onload() {
         item.addEventListener('click', itemToCartBtn);
       }))
     .catch(err => console.log(err));
+};
 
+window.onload = function onload() {
   const price = document.createElement('span');
   price.className = 'total-price';
   document.getElementsByClassName('cart')[0].appendChild(price);
-  updateTotalPrice();
+  const localStorage = window.localStorage;
+  if (localStorage.getItem('cart') !== null) {
+    loadCart();
+  }
+
+  loadItems();
+
   document.getElementsByClassName('empty-cart')[0].addEventListener('click', clearCart);
 };
