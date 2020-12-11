@@ -27,7 +27,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function appendAllItemsElements(allInfo) {
-  allInfo.forEach((element) => {
+  allInfo.forEach(element => {
     const section = createProductItemElement(element);
     const sectionItens = document.querySelector('.items');
     sectionItens.appendChild(section);
@@ -38,8 +38,12 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
+function cartItemClickListener() {
+  addEventListener('click', event => {
+    if (event.target.className === 'cart__item') {
+      event.target.remove();
+    }
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -51,7 +55,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 function putCartsOnPage(results) {
-  const justNeedInfos = results.map((result) => {
+  const justNeedInfos = results.map(result => {
     const obj = {
       sku: result.id,
       name: result.title,
@@ -78,8 +82,8 @@ function pickElementFromApi(id) {
 
 function checkButtonClicks() {
   const buttons = document.querySelectorAll('.item__add');
-  buttons.forEach((item) => {
-    item.addEventListener('click', (element) => {
+  buttons.forEach(item => {
+    item.addEventListener('click', element => {
       pickElementFromApi(element.target.parentNode.childNodes[0].innerText);
     });
   });
@@ -95,4 +99,5 @@ function getResultsFromApi(key) {
 window.onload = function onload() {
   getResultsFromApi('computador');
   checkButtonClicks();
+  cartItemClickListener();
 };
