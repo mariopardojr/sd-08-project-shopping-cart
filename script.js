@@ -30,6 +30,10 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function cartItemClickListener(event) {
+  //
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -42,8 +46,7 @@ const fetchMBL = () => new Promise(() => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
     .then((data) => {
-      const compMBL = data.results.map(element => ({ sku: element.id,
-          name: element.title, image: element.thumbnail }));
+      const compMBL = data.results.map(element => ({ sku: element.id, name: element.title, image: element.thumbnail }));
       compMBL.forEach((element) => {
         const itemsLocal = document.querySelector('.items');
         itemsLocal.appendChild(createProductItemElement(element));
@@ -63,10 +66,6 @@ const fetchMBL = () => new Promise(() => {
       });
     });
 });
-
-function cartItemClickListener(event) {
-  //
-}
 
 window.onload = function onload() {
   fetchMBL();
