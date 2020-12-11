@@ -53,7 +53,7 @@ const cartTotalPrice = async () => {
       total += price;
     }
   }
-  document.querySelector('.total-price').innerHTML = `Preço total: $${total}`;
+  document.querySelector('.total-price').innerHTML = total;
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -117,8 +117,16 @@ const fetchItems = () => {
     });
 };
 
+const eraseCart = () => {
+  const ol = document.querySelector('.cart__items');
+  ol.innerHTML = '';
+  saveList();
+  cartTotalPrice();
+};
+
 window.onload = async function onload() {
   fetchItems();
   createListSaved();
   await cartTotalPrice();
+  document.querySelector('.empty-cart').addEventListener('click', eraseCart);
 };
