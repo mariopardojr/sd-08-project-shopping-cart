@@ -16,11 +16,11 @@ function sumCartItems() {
 
 function emptyCart() {
   const emptyButton = document.querySelector('.empty-cart');
-  emptyButton.addEventListener('click', () => {    
+  emptyButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
     sumCartItems();
     localStorage.clear();
-  })
+  });
 }
 
 function createProductImageElement(imageSource) {
