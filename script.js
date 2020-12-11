@@ -14,16 +14,6 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-
-async function clearCart () {
-  const olCartLocal = document.querySelector('.cart__items');
-  while (olCartLocal.firstChild) {
-    olCartLocal.removeChild(olCartLocal.firstChild);
-  }
-  localStorage.clear();
-  await sumCartPrices();
-}
-
 const sumCartPrices = () => {
   let sum = 0;
   const olCartLocal = document.querySelectorAll('.cart__item');
@@ -41,6 +31,15 @@ const sumCartPrices = () => {
     cartLocal.appendChild(span);
   }
 };
+
+async function clearCart() {
+  const olCartLocal = document.querySelector('.cart__items');
+  while (olCartLocal.firstChild) {
+    olCartLocal.removeChild(olCartLocal.firstChild);
+  }
+  localStorage.clear();
+  await sumCartPrices();
+}
 
 async function cartItemClickListener(event) {
   const olCartLocal = await document.querySelector('ol, .cart__items');
