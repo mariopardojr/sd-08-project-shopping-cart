@@ -12,6 +12,10 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function cartItemClickListener(event) {
+  // coloque seu código aqui, ok?
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -36,10 +40,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui, ok?
-}
-
 const appendObject = (object) => {
   object.forEach((element) => {
     const newObject = {
@@ -62,7 +62,7 @@ const appendInCart = (object) => {
   cart.appendChild(createCartItemElement(newObject));
 };
 
-const fetchToCart = id => 
+const fetchToCart = id =>
   fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
     .then(data => appendInCart(data));
