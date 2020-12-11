@@ -1,6 +1,7 @@
-function localStorageSave() {
-  localStorage.setItem('cartlist', document.querySelector('.cart__items').innerHTML);
-}
+const localStorageGet = () => {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cartlist');
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -19,14 +20,17 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image, price }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('span', 'item__price', price));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
+}
+
+function localStorageSave() {
+  localStorage.setItem('cartlist',
+  document.querySelector('.cart__items').innerHTML);
 }
 
 function getSkuFromProductItem(item) {
@@ -36,7 +40,6 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   const element = event.target;
   element.parentNode.removeChild(element);
-  localStorageSave();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -76,6 +79,7 @@ const fecthProductId = (productId) => {
         const addCart = createCartItemElement(addProduct);
         const selCart = document.querySelector('.cart__items');
         selCart.appendChild(addCart);
+        localStorageSave();
       });
     });
 };
@@ -96,6 +100,7 @@ const clearCart = () => {
     if (event.target.classList.contains('empty-cart')) {
       const ol = document.querySelectorAll('.cart__items')[0];
       ol.innerHTML = '';
+      localStorage.clear();
     }
   });
 };
@@ -108,6 +113,7 @@ const clearCart = () => {
 
 window.onload = function onload() {
   fecthProduct();
+  localStorageGet();
   addToCart();
   clearCart();
 };

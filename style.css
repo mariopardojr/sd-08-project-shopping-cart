@@ -60,10 +60,9 @@ body {
 }
 
 .item__image:hover {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-  transition: 1s;
   border-radius: 30%;
+  transition: 1s;
+  transform: scale( 1.1 );
 }
 
 .item .item__add {
