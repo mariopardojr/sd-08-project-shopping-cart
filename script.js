@@ -97,4 +97,10 @@ window.onload = async function onload() {
   if (string !== null && string.length > 0) {
     getStorageItem(string.split(','));
   }
+  const clearButton = document.querySelector('.empty-cart');
+  clearButton.addEventListener('click', () => {
+    const listItens = document.querySelector('.cart__items');
+    listItens.innerHTML = '';
+    localStorage.setItem('cartItems', '');
+  });
 };
