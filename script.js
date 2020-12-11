@@ -73,13 +73,22 @@ const cartItens = (id) => {
 const onClickButton = () => {
   document.querySelectorAll('.items').forEach(element =>
     element.addEventListener('click', (event) => {
-      const theID = event.target.parentNode.querySelector('.item__sku')
-        .innerText;
+      const theID = getSkuFromProductItem(event.target.parentNode);
       cartItens(theID);
     }));
+};
+
+const clearList = () => {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    const itens = document.querySelector('.cart__items');
+    while (itens.hasChildNodes()) {
+      itens.removeChild(itens.firstChild);
+    }
+  });
 };
 
 window.onload = async function onload() {
   await productList();
   await onClickButton();
+  await clearList();
 };
