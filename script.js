@@ -79,7 +79,7 @@ const getItemById = async (ItemID) => {
             sku: data.id,
             name: data.title,
             salePrice: data.price,
-          }
+          };
           const { sku, name, salePrice } = element;
           const item = createCartItemElement({ sku, name, salePrice });
           createItemOnCart(item);
@@ -93,11 +93,11 @@ const getButtonOfAddToCart = (e) => {
     const componentSection = e.target.parentElement;
     const id = componentSection.querySelector('.item__sku').innerText;
     getItemById(id);
-  };
-}
+  }
+};
 
 window.addEventListener('click', getButtonOfAddToCart);
 
 window.onload = async function onload() {
-  getItens('computador')
+  getItens('computador');
 };
