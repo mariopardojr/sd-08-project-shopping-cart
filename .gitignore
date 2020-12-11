@@ -5,3 +5,11 @@
 node_modules/
 cypress/reports
 prettier.config.js
+cypress
+forestadmin
+cypress.json
+package-lock.json
+package.json
+reporter.json
+
+
