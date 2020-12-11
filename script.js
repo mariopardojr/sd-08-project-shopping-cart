@@ -1,5 +1,3 @@
-// window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -57,6 +55,35 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function getStoraged() {
+  const localStoragedList = localStorage.getItem('storagedList');
+  const cartList = document.querySelector('.cart__items');
+
+
+  if (localStoragedList !== null && cartList.hasChildNodes() === false) {
+    const storagedList = JSON.parse(localStoragedList);
+    
+    storagedList.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'cart__item';
+      li.innerText = item;
+      li.addEventListener('click', cartItemClickListener);
+      cartList.appendChild(li);
+    })
+  }
+}
+
+const updateSoraged = () => {
+  const listArray =  document.getElementsByTagName('li');
+  const storagedList = [];
+  for (let i = 0; i < listArray.length; i += 1) {
+    storagedList.push(listArray[i].innerHTML)
+  }
+
+  localStorage.setItem('storagedList', JSON.stringify(storagedList));
+  
+};
+
 const HandleButton = (event) => {
   let item = event.target.parentNode;
   let ItemID = getSkuFromProductItem(item);
@@ -67,12 +94,15 @@ const HandleButton = (event) => {
       const cartList = document.querySelector('.cart__items');
       const product = createCartItemElement({ sku: item.id, name: item.title, salePrice: item.price });
       cartList.appendChild(product);
-    });
+      updateSoraged();
+    })
+    ;
 };
 
 function cartItemClickListener(event) {
   let parent = event.target.parentNode;
   parent.removeChild(event.target);
+  updateSoraged();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -82,3 +112,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() {
+  getStoraged();
+ };
+
