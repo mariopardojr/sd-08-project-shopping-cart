@@ -64,19 +64,23 @@ const getProductToCart = (sku) => {
   .then((response) => {
     response.json()
     .then((data) => {
-      createCartItemElement(data);
+      console.log(data);
     });
   });
 }
 
+
 const addToCart = () => {
-  const productItems = document.querySelector('.item_add');
-  productItems.addEventListener('click', () => {
-    productSku = productItems.sku;
-    getProductToCart(productSku);
-  }
-  )
+  // const buttonAdd = document.querySelector('.item_add');
+  // buttonAdd.addEventListener('click', () => {
+  //   productSku = productItems.sku;
+  //   getProductToCart(productSku);
+  // });
 }
+
+const productItems = document.querySelectorAll('.item');
+console.log(productItems);
+
 
 window.onload = function onload() {
   getProduct();
