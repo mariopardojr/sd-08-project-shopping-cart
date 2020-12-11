@@ -9,7 +9,7 @@ window.onload = function onload() { };
 
 const getProducts = (product) => {
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
-  .then((response) => response.json())
+  .then(response => response.json())
   .then((data) => {
     // console.log(data.results);
     data.results.forEach(({ id: sku, title: name, thumbnail: image }) => {
@@ -33,7 +33,6 @@ function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
-  
   return e;
 }
 
