@@ -32,11 +32,11 @@ const sumCartPrices = () => {
   }
 };
 
-function cartItemClickListener(event) {
-  const olCartLocal = document.querySelector('ol, .cart__items');
-  olCartLocal.removeChild(event.target);
-  localStorage.removeItem(String(event.target.id));
-  sumCartPrices();
+async function cartItemClickListener(event) {
+  const olCartLocal = await document.querySelector('ol, .cart__items');
+  await olCartLocal.removeChild(event.target);
+  await localStorage.removeItem(String(event.target.id));
+  await sumCartPrices();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -108,8 +108,8 @@ function openLocalStorage() {
   }
 }
 
-window.onload = function onload() {
+window.onload = async function onload() {
   fetchMBL();
   openLocalStorage();
-  sumCartPrices();
+  await sumCartPrices();
 };
