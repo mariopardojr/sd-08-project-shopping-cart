@@ -100,6 +100,6 @@ const pegaINFO = () => {
     })
 }
 
-window.onload = function onload() {
-  pegaINFO()
+window.onload = async function onload() {
+  await pegaINFO()
 };
