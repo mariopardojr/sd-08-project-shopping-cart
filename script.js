@@ -26,7 +26,7 @@ async function calcPrice() {
       sum += cartItems[index].price;
     }
   }
-  totalPrice(sum.toFixed(2));
+  totalPrice(`${sum.toFixed(2)}`);
 }
 
 const saveStorage = (id, title, price) => {
@@ -62,7 +62,7 @@ const createCartItemElement = ({ id: sku, title: name, price: salePrice }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.id = sku;
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: R$${salePrice.toFixed(2)}`;
   return li;
 };
 
@@ -160,5 +160,4 @@ window.onload = function onload() {
   getStorage();
   calcPrice();
   emptyCart();
-  calcPrice();
 };
