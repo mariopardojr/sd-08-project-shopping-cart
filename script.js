@@ -17,7 +17,7 @@ function sumItem() {
   document.querySelectorAll('.cart__item').forEach((item) => {
     value += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerHTML = `Preço Total: $${value}`;
+  document.querySelector('.total-price').innerHTML = `${value}`;
 }
 
 function createProductItemElement({ sku, name, image }) {
