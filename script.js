@@ -11,6 +11,13 @@ function createCustomElement(element, className, innerText) {
   e.innerText = innerText;
   return e;
 }
+
+// Requisito 04
+const saveLocalStorage = () => {
+  const ol = document.querySelector('.cart__items');
+  localStorage.setItem('carrinho', ol.innerHTML);
+};
+
 // Requisito 01
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -33,6 +40,7 @@ const cartItemClickListener = () => {
   ol.addEventListener('click', (event) => {
     if (event.target.classList.contains('cart__item')) {
       event.target.remove();
+      saveLocalStorage();
     }
   });
 };
@@ -69,6 +77,7 @@ const apendItemToCart = (product) => {
   const cart = document.querySelector('.cart__items');
   const newProduct = createCartItemElement(product);
   cart.appendChild(newProduct);
+  saveLocalStorage();
 };
 
 // Requisito 02
@@ -98,8 +107,15 @@ const addItemToCart = () => {
   });
 };
 
+// Requisito 04
+const loadLocalStorage = () => {
+  const ol = document.querySelector('.cart__items');
+  ol.innerHTML = localStorage.getItem('carrinho');
+};
+
 window.onload = function onload() {
   api();
   addItemToCart();
   cartItemClickListener();
+  loadLocalStorage();
 };
