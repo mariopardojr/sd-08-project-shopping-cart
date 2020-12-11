@@ -59,6 +59,13 @@ body {
   width: 100%;
 }
 
+.item__image:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: 1s;
+  border-radius: 30%;
+}
+
 .item .item__add {
   background-color: green;
   border: 0;
@@ -77,4 +84,8 @@ body {
   flex-basis: 1;
   font-size: 16pt;
   text-align: center;
+}
+
+.item__price {
+  background-color: white;
 }

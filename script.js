@@ -16,13 +16,14 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({ sku, name, image, price }) {
   const section = document.createElement('section');
   section.className = 'item';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
+  section.appendChild(createCustomElement('span', 'item__price', price));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
   return section;
@@ -55,6 +56,7 @@ const fecthProduct = () => {
             sku: value.id,
             name: value.title,
             image: value.thumbnail,
+            price: value.price,
           });
           return document.querySelector('.items').appendChild(addProduct);
         });
@@ -88,7 +90,6 @@ const addToCart = () => {
   });
 };
 
-// Clear Cart
 const clearCart = () => {
   const clear = document.getElementsByClassName('empty-cart')[0];
   clear.addEventListener('click', (event) => {
@@ -98,6 +99,12 @@ const clearCart = () => {
     }
   });
 };
+
+// async function teste() {
+//   const productFecth = await fecthProduct();
+//   const cartAdd = await addToCart();
+//   clearCart();
+// }
 
 window.onload = function onload() {
   fecthProduct();
