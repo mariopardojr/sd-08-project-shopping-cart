@@ -17,6 +17,7 @@ function createCustomElement(element, className, innerText) {
 function cartItemClickListener(event) {
   const olCartLocal = document.querySelector('ol, .cart__items');
   olCartLocal.removeChild(event.target);
+  localStorage.removeItem(String(event.target.id));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -24,6 +25,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  li.id = sku;
+  localStorage.setItem(sku, li.innerText);
   return li;
 }
 
@@ -70,6 +73,24 @@ const fetchMBL = () => new Promise(() => {
     });
 });
 
+function openLocalStorage() {
+  if (localStorage.length !== 0) {
+    const lSArray = Object.values(localStorage);
+    const lSArrayKeys = Object.keys(localStorage);
+    const olCartLocal = document.querySelector('ol, .cart__items');
+    for (let index = 0; index < lSArray.length; index += 1) {
+      const li = document.createElement('li');
+      li.innerText = lSArray[index];
+      li.className = 'cart__item';
+      li.innerText = lSArray[index];
+      li.addEventListener('click', cartItemClickListener);
+      li.id = lSArrayKeys[index];
+      olCartLocal.appendChild(li);
+    }
+  }
+}
+
 window.onload = function onload() {
   fetchMBL();
+  openLocalStorage();
 };
