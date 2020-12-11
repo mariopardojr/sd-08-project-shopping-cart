@@ -1,12 +1,12 @@
 const getItemStorage = () => {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = localStorage.cartItems;
-}
+};
 
 const setItem = () => {
   const cartItems = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cartItems', cartItems);
-}
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
