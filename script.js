@@ -56,6 +56,22 @@ const FetchMercadoLibreProduct = async (item) => {
   productList(data.results);
 };
 
+const FetchMercadoLibrePrice = async (item) => {
+  const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
+  const data = await response.json();
+  const cart = { sku: data.id, name: data.title, salePrice: data.price };
+  document
+    .querySelector('.cart__items')
+    .appendChild(createCartItemElement(cart));
+};
+
+const addCart = ({ parentNode }) => {
+  const selected = getSkuFromProductItem(parentNode);
+  FetchMercadoLibrePrice(selected);
+};
+
 window.onload = async function onload() {
   await FetchMercadoLibreProduct('computador');
+  await document.querySelectorAll('.item__add').forEach(element =>
+  element.addEventListener('click', ({ target }) => addCart(target)));
 };
