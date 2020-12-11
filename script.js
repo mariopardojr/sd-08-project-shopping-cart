@@ -34,7 +34,7 @@ function createProductItemElement({ sku, name, image }) {
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice.toFixed(2)}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   // li.addEventListener('click', cartItemClickListener);
   return li;
 }
@@ -69,30 +69,13 @@ const cartUpdate = () => {
   }
 };
 
-// const total = document.createElement('span');
-// document.querySelector('.total-price').appendChild(total);
-
-// const getPriceAndSum = async () => {
-//   let totalPrice = 0;
-//   const listStorage = [];
-//   Object.keys(localStorage).forEach(key => listStorage.push(localStorage.getItem(key)));
-//   for (let index = listStorage.length - 1; index >= 0; index -= 1) {
-//     const item = await fetch(`https://api.mercadolibre.com/items/${listStorage[index]}`)
-//       .then(response => response.json());
-//     const { price: salePrice } = item;
-//     const price = (parseFloat(Object.values({ salePrice })));
-//     totalPrice += price;
-//   }
-//   total.innerText = `R$${(totalPrice.toFixed(2))}`;
-// };
-
 const total = document.createElement('span');
 document.querySelector('.total-price').appendChild(total);
 
 const getPriceAndSum = async () => {
   let totalPrice = 0;
   const showPrice = (value) => {
-    total.innerText = `R$${(value.toFixed(2))}`;
+    total.innerText = `R$${value}`;
   };
   const listStorage = [];
   Object.keys(localStorage).forEach(key => listStorage.push(localStorage.getItem(key)));
