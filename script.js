@@ -8,7 +8,7 @@ async function getTotalPrice() {
     const price = getPrice(element);
     sumOfPrices += price;
   });
-  totalPrice.innerHTML = sumOfPrices.toFixed(2);
+  totalPrice.innerHTML = parseFloat(sumOfPrices.toFixed(2));
 }
 
 const getItemStorage = () => {
@@ -37,6 +37,7 @@ function createCustomElement(element, className, innerText) {
 
 function cartItemClickListener(event) {
   event.target.parentElement.removeChild(event.target);
+  getTotalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
