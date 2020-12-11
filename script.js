@@ -26,7 +26,7 @@ async function calcPrice() {
       sum += cartItems[index].price;
     }
   }
-  totalPrice(`${sum.toFixed(2)}`);
+  totalPrice(sum.toFixed(2));
 }
 
 const saveStorage = (id, title, price) => {
@@ -62,7 +62,7 @@ const createCartItemElement = ({ id: sku, title: name, price: salePrice }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.id = sku;
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: R$ ${salePrice.toFixed(2)}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   return li;
 };
 
@@ -138,7 +138,7 @@ const createProductItemElement = ({ id: sku, title: name, thumbnail: image, pric
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('span', 'item__price', `R$ ${(price).toFixed(2)}`));
+  section.appendChild(createCustomElement('span', 'item__price', `R$${(price)}`));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho'));
 
   return section;
