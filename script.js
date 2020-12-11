@@ -19,7 +19,7 @@ function updateCartTotal() {
   return new Promise(async (resolve) => {
     const total = await getCartTotal();
     const totalElement = document.querySelector('.total-price');
-    totalElement.textContent = `Total: R$${total.toFixed(2).replace('.', ',')}`;
+    totalElement.textContent = `${total.toFixed(0)}`;
     resolve('success');
   });
 }
@@ -67,9 +67,9 @@ async function addCartItem(id) {
 
 async function init() {
   const savedItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  for (let index = 0; index < savedItems.length; index += 1) {
-    addCartItem(savedItems[index]);
-  }
+  savedItems.reduce((curPromise, item) => (
+    curPromise.then(() => addCartItem(item))
+  ), Promise.resolve());
 }
 
 function createCustomElement(element, className, innerText) {
