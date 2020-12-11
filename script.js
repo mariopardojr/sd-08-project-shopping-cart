@@ -55,7 +55,8 @@ const api = () => new Promise((resolve, reject) => {
     image: product.thumbnail,
   })))
   .then(newArray => addProductsOnScreen(newArray))
-  .then(results => resolve(results));
+  .then(results => resolve(results))
+  .catch(results => reject(console.log(results)));
 });
 
 window.onload = function onload() {
