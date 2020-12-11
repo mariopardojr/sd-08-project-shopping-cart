@@ -61,4 +61,3 @@ window.onload = function onload() {
   };
   getProducts('computador');
 };
-
