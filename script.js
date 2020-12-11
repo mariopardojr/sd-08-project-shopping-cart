@@ -19,7 +19,7 @@ function updateCartTotal() {
   return new Promise(async (resolve) => {
     const total = await getCartTotal();
     const totalElement = document.querySelector('.total-price');
-    totalElement.textContent = `${total.toFixed(2)}`;
+    totalElement.textContent = `${total}`;
     resolve('success');
   });
 }
