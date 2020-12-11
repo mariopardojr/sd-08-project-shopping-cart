@@ -40,14 +40,12 @@ function createProductItemElement({ sku, name, image }) {
 //   return li;
 // }
 
-window.onload = function onload() { 
+window.onload = function onload() {
   // const getSection = () => {
   //   const sectionProducts = 'computador';
   //   return getProducts(sectionProducts)
   // }
-  
   // getSection();
-  
   const getProducts = (product) => {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
