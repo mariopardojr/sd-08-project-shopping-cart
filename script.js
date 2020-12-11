@@ -39,9 +39,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  console.log('ops')
   event.target.remove();
-  // saveCartItemToLocalStorage();
+  saveCartItemToLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -101,14 +100,14 @@ window.addEventListener('click', getButtonOfAddToCart);
 const saveCartItemToLocalStorage = () => {
   const itensAdded = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('Itens', itensAdded);
-}
+};
 
 const getItensFromLocalStorage = () => {
   const itensOnLocalStorage = localStorage.getItem('Itens');
-  let getOl = document.querySelector('.cart__items');
+  const getOl = document.querySelector('.cart__items');
   getOl.innerHTML = itensOnLocalStorage;
   document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
-}
+};
 
 window.onload = async function onload() {
   getItens('computador');
