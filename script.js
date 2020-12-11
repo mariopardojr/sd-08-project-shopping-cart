@@ -123,6 +123,7 @@ async function createItems() {
     .then(response => response.json())
     .then(data => data.results);
 
+  document.querySelector('.loading').remove();
   const itemsContainer = document.querySelector('.items');
   items.forEach((item) => {
     const { id: sku, title: name, thumbnail: image } = item;
