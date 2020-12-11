@@ -19,6 +19,10 @@ function loading() {
   document.body.appendChild(load);
 }
 
+function removeLoading() {
+  document.body.removeChild(document.querySelector('.loading'));
+}
+
 function sumItem() {
   let value = 0;
   document.querySelectorAll('.cart__item').forEach((item) => {
@@ -82,7 +86,7 @@ function setFetch() {
 
 function fetchId(id) {
   loading();
-  return fetch(`https://api.mercadolibre.com/items/${id}`)
+  fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(r => r.json())
   .then((value) => {
     const obj = {
@@ -94,6 +98,7 @@ function fetchId(id) {
     saveItems();
     sumItem();
   });
+  removeLoading();
 }
 
 function buttonsAdd() {
@@ -117,8 +122,8 @@ function removeItems() {
 }
 
 window.onload = async function onload() {
-  await loading();
   await setFetch();
+  await removeLoading();
   await buttonsAdd();
   await loadItems();
   removeItems();
