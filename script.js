@@ -7,7 +7,7 @@ function loadCartList() {
     price = 0;
     localStorage.setItem('totalPrice', price.toFixed(2));
   }
-  totalPrice.innerHTML = `Price:$ ${price}`;
+  totalPrice.innerHTML = `${price}`;
 }
 
 function clearCartList() {
@@ -57,7 +57,7 @@ function cartItemClickListener(event) {
   const price = parseFloat(event.target.innerText.split('$')[1]);
   const actualPrice = parseFloat(localStorage.getItem('totalPrice'));
   const totalPrice = document.querySelector('.total-price');
-  totalPrice.innerHTML = `Price:$ ${actualPrice - price}`;
+  totalPrice.innerHTML = `${actualPrice - price}`;
   localStorage.setItem('totalPrice', (actualPrice - price).toFixed(2));
   cartList.removeChild(event.target);
   localStorage.setItem('cart', cartList.innerHTML);
@@ -91,7 +91,7 @@ const addCart = sku => async (event) => {
   localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
   const actualPrice = parseFloat(localStorage.getItem('totalPrice'));
   const totalPrice = document.querySelector('.total-price');
-  totalPrice.innerHTML = `Price:$ ${product.price + actualPrice}`;
+  totalPrice.innerHTML = `${product.price + actualPrice}`;
   localStorage.setItem('totalPrice', (product.price + actualPrice).toFixed(2));
 };
 
