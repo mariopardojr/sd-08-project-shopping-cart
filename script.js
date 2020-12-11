@@ -56,7 +56,7 @@ function verifyPrice(resultado) {
     if (cartPrice.innerText.length !== 0) {
       accumulator = parseFloat(cartPrice.innerText);
       const number = accumulator + resultado[0].price;
-      cartPrice.innerText = roundUp(number, 2);
+      cartPrice.innerText = roundUp(number, 1);
     } else {
       cartPrice.innerText = resultado[0].price;
     }
