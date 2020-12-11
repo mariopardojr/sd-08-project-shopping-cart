@@ -59,7 +59,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addToCart = () => {
+const addToCart = () => {
   const productItems = document.querySelector('.item_add');
   productItems.addEventListener('click', () => {
     productSku = productItems.sku;
