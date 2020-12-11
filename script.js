@@ -91,6 +91,11 @@ function createProductItemList(QUERY) {
 createProductItemList('computador');
 
 window.onload = () => {
+  document.getElementById('empty-cart').addEventListener('click', () => {
+    document.getElementById('cart__items').innerHTML = '';
+    document.getElementById('price').innerHTML = 0;
+    saveCart();
+  });
   document.getElementsByClassName('cart__items')[0].innerHTML = localStorage.cartList;
   const cartSaved = document.getElementsByClassName('cart__item');
   for (let index = 0; index < cartSaved.length; index += 1) {
