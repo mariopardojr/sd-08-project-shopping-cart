@@ -65,6 +65,18 @@ async function getItemsFromApi(url, parent, funcao) {
               [variavel]: element[value],
             }));
           });
+          if (resultado.length === 1) {
+            const cart = document.querySelector('.cart');
+            const cartPrice = cart.querySelector('.total-price');
+            let accumulator = 0;
+            if (cartPrice.innerText.length !== 0) {
+              accumulator = parseFloat(cartPrice.innerText);
+              const number = accumulator + resultado[0].price;
+              cartPrice.innerText = number;
+            } else {
+              cartPrice.innerText = resultado[0].price;
+            }
+          }
           resolve();
         });
       });
@@ -102,5 +114,8 @@ window.onload = async function onload() {
     const listItens = document.querySelector('.cart__items');
     listItens.innerHTML = '';
     localStorage.setItem('cartItems', '');
+    const cart = document.querySelector('.cart');
+    const cartPrice = cart.querySelector('.total-price');
+    cartPrice.innerText = '';
   });
 };
