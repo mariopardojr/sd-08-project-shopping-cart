@@ -1,13 +1,3 @@
-function clearCartList() {
-  const cartList = document.querySelector('.cart__items');
-  while (cartList.firstChild) {
-    cartList.removeChild(cartList.firstChild);
-  }
-  localStorage.setItem('cart', '');
-  localStorage.setItem('totalPrice', '0');
-  loadCartList();
-}
-
 function loadCartList() {
   const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = localStorage.getItem('cart');
@@ -18,6 +8,16 @@ function loadCartList() {
     localStorage.setItem('totalPrice', price.toFixed(2));
   }
   totalPrice.innerHTML = `Price:$ ${price}`;
+}
+
+function clearCartList() {
+  const cartList = document.querySelector('.cart__items');
+  while (cartList.firstChild) {
+    cartList.removeChild(cartList.firstChild);
+  }
+  localStorage.setItem('cart', '');
+  localStorage.setItem('totalPrice', '0');
+  loadCartList();
 }
 
 function createProductImageElement(imageSource) {
@@ -58,7 +58,7 @@ function cartItemClickListener(event) {
   const actualPrice = parseFloat(localStorage.getItem('totalPrice'));
   const totalPrice = document.querySelector('.total-price');
   totalPrice.innerHTML = `Price:$ ${actualPrice - price}`;
-  localStorage.setItem('totalPrice',(actualPrice - price).toFixed(2));
+  localStorage.setItem('totalPrice', (actualPrice - price).toFixed(2));
   cartList.removeChild(event.target);
   localStorage.setItem('cart', cartList.innerHTML);
 }
