@@ -51,12 +51,14 @@ const getItens = async (computador) => {
       response.json()
         .then((data) => {
           data.results.map((result) => {
-            const ProductItemElement = createProductItemElement({ sku: result.id, name: result.title, image: result.thumbnail })
+            const ProductItemElement =
+              createProductItemElement({ sku: result.id, name: result.title, image: result.thumbnail })
             createItemOnScreen(ProductItemElement);
+            return false;
           });
         });
     });
-}
+};
 
 window.onload = function onload() {
   getItens('computador');
