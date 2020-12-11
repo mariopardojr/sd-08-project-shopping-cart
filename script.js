@@ -94,7 +94,6 @@ const fetchMBL = () => new Promise(() => {
 function openLocalStorage() {
   if (localStorage.length !== 0) {
     const lSArray = Object.values(localStorage);
-    console.log(lSArray)
     const lSArrayKeys = Object.keys(localStorage);
     const olCartLocal = document.querySelector('ol, .cart__items');
     for (let index = 0; index < lSArray.length; index += 1) {
