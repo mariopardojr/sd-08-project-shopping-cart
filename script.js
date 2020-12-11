@@ -11,7 +11,7 @@ function createCustomElement(element, className, innerText) {
   e.innerText = innerText;
   return e;
 }
-
+// Requisito 01
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -23,15 +23,22 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
-
+// Requisito 02
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
-
+// Requisito 03
+const cartItemClickListener = (event) => {
+  if (event.target.classList.contains('cart__item')) {
+    event.target.remove();
+  }
+};
+// Requisito 03
+const removeItemFromCart = () => {
+  const ol = document.querySelector('.cart__items');
+  ol.addEventListener('click', cartItemClickListener(event));
+};
+// Requisito 02
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -96,4 +103,5 @@ const addItemToCart = () => {
 window.onload = function onload() {
   api();
   addItemToCart();
+  removeItemFromCart();
 };
