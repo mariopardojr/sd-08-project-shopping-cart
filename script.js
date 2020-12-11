@@ -109,8 +109,10 @@ const addItemToCart = () => {
 
 // Requisito 04
 const loadLocalStorage = () => {
-  const ol = document.querySelector('.cart__items');
-  ol.innerHTML = localStorage.getItem('carrinho');
+  if (localStorage.getItem('carrinho')) {
+    const ol = document.querySelector('.cart__items');
+    ol.innerHTML = localStorage.getItem('carrinho');
+  }
 };
 
 window.onload = function onload() {
