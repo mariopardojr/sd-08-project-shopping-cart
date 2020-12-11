@@ -44,7 +44,7 @@ const updateSoraged = () => {
 const createSumCart = (totalPrice) => {
   const span = document.createElement('span');
   span.className = 'total-price';
-  span.innerHTML = `Preço Total: R$ ${totalPrice.toFixed(2)}`;
+  span.innerHTML = totalPrice;
   return span;
 };
 
