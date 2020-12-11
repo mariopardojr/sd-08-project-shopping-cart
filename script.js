@@ -23,11 +23,11 @@ const sumCartPrices = () => {
   }
   const cartLocal = document.querySelector('.cart');
   if (cartLocal.lastChild.className === 'total-price') {
-    cartLocal.lastChild.innerText = `Preço total: R$${sum}`;
+    cartLocal.lastChild.innerText = sum;
   } else {
     const span = document.createElement('span');
     span.className = 'total-price';
-    span.innerText = `Preço total: R$${sum}`;
+    span.innerText = sum;
     cartLocal.appendChild(span);
   }
 };
@@ -94,6 +94,7 @@ const fetchMBL = () => new Promise(() => {
 function openLocalStorage() {
   if (localStorage.length !== 0) {
     const lSArray = Object.values(localStorage);
+    console.log(lSArray)
     const lSArrayKeys = Object.keys(localStorage);
     const olCartLocal = document.querySelector('ol, .cart__items');
     for (let index = 0; index < lSArray.length; index += 1) {
