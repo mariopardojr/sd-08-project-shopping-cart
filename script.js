@@ -29,12 +29,17 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  const array = localStorage.getItem('cartItems').split(',');
+  const newArray = array.filter(e => e !== event.target.id);
+  localStorage.setItem('cartItems', newArray);
+  const listItens = document.querySelector('.cart__items');
+  listItens.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
+  li.id = sku;
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
@@ -46,7 +51,6 @@ async function getItemsFromApi(url, parent, funcao) {
       .then((response) => {
         response.json().then((data) => {
           let resultado = [data];
-          console.log(resultado);
           let variavel = 'salePrice';
           let value = 'price';
           if (parent === document.querySelector('.items')) {
@@ -67,17 +71,30 @@ async function getItemsFromApi(url, parent, funcao) {
   });
 }
 
+async function getStorageItem(productStorage) {
+  const listItens = document.querySelector('.cart__items');
+  productStorage.forEach((element) => {
+    getItemsFromApi(`https://api.mercadolibre.com/items/${element}`, listItens, createCartItemElement);
+  });
+}
 
 window.onload = async function onload() {
   const sectionItens = document.querySelector('.items');
   await getItemsFromApi('https://api.mercadolibre.com/sites/MLB/search?q=computador', sectionItens, createProductItemElement);
-
   const allButtons = document.querySelectorAll('.item__add');
   allButtons.forEach((element) => {
     element.addEventListener('click', () => {
-      const elementId = element.parentNode.firstChild.innerText;
+      const elementId = getSkuFromProductItem(element.parentNode);
       const listItens = document.querySelector('.cart__items');
       getItemsFromApi(`https://api.mercadolibre.com/items/${elementId}`, listItens, createCartItemElement);
+      let existing = localStorage.getItem('cartItems');
+      existing = existing ? existing.split(',') : [];
+      existing.push(elementId);
+      localStorage.setItem('cartItems', existing.toString());
     });
   });
+  const string = localStorage.getItem('cartItems');
+  if (string !== null && string.length > 0) {
+    getStorageItem(string.split(','));
+  }
 };
