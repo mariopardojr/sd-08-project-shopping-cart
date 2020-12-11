@@ -75,7 +75,7 @@ document.querySelector('.total-price').appendChild(total);
 const getPriceAndSum = async () => {
   let totalPrice = 0;
   const showPrice = (value) => {
-    total.innerText = `R$${value}`;
+    total.innerText = `${value}`;
   };
   const listStorage = [];
   Object.keys(localStorage).forEach(key => listStorage.push(localStorage.getItem(key)));
