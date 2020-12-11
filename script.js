@@ -62,7 +62,6 @@ function createProductItemElement({ sku, name, image }) {
 
 // REQ 1: Fetching products and appending them to the page
 const createProductsList = (product) => {
-  const itemsSection = document.querySelector('.items');
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
     .then(data =>
@@ -72,6 +71,7 @@ const createProductsList = (product) => {
           name: title,
           image: thumbnail,
         };
+        const itemsSection = document.querySelector('section.items');
         itemsSection.appendChild(createProductItemElement(obj));
       }),
     );
