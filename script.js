@@ -49,7 +49,7 @@ const cartTotalPrice = async () => {
   let total = 0;
   if (ol.children.length > 0) {
     for (let index = 0; index < ol.children.length; index += 1) {
-      let price = parseFloat(ol.children[index].innerText.split('$')[1]);
+      const price = parseFloat(ol.children[index].innerText.split('$')[1]);
       total += price;
     }
   }
