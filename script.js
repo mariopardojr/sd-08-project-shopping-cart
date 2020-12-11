@@ -18,8 +18,23 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// REQ 4: Saving and recovering cart list from local storage
+const saveCartInLocalStorage = () => {
+  const cartItems = document.querySelector('ol.cart__items');
+  localStorage.cartList = cartItems.innerHTML;
+};
+
+const recoverCart = () => {
+  if (localStorage.cartList) {
+    const cartItems = document.querySelector('ol.cart__items');
+    cartItems.innerHTML = localStorage.cartList;
+  }
+};
+// ---------------------------------------------------------
+
 function cartItemClickListener(event) {
   event.target.remove();
+  saveCartInLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -43,6 +58,7 @@ const addToCartListener = (event) => {
         salePrice: price,
       };
       cartItems.appendChild(createCartItemElement(obj));
+      saveCartInLocalStorage();
     });
 };
 // --------------------------------------------------------------------------
@@ -80,4 +96,5 @@ const createProductsList = (product) => {
 
 window.onload = async () => {
   await createProductsList('computador');
+  recoverCart();
 };
