@@ -1,4 +1,3 @@
-window.onload = function onload() { getProducts(); };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -50,13 +49,15 @@ const getProducts = async () => {
     const data = await result.json();
     let products = data.results;
     products = products.map((item) => {
-    const { title: name, thumbnail: image, id: sku } = item;
-    const things = document.querySelector('.items');
-    const add = createProductItemElement({ sku, name, image });
-    things.appendChild(add);
-    return products;
-    });
+      const { title: name, thumbnail: image, id: sku } = item;
+      const things = document.querySelector('.items');
+      const add = createProductItemElement({ sku, name, image });
+      things.appendChild(add);
+      return products;
+  });
   } catch (error) {
       console.log(error);
     }
-}; 
+};
+
+window.onload = function onload() { getProducts(); };
