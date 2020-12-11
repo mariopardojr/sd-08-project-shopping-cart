@@ -75,12 +75,9 @@ const getItemById = async (ItemID) => {
     .then((response) => {
       response.json()
         .then((pratala) => {
-          const orogoto = {
-            sku: pratala.id,
-            name: pratala.title,
-            salePrice: pratala.price,
-          };
-          const { sku, name, salePrice } = orogoto;
+          const sku = pratala.id;
+          const name = pratala.title;
+          const salePrice = pratala.price;
           const item = createCartItemElement({ sku, name, salePrice });
           createItemOnCart(item);
           return false;
