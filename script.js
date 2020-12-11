@@ -3,16 +3,6 @@ const requestSpecs = {
   headers: { Accept: 'application/json' },
 };
 
-const getProductRequest = (item) => {
-  const searchItem = item;
-  return new Promise((resolve) => {
-    fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${searchItem}`, requestSpecs)
-      .then(response => response.json())
-      .then(data => data.results)
-      .then(results => resolve(results));
-  });
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -27,6 +17,21 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+const getProductRequest = (item) => {
+  const searchItem = item;
+  return new Promise((resolve) => {
+    fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${searchItem}`, requestSpecs)
+      .then((response) => {
+        document.querySelector('.items').appendChild(createCustomElement('span', 'loading', 'Loading...'));
+        return response.json();
+      })
+      .then(data => data.results)
+      .then((results) => {
+        setTimeout(() => resolve(results), 2000);
+      });
+  });
+};
+
 const updateSoraged = () => {
   const listArray = document.getElementsByTagName('li');
   const storagedList = [];
@@ -39,7 +44,7 @@ const updateSoraged = () => {
 const createSumCart = (totalPrice) => {
   const span = document.createElement('span');
   span.className = 'total-price';
-  span.innerHTML = `Preço Total: ${totalPrice.toFixed(2)}`;
+  span.innerHTML = `Preço Total: R$ ${totalPrice.toFixed(2)}`;
   return span;
 };
 
@@ -116,6 +121,8 @@ const HandleButton = (event) => {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
+
+  document.querySelector('.loading').style.display = 'none';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
