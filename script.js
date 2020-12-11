@@ -15,7 +15,7 @@ function createCustomElement(element, className, innerText) {
 const createItemOnScreen = (element) => {
   const getSessionItem = document.querySelector('.items');
   getSessionItem.appendChild(element);
-}
+};
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -51,8 +51,13 @@ const getItens = async (computador) => {
       response.json()
         .then((data) => {
           data.results.map((result) => {
-            const ProductItemElement =
-              createProductItemElement({ sku: result.id, name: result.title, image: result.thumbnail })
+            const element = {
+              sku: result.id,
+              name: result.title,
+              image: result.thumbnail
+            }
+            const { sku, name, image } = element
+            const ProductItemElement = createProductItemElement({ sku, name, image });
             createItemOnScreen(ProductItemElement);
             return false;
           });
