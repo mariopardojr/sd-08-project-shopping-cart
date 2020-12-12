@@ -1,7 +1,7 @@
 const initLoading = () => {
   const loading = document.createElement('span');
   loading.className = 'loading';
-  loading.innerText = 'Carregando...';
+  loading.innerText = 'Loading...';
   const parent = document.querySelector('.items');
   parent.appendChild(loading);
 };
@@ -18,9 +18,9 @@ const totalPrice = (sum) => {
   total.innerHTML = sum.toFixed(2);
 };
 
-async function getPrice() {
+const getPrice = () => {
   let sum = 0;
-  const getItems = await JSON.parse(localStorage.getItem('cartML'));
+  const getItems = JSON.parse(localStorage.getItem('cartML'));
   if (getItems) {
     for (let index = 0; index < getItems.length; index += 1) {
       sum += getItems[index].price;
