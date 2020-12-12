@@ -127,9 +127,9 @@ async function handleFetchAndRenderProducts() {
   });
 }
 
-window.onload = function onload() {
+window.onload = async function onload() {
   createLoading();
-  handleFetchAndRenderProducts();
+  await handleFetchAndRenderProducts();
   bindCartFullClearEvent();
   getLocalStorage();
   updateTotalPrice();
