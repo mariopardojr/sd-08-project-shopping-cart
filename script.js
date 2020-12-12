@@ -1,7 +1,7 @@
 const initLoading = () => {
   const loading = document.createElement('span');
   loading.className = 'loading';
-  loading.innerText = 'Loading...';
+  loading.innerText = 'Carregando...';
   const parent = document.querySelector('.items');
   parent.appendChild(loading);
 };
@@ -15,7 +15,7 @@ const endLoading = () => {
 
 const totalPrice = (sum) => {
   const total = document.querySelector('.total-price');
-  total.innerHTML = sum;
+  total.innerHTML = sum.toFixed(2);
 };
 
 async function getPrice() {
