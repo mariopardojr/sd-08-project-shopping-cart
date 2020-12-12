@@ -7,19 +7,19 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function createCustomElement(element, className, innerText) {
-  if (element === 'button') {
-    const e = document.createElement(element);
-    e.className = className;
-    e.innerText = innerText;
-    e.addEventListener('click', selectItem);
-    return e;
-  }
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-}
+// function createCustomElement(element, className, innerText) {
+//   if (element === 'button') {
+//     const e = document.createElement(element);
+//     e.className = className;
+//     e.innerText = innerText;
+//     e.addEventListener('click', selectItem);
+//     return e;
+//   }
+//   const e = document.createElement(element);
+//   e.className = className;
+//   e.innerText = innerText;
+//   return e;
+// }
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -78,6 +78,20 @@ function selectItem(click) {
     const parentNodeFirstChildId = click.target.parentNode.firstChild.innerText;
     addItemToCart(parentNodeFirstChildId);
   }
+}
+
+function createCustomElement(element, className, innerText) {
+  if (element === 'button') {
+    const e = document.createElement(element);
+    e.className = className;
+    e.innerText = innerText;
+    e.addEventListener('click', selectItem);
+    return e;
+  }
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
 }
 
 function fetchAPI(url) {
