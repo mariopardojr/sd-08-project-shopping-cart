@@ -20,7 +20,7 @@ const totalPrice = (sum) => {
 
 const getPrice = () => {
   let sum = 0;
-  const getItems = JSON.parse(localStorage.getItem('cartML'));
+  const getItems = JSON.parse(localStorage.getItem('cart'));
   if (getItems) {
     for (let index = 0; index < getItems.length; index += 1) {
       sum += getItems[index].price;
@@ -31,7 +31,7 @@ const getPrice = () => {
 
 const saveStorage = (id, title, price) => {
   if (Storage) {
-    const getItems = JSON.parse(localStorage.getItem('cartML'));
+    const getItems = JSON.parse(localStorage.getItem('cart'));
     const arrayItems = (getItems === null ? [] : getItems);
     arrayItems.push({ id, title, price });
     localStorage.setItem('cartML', JSON.stringify(arrayItems));
@@ -40,14 +40,14 @@ const saveStorage = (id, title, price) => {
 };
 
 const removeStorage = (sku) => {
-  const arrayItems = JSON.parse(localStorage.getItem('cartML'));
+  const arrayItems = JSON.parse(localStorage.getItem('cart'));
   for (let index = 0; index < arrayItems.length; index += 1) {
     if (arrayItems[index].id === sku) {
       arrayItems.splice(index, 1);
       break;
     }
   }
-  localStorage.setItem('cartML', JSON.stringify(arrayItems));
+  localStorage.setItem('cart', JSON.stringify(arrayItems));
   getPrice();
 };
 
@@ -86,7 +86,7 @@ const emptyCart = () => {
 
 const getLocalStorage = () => {
   if (Storage) {
-    const getProducts = JSON.parse(localStorage.getItem('cartML'));
+    const getProducts = JSON.parse(localStorage.getItem('cart'));
     arrayItems = (getProducts === null ? [] : getProducts);
     arrayItems.forEach((element) => {
       const itemProduct = createCartItemElement(element);
