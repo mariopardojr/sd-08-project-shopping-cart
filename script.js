@@ -34,8 +34,12 @@ const recoverCart = () => {
 };
 // ---------------------------------------------------------
 
+const takePrice = (itemTitle) =>
+  parseFloat(itemTitle.split('PRICE: $')[1]);
+
 function cartItemClickListener(event) {
   event.target.remove();
+  sumCartTotal(takePrice(event.target.innerText), '-');
   saveCartInLocalStorage();
 }
 
@@ -47,11 +51,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-// // REQ 5: Summing cart's total
-// const sumCartTotal = async () => {
-//   document.querySelectorAll('li.cart__item')
-//     .forEach()
-// };
+// REQ 5: Summing cart's total
+const sumCartTotal = async (price, operator) => {
+  const priceField = document.querySelector('span.total-price');
+  operator === '+' ?
+  priceField.innerText = parseFloat(priceField.innerText) + price :
+  priceField.innerText = parseFloat(priceField.innerText) - price;
+};
 
 // REQ 2: Adding listener to Fetch product's info and append it to the cart list
 const addToCartListener = (event) => {
@@ -66,6 +72,7 @@ const addToCartListener = (event) => {
         salePrice: price,
       };
       cartItems.appendChild(createCartItemElement(obj));
+      sumCartTotal(price, '+')
       saveCartInLocalStorage();
     });
 };
