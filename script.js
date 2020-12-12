@@ -1,4 +1,11 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  if(localStorage !== null){
+    const itemsLocalStorage = Object.keys(localStorage);
+    itemsLocalStorage.forEach(id => {
+      addItemChartLocalStorade(id);
+    })
+  }
+ };
 const query = 'computador';
 const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
 
@@ -20,11 +27,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+async function cartItemClickListener(e) {
+  
+ 
   // coloque seu código aqui
   const containerChart = document.querySelector('.cart__items');
-  const item = event.target;
+  // const consultaItem = await fetch(`https://api.mercadolibre.com/items/${itemId}`)
+    // .then(response => response.json())
+    // .then(data => data);
+  const item = e.target;
   containerChart.removeChild(item);
+  itemId = item.id
+  localStorage.removeItem(itemId)
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -35,6 +49,18 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+async function addItemChartLocalStorade(id) {
+  const containerChart = document.querySelector('.cart__items');
+  const consultaItem = await fetch(`https://api.mercadolibre.com/items/${id}`)
+    .then(response => response.json())
+    .then(data => data);
+  const { id: sku, title: name, price: salePrice } = consultaItem;
+  const chartItem = createCartItemElement({ sku, name, salePrice });
+  chartItem.id = sku
+  containerChart.appendChild(chartItem);
+  localStorage.setItem(sku, name);
+}
+
 async function addItemChart(e) {
   const itemId = e.target.parentNode.firstChild.innerText;
   const containerChart = document.querySelector('.cart__items');
@@ -43,7 +69,9 @@ async function addItemChart(e) {
     .then(data => data);
   const { id: sku, title: name, price: salePrice } = consultaItem;
   const chartItem = createCartItemElement({ sku, name, salePrice });
+  chartItem.id = sku
   containerChart.appendChild(chartItem);
+  localStorage.setItem(sku, name);
 }
 
 function createProductItemElement({ sku, name, image }) {
