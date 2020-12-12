@@ -94,17 +94,16 @@ const createProductList = async (product) => {
       return response.json();
     })
       .then(data => data.results);
-  setTimeout(() => {
-    const itemsContainer = document.querySelector('.items');
-    document.querySelector('.loading').outerHTML = '';
-    itemsList.forEach(({ id, title, thumbnail }) => {
-      itemsContainer.appendChild(createProductItemElement({
-        sku: id,
-        name: title,
-        image: thumbnail,
-      }));
-    });
-  }, 1000);
+
+  setTimeout(() => (document.querySelector('.loading').outerHTML = ''), 500);
+  const itemsContainer = document.querySelector('.items');
+  itemsList.forEach(({ id, title, thumbnail }) => {
+    itemsContainer.appendChild(createProductItemElement({
+      sku: id,
+      name: title,
+      image: thumbnail,
+    }));
+  });
 };
 
 const addToCart = async (id) => {
