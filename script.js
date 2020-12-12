@@ -38,7 +38,7 @@ function limpacarrinho() {
     const pegaol = document.querySelectorAll('.cart__items');
     if (pegaol.length > 0) pegaol.forEach(li => li.remove());
   });
-};
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
