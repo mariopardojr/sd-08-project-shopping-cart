@@ -65,9 +65,9 @@ function createCartItemElement({ sku, name, salePrice }) {
 const buttonClear = () => {
   const button = document.querySelector('.empty-cart');
   const ol = document.querySelector('ol');
-  button.addEventListener('click', function() {
+  button.addEventListener('click', () => {
     const li = document.querySelectorAll('.cart__item');
-    for (let index=0; index<li.length; index++) {
+    for (let index = 0; index<li.length; index ++) {
       ol.removeChild(li[index]);
     }
   });
