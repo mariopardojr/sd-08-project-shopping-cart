@@ -32,7 +32,11 @@ const createProductItemElement = ({ sku, name, image }) => {
 
 const getSkuFromProductItem = item => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = event => {};
+const cartItemClickListener = (event) => {
+  if (event.target.classList.contains('cart__item')) {
+    document.querySelector('.cart__items').removeChild(event.target);
+  };
+};
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
