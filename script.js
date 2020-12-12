@@ -21,7 +21,7 @@ function updateTotalPrice() {
   const priceElement = document.querySelector('.total-price');
   let price = 0;
   cart.childNodes.forEach((li) => {
-    price += getItemPrice(li)
+    price += getItemPrice(li);
   });
   priceElement.innerText = price;
 }
