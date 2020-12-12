@@ -18,11 +18,29 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// REQ 4: Saving and recovering cart list from local storage
+// REQ 5: Summing up cart's total
+const calculateCartTotal = async (price, operator) => {
+  const priceField = document.querySelector('span.total-price');
+  if (operator === '+') {
+    priceField.innerText = (parseFloat(priceField.innerText) + price).toFixed(2);
+  } else {
+    priceField.innerText = (parseFloat(priceField.innerText) - price).toFixed(2);
+  }
+};
+// ------------------------------------------------
+
 const saveCartInLocalStorage = () => {
   const cartItems = document.querySelector('ol.cart__items');
   localStorage.cartList = cartItems.innerHTML;
 };
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  const takePrice = itemTitle =>
+    parseFloat(itemTitle.split('PRICE: $')[1]);
+  calculateCartTotal(takePrice(event.target.innerText), '-');
+  saveCartInLocalStorage();
+}
 
 const recoverCart = () => {
   if (localStorage.cartList) {
@@ -32,16 +50,6 @@ const recoverCart = () => {
     itemsRecovered.forEach(item => item.addEventListener('click', cartItemClickListener));
   }
 };
-// ---------------------------------------------------------
-
-const takePrice = (itemTitle) =>
-  parseFloat(itemTitle.split('PRICE: $')[1]);
-
-function cartItemClickListener(event) {
-  event.target.remove();
-  sumCartTotal(takePrice(event.target.innerText), '-');
-  saveCartInLocalStorage();
-}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -50,14 +58,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
-// REQ 5: Summing cart's total
-const sumCartTotal = async (price, operator) => {
-  const priceField = document.querySelector('span.total-price');
-  operator === '+' ?
-  priceField.innerText = parseFloat(priceField.innerText) + price :
-  priceField.innerText = parseFloat(priceField.innerText) - price;
-};
 
 // REQ 2: Adding listener to Fetch product's info and append it to the cart list
 const addToCartListener = (event) => {
@@ -72,7 +72,7 @@ const addToCartListener = (event) => {
         salePrice: price,
       };
       cartItems.appendChild(createCartItemElement(obj));
-      sumCartTotal(price, '+')
+      calculateCartTotal(price, '+');
       saveCartInLocalStorage();
     });
 };
