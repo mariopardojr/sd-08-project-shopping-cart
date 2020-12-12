@@ -1,8 +1,7 @@
 
 const query = 'computador';
 const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
-const idItem = '0';
-const buscaItem = (idItem) => fetch(`https://api.mercadolibre.com/items/${idItem}`)
+const buscaItem = id => fetch(`https://api.mercadolibre.com/items/${id}`)
 .then(response => response.json())
 .then(data => data);
 
@@ -46,7 +45,7 @@ async function addItemChart(e) {
   const consultaItem = await buscaItem(idItem);
   const { id: sku, title: name, price: salePrice } = consultaItem;
   const chartItem = createCartItemElement({ sku, name, salePrice });
-  chartItem.id = sku
+  chartItem.id = sku;
   containerChart.appendChild(chartItem);
   localStorage.setItem(sku, name);
 }
