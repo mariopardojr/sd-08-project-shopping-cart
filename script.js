@@ -102,6 +102,15 @@ const getButtonOfAddToCart = (e) => {
 
 window.addEventListener('click', getButtonOfAddToCart);
 
+const emptyCart = () => {
+  const getAllLi = document.querySelectorAll('.cart__item');
+  getAllLi.forEach((li) => {
+    li.remove();
+    localStorage.clear();
+  });
+}
+
+
 const getItensFromLocalStorage = () => {
   const itensOnLocalStorage = localStorage.getItem('Itens');
   const getOl = document.querySelector('.cart__items');
@@ -112,4 +121,6 @@ const getItensFromLocalStorage = () => {
 window.onload = async function onload() {
   getItens('computador');
   getItensFromLocalStorage();
+  const getButtonToEmptyCart = document.querySelector('.empty-cart');
+  getButtonToEmptyCart.addEventListener('click', emptyCart);
 };
