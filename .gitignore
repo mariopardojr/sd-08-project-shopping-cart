@@ -13,5 +13,6 @@ corrigir
 .prettierignore
 .eslintignore
 cypress/
-cypress.json
+*.json
 forestadmin
+*.xml
