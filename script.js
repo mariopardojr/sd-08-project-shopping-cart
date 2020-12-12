@@ -24,13 +24,8 @@ function createProductItemElement({ sku, name, image }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-function cartItemClickListener() {
-  document.querySelectorAll('.cart__item').forEach((element) => {
-    element.addEventListener('click', (event) => {
-      const elementEvent = event.target;
-      elementEvent.remove();
-    });
-  });
+function cartItemClickListener(event) {
+  event.target.remove();
 }
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -81,6 +76,5 @@ function rightContentClear() {
 window.onload = async function onload() {
   await FetchMercadoLibreProduct('computador');
   await addCart();
-  await cartItemClickListener();
   await rightContentClear();
 };
