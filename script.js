@@ -93,6 +93,12 @@ const loadLocalStorage = () => {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('products');
 };
 
+document.querySelector('.empty-cart').addEventListener('click', () => {
+  localStorage.clear();
+
+  document.querySelector('.cart__items').innerHTML = '';
+});
+
 window.onload = function onload() {
   listAllProducts();
   loadLocalStorage();
