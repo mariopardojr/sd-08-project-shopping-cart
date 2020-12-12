@@ -18,7 +18,7 @@ const totalPrice = (sum) => {
   total.innerHTML = sum;
 };
 
-async function getPrice () {
+async function getPrice() {
   let sum = 0;
   const getItems = await JSON.parse(localStorage.getItem('cart'));
   if (getItems) {
@@ -27,7 +27,7 @@ async function getPrice () {
     }
   }
   totalPrice(sum);
-};
+}
 
 const saveStorage = (id, title, price) => {
   if (Storage) {
@@ -77,7 +77,7 @@ const clearCart = () => {
   items.innerHTML = '';
   localStorage.clear();
   getPrice();
-}
+};
 
 const emptyCart = () => {
   const emptyButton = document.querySelector('.empty-cart');
