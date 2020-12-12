@@ -10,12 +10,12 @@ const endLoading = () => {
   setTimeout(() => {
     const parent = document.querySelector('.items');
     parent.removeChild(parent.firstChild);
-  }, 3000);
+  }, 2000);
 };
 
 const totalPrice = (sum) => {
   const total = document.querySelector('.total-price');
-  total.innerHTML = sum.toFixed(2);
+  total.innerHTML = sum;
 };
 
 const getPrice = () => {
@@ -27,7 +27,7 @@ const getPrice = () => {
     }
   }
   totalPrice(sum);
-}
+};
 
 const saveStorage = (id, title, price) => {
   if (Storage) {
@@ -62,7 +62,7 @@ const createCartItemElement = ({ id: sku, title: name, price: salePrice }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.id = sku;
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: R$${salePrice.toFixed(2)}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: R$${salePrice}`;
   return li;
 };
 
