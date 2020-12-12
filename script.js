@@ -77,7 +77,7 @@ function clearCart() {
   items.innerHTML = '';
   localStorage.clear();
   getPrice();
-};
+}
 
 const emptyCart = () => {
   const emptyButton = document.querySelector('.empty-cart');
