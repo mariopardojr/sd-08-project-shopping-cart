@@ -103,17 +103,16 @@ const pegaINFO = () => {
     })
 }
 
-const adicionarCarrinho = () => {
-  document.querySelectorAll(".items").forEach(element => element.addEventListener("click", event => {
-    const passapar = pegaidproduto(event.target.parentNode);
-    fetchProduct(passapar)
-  }))
-}
-
 const fetchProduct = (productid) => {
   fetch(`https://api.mercadolibre.com/items/${productid}`)
 }
 
+const adicionarCarrinho = () => {
+  document.querySelectorAll('.items').forEach(element => element.addEventListener("click", event => {
+    const passapar = pegaidproduto(event.target.parentNode);
+    fetchProduct(passapar);
+  }))
+}
 
 window.onload = function onload() {
   pegaINFO();
