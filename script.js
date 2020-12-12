@@ -11,7 +11,7 @@ function createCustomElement(element, className, innerText) {
   e.innerText = innerText;
   return e;
 }
-
+createCartItemElement('','','')
 const addId = async (event) => {
   const id = event.target.parentNode.firstChild.innerText;
   const product = await fetch(`https://api.mercadolibre.com/items/${id}`)
