@@ -108,7 +108,7 @@ const emptyCart = () => {
     li.remove();
     localStorage.clear();
   });
-}
+};
 
 
 const getItensFromLocalStorage = () => {
