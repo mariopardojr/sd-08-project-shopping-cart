@@ -55,7 +55,7 @@ const cartUpdate = async () => {
       localStorage.setItem(indexList, JSON.stringify(infos));
     }
   }
-  await totalPrice();
+  setTimeout(() => totalPrice(), 1000);
 };
 
 async function cartItemClickListener(evtLi) {
@@ -123,6 +123,6 @@ const recoveryCart = async () => {
 window.onload = async function onload() {
   await createProductList('computador');
   itemBtnFunction();
-  await recoveryCart();
+  recoveryCart();
   await totalPrice();
 };
