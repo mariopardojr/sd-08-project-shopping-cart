@@ -1,23 +1,10 @@
-window.onload = function onload() {
-  async function addItemChartLocalStorade(id) {
-    const containerChart = document.querySelector('.cart__items');
-    const consultaItemLocal = await fetch(`https://api.mercadolibre.com/items/${id}`)
-      .then(responseLocal => responseLocal.json())
-      .then(dataLocal => dataLocal);
-    const { id: sku, title: name, price: salePrice } = consultaItem;
-    const chartItem = createCartItemElement({ sku, name, salePrice });
-    chartItem.id = sku
-    containerChart.appendChild(chartItem);
-    localStorage.setItem(sku, name);
-  }
 
-  if (localStorage !== null) {
-    const itemsLocalStorage = Object.keys(localStorage);
-    itemsLocalStorage.forEach(id => addItemChartLocalStorade(id))
-  }
-};
 const query = 'computador';
 const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
+const idItem = '0';
+const buscaItem = (idItem) => fetch(`https://api.mercadolibre.com/items/${idItem}`)
+.then(response => response.json())
+.then(data => data);
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -54,11 +41,9 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 async function addItemChart(e) {
-  const itemId = e.target.parentNode.firstChild.innerText;
+  const idItem = e.target.parentNode.firstChild.innerText;
   const containerChart = document.querySelector('.cart__items');
-  const consultaItem = await fetch(`https://api.mercadolibre.com/items/${itemId}`)
-    .then(response => response.json())
-    .then(data => data);
+  const consultaItem = await buscaItem(idItem);
   const { id: sku, title: name, price: salePrice } = consultaItem;
   const chartItem = createCartItemElement({ sku, name, salePrice });
   chartItem.id = sku
@@ -89,3 +74,20 @@ const newFetch = async () => {
   });
 };
 newFetch();
+
+window.onload = function onload() {
+  async function addItemChartLocalStorade(idItem) {
+    const containerChart = document.querySelector('.cart__items');
+    const consultaItem = await buscaItem(idItem);
+    const { id: sku, title: name, price: salePrice } = consultaItem;
+    const chartItem = createCartItemElement({ sku, name, salePrice });
+    chartItem.id = sku;
+    containerChart.appendChild(chartItem);
+    localStorage.setItem(sku, name);
+  }
+
+  if (localStorage !== null) {
+    const itemsLocalStorage = Object.keys(localStorage);
+    itemsLocalStorage.forEach(id => addItemChartLocalStorade(id));
+  }
+};
