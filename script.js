@@ -7,45 +7,13 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-// function createCustomElement(element, className, innerText) {
-//   if (element === 'button') {
-//     const e = document.createElement(element);
-//     e.className = className;
-//     e.innerText = innerText;
-//     e.addEventListener('click', selectItem);
-//     return e;
-//   }
-//   const e = document.createElement(element);
-//   e.className = className;
-//   e.innerText = innerText;
-//   return e;
-// }
-
-// function createProductItemElement({ sku, name, image }) {
-//   const section = document.createElement('section');
-//   section.className = 'item';
-
-//   section.appendChild(createCustomElement('span', 'item__sku', sku));
-//   section.appendChild(createCustomElement('span', 'item__title', name));
-//   section.appendChild(createProductImageElement(image));
-//   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
-//   return section;
-// }
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui VQV
-  // if (event.target.classList.contains('selected')) {
-  //   event.target.classList.remove('selected');
-  //   // removeItemFromCart();
-  // } else {
-  //   event.target.classList.add('selected');
-  // }
-  // addItemToCart(event.target.sku);
+  event.target.className = 'removeOnClick';
+  document.querySelector('.cart__items').removeChild(document.querySelector('.removeOnClick'));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -71,14 +39,12 @@ function addItemToCart(targetItemId) {
 }
 
 function selectItem(click) {
-  if (click.target.classList.contains('selected')) {
-    click.target.classList.remove('selected');
-  } else {
     click.target.classList.add('selected');
     const parentNodeFirstChildId = click.target.parentNode.firstChild.innerText;
     addItemToCart(parentNodeFirstChildId);
-  }
+    click.target.classList.remove('selected');
 }
+
 
 function createCustomElement(element, className, innerText) {
   if (element === 'button') {
