@@ -63,11 +63,14 @@ const productList = data =>
         name: title,
         image: thumbnail,
       })));
+const removeLoadMessageElement = () => document.querySelector('span.loading').remove();
 const FetchMercadoLibreProduct = async (item) => {
   const response = await fetch(
     `https://api.mercadolibre.com/sites/MLB/search?q=$${item}`);
   const data = await response.json();
+
   productList(data.results);
+  await removeLoadMessageElement();
 };
 const FetchMercadoLibrePrice = async (item) => {
   const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
