@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  listAllProducts();
-};
-
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -82,3 +78,7 @@ document.querySelector('.items').addEventListener('click', (event) => {
       .catch(err => console.error(err));
   }
 });
+
+window.onload = function onload() {
+  listAllProducts();
+};
