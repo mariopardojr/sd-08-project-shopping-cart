@@ -15,7 +15,7 @@ const endLoading = () => {
 
 const totalPrice = (sum) => {
   const total = document.querySelector('.total-price');
-  total.innerHTML = sum.toFixed(2);
+  total.innerHTML = sum;
 };
 
 async function getPrice() {
