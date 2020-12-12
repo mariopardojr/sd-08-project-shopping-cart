@@ -15,7 +15,7 @@ function createCustomElement(element, className, innerText) {
 }
 
 const saveCart = () => {
-  localStorage.setItem('cartList', document.getElementsByClassName('cart__items')[0].innerHTML);
+  localStorage.setItem('cartList', document.getElementById('cart__items').innerHTML);
   localStorage.setItem('totalPrice', document.getElementById('price').innerHTML);
 };
 
@@ -59,7 +59,7 @@ function createProductItemElement({ sku, name, image }) {
         salePrice: data.price,
       };
       const cartItem = createCartItemElement(product);
-      document.getElementsByClassName('cart__items')[0].appendChild(cartItem);
+      document.getElementById('cart__items').appendChild(cartItem);
       sumPrice(data.price);
       saveCart();
     });
@@ -68,9 +68,9 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
 
 function createProductItemList(QUERY) {
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`)
@@ -82,8 +82,10 @@ function createProductItemList(QUERY) {
           name: item.title,
           image: item.thumbnail,
         };
+        document.getElementById('items').innerHTML = document.getElementById('items').innerHTML.replace('loading...', '');
+        console.log(document.getElementById('items').innerText.split('...'));
         document
-          .getElementsByClassName('items')[0]
+          .getElementById('items')
           .appendChild(createProductItemElement(features));
       }),
     );
@@ -96,7 +98,7 @@ window.onload = () => {
     document.getElementById('price').innerHTML = 0;
     saveCart();
   });
-  document.getElementsByClassName('cart__items')[0].innerHTML = localStorage.cartList;
+  document.getElementById('cart__items').innerHTML = localStorage.cartList;
   const cartSaved = document.getElementsByClassName('cart__item');
   for (let index = 0; index < cartSaved.length; index += 1) {
     cartSaved[index].addEventListener('click', cartItemClickListener);
