@@ -7,11 +7,27 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function addItemToCart(targetItemId) {
+  fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
+    .then(response => response.json())
+    .then(data => { 
+      const { id, title, price } = data;
+      const selectedItemObject = {
+        sku: id,
+        name: title,
+        salePrice: price
+      };
+      document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
+    });
+}
+
 function selectItem(click) {
   if (click.target.classList.contains('selected')) {
     click.target.classList.remove('selected');
   } else {
     click.target.classList.add('selected');
+    const parentNodeFirstChildId = click.target.parentNode.firstChild.innerText;
+    addItemToCart(parentNodeFirstChildId);
   }
 }
 
@@ -44,12 +60,6 @@ function createProductItemElement({ sku, name, image }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
-// function addItemToCart(targetItemId) {
-//   fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
-//     .then(response => response.json())
-//     .then(data => data)
-// }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui VQV
