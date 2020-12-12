@@ -56,6 +56,14 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+const totalPrice = (price) => {
+  let total = document.querySelector('.total-price').innerText;
+  let totalF = parseFloat(total);
+  let priceF = parseFloat(price);
+  totalF += priceF;
+  document.querySelector('.total-price').innerText = totalF;
+}
+
 const getItens = async (computador) => {
   await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${computador}#json`)
     .then((response) => {
@@ -87,6 +95,7 @@ const getItemById = async (ItemID) => {
           const salePrice = pratala.price;
           const item = createCartItemElement({ sku, name, salePrice });
           createItemOnCart(item);
+          totalPrice(salePrice);
           saveCartItemToLocalStorage();
           return false;
         });
