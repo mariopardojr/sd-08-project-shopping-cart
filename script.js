@@ -31,7 +31,9 @@ const calculateCartTotal = async (price, operator) => {
 
 const saveCartInLocalStorage = () => {
   const cartItems = document.querySelector('ol.cart__items');
+  const cartsTotal = document.querySelector('span.total-price');
   localStorage.cartList = cartItems.innerHTML;
+  localStorage.cartsTotal = cartsTotal.innerHTML;
 };
 
 function cartItemClickListener(event) {
@@ -45,7 +47,9 @@ function cartItemClickListener(event) {
 const recoverCart = () => {
   if (localStorage.cartList) {
     const cartItems = document.querySelector('ol.cart__items');
+    const cartsTotal = document.querySelector('span.total-price');
     cartItems.innerHTML = localStorage.cartList;
+    cartsTotal.innerText = localStorage.cartsTotal;
     const itemsRecovered = document.querySelectorAll('li.cart__item');
     itemsRecovered.forEach(item => item.addEventListener('click', cartItemClickListener));
   }
