@@ -32,6 +32,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  saverList();
   return li;
 }
 const productList = data =>
@@ -55,6 +56,7 @@ const FetchMercadoLibrePrice = async (item) => {
   document
     .querySelector('.cart__items')
     .appendChild(createCartItemElement(cart));
+  saverList();
 };
 const addCart = () => {
   document.querySelectorAll('.item__add').forEach(element => element.addEventListener('click', ({ target }) => {
@@ -66,14 +68,27 @@ function rightContentClear() {
   document
     .querySelector('.empty-cart')
     .addEventListener('click', () => {
-      const getRightContent = document.querySelector('.cart__items');
+      const getRightContent = document.querySelector('ol.cart__items');
       while (getRightContent.hasChildNodes()) {
         getRightContent.removeChild(getRightContent.firstChild);
       }
+      saverList();
     });
 }
 
+function saverList() {
+  localStorage.clear();
+  localStorage.setItem('cartList', document.querySelector('ol.cart__items').innerHTML);
+}
+function loadList() {
+  const storageLoad = localStorage.getItem('cartList');
+  if (storageLoad) {
+    document.querySelector('ol.cart__items').innerHTML = storageLoad;
+  }
+}
+
 window.onload = async function onload() {
+  loadList();
   await FetchMercadoLibreProduct('computador');
   await addCart();
   await rightContentClear();
