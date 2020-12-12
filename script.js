@@ -35,25 +35,26 @@ const createElementTotal = (value = 0) => {
 };
 
 const totalPrice = async () => {
-  const storagedItems = [];
-  Object.keys(localStorage).forEach((key) => {
-    storagedItems.push(localStorage.getItem(key));
-  });
-  const listPrice = storagedItems.map(item => JSON.parse(item)[1]);
-  const sum = listPrice.reduce((acc, curr) => (parseFloat(acc) + parseFloat(curr)), 0);
-  createElementTotal(sum);
+  const storagedCart = localStorage.getItem('cart');
+  if (typeof storagedCart === 'string') {
+    const storagedItems = JSON.parse(storagedCart);
+    const listPrice = storagedItems.map(item => Object.values(item)[0]);
+    const sum = listPrice.reduce((acc, curr) => (parseFloat(acc) + parseFloat(curr)), 0);
+    createElementTotal(sum);
+  } else {
+    createElementTotal();
+  }
 };
 
 const cartUpdate = async () => {
   localStorage.clear();
+  const infos = [];
   const cartList = document.querySelectorAll('.cart__item');
   if (cartList.length > 0) {
     for (let indexList = 0; indexList < cartList.length; indexList += 1) {
-      const infos = [];
-      infos.push(cartList[indexList].classList[1]);
-      infos.push(cartList[indexList].classList[2]);
-      localStorage.setItem(indexList, JSON.stringify(infos));
+      infos.push({ [cartList[indexList].classList[1]]: cartList[indexList].classList[2] });
     }
+    localStorage.setItem('cart', JSON.stringify(infos));
   }
   setTimeout(() => totalPrice(), 1000);
 };
@@ -110,14 +111,11 @@ const itemBtnFunction = () => {
 };
 
 const recoveryCart = async () => {
-  const listRecoveredKeys = Object.keys(localStorage);
-  const listRecoveredValues = [];
-  listRecoveredKeys.forEach(key => listRecoveredValues.push(localStorage.getItem(key)));
-  const listRecoveredIds = [];
-  listRecoveredValues.forEach(value => listRecoveredIds.push(JSON.parse(value)));
-  listRecoveredIds.forEach(async (id) => {
-    await addToCart(id[0]);
-  });
+  const cartRecovered = localStorage.getItem('cart');
+  if (typeof cartRecovered === 'string') {
+    const cartItemsRecovred = JSON.parse(cartRecovered);
+    cartItemsRecovred.forEach(item => addToCart(Object.keys(item)[0]));
+  }
 };
 
 window.onload = async function onload() {
