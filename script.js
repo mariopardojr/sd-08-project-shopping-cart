@@ -64,15 +64,21 @@ const cartUpdate = async () => {
   setTimeout(() => totalPrice(), 1000);
 };
 
-async function cartItemClickListener(evtLi) {
+function cartItemClickListener(evtLi) {
   const evt = evtLi;
-  evt.target.outerHTML = '';
-  await cartUpdate();
+  if (evt.target.nodeName === 'LI') {
+    evt.target.outerHTML = '';
+  } else if (evt.target.parentElement.nodeName === 'LI') {
+    evt.target.parentElement.outerHTML = '';
+  } else if (evt.target.parentElement.parentElement.nodeName === 'LI') {
+    evt.target.parentElement.parentElement.outerHTML = '';
+  }
+  cartUpdate();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
-  li.innerHTML = 'SKU: <span class="sku"></span> | NAME: <span class="name"></span> | PRICE: $<span class="salePrice"></span>';
+  li.innerHTML = '<p>SKU: <span class="sku"></span> | NAME: <span class="name"></span> | PRICE: $<span class="salePrice"></span></p>';
   li.className = 'cart__item';
   li.querySelector('.sku').innerText = sku;
   li.querySelector('.name').innerText = name;
@@ -133,5 +139,5 @@ window.onload = async function onload() {
   recoveryCart();
   await createProductList('computador');
   itemBtnFunction();
-  await totalPrice();
+  setTimeout(() => totalPrice(), 1000);
 };
