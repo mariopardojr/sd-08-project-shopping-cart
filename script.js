@@ -18,9 +18,9 @@ function getItemPrice(item) {
 
 function updateTotalPrice() {
   const cart = document.querySelector('.cart__items');
-  const priceTag = document.querySelector('.total-price');
-  let price = cart.childNodes.reduce((acc, li) => acc + getItemPrice(li), 0);
-  priceTag.innerText = price;
+  const priceElement = document.querySelector('.total-price');
+  const price = cart.childNodes.reduce((acc, li) => acc + getItemPrice(li), 0);
+  priceElement.innerText = price;
 }
 
 function saveLocalStorage() {
