@@ -13,6 +13,7 @@ function createCustomElement(element, className, innerText) {
 }
 
 function cartItemClickListener(event) {
+  const cartItems = document.querySelector('.cart__items');
   cartItems.removeChild(event.target);
 }
 
