@@ -52,7 +52,7 @@ const cartUpdate = async () => {
   const cartList = document.querySelectorAll('.cart__item');
   if (cartList.length > 0) {
     cartList.forEach((item) => {
-      const itemChildren = item.querySelectorAll('span');
+      const itemChildren = item.querySelectorAll('div');
       const itemsPack = {};
       itemChildren.forEach(itemChild => Object.assign(itemsPack, ({
         [`${itemChild.className}`]: `${itemChild.innerText}`,
@@ -74,17 +74,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${parseFloat(salePrice)}`;
-  const spanLiSku = document.createElement('span');
+  const spanLiSku = document.createElement('div');
   spanLiSku.className = 'sku';
   spanLiSku.innerText = sku;
   spanLiSku.style.display = 'none';
   li.appendChild(spanLiSku);
-  const spanLiName = document.createElement('span');
+  const spanLiName = document.createElement('div');
   spanLiName.className = 'name';
   spanLiName.innerText = name;
   spanLiName.style.display = 'none';
   li.appendChild(spanLiName);
-  const spanLiPrice = document.createElement('span');
+  const spanLiPrice = document.createElement('div');
   spanLiPrice.className = 'salePrice';
   spanLiPrice.innerText = salePrice;
   spanLiPrice.style.display = 'none';
