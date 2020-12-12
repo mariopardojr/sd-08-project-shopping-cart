@@ -73,6 +73,11 @@ const getApiList = () => {
     });
 };
 
+const setLocalStorage = () => {
+  const getCartItemList = localStorage.setItem('list', createCartItemElement());
+  console.log(getCartItemList);
+};
+
 window.onload = function onload() {
   getApiList();
 };
