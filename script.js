@@ -7,16 +7,6 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function selectItem(click) {
-  if (click.target.classList.contains('selected')) {
-    click.target.classList.remove('selected');
-  } else {
-    click.target.classList.add('selected');
-    const parentNodeFirstChildId = click.target.parentNode.firstChild.innerText;
-    addItemToCart(parentNodeFirstChildId);
-  }
-}
-
 function createCustomElement(element, className, innerText) {
   if (element === 'button') {
     const e = document.createElement(element);
@@ -80,6 +70,16 @@ function addItemToCart(targetItemId) {
     });
 }
 
+function selectItem(click) {
+  if (click.target.classList.contains('selected')) {
+    click.target.classList.remove('selected');
+  } else {
+    click.target.classList.add('selected');
+    const parentNodeFirstChildId = click.target.parentNode.firstChild.innerText;
+    addItemToCart(parentNodeFirstChildId);
+  }
+}
+
 function fetchAPI(url) {
   fetch(url)
     .then(response => response.json())
@@ -93,4 +93,4 @@ function fetchAPI(url) {
     }));
 }
 
-window.onload = function onload() { fetchAPI(API_URL) };
+window.onload = function onload() { fetchAPI(API_URL); };
