@@ -1,4 +1,4 @@
-window.onload = function onload() { };
+const API_URL = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -7,7 +7,22 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function selectItem(click) {
+  if (click.target.classList.contains('selected')) {
+    click.target.classList.remove('selected');
+  } else {
+    click.target.classList.add('selected');
+  }
+}
+
 function createCustomElement(element, className, innerText) {
+  if (element === 'button') {
+    const e = document.createElement(element);
+    e.className = className;
+    e.innerText = innerText;
+    e.addEventListener('click', selectItem);
+    return e;
+  }
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
@@ -30,8 +45,21 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// function addItemToCart(targetItemId) {
+//   fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
+//     .then(response => response.json())
+//     .then(data => data)
+// }
+
 function cartItemClickListener(event) {
   // coloque seu código aqui VQV
+  if (event.target.classList.contains('selected')) {
+    event.target.classList.remove('selected');
+    // removeItemFromCart();
+  } else {
+    event.target.classList.add('selected');
+  }
+  // addItemToCart(event.target.sku);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -41,3 +69,18 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function fetchAPI(url) {
+  fetch(url)
+    .then(response => response.json())
+    .then(data => data.results.forEach(element => {
+      const elementObject = {
+        sku: element.id,
+        name: element.title,
+        image: element.thumbnail
+      };
+      document.querySelector('.items').appendChild(createProductItemElement(elementObject));
+    }));
+};
+
+window.onload = function onload() { fetchAPI(API_URL) };
