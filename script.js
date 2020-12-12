@@ -1,24 +1,10 @@
-const API_URL = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
+const API_URL = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-}
-
-function addItemToCart(targetItemId) {
-  fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
-    .then(response => response.json())
-    .then(data => { 
-      const { id, title, price } = data;
-      const selectedItemObject = {
-        sku: id,
-        name: title,
-        salePrice: price
-      };
-      document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
-    });
 }
 
 function selectItem(click) {
@@ -63,12 +49,12 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui VQV
-  if (event.target.classList.contains('selected')) {
-    event.target.classList.remove('selected');
-    // removeItemFromCart();
-  } else {
-    event.target.classList.add('selected');
-  }
+  // if (event.target.classList.contains('selected')) {
+  //   event.target.classList.remove('selected');
+  //   // removeItemFromCart();
+  // } else {
+  //   event.target.classList.add('selected');
+  // }
   // addItemToCart(event.target.sku);
 }
 
@@ -80,17 +66,31 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function addItemToCart(targetItemId) {
+  fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
+    .then(response => response.json())
+    .then((data) => {
+      const { id, title, price } = data;
+      const selectedItemObject = {
+        sku: id,
+        name: title,
+        salePrice: price,
+      };
+      document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
+    });
+}
+
 function fetchAPI(url) {
   fetch(url)
     .then(response => response.json())
-    .then(data => data.results.forEach(element => {
+    .then(data => data.results.forEach((element) => {
       const elementObject = {
         sku: element.id,
         name: element.title,
-        image: element.thumbnail
+        image: element.thumbnail,
       };
       document.querySelector('.items').appendChild(createProductItemElement(elementObject));
     }));
-};
+}
 
 window.onload = function onload() { fetchAPI(API_URL) };
