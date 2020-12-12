@@ -11,7 +11,7 @@ function createCustomElement(element, className, innerText) {
   e.innerText = innerText;
   return e;
 }
-createCartItemElement('','','')
+
 const addId = async (event) => {
   const id = event.target.parentNode.firstChild.innerText;
   const product = await fetch(`https://api.mercadolibre.com/items/${id}`)
@@ -56,7 +56,16 @@ function cartItemClickListener(event) {
   ol.removeChild(product);
 }
 
+let soma = 0;
+const h1 = document.querySelector('h1');
+h1.innerHTML = `Preço total: $${soma}`;
+const sum = (preco) => {
+  soma += preco;
+  h1.innerHTML = `Preço total: $ ${soma.toFixed(2)}`; 
+};
+
 function createCartItemElement({ sku, name, salePrice }) {
+  sum (salePrice)
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
@@ -64,10 +73,11 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const buttonClear = () => {
+const buttonClear = () => {  
   const button = document.querySelector('.empty-cart');
   const ol = document.querySelector('ol');
   button.addEventListener('click', () => {
+    h1.innerHTML = 'Preço total: $0';
     const li = document.querySelectorAll('.cart__item');
     for (let index = 0; index < li.length; index += 1) {
       ol.removeChild(li[index]);
