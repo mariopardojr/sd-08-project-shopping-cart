@@ -52,7 +52,7 @@ const cartUpdate = async () => {
   const cartList = document.querySelectorAll('.cart__item');
   if (cartList.length > 0) {
     cartList.forEach((item) => {
-      const itemChildren = item.querySelectorAll('div');
+      const itemChildren = item.querySelectorAll('span');
       const itemsPack = {};
       itemChildren.forEach(itemChild => Object.assign(itemsPack, ({
         [`${itemChild.className}`]: `${itemChild.innerText}`,
@@ -71,24 +71,16 @@ async function cartItemClickListener(evtLi) {
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
+  console.log(sku)
+  console.log(name)
+  console.log(salePrice)
   const li = document.createElement('li');
+  li.innerHTML = `SKU: <span class="sku"></span> | NAME: <span class="name"></span> | PRICE: $<span class="salePrice"></span>`;
+  console.log(li)
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${parseFloat(salePrice)}`;
-  const spanLiSku = document.createElement('div');
-  spanLiSku.className = 'sku';
-  spanLiSku.innerText = sku;
-  spanLiSku.style.display = 'none';
-  li.appendChild(spanLiSku);
-  const spanLiName = document.createElement('div');
-  spanLiName.className = 'name';
-  spanLiName.innerText = name;
-  spanLiName.style.display = 'none';
-  li.appendChild(spanLiName);
-  const spanLiPrice = document.createElement('div');
-  spanLiPrice.className = 'salePrice';
-  spanLiPrice.innerText = salePrice;
-  spanLiPrice.style.display = 'none';
-  li.appendChild(spanLiPrice);
+  li.querySelector('.sku').innerText = sku;
+  li.querySelector('.name').innerText = name;
+  li.querySelector('.salePrice').innerText = salePrice;
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
@@ -111,12 +103,14 @@ const addToCart = async (id) => {
   const getItemInfos = await fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json());
   const { id: sku, title: name, price: salePrice } = getItemInfos;
+  console.log({sku, name, salePrice})
   const itemCart = createCartItemElement({ sku, name, salePrice });
+  console.log(itemCart)
   document.querySelector('.cart__items').appendChild(itemCart);
   await cartUpdate();
 };
 
-const getItemSku = async (evt) => {
+const getItemSku = (evt) => {
   const itemId = getSkuFromProductItem(evt.target.parentElement);
   addToCart(itemId);
 };
