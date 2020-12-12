@@ -113,17 +113,16 @@ const createProductsList = (product) => {
 };
 // ------------------------------------------------------
 const emptyCartListener = () => {
-const emptyCart = () => {
-  const cartItems = document.querySelector('ol.cart__items');
-  const priceField = document.querySelector('span.total-price');
-  cartItems.innerHTML = '';  
-  priceField.innerText = '0.00';
-  saveCartInLocalStorage();
+  const emptyCart = () => {
+    const cartItems = document.querySelector('ol.cart__items');
+    const priceField = document.querySelector('span.total-price');
+    cartItems.innerHTML = '';
+    priceField.innerText = '0.00';
+    saveCartInLocalStorage();
+  };
+  const emptyCartBtn = document.querySelector('button.empty-cart');
+  emptyCartBtn.addEventListener('click', emptyCart);
 };
-
-const emptyCartBtn = document.querySelector('button.empty-cart');
-emptyCartBtn.addEventListener('click', emptyCart);
-}
 
 window.onload = async () => {
   await createProductsList('computador');
