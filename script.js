@@ -71,12 +71,8 @@ async function cartItemClickListener(evtLi) {
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
-  console.log(sku)
-  console.log(name)
-  console.log(salePrice)
   const li = document.createElement('li');
-  li.innerHTML = `SKU: <span class="sku"></span> | NAME: <span class="name"></span> | PRICE: $<span class="salePrice"></span>`;
-  console.log(li)
+  li.innerHTML = 'SKU: <span class="sku"></span> | NAME: <span class="name"></span> | PRICE: $<span class="salePrice"></span>';
   li.className = 'cart__item';
   li.querySelector('.sku').innerText = sku;
   li.querySelector('.name').innerText = name;
@@ -103,9 +99,7 @@ const addToCart = async (id) => {
   const getItemInfos = await fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json());
   const { id: sku, title: name, price: salePrice } = getItemInfos;
-  console.log({sku, name, salePrice})
   const itemCart = createCartItemElement({ sku, name, salePrice });
-  console.log(itemCart)
   document.querySelector('.cart__items').appendChild(itemCart);
   await cartUpdate();
 };
