@@ -19,7 +19,8 @@ function getItemPrice(item) {
 function updateTotalPrice() {
   const cart = document.querySelector('.cart__items');
   const priceElement = document.querySelector('.total-price');
-  const price = cart.childNodes.reduce((acc, li) => acc + getItemPrice(li), 0);
+  let price = 0;
+  cart.childNodes.forEach(li => price += getItemPrice(li));
   priceElement.innerText = price;
 }
 
@@ -124,11 +125,11 @@ async function handleFetchAndRenderProducts() {
   });
 }
 
-window.onload = async function onload() {
+window.onload = function onload() {
   createLoading();
+  handleFetchAndRenderProducts();
   bindCartFullClearEvent();
   getLocalStorage();
   updateTotalPrice();
-  await handleFetchAndRenderProducts();
   removeLoading();
 };
