@@ -71,6 +71,13 @@ function verifyPrice(resultado) {
   });
 }
 
+function loadingPage(section) {
+  const loadTxt = document.createElement('span');
+  loadTxt.innerText = 'loading...';
+  loadTxt.className = 'loading';
+  section.appendChild(loadTxt);
+}
+
 async function getItemsFromApi(url, parent, funcao) {
   return new Promise((resolve) => {
     fetch(url)
@@ -83,6 +90,7 @@ async function getItemsFromApi(url, parent, funcao) {
             resultado = data.results;
             variavel = 'image';
             value = 'thumbnail';
+            parent.removeChild(parent.childNodes[0]);
           }
           resultado.forEach((element) => {
             parent.appendChild(funcao({
@@ -140,6 +148,7 @@ function clearButtonEvent() {
 
 window.onload = async function onload() {
   const sectionItens = document.querySelector('.items');
+  loadingPage(sectionItens);
   await getItemsFromApi('https://api.mercadolibre.com/sites/MLB/search?q=computador', sectionItens, createProductItemElement);
   const allButtons = document.querySelectorAll('.item__add');
   allButtons.forEach((element) => {
