@@ -10,7 +10,7 @@ const endLoading = () => {
   setTimeout(() => {
     const parent = document.querySelector('.items');
     parent.removeChild(parent.firstChild);
-  }, 2000);
+  }, 3000);
 };
 
 const totalPrice = (sum) => {
@@ -18,9 +18,9 @@ const totalPrice = (sum) => {
   total.innerHTML = sum;
 };
 
-const getPrice = () => {
+async function getPrice () {
   let sum = 0;
-  const getItems = JSON.parse(localStorage.getItem('cart'));
+  const getItems = await JSON.parse(localStorage.getItem('cart'));
   if (getItems) {
     for (let index = 0; index < getItems.length; index += 1) {
       sum += getItems[index].price;
@@ -34,7 +34,7 @@ const saveStorage = (id, title, price) => {
     const getItems = JSON.parse(localStorage.getItem('cart'));
     const arrayItems = (getItems === null ? [] : getItems);
     arrayItems.push({ id, title, price });
-    localStorage.setItem('cartML', JSON.stringify(arrayItems));
+    localStorage.setItem('cart', JSON.stringify(arrayItems));
   }
   getPrice();
 };
@@ -62,7 +62,7 @@ const createCartItemElement = ({ id: sku, title: name, price: salePrice }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.id = sku;
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: R$${salePrice}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   return li;
 };
 
@@ -72,7 +72,7 @@ const addToCart = (product) => {
   itemCart.appendChild(product);
 };
 
-function clearCart() {
+const clearCart = () => {
   const items = document.querySelector('.cart__items');
   items.innerHTML = '';
   localStorage.clear();
@@ -144,7 +144,7 @@ const createProductItemElement = ({ id: sku, title: name, thumbnail: image, pric
   return section;
 };
 
-const fetchProducts = () => {
+const fetchApi = () => {
   initLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(resolve => resolve.json())
@@ -156,7 +156,7 @@ const fetchProducts = () => {
 };
 
 window.onload = function onload() {
-  fetchProducts();
+  fetchApi();
   getLocalStorage();
   getPrice();
   emptyCart();
