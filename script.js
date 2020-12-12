@@ -67,7 +67,7 @@ const buttonClear = () => {
   const ol = document.querySelector('ol');
   button.addEventListener('click', () => {
     const li = document.querySelectorAll('.cart__item');
-    for(let index=0; index<li.length; index++){
+    for (let index = 0; index < li.length; index += 1) {
       ol.removeChild(li[index]);
     }
   });
