@@ -38,7 +38,7 @@ const totalPrice = async () => {
   const storagedCart = localStorage.getItem('cart');
   if (typeof storagedCart === 'string') {
     const storagedItems = JSON.parse(storagedCart);
-    const listPrice = storagedItems.map(item => Object.values(item)[0]);
+    const listPrice = storagedItems.map(item => Object.values(item)[2]);
     const sum = listPrice.reduce((acc, curr) => (parseFloat(acc) + parseFloat(curr)), 0);
     createElementTotal(sum);
   } else {
@@ -51,9 +51,14 @@ const cartUpdate = async () => {
   const infos = [];
   const cartList = document.querySelectorAll('.cart__item');
   if (cartList.length > 0) {
-    for (let indexList = 0; indexList < cartList.length; indexList += 1) {
-      infos.push({ [cartList[indexList].classList[1]]: cartList[indexList].classList[2] });
-    }
+    cartList.forEach((item) => {
+      const itemChildren = item.querySelectorAll('span');
+      const itemsPack = {};
+      itemChildren.forEach(itemChild => Object.assign(itemsPack, ({
+        [`${itemChild.className}`]: `${itemChild.innerText}`,
+      })));
+      infos.push(itemsPack);
+    });
     localStorage.setItem('cart', JSON.stringify(infos));
   }
   setTimeout(() => totalPrice(), 1000);
@@ -68,9 +73,22 @@ async function cartItemClickListener(evtLi) {
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.classList.add(sku);
-  li.classList.add(salePrice);
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${parseFloat(salePrice)}`;
+  const spanLiSku = document.createElement('span');
+  spanLiSku.className = 'sku';
+  spanLiSku.innerText = sku;
+  spanLiSku.style.display = 'none';
+  li.appendChild(spanLiSku);
+  const spanLiName = document.createElement('span');
+  spanLiName.className = 'name';
+  spanLiName.innerText = name;
+  spanLiName.style.display = 'none';
+  li.appendChild(spanLiName);
+  const spanLiPrice = document.createElement('span');
+  spanLiPrice.className = 'salePrice';
+  spanLiPrice.innerText = salePrice;
+  spanLiPrice.style.display = 'none';
+  li.appendChild(spanLiPrice);
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
@@ -113,14 +131,19 @@ const itemBtnFunction = () => {
 const recoveryCart = async () => {
   const cartRecovered = localStorage.getItem('cart');
   if (typeof cartRecovered === 'string') {
-    const cartItemsRecovred = JSON.parse(cartRecovered);
-    cartItemsRecovred.forEach(item => addToCart(Object.keys(item)[0]));
+    const itemsCartRecovred = JSON.parse(cartRecovered);
+    itemsCartRecovred.forEach((item) => {
+      const { sku, name, salePrice } = item;
+      const itemCart = createCartItemElement({ sku, name, salePrice });
+      document.querySelector('.cart__items').appendChild(itemCart);
+    });
   }
+  await cartUpdate();
 };
 
 window.onload = async function onload() {
+  recoveryCart();
   await createProductList('computador');
   itemBtnFunction();
-  recoveryCart();
   await totalPrice();
 };
