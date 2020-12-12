@@ -83,9 +83,12 @@ const onClickButton = () => {
     }));
 };
  */
+function pegaidproduto(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
 
 const pegaINFO = () => {
-  fetch("https://api.mercadolibre.com/sites/MLB/search?q=computador")
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
     .then(data => {
       const arrayData = data.results;
@@ -100,6 +103,19 @@ const pegaINFO = () => {
     })
 }
 
-window.onload = async function onload() {
-  await pegaINFO()
+const adicionarCarrinho = () => {
+  document.querySelectorAll(".items").forEach(element => element.addEventListener("click", event => {
+    const passapar = pegaidproduto(event.target.parentNode);
+    fetchProduct(passapar)
+  }))
+}
+
+const fetchProduct = (productid) => {
+  fetch(`https://api.mercadolibre.com/items/${productid}`)
+}
+
+
+window.onload = function onload() {
+  pegaINFO();
+  adicionarCarrinho();
 };
