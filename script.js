@@ -57,12 +57,12 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const totalPrice = (price) => {
-  let total = document.querySelector('.total-price').innerText;
+  const total = document.querySelector('.total-price').innerText;
   let totalF = parseFloat(total);
-  let priceF = parseFloat(price);
+  const priceF = parseFloat(price);
   totalF += priceF;
   document.querySelector('.total-price').innerText = totalF;
-}
+};
 
 const getItens = async (computador) => {
   await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${computador}#json`)
