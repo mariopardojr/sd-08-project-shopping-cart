@@ -20,7 +20,9 @@ function updateTotalPrice() {
   const cart = document.querySelector('.cart__items');
   const priceElement = document.querySelector('.total-price');
   let price = 0;
-  cart.childNodes.forEach(li => price += getItemPrice(li));
+  cart.childNodes.forEach((li) => {
+    price += getItemPrice(li)
+  });
   priceElement.innerText = price;
 }
 
