@@ -21,7 +21,7 @@ const addId = async (event) => {
   const { id: sku, title: name, price: salePrice } = product;
   const cartItem = createCartItemElement({ sku, name, salePrice });
   ol.appendChild(cartItem);
-}
+};
 
 const createProductItemElement = ({ sku, name, image }) => {
   const section = document.createElement('section');
