@@ -61,6 +61,7 @@ const getItens = async (computador) => {
     .then((response) => {
       response.json()
         .then((data) => {
+          document.querySelector('.loading').remove();
           data.results.map((result) => {
             const element = {
               sku: result.id,
@@ -109,7 +110,6 @@ const emptyCart = () => {
     localStorage.clear();
   });
 };
-
 
 const getItensFromLocalStorage = () => {
   const itensOnLocalStorage = localStorage.getItem('Itens');
