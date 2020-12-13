@@ -63,7 +63,7 @@ async function criaCartItem(e) {
   const { id: sku, title: name, price: salePrice } = buscaId;
   if (!document.querySelector(`#${sku}`)) {
     cartContainer.appendChild(createCartItemElement(sku, name, salePrice));
-    localStorage.setItem(sku, `${name} | ${salePrice}`);
+    localStorage.setItem(sku, `${name}| ${salePrice}`);
     somaTotal(sku, true);
   }
 }
