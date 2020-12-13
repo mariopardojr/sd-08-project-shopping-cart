@@ -19,7 +19,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.classList.add('removeOnClick');
   document.querySelector('.cart__items').removeChild(document.querySelector('.removeOnClick'));
-  event.target.classList.remove('removeOnClick')
+  event.target.classList.remove('removeOnClick');
   saveLocalStorage();
 }
 
