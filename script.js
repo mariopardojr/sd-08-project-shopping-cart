@@ -47,7 +47,7 @@ const addId = async (event) => {
   sumItems();
 };
 
-const createProductItemElement = ({ sku, name, image }) => {
+function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
   section.appendChild(createCustomElement('span', 'item__sku', sku));
