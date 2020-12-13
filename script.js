@@ -1,6 +1,6 @@
 function gravaValor() {
-  const produtos = document.querySelector('.cart__items').innerHTML; // pega o conteudo dos elementos do carrinho
-  localStorage.setItem('cart', produtos); //salva no localstorage
+  const produtos = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', produtos);
 }
 
 function createProductImageElement(imageSource) {
@@ -32,12 +32,12 @@ function getSkuFromProductItem(item) {
 }
 
 function soma() {
-  const listItems = document.querySelectorAll('.cart__item'); // pega todos os elementos da lista
-  let total = 0;  //define valor inicial
-  listItems.forEach((item) => {    // passa por todos os elementos da lista e pega o preço passando para string e incrementa no total
+  const listItems = document.querySelectorAll('.cart__item');
+  let total = 0;
+  listItems.forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerHTML = total; // pega a div com o preço total e adiciona o valor
+  document.querySelector('.total-price').innerHTML = total;
 }
 
 function cartItemClickListener() {
@@ -47,8 +47,6 @@ function cartItemClickListener() {
     gravaValor();
   }));
 }
-/* if (event.target.classList.contains('cart__item')) {
-  cartItemClickListener(event); */
 
 function limpacarrinho() {
   const pegabotao = document.querySelector('.empty-cart');
@@ -72,11 +70,11 @@ function pegaidproduto(item) {
 }
 
 function createLoading() {
-  const body = document.body;  // pega o body
-  const loading = document.createElement('h1'); // cria um elemento dinamico h1
-  loading.className = 'loading';  //atribue a classe
-  loading.innerHTML = 'loading...'; // cria um texto dentro do h1
-  body.appendChild(loading); //coloca dentro do h1
+  const body = document.body;
+  const loading = document.createElement('h1');
+  loading.className = 'loading';
+  loading.innerHTML = 'loading...';
+  body.appendChild(loading);
 }
 
 function removeLoading() {
@@ -126,8 +124,8 @@ const adicionarCarrinho = () => {
 };
 
 function loadFromLocalStorage() {
-  const cartList = document.querySelector('.cart__items'); // pega os elementos do carrinho
-  cartList.innerHTML = localStorage.getItem('cart');  // resgata os valores
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
   cartList.addEventListener('click', ((event) => {
     if (event.target.classList.contains('cart__item')) {
       cartItemClickListener(event);
