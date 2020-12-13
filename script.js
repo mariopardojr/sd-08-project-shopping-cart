@@ -2,8 +2,8 @@
 const query = 'computador';
 const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
 const buscaItem = id => fetch(`https://api.mercadolibre.com/items/${id}`)
-.then(response => response.json())
-.then(data => data);
+  .then(response => response.json())
+  .then(data => data);
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -87,7 +87,6 @@ window.onload = function onload() {
 
   if (localStorage !== null) {
     const itemsLocalStorage = Object.keys(localStorage);
-    console.log(itemsLocalStorage); 
     itemsLocalStorage.forEach(id => addItemChartLocalStorade(id));
   }
 
