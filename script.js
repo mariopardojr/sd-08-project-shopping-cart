@@ -76,7 +76,7 @@ const addItemCar = async (event) => {
   const { id: sku, title: name, price: salePrice } = await promiseApi(url);
   const item = createCartItemElement({ sku, name, salePrice });
   getShoppingCart.appendChild(item);
-}
+};
 
 const addEvenBtnCar = () => {
   const btns = document.querySelectorAll('.item__add');
