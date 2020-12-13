@@ -32,7 +32,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  const remover = event.target.remove()
+  const remover = event.target.remove();
+  return remover;
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -87,5 +88,5 @@ const addEvent = () => {
 window.onload = function onload() {
   getProducts();
   addEvent();
-  cartItemClickListener()
+  cartItemClickListener();
 };
