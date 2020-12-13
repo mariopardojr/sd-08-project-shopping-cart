@@ -26,9 +26,19 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function soma() {
+  const listItems = document.querySelectorAll('.cart__item');
+  let total = 0;
+  listItems.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total;
+}
+
 function cartItemClickListener() {
   document.querySelectorAll('.cart__item').forEach(element => element.addEventListener('click', (event) => {
     event.target.remove();
+    soma();
   }));
 }
 /* if (event.target.classList.contains('cart__item')) {
@@ -38,6 +48,7 @@ function limpacarrinho() {
   const pegabotao = document.querySelector('.empty-cart');
   pegabotao.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = ' ';
+    soma();
   });
 }
 
@@ -95,6 +106,7 @@ const fetchProduct = (productid) => {
         salePrice: data.price,
       });
       document.querySelector('.cart__items').appendChild(itemCart);
+      soma();
     });
 };
 
