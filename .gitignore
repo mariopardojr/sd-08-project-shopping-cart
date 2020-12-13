@@ -14,5 +14,4 @@ corrigir
 .eslintignore
 cypress/
 *.json
-forestadmin
-*.xml
+forestadmin/

@@ -36,7 +36,7 @@ exclude_patterns:
   - "cypress/"
   - "instalar"
   - "corrigir"
-  - "cypress.json"
+  - "*.json"
 plugins:
   editorconfig:
     enabled: true
