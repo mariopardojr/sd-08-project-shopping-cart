@@ -69,24 +69,24 @@ const addProducts = async (ID) => {
       sku: data.id,
       name: data.title,
       salePrice: data.price,
-    })
-    const cartItem = document.querySelector('.cart__items')
+    });
+    const cartItem = document.querySelector('.cart__items');
     cartItem.appendChild(newData);
   });
-}
+};
 
 const Btnevent = (event) => {
-  const addSku = getSkuFromProductItem(event.target.parentNode)
-  addProducts(addSku)
-  }
-  
+  const addSku = getSkuFromProductItem(event.target.parentNode);
+  addProducts(addSku);
+};
+
 const addEvent = () => {
-  const items =  document.querySelectorAll('.items')
-  items.forEach(element => element.addEventListener('click', Btnevent)
-  )}
-
-
+  const items = document.querySelectorAll('.items')
+  items.forEach(element => element.addEventListener('click', Btnevent))
+};
 
 window.onload = function onload() {
-    getProducts(); 
-    addEvent()};
+  getProducts();
+  addEvent();
+
+}
