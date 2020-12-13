@@ -32,7 +32,9 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-
+ const itemsCart = document.querySelectorAll('.cart__items')
+ itemsCart.addEventListener('click', BtneventRemover(event))
+ 
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -83,6 +85,11 @@ const addEvent = () => {
   const items = document.querySelectorAll('.items');
   items.forEach(element => element.addEventListener('click', Btnevent));
 };
+
+const BtneventRemover = (par) => {
+  par.target.remove()
+};
+
 
 window.onload = function onload() {
   getProducts();
