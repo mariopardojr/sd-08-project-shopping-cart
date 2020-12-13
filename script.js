@@ -35,7 +35,7 @@ function cartItemClickListener() {
 function limpacarrinho() {
   const pegabotao = document.querySelector('.empty-cart');
   pegabotao.addEventListener('click', () => {
-    document.querySelector('.cart__items').innerHTML = ' '
+    document.querySelector('.cart__items').innerHTML = ' ';
   });
 }
 
