@@ -31,15 +31,17 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const Listen = () => {
-  const itensIncart = document.querySelectorAll('.cart__item');
-  itensIncart.forEach(element => element.addEventListener('click', (event) => {
-    event.target.remove();
-  }));
-};
+// const Listen = () => {
+//   const itensIncart = document.querySelectorAll('.cart__item');
+//   itensIncart.forEach(element => element.addEventListener('click', (event) => {
+//     event.target.remove();
+//   }));
+// };
 
 function cartItemClickListener(event) {
-  Listen();
+  document.querySelectorAll('.cart__item').forEach(element => element.addEventListener('click', (event) => {
+    event.target.remove();
+  }));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
