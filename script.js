@@ -76,11 +76,12 @@ const productList = () => {
     },
   );
 };
-// armazenar a class em uma variável. Em seguida, chamar essa variável e add um evento de click, que, ao ser clicado, apaga a Li dos produtos selecionados.
+
 const emptyCart = document.querySelector('.empty-cart');
 emptyCart.addEventListener('click', () => {
-  const deleteLi = document.querySelectorAll('.cart__item');
-  deleteLi.forEach((item) => item.remove());
+  document.querySelector('.cart__items').innerHTML = '';
+  // const deleteLi = document.querySelectorAll('.cart__item');
+  // deleteLi.forEach((item) => item.remove());
 });
 
 window.onload = function onload() {
