@@ -49,14 +49,21 @@ const promiseApi = (url) => {
   return results;
 };
 
+const getImgBest = async (id) => {
+  const url = `https://api.mercadolibre.com/items/${id}`;
+  const { pictures: [{ secure_url: image } = picture] } = await promiseApi(url);
+  return image;
+};
+
 const getListIdsProduct = async () => {
   const PRODUCT = 'computador';
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${PRODUCT}`;
   const [getSection] = document.querySelectorAll('.items');
   const { results } = await promiseApi(url);
   getSection.innerText = '';
-  results.forEach((item) => {
-    const { id: sku, title: name, thumbnail: image } = item;
+  results.forEach(async (item) => {
+    const { id: sku, title: name } = item;
+    const image = await getImgBest(sku);
     const elProduct = createProductItemElement({ sku, name, image });
     getSection.appendChild(elProduct);
   });
