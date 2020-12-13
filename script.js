@@ -20,7 +20,7 @@ const sumItems = async () => {
   }, 0);
   const h1 = document.querySelector('.total-price');
   h1.innerHTML = `Preço total: $${arrayItems}`;
-}
+};
 
 function cartItemClickListener(event) {
   document.querySelector('ol').removeChild(event.target);
@@ -57,7 +57,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(button);
   button.addEventListener('click', addId);
   return section;
-};
+}
 
 const creatLoading = () => {
   const body = document.querySelector('body');
