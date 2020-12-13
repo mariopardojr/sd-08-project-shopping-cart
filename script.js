@@ -21,7 +21,7 @@ function cartItemClickListener(event) {
 
 async function sum(price) {
   const totalPrice = document.querySelector('.total-price');
-  const total = parseFloat(totalPrice.innerText) + price;
+  const total = (parseFloat(totalPrice.innerText) + price).toFixed(2);
   localStorage.setItem('total', total);
   totalPrice.innerText = await localStorage.getItem('total');
 }
