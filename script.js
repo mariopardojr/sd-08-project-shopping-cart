@@ -3,7 +3,6 @@ const query = 'computador';
 const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
 const endpoitID = 'https://api.mercadolibre.com/items/';
 
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -15,9 +14,25 @@ function createProductImageElement(imageSource) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
+async function somaTotal(id, soma) {
+  const total = document.querySelector('.total-price');
+  const end = endpoitID + id;
+  const item = await fetch(end).then(response => response.json())
+    .then(rdata => rdata);
+  const resultSoma = Math.round((parseFloat(total.innerText) + item.price) * 100) / 100;
+  const resultSubtrai = Math.round((parseFloat(total.innerText) - item.price) * 100) / 100;
+  if (soma) {
+    total.innerText = resultSoma;
+  } else {
+    total.innerText = resultSubtrai;
+  }
+}
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
   document.querySelector('.cart__items').removeChild(event.target);
+  localStorage.removeItem(event.target.id);
+  somaTotal(event.target.id, false);
 }
 
 function createCartItemElement(sku, name, salePrice) {
@@ -28,6 +43,17 @@ function createCartItemElement(sku, name, salePrice) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+function verificaLocalStorage() {
+  const cartContainer = document.querySelector('.cart__items');
+  if (localStorage.length > 0) {
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const id = localStorage.key(i);
+      const valor = localStorage.getItem(id).split('|');
+      cartContainer.appendChild(createCartItemElement(id, valor[0], parseFloat(valor[1])));
+      somaTotal(id, true);
+    }
+  }
+}
 async function criaCartItem(e) {
   const cartContainer = document.querySelector('.cart__items');
   const idItem = e.target.parentNode.firstChild.innerText;
@@ -35,7 +61,11 @@ async function criaCartItem(e) {
     .then(r => r.json())
     .then(r => r);
   const { id: sku, title: name, price: salePrice } = buscaId;
-  cartContainer.appendChild(createCartItemElement(sku, name, salePrice));
+  if (!document.querySelector(`#${sku}`)) {
+    cartContainer.appendChild(createCartItemElement(sku, name, salePrice));
+    localStorage.setItem(sku, `${name} | ${salePrice}`);
+    somaTotal(sku, true);
+  }
 }
 
 function createCustomElement(element, className, innerText) {
@@ -70,5 +100,6 @@ async function newFetch() {
 }
 
 window.onload = function onload() {
+  verificaLocalStorage();
   newFetch();
 };
