@@ -1,3 +1,8 @@
+function gravaValor() {
+  const produtos = document.querySelector('.cart__items').innerHTML; // pega o conteudo dos elementos do carrinho
+  localStorage.setItem('cart', produtos); //salva no localstorage
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -27,18 +32,19 @@ function getSkuFromProductItem(item) {
 }
 
 function soma() {
-  const listItems = document.querySelectorAll('.cart__item');
-  let total = 0;
-  listItems.forEach((item) => {
+  const listItems = document.querySelectorAll('.cart__item'); // pega todos os elementos da lista
+  let total = 0;  //define valor inicial
+  listItems.forEach((item) => {    // passa por todos os elementos da lista e pega o preço passando para string e incrementa no total
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerHTML = total;
+  document.querySelector('.total-price').innerHTML = total; // pega a div com o preço total e adiciona o valor
 }
 
 function cartItemClickListener() {
   document.querySelectorAll('.cart__item').forEach(element => element.addEventListener('click', (event) => {
     event.target.remove();
     soma();
+    gravaValor();
   }));
 }
 /* if (event.target.classList.contains('cart__item')) {
@@ -49,6 +55,7 @@ function limpacarrinho() {
   pegabotao.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = ' ';
     soma();
+    gravaValor();
   });
 }
 
@@ -65,11 +72,11 @@ function pegaidproduto(item) {
 }
 
 function createLoading() {
-  const body = document.body;
-  const loading = document.createElement('h1');
-  loading.className = 'loading';
-  loading.innerHTML = 'loading...';
-  body.appendChild(loading);
+  const body = document.body;  // pega o body
+  const loading = document.createElement('h1'); // cria um elemento dinamico h1
+  loading.className = 'loading';  //atribue a classe
+  loading.innerHTML = 'loading...'; // cria um texto dentro do h1
+  body.appendChild(loading); //coloca dentro do h1
 }
 
 function removeLoading() {
@@ -107,6 +114,7 @@ const fetchProduct = (productid) => {
       });
       document.querySelector('.cart__items').appendChild(itemCart);
       soma();
+      gravaValor();
     });
 };
 
@@ -117,9 +125,21 @@ const adicionarCarrinho = () => {
   }));
 };
 
+function loadFromLocalStorage() {
+  const cartList = document.querySelector('.cart__items'); // pega os elementos do carrinho
+  cartList.innerHTML = localStorage.getItem('cart');  // resgata os valores
+  cartList.addEventListener('click', ((event) => {
+    if (event.target.classList.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  }));
+  soma();
+}
+
 window.onload = function onload() {
   pegaINFO();
   adicionarCarrinho();
   cartItemClickListener();
   limpacarrinho();
+  loadFromLocalStorage();
 };
