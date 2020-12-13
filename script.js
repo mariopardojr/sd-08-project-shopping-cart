@@ -60,7 +60,6 @@ const getProducts = async () => {
   }
 };
 
-
 const addProducts = async (ID) => {
   await fetch(`https://api.mercadolibre.com/items/${ID}`)
   .then(response => response.json())
