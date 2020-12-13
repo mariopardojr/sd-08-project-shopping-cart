@@ -87,6 +87,12 @@ window.onload = function onload() {
 
   if (localStorage !== null) {
     const itemsLocalStorage = Object.keys(localStorage);
+    console.log(itemsLocalStorage); 
     itemsLocalStorage.forEach(id => addItemChartLocalStorade(id));
   }
+
+  document.querySelector('.empty-cart').addEventListener('click', (e) => {
+    localStorage.clear();
+    document.querySelector('.cart__items').innerHTML = '';
+  });
 };
