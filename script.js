@@ -1,7 +1,3 @@
-window.onload = function onload() { 
-  getproducts('computador');
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -29,39 +25,44 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 // const fetch = require('node-fetch');
-const getproducts = (product) => {
-  return new Promise((resolve, reject) => {
+function getproducts(product) {
+  return new Promise((resolve) => {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
       .then((response) => {
         response.json()
           .then((data) => {
             data.results.map((object) => {
-              newObject = {}
-              newObject.sku = object.id
-              newObject.name = object.title
-              newObject.image = object.thumbnail
-              const content = createProductItemElement(newObject)
-              const sectionItems = document.querySelector("body > section > section.items")
-            sectionItems.appendChild(content)
-            })
-            resolve();  
-          })
-      })
-  })
+              newObject = {};
+              newObject.sku = object.id;
+              newObject.name = object.title;
+              newObject.image = object.thumbnail;
+              const content = createProductItemElement(newObject);
+              const sectionItems = document.querySelector('body > section > section.items');
+              sectionItems.appendChild(content);
+              resolve();
+              return newObject;
+            });
+          });
+      });
+  });
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+window.onload = function onload() {
+  getproducts('computador');
+};
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
 
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
+// function cartItemClickListener(event) {
+//   // coloque seu código aqui
+// }
+
+// function createCartItemElement({ sku, name, salePrice }) {
+//   const li = document.createElement('li');
+//   li.className = 'cart__item';
+//   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+//   li.addEventListener('click', cartItemClickListener);
+//   return li;
+// }
