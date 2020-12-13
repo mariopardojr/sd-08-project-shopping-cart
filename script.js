@@ -36,11 +36,11 @@ const Listen = () => {
   itensIncart.forEach(element => element.addEventListener('click', (event) => {
     event.target.remove();
   }));
-}
+};
 
 function cartItemClickListener() {
   Listen();
-};
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
