@@ -44,6 +44,13 @@ const saveCartItemToLocalStorage = () => {
 };
 
 function cartItemClickListener(event) {
+  const text = event.target.innerText;
+  const valor = parseFloat(text.split('$')[1]);
+  const total = document.querySelector('.total-price').innerText;
+  console.log(valor, total)
+  const totalF = total - valor;
+  document.querySelector('.total-price').innerText = totalF;
+  //console.log('ops')
   event.target.remove();
   saveCartItemToLocalStorage();
 }
@@ -131,7 +138,7 @@ const getItensFromLocalStorage = () => {
   const itensOnLocalStorage = localStorage.getItem('Itens');
   const getOl = document.querySelector('.cart__items');
   getOl.innerHTML = itensOnLocalStorage;
-  document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
+  //document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
 };
 
 window.onload = async function onload() {
