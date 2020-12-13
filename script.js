@@ -36,8 +36,8 @@ const BtneventRemover = (par) => {
 };
 
 function cartItemClickListener(event) {
-    const itemsCart = document.querySelectorAll('.cart__items');
-    itemsCart.addEventListener('click', BtneventRemover(event));
+  const itemsCart = document.querySelectorAll('.cart__items');
+  itemsCart.addEventListener('click', BtneventRemover(event));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
