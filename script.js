@@ -22,27 +22,27 @@ const sumItems = () => {
   h1.innerHTML = `Preço total: $${arrayItems}`;
 };
 
+const creatLocalStorage = () => {
+  const items = document.querySelectorAll('.cart__item');
+  const arrayElement = [];
+  Array.from(items).forEach((element) => {
+    arrayElement.push(element.innerText);
+  });
+  localStorage.setItem('items', JSON.stringify(arrayElement));
+};
+
 function cartItemClickListener(event) {
   document.querySelector('ol').removeChild(event.target);
   sumItems();
   creatLocalStorage();
 }
 
-const creatLocalStorage = () => {
-  const items = document.querySelectorAll('.cart__item');
-  let arrayElement = [];
-  const arrayItems = Array.from(items).forEach(element => {
-    arrayElement.push(element.innerText);
-  });
-  localStorage.setItem('items', JSON.stringify(arrayElement));
-};
-
 const getLocalStorage = () => {
   const ol = document.querySelector('ol');
-  if(localStorage.length !== 0){
-    let items = JSON.parse(localStorage.getItem('items'));
-    for (let index=0; index<items.length; index++) {
-      let li = document.createElement('li');
+  if (localStorage.length !== 0){
+    const items = JSON.parse(localStorage.getItem('items'));
+    for (let index = 0; index < items.length; index +=1) {
+      const li = document.createElement('li');
       li.classList = 'cart__item';
       li.innerText = items[index];
       ol.appendChild(li);
@@ -55,7 +55,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);  
+  li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
