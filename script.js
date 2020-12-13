@@ -1,6 +1,4 @@
 
-
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -63,30 +61,32 @@ const getProducts = async () => {
 };
 
 
-const addProducts =  async (ID) => {
+const addProducts = async (ID) => {
   await fetch(`https://api.mercadolibre.com/items/${ID}`)
   .then(response => response.json())
-  .then((data) =>{
+  .then((data) => {
     const newData = createCartItemElement({
-        sku: data.id,
-        name: data.title,
-        salePrice: data.price,
+      sku: data.id,
+      name: data.title,
+      salePrice: data.price,
     })
     const cartItem = document.querySelector('.cart__items')
     cartItem.appendChild(newData);
-  })
-  }   
-
-const addEvent = () => {
- const items =  document.querySelectorAll('.items')
- items.forEach((element) => element.addEventListener('click', Btnevent)
- )}
+  });
+}
 
 const Btnevent = (event) => {
   const addSku = getSkuFromProductItem(event.target.parentNode)
   addProducts(addSku)
- }
+  }
+  
+const addEvent = () => {
+  const items =  document.querySelectorAll('.items')
+  items.forEach(element => element.addEventListener('click', Btnevent)
+  )}
 
-window.onload = function onload() {  
-   getProducts(); 
-   addEvent()};
+
+
+window.onload = function onload() {
+    getProducts(); 
+    addEvent()};
