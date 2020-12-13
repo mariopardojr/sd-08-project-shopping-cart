@@ -47,7 +47,6 @@ function cartItemClickListener(event) {
   const text = event.target.innerText;
   const valor = parseFloat(text.split('$')[1]);
   const total = document.querySelector('.total-price').innerText;
-  console.log(valor, total)
   const totalF = total - valor;
   document.querySelector('.total-price').innerText = totalF;
   //console.log('ops')
