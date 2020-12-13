@@ -22,9 +22,9 @@ function getSkuFromProductItem(item) {
 const calculateCartTotal = async (price, operator) => {
   const priceField = document.querySelector('span.total-price');
   if (operator === '+') {
-    priceField.innerText = (parseFloat(priceField.innerText) + price).toFixed(2);
+    priceField.innerText = Math.round((parseFloat(priceField.innerText) + price) * 100) / 100;
   } else {
-    priceField.innerText = (parseFloat(priceField.innerText) - price).toFixed(2);
+    priceField.innerText = Math.round((parseFloat(priceField.innerText) - price) * 100) / 100;
   }
 };
 // ------------------------------------------------
