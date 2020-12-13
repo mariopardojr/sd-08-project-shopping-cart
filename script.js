@@ -21,6 +21,7 @@ const addId = async (event) => {
   const { id: sku, title: name, price: salePrice } = product;
   const cartItem = createCartItemElement({ sku, name, salePrice });
   ol.appendChild(cartItem);
+  sumItems();
 };
 
 const createProductItemElement = ({ sku, name, image }) => {
@@ -51,24 +52,24 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  const ol = document.querySelector('ol');
-  const product = event.target;
-  ol.removeChild(product);
+  document.querySelector('ol').removeChild(event.target);
+  sumItems();
 }
 
-let soma = 0;
-const h1 = document.querySelector('h1');
-h1.innerHTML = `Preço total: $${soma}`;
-const sum = (preco) => {
-  soma += preco;
-  h1.innerHTML = `Preço total: $ ${soma.toFixed(2)}`; 
-};
+function sumItems() {
+  const items = document.querySelectorAll('.cart__item');
+  const arrayItems = Array.from(items).reduce((acc, curr) => {
+    let total = parseFloat(curr.innerText.split('$')[1]);  
+    return acc + total;   
+  }, 0);
+  const h1 = document.querySelector('.total-price');
+  h1.innerHTML = arrayItems;
+}
 
-function createCartItemElement({ sku, name, salePrice }) {
-  sum (salePrice)
+function createCartItemElement({ sku, name, salePrice }) {  
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;  
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
