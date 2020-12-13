@@ -64,6 +64,21 @@ const totalPrice = (price) => {
   document.querySelector('.total-price').innerText = totalF;
 };
 
+const totalPriceAsync = async (ItemID) => {
+  await fetch(`https://api.mercadolibre.com/items/${ItemID}`)
+    .then((response) => {
+      response.json()
+        .then((results) => {
+          const total = document.querySelector('.total-price').innerText;
+          let totalF = parseFloat(total);
+          const priceF = parseFloat(results.price);
+          console.log(total, results.price)
+          totalF += priceF;
+          document.querySelector('.total-price').innerText = totalF;
+        });
+    });
+};
+
 const getItens = async (computador) => {
   await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${computador}#json`)
     .then((response) => {
@@ -95,7 +110,8 @@ const getItemById = async (ItemID) => {
           const salePrice = pratala.price;
           const item = createCartItemElement({ sku, name, salePrice });
           createItemOnCart(item);
-          totalPrice(salePrice);
+          totalPriceAsync(sku);
+          //totalPrice(salePrice);
           saveCartItemToLocalStorage();
           return false;
         });
