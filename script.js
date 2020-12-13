@@ -100,6 +100,12 @@ async function newFetch() {
 }
 
 window.onload = function onload() {
+  document.querySelector('.empty-cart')
+    .addEventListener('click', () => {
+      localStorage.clear();
+      document.querySelector('.cart__items').innerHTML = '';
+      document.querySelector('.total-price').innerText = '0.00';
+    });
   verificaLocalStorage();
   newFetch();
 };
