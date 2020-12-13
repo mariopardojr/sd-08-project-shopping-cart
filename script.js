@@ -85,7 +85,7 @@ function addProductToCart() {
       .then((data) => {
         // console.log(data.id);
         const sectionCartItems = document.querySelector('.cart__items');
-        const { id: sku, title: name, price: salePrice } = data;
+        const { title: name, price: salePrice } = data;
         sectionCartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
         cartListSaved();
       });
