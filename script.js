@@ -39,9 +39,9 @@ function cartItemClickListener(event) {
 
 const getLocalStorage = () => {
   const ol = document.querySelector('ol');
-  if (localStorage.length !== 0){
+  if (localStorage.length !== 0) {
     const items = JSON.parse(localStorage.getItem('items'));
-    for (let index = 0; index < items.length; index +=1) {
+    for (let index = 0; index < items.length; index += 1) {
       const li = document.createElement('li');
       li.classList = 'cart__item';
       li.innerText = items[index];
