@@ -122,6 +122,7 @@ const emptyCart = () => {
   const getAllLi = document.querySelectorAll('.cart__item');
   getAllLi.forEach((li) => {
     li.remove();
+    document.querySelector('.total-price').innerText = '0';
     localStorage.clear();
   });
 };
