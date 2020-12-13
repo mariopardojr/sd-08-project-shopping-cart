@@ -49,11 +49,11 @@ const promiseApi = (url) => {
   return results;
 };
 
-const getImgBest = async (id) => {
-  const url = `https://api.mercadolibre.com/items/${id}`;
-  const { pictures: [{ secure_url: image } = picture] } = await promiseApi(url);
-  return image;
-};
+// const getImgBest = async (id) => {
+//   const url = `https://api.mercadolibre.com/items/${id}`;
+//   const { pictures: [{ secure_url: image } = picture] } = await promiseApi(url);
+//   return image;
+// };
 
 const getListIdsProduct = async () => {
   const PRODUCT = 'computador';
@@ -61,14 +61,29 @@ const getListIdsProduct = async () => {
   const [getSection] = document.querySelectorAll('.items');
   const { results } = await promiseApi(url);
   getSection.innerText = '';
-  results.forEach(async (item) => {
-    const { id: sku, title: name } = item;
-    const image = await getImgBest(sku);
+  results.forEach((item) => {
+    const { id: sku, title: name, thumbnail: image } = item;
+    // const image = await getImgBest(sku);
     const elProduct = createProductItemElement({ sku, name, image });
     getSection.appendChild(elProduct);
   });
 };
 
-window.onload = function onload() {
-  getListIdsProduct();
+const addItemCar = async (event) => {
+  const idItem = getSkuFromProductItem(event.target.parentNode);
+  const [getShoppingCart] = document.getElementsByClassName('cart__items');
+  const url = `https://api.mercadolibre.com/items/${idItem}`;
+  const { id: sku, title: name, price: salePrice } = await promiseApi(url);
+  const item = createCartItemElement({ sku, name, salePrice });
+  getShoppingCart.appendChild(item);
+}
+
+const addEvenBtnCar = () => {
+  const btns = document.querySelectorAll('.item__add');
+  btns.forEach(el => el.addEventListener('click', event => addItemCar(event)));
+};
+
+window.onload = async function onload() {
+  await getListIdsProduct();
+  addEvenBtnCar();
 };
