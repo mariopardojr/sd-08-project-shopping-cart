@@ -104,4 +104,5 @@ buttonClear();
 
 window.onload = function onload() {
   listProduct();
+  sumItems();
 };
