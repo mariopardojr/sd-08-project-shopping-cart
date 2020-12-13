@@ -31,16 +31,17 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener() {
-  Listen();
-}
-
 const Listen = () => {
   const itensIncart = document.querySelectorAll('.cart__item');
   itensIncart.forEach(element => element.addEventListener('click', (event) => {
     event.target.remove();
   }));
 }
+
+function cartItemClickListener() {
+  Listen();
+};
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
