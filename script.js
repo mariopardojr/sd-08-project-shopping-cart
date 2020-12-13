@@ -12,7 +12,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function sumItems() {
+const sumItems = async () => {
   const items = document.querySelectorAll('.cart__item');
   const arrayItems = Array.from(items).reduce((acc, curr) => {
     const total = parseFloat(curr.innerText.split('$')[1]);
