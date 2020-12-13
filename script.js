@@ -1,3 +1,4 @@
+let total = 0;
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -24,9 +25,19 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
-
+function priceCalculator(price, operator) {
+  const totalPrice = document.querySelector('.total-price');
+  if (operator === true) {
+    total += price;
+  } else {
+    total -= price;
+  }
+  totalPrice.innerText = parseFloat(total);
+}
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  const [, price] = event.target.innerHTML.split('PRICE: $');
+  priceCalculator(price, false);
   event.target.remove();
 }
 
@@ -42,7 +53,7 @@ function objectConvert(element, price) {
   const result = {};
   result.sku = element.id;
   result.name = element.title;
-  if (price) {
+  if (!price) {
     result.image = element.thumbnail;
     return result;
   }
@@ -50,34 +61,35 @@ function objectConvert(element, price) {
   return result;
 }
 function clearCart() {
+  const totalPrice = document.querySelector('.total-price');
   const emptyCart = document.querySelector('.empty-cart');
   emptyCart.addEventListener('click', () => {
     const cartList = document.querySelectorAll('.cart__item');
     if (cartList.length > 0) cartList.forEach(li => li.remove());
+    total = 0;
+    totalPrice.innerText = parseFloat(total);
   });
 }
 function requestAPI(endPoint) {
   return fetch(endPoint).then(response => response.json());
 }
-
 function addComputerToCart(event) {
   const productId = event.target.parentElement.firstChild.innerText;
   const endPoint = `https://api.mercadolibre.com/items/${productId}`;
   const olCart = document.querySelector('.cart__items');
-  requestAPI(endPoint).then(result =>
-    olCart.appendChild(createCartItemElement(objectConvert(result))),
-  );
-  console.log(endPoint);
+  requestAPI(endPoint).then((result) => {
+    olCart.appendChild(createCartItemElement(objectConvert(result, true)));
+    priceCalculator(result.price, true);
+  });
 }
+
 function createListOfComputers() {
   const endPoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   const items = document.querySelector('.items');
   requestAPI(endPoint)
     .then(object =>
       object.results.forEach(element =>
-        items.appendChild(
-          createProductItemElement(objectConvert(element, true)),
-        ),
+        items.appendChild(createProductItemElement(objectConvert(element))),
       ),
     )
     .then(() => {
