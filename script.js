@@ -40,7 +40,7 @@ const Listen = () => {
 
 function cartItemClickListener(event) {
   Listen();
-};
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
