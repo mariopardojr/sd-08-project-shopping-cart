@@ -1,4 +1,4 @@
-const cart = [];
+let cart = [];
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -28,6 +28,7 @@ async function sum(price) {
 
 function createCartItemElement({ sku, name, salePrice }, newItem) {
   cart.push({ sku, name, salePrice });
+  console.log(cart);
   const stringCart = JSON.stringify(cart);
   localStorage.setItem('cart', stringCart);
   const li = document.createElement('li');
@@ -62,6 +63,7 @@ function empty() {
   const totalPrice = document.querySelector('.total-price');
   cartItems.innerHTML = '';
   totalPrice.innerText = 0;
+  cart = [];
   localStorage.clear();
 }
 
