@@ -35,8 +35,7 @@ function cartItemClickListener() {
 function limpacarrinho() {
   const pegabotao = document.querySelector('.empty-cart');
   pegabotao.addEventListener('click', () => {
-    const pegaol = document.querySelectorAll('.cart__items');
-    if (pegaol.length > 0) pegaol.forEach(li => li.remove());
+    document.querySelector('.cart__items').innerHTML = ' '
   });
 }
 
