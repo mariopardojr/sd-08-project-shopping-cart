@@ -5,6 +5,8 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function cartItemClickListener(event) {}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -53,8 +55,6 @@ function createProductItemElement({ sku, name, image }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
-function cartItemClickListener(event) {}
 
 const productList = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador').then(
