@@ -38,7 +38,7 @@ function getSkuFromProductItem(item) {
 //   }));
 // };
 
-function cartItemClickListener(event) {
+function cartItemClickListener() {
   document.querySelectorAll('.cart__item').forEach(element => element.addEventListener('click', (event) => {
     event.target.remove();
   }));
