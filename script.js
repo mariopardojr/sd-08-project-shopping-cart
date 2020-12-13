@@ -1,7 +1,3 @@
-window.onload = function onload() { 
-  sumItems();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -14,6 +10,29 @@ function createCustomElement(element, className, innerText) {
   e.className = className;
   e.innerText = innerText;
   return e;
+}
+
+function sumItems() {
+  const items = document.querySelectorAll('.cart__item');
+  const arrayItems = Array.from(items).reduce((acc, curr) => {
+    const total = parseFloat(curr.innerText.split('$')[1]);
+    return acc + total;
+  }, 0);
+  const h1 = document.querySelector('.total-price');
+  h1.innerHTML = `Preço total: $${arrayItems}`;
+}
+
+function cartItemClickListener(event) {
+  document.querySelector('ol').removeChild(event.target);
+  sumItems();
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
 }
 
 const addId = async (event) => {
@@ -69,29 +88,6 @@ const listProduct = async () => {
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  document.querySelector('ol').removeChild(event.target);
-  sumItems();
-}
-
-function sumItems() {
-  const items = document.querySelectorAll('.cart__item');
-  const arrayItems = Array.from(items).reduce((acc, curr) => {
-    const total = parseFloat(curr.innerText.split('$')[1]);
-    return acc + total;
-  }, 0);
-  const h1 = document.querySelector('.total-price');
-  h1.innerHTML = `Preço total: $${arrayItems}`;
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
 
 const buttonClear = () => {
