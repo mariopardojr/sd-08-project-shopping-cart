@@ -5,7 +5,10 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function cartItemClickListener(event) {}
+function cartItemClickListener(event) {
+  console.log(event.target);
+  event.target.remove();
+}
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
