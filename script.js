@@ -24,21 +24,21 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-// function getSkuFromProductItem(item) {
-//   return item.querySelector('span.item__sku').innerText;
-// }
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
 
-// function cartItemClickListener(event) {
-//   // coloque seu código aqui
-// }
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+}
 
-// function createCartItemElement({ sku, name, salePrice }) {
-//   const li = document.createElement('li');
-//   li.className = 'cart__item';
-//   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-//   li.addEventListener('click', cartItemClickListener);
-//   return li;
-// }
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
 
 const promiseApi = (url) => {
   const results = new Promise((resolve, reject) => {
@@ -56,7 +56,7 @@ const getListIdsProduct = async () => {
   const { results } = await promiseApi(url);
   getSection.innerText = '';
   results.forEach((item) => {
-    const {id: sku, title: name, thumbnail: image} = item;
+    const { id: sku, title: name, thumbnail: image } = item;
     const elProduct = createProductItemElement({ sku, name, image });
     getSection.appendChild(elProduct);
   });
