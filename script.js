@@ -23,7 +23,7 @@ function createProductItemElement({ sku, name, image }) {
     'button',
     'item__add',
     'Adicionar ao carrinho!',
-    // comentario
+    // comentario.
   );
   createBtn.addEventListener('click', () => {
     console.log(sku);
