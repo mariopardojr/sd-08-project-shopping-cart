@@ -16,11 +16,29 @@ function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
-  section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
+  section.appendChild(createCustomElement('span', 'item__sku', sku));
+  const createBtn = createCustomElement(
+    'button',
+    'item__add',
+    'Adicionar ao carrinho!',
+  );
+  createBtn.addEventListener('click', () => {
+    console.log(sku);
+    fetch(`https://api.mercadolibre.com/items/${sku}`)
+      .then(response => response.json())
+      .then(value => {
+        // console.log(value);
+        const { price } = value;
+        console.log(price);
+        const productObj = { sku, name, salePrice: price };
+        document
+          .querySelector('.cart__items')
+          .appendChild(createCartItemElement(productObj));
+      });
+  });
+  section.appendChild(createBtn);
   return section;
 }
 
@@ -28,8 +46,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-}
+function cartItemClickListener(event) {}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -40,10 +57,10 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const productList = () => {
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then((response) => {
-      response.json().then((data) => {
-        data.results.map((value) => {
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador').then(
+    response => {
+      response.json().then(data => {
+        data.results.map(value => {
           const dataMl = createProductItemElement({
             sku: value.id,
             name: value.title,
@@ -53,7 +70,8 @@ const productList = () => {
           return document.querySelector('.items').appendChild(dataMl);
         });
       });
-    });
+    },
+  );
 };
 
 window.onload = function onload() {
