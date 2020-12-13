@@ -81,12 +81,11 @@ const Btnevent = (event) => {
 };
 
 const addEvent = () => {
-  const items = document.querySelectorAll('.items')
-  items.forEach(element => element.addEventListener('click', Btnevent))
+  const items = document.querySelectorAll('.items');
+  items.forEach(element => element.addEventListener('click', Btnevent));
 };
 
 window.onload = function onload() {
   getProducts();
   addEvent();
-
-}
+};
