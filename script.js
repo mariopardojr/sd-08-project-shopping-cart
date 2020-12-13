@@ -1,3 +1,5 @@
+window.onload = function onload() { };
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -52,9 +54,9 @@ const removeLoading = () => {
 
 const listProduct = async () => {
   creatLoading();
-  const product = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')  
+  const product = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(responde => responde.json())
-  .then(data => data.results);    
+  .then(data => data.results);
   removeLoading();
   const items = document.querySelector('.items');
   product.forEach((element) => {
@@ -72,31 +74,28 @@ function cartItemClickListener(event) {
   sumItems();
 }
 
-
-
 function sumItems() {
   const items = document.querySelectorAll('.cart__item');
   const arrayItems = Array.from(items).reduce((acc, curr) => {
-    let total = parseFloat(curr.innerText.split('$')[1]);  
-    return acc + total;   
+    let total = parseFloat(curr.innerText.split('$')[1]);
+    return acc + total;
   }, 0);
   const h1 = document.querySelector('.total-price');
-  h1.innerHTML = arrayItems;
+  h1.innerHTML = `Preço total: $${arrayItems}`;
 }
 
-function createCartItemElement({ sku, name, salePrice }) {  
+function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;  
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
-const buttonClear = () => {  
+const buttonClear = () => {
   const button = document.querySelector('.empty-cart');
   const ol = document.querySelector('ol');
   button.addEventListener('click', () => {
-    h1.innerHTML = 'Preço total: $0';
     const li = document.querySelectorAll('.cart__item');
     for (let index = 0; index < li.length; index += 1) {
       ol.removeChild(li[index]);
