@@ -34,7 +34,6 @@ exclude_patterns:
   - "**/*.{gif,png,jpeg,jpg}"
   - "node_modules/"
   - "cypress/"
-  - "script.js"
 plugins:
   editorconfig:
     enabled: true
