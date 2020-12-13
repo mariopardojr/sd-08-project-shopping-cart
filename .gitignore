@@ -15,3 +15,4 @@ corrigir
 cypress/
 *.json
 forestadmin/
+*.xml
