@@ -49,6 +49,22 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 // MY FUNCTIONS
+function loading(status) {
+  const items = document.querySelector('.items');
+  const span = document.createElement('span');
+  span.classList.add('loading');
+  setTimeout(() => {
+    if (status === true) {
+      span.innerHTML = 'loading...';
+      items.appendChild(span);
+    } else {
+      setTimeout(() => {
+        const element = document.querySelector('.loading');
+        element.remove();
+      }, 2000);
+    }
+  }, 2000);
+}
 function objectConvert(element, price) {
   const result = {};
   result.sku = element.id;
@@ -71,7 +87,10 @@ function clearCart() {
   });
 }
 function requestAPI(endPoint) {
-  return fetch(endPoint).then(response => response.json());
+  loading(true);
+  return fetch(endPoint)
+    .then(response => response.json())
+    .then(loading(false));
 }
 function addComputerToCart(event) {
   const productId = event.target.parentElement.firstChild.innerText;
