@@ -13,3 +13,4 @@ corrigir
 .prettierignore
 .eslintignore
 old.js
+uglify
