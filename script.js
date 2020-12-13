@@ -52,38 +52,16 @@ const promiseApi = (url) => {
 const getListIdsProduct = async () => {
   const PRODUCT = 'computador';
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${PRODUCT}`;
+  const [getSection] = document.querySelectorAll('.items');
   const { results } = await promiseApi(url);
-  const ids = results.reduce((acc, item) => {
-    acc.push(item.id);
-    return acc;
-  }, []);
-  return ids;
-};
-
-const getProductByIds = (arrayId) => {
-  const results = arrayId.reduce((acc, id) => {
-    const url = `https://api.mercadolibre.com/items/${id}`;
-    const product = promiseApi(url);
-    acc.push(product);
-    return acc;
-  }, []);
-  return results;
-};
-
-const setProductView = async () => {
-  const arrayIdsProduct = await getListIdsProduct();
-  const listProduct = await getProductByIds(arrayIdsProduct);
-  const results = await Promise.all(listProduct);
-  console.log(results);
-  const [elementContainer] = document.querySelectorAll('.items');
-  elementContainer.innerText = '';
-  results.forEach((product) => {
-    const { id: sku, title: name, pictures: [{ secure_url: image } = picture] } = product;
-    const newElProduct = createProductItemElement({ sku, name, image });
-    elementContainer.appendChild(newElProduct);
+  getSection.innerText = '';
+  results.forEach((item) => {
+    const {id: sku, title: name, thumbnail: image} = item;
+    const elProduct = createProductItemElement({ sku, name, image });
+    getSection.appendChild(elProduct);
   });
 };
 
 window.onload = function onload() {
-  setProductView();
+  getListIdsProduct();
 };
