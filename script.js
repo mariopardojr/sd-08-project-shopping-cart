@@ -1,4 +1,6 @@
-window.onload = function onload() { };
+window.onload = function onload() { 
+  sumItems();
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -77,7 +79,7 @@ function cartItemClickListener(event) {
 function sumItems() {
   const items = document.querySelectorAll('.cart__item');
   const arrayItems = Array.from(items).reduce((acc, curr) => {
-    let total = parseFloat(curr.innerText.split('$')[1]);
+    const total = parseFloat(curr.innerText.split('$')[1]);
     return acc + total;
   }, 0);
   const h1 = document.querySelector('.total-price');
