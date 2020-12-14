@@ -21,7 +21,6 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.classList.add('removeOnClick');
   document.querySelector('.cart__items').removeChild(document.querySelector('.removeOnClick'));
-  // event.target.classList.remove('removeOnClick');
   saveLocalStorage();
 }
 
@@ -31,17 +30,13 @@ function loadCartFromLocalStorage() {
 }
 
 function getLocalStoragePrice() {
-//   let localStoragePricesString = localStorage.getItem('cart-sum');
-//   cartSumPrices += parseInt(localStoragePricesString);
-
-//   // cartSumPrices = parseInt(cartSumPrices);
-  document.querySelector('.display').innerHTML = localStorage.getItem('cart-sum');
+  if (localStorage.length > 0) {
+    document.querySelector('.display').innerHTML = localStorage.getItem('cart-sum');
+  }
 }
 
 function cartSumItems(price) {
-  // localStorage.clear();
-  // parseInt(cartSumPrices);
-  // cartSumPrices = getLocalStoragePrice();
+  cartSumPrices = parseInt(document.querySelector('.display').innerHTML);
   cartSumPrices += price;
   document.querySelector('.display').innerHTML = cartSumPrices;
   localStorage.setItem('cart-sum', cartSumPrices);
@@ -104,8 +99,8 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function fetchAPI(url) {
-  fetch(url)
+async function fetchAPI(url) {
+  await fetch(url)
     .then(response => response.json())
     .then(data => data.results.forEach((element) => {
       const elementObject = {
