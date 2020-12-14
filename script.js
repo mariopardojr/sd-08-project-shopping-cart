@@ -38,7 +38,7 @@ function getLocalStoragePrice() {
 async function cartSumItems(id) {
   await fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
-    .then(data => {
+    .then((data) => {
       const { price } = data;
       cartSumPrices = parseInt(document.querySelector('.display').innerHTML, 10);
       cartSumPrices += price;
@@ -56,19 +56,19 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 function addItemToCart(targetItemId) {
-  fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
-    .then(response => response.json())
-    .then((data) => {
-    const { id, title, price } = data;
-    const selectedItemObject = {
-      sku: id,
-      name: title,
-      salePrice: price,
-    };
-    document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
-    cartSumItems(id);
-    saveLocalStorage();
-  });
+    fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
+      .then(response => response.json())
+      .then((data) => {
+      const { id, title, price } = data;
+      const selectedItemObject = {
+        sku: id,
+        name: title,
+        salePrice: price,
+      };
+      document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
+      cartSumItems(id);
+      saveLocalStorage();
+    });
 }
 
 function selectItem(click) {
