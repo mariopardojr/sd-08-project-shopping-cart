@@ -78,6 +78,13 @@ function selectItem(click) {
   click.target.classList.remove('selected');
 }
 
+// function clearChartList(click) {
+//   document.querySelector('.chat__items').innerHTML = '';
+//   localStorage.clear();
+// }
+
+// document.querySelector('.empty-chart').addEventListener('click', clearChartList);
+
 function createCustomElement(element, className, innerText) {
   if (element === 'button') {
     const e = document.createElement(element);
@@ -117,6 +124,17 @@ function fetchAPI(url) {
     }));
 }
 
+function clearChartList() {
+  document.querySelector('.cart__items').innerHTML = '';
+  document.querySelector('.display').innerHTML = 0;
+  localStorage.clear();
+}
+
+const buttonClearAll = () => {
+  const button = document.querySelector('button');
+  button.addEventListener('click', clearChartList);
+}
+
 window.onload = function onload() {
-  fetchAPI(API_URL); loadCartFromLocalStorage(); getLocalStoragePrice();
+  fetchAPI(API_URL); loadCartFromLocalStorage(); getLocalStoragePrice(); buttonClearAll();
 };
