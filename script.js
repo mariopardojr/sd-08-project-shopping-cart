@@ -80,7 +80,7 @@ const getProducts = async () => {
 };
 
 const storage = () => {
-  const Itens = document.querySelector('.cart__items').innerHTML
+  const Itens = document.querySelector('.cart__items').innerHTML;
   // const string = JSON.stringify(Itens.innerHTML);
   localStorage.setItem('cart', Itens);
 };
