@@ -58,4 +58,4 @@ const productsAPI = async () => {
 
 window.onload = function onload() {
   productsAPI();
-}
+};
