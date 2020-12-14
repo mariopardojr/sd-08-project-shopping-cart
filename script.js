@@ -67,15 +67,15 @@ const getProducts = async () => {
   .then(response => response.json())
   .then((data) => {
     const dataReady = data.results;
-    dataReady.map((element) => {
-    const ready = createProductItemElement({
+    dataReady.map(element => {
+      const ready = createProductItemElement({
       sku: element.id,
       name: element.title,
       image: element.thumbnail,
     });
-    const things = document.querySelector('.items');
-    things.appendChild(ready);
-   });
+      const things = document.querySelector('.items');
+      return things.appendChild(ready);
+    });
   });
 };
 
