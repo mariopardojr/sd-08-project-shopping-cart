@@ -46,8 +46,8 @@ const getItemStored = () => {
   const item = localStorage.getItem('item');
   Itens.innerHTML = item;
   const ItensCart = document.querySelectorAll('.cart__items');
-  ItensCart.forEach(i => i.addEventListener('click', cartItemClickListener))
-  };
+  ItensCart.forEach(i => i.addEventListener('click', cartItemClickListener));
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -85,6 +85,7 @@ const addProducts = async (ID) => {
     });
     const cartItem = document.querySelector('.cart__items');
     cartItem.appendChild(newData);
+    storage()
   });
 };
 
