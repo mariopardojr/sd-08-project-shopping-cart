@@ -38,7 +38,7 @@ const sum = async () => {
   cartItens.forEach((e) => {
     total += parseFloat((e.innerHTML.split('$')[1]));
   });
-  totalPrice.innerHTML = total
+  totalPrice.innerHTML = total;
 };
 
 const storage = () => {
