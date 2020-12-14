@@ -38,9 +38,9 @@ function createProductItemElement({ sku, name, image }) {
           name,
           salePrice: data.price,
         };
-        document
-          .querySelector('.cart__items')
-          .appendChild(createCartItemElement(cartItem));
+        console.log("pko");
+        const car = document.querySelector(".cart__items");
+        car.appendChild(createCartItemElement(cartItem));
       });
   });
   return section;
