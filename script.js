@@ -32,7 +32,7 @@ function getSkuFromProductItem(item) {
 }
 
 async function cartItemClickListener(event) {
-    await event.target.remove();
+  await event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -118,5 +118,5 @@ window.onload = function onload() {
   addEvent();
   cartItemClickListener();
   eraser();
-  storage()
+  storage();
 };
