@@ -32,15 +32,14 @@ function getSkuFromProductItem(item) {
 }
 
 const sum = async () => {
-  const cartItens  =  document.querySelectorAll('.cart__item');
+  const cartItens = document.querySelectorAll('.cart__item');
   const totalPrice = document.querySelector('.total-price');
-  let  total = 0;
-  cartItens.forEach(e => {
-    total += parseFloat((e.innerHTML.split('$')[1]))
-  })
-  totalPrice.innerHTML = total.toFixed(2)
-}
-
+  let total = 0;
+  cartItens.forEach((e) => {
+    total += parseFloat((e.innerHTML.split('$')[1]));
+  });
+  totalPrice.innerHTML = total.toFixed(2);
+};
 
 const storage = () => {
   const Itens = document.querySelector('.cart__items').innerHTML;
@@ -51,7 +50,6 @@ async function cartItemClickListener(event) {
   await event.target.remove();
   sum();
   storage();
- 
 }
 
 const getItemStored = () => {
@@ -100,7 +98,7 @@ const addProducts = async (ID) => {
     const cartItem = document.querySelector('.cart__items');
     cartItem.appendChild(newData);
     storage();
-    sum()
+    sum();
   });
 };
 
@@ -118,7 +116,7 @@ const eraser = () => {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = ' ';
-    sum()
+    sum();
   });
 };
 
