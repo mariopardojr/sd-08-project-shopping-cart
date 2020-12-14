@@ -6,9 +6,11 @@ const cartListSaved = () => {
 const priceTotal = () => {
   const cartList = document.querySelectorAll('.cart__item');
   let price = 0;
-  cartList.forEach(element => price += parseFloat(element.innerHTML.split('$')[1]));
+  cartList.forEach((element) => {
+    price += parseFloat(element.innerHTML.split('$')[1])
+  });
     // console.log(price);
-  document.querySelector('.total-price').innerText = `Preço Total: $${(price).toLocaleString({maximumFractionDigits:2})}`;
+  document.querySelector('.total-price').innerText = `Preço Total: $ ${ (price).toLocaleString({ maximumFractionDigits:2 }) }`;
   // console.log(cartList);
 };
 
