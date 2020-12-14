@@ -158,8 +158,22 @@ const localStorageLoad = () => {
   }
 };
 
+const addClearAll = () => {
+  const [getListIten] = document.querySelectorAll('.cart__items');
+  const [priceTotal] = document.querySelectorAll('.total-price');
+  getListIten.innerHTML = '';
+  priceTotal.innerText = '00,00';
+  localStorage.clear();
+};
+
+const addEventClearAll = () => {
+  const [btnClearAll] = document.querySelectorAll('.empty-cart');
+  btnClearAll.addEventListener('click', addClearAll);
+};
+
 window.onload = async function onload() {
   await getListIdsProduct();
   localStorageLoad();
   addEvenBtnCar();
+  addEventClearAll();
 };
