@@ -32,10 +32,10 @@ function getSkuFromProductItem(item) {
 }
 
 async function cartItemClickListener() {
-    document.querySelectorAll('.cart__item').forEach(element => element.addEventListener('click', (event) => {
-     event.target.remove();
+  document.querySelectorAll('.cart__item').forEach(element => element.addEventListener('click', (event) => {
+      event.target.remove();
     //  storage()
-   }));
+    }));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -63,10 +63,10 @@ const getProducts = async () => {
   }
 };
 
-const storage = () => {
-  const Itens = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('item', Itens);
-};
+// const storage = () => {
+//   const Itens = document.querySelector('.cart__items').innerHTML;
+//   localStorage.setItem('item', Itens);
+// };
 
 // const getItemStored = () => {
 //   const Itens = document.querySelector('.cart__item')
