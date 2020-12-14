@@ -78,8 +78,6 @@ function createProductItemList(QUERY) {
           name: item.title,
           image: item.thumbnail,
         };
-        document.getElementById('items').innerHTML = document.getElementById('items').innerHTML.replace('loading...', '');
-        console.log(document.getElementById('items').innerText.split('...'));
         document
           .getElementById('items')
           .appendChild(createProductItemElement(features));
