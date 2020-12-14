@@ -68,12 +68,27 @@ const promiseApi = async (url) => {
 //   return image;
 // };
 
+const inLoading = (on = false) => {
+  if (on) {
+    const [getLoad] = document.querySelectorAll('.loading');
+    getLoad.style.display = 'none';
+  } else {
+  const newElelemtn = document.createElement('h1');
+  const [getContainer] = document.querySelectorAll('.items');
+  newElelemtn.className = 'loading';
+  newElelemtn.innerText = 'loading...';
+  getContainer.appendChild(newElelemtn);
+  }
+};
+
+
 const getListIdsProduct = async () => {
   const PRODUCT = 'computador';
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${PRODUCT}`;
   const [getSection] = document.querySelectorAll('.items');
   // const [getTextLoading] = document.querySelectorAll('.loading');
   const { results } = await promiseApi(url);
+  inLoading();
   results.forEach((item) => {
     const { id: sku, title: name, thumbnail: image } = item;
     // const image = await getImgBest(sku);
@@ -172,9 +187,8 @@ const addEventClearAll = () => {
 };
 
 window.onload = async function onload() {
-  const [getTextLoading] = document.querySelectorAll('.loading');
   await getListIdsProduct();
-  getTextLoading.innerText = '';
+  inLoading(true);
   localStorageLoad();
   addEvenBtnCar();
   addEventClearAll();
