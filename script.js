@@ -80,7 +80,7 @@ async function addItemToCart(targetItemId) {
       cartSumItems(id);
       saveLocalStorage();
     });
-    displayNone();
+  displayNone();
 }
 
 function selectItem(click) {
