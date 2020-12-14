@@ -31,12 +31,8 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) 
-
-function cartItemClickListener() {
-  document.querySelectorAll('.cart__item').forEach(element => element.addEventListener('click', (event) => {
-    event.target.remove();
-  }));
+async function cartItemClickListener(event) {
+ await event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -120,7 +116,7 @@ const eraser = () => {
 window.onload = function onload() {
   getProducts();
   addEvent();
-  eraser();
   cartItemClickListener();
-  storage();
+  eraser();
+
 };
