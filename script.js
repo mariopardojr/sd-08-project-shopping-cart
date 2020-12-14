@@ -88,7 +88,10 @@ function createProductItemElement(sku, name, image) {
   return section;
 }
 async function newFetch() {
-  const listaProd = await fetch(endpoint)
+  const loading = document.querySelector('.loading');
+  loading.style.display = 'block';
+  try {
+    const listaProd = await fetch(endpoint)
     .then(r => r.json())
     .then(r => r.results);
 
@@ -97,6 +100,12 @@ async function newFetch() {
     const { id: sku, title: name, thumbnail: image } = element;
     itemsContainer.appendChild(createProductItemElement(sku, name, image));
   });
+  } catch (error) {
+    
+  } finally {
+    loading.style.display = 'none';
+  }
+  
 }
 
 window.onload = function onload() {
