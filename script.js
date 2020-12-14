@@ -10,7 +10,7 @@ const priceTotal = () => {
     price += parseFloat(element.innerHTML.split('$')[1]);
   });
     // console.log(price);
-  document.querySelector('.total-price').innerText = `${(price).toFixed(2)}`;
+  document.querySelector('.total-price').innerText = `${(price)}`;
   // console.log(cartList);
 };
 
