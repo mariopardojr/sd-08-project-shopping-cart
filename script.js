@@ -36,7 +36,7 @@ function getLocalStoragePrice() {
 }
 
 function cartSumItems(price) {
-  cartSumPrices = parseInt(document.querySelector('.display').innerHTML);
+  cartSumPrices = parseInt(document.querySelector('.display').innerHTML, 10);
   cartSumPrices += price;
   document.querySelector('.display').innerHTML = cartSumPrices;
   localStorage.setItem('cart-sum', cartSumPrices);
