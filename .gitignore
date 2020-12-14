@@ -1,6 +1,14 @@
-# O NOME DO ARQUIVO DEVE SER `.gitignore` (ATENTE-SE AO PONTO NO INÍCIO)
-
-# VSCode repo settings
-.vscode
 node_modules/
-cypress/reports
+instalar
+package.json
+package-lock.json
+.stylelintignore
+debug.js
+debug.html
+debug.css
+corrigir
+.stylelintignore
+.prettierrc
+.eslintrc
+.prettierignore
+.eslintignore
