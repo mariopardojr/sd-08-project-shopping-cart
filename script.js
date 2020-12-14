@@ -133,7 +133,7 @@ function clearChartList() {
 const buttonClearAll = () => {
   const button = document.querySelector('button');
   button.addEventListener('click', clearChartList);
-}
+};
 
 window.onload = function onload() {
   fetchAPI(API_URL); loadCartFromLocalStorage(); getLocalStoragePrice(); buttonClearAll();
