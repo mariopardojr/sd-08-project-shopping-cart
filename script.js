@@ -88,6 +88,7 @@ function createProductItemElement(sku, name, image) {
   return section;
 }
 async function newFetch() {
+  const container = document.querySelector('.items');
   const loading = document.querySelector('.loading');
   loading.style.display = 'block';
   try {
@@ -96,12 +97,11 @@ async function newFetch() {
       .then(r => r.results);
 
     listaProd.forEach((element) => {
-      const itemsContainer = document.querySelector('.items');
       const { id: sku, title: name, thumbnail: image } = element;
-      itemsContainer.appendChild(createProductItemElement(sku, name, image));
+      container.appendChild(createProductItemElement(sku, name, image));
     });
   } finally {
-    loading.style.display = 'none';
+    container.removeChild(loading);
   }
 }
 
