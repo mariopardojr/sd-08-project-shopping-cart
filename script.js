@@ -50,9 +50,9 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-// function cartItemClickListener(event) {
-//   //   // coloque seu código aqui
-// }
+function cartItemClickListener(event) {
+  //   // coloque seu código aqui
+}
 
 const products = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
