@@ -73,11 +73,11 @@ const inLoading = (on = false) => {
     const [getLoad] = document.querySelectorAll('.loading');
     getLoad.style.display = 'none';
   } else {
-  const newElelemtn = document.createElement('h1');
-  const [getContainer] = document.querySelectorAll('.items');
-  newElelemtn.className = 'loading';
-  newElelemtn.innerText = 'loading...';
-  getContainer.appendChild(newElelemtn);
+    const newElelemtn = document.createElement('h1');
+    const [getContainer] = document.querySelectorAll('.items');
+    newElelemtn.className = 'loading';
+    newElelemtn.innerText = 'loading...';
+    getContainer.appendChild(newElelemtn);
   }
 };
 
