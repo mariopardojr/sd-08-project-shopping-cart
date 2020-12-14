@@ -65,9 +65,9 @@ function addItemToCart(targetItemId) {
         name: title,
         salePrice: price,
       };
-    document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
-    cartSumItems(id);
-    saveLocalStorage();
+      document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
+      cartSumItems(id);
+      saveLocalStorage();
     });
 }
 
