@@ -107,14 +107,14 @@ const totalPrice = async (item, add = false, op) => {
   if (op === 'add' || op === 'load') {
     let { price } = await promiseApi(url);
     const tot = priceTotal.innerText;
-    price = parseInt(tot, 0) + parseInt(price, 0);
-    priceTotal.innerText = price;
+    price = parseFloat(tot, 0) + parseFloat(price, 0);
+    priceTotal.innerText = Math.round(price * 100) / 100 ;
   } else {
     url = `https://api.mercadolibre.com/items/${item.target.id}`;
     let { price } = await promiseApi(url);
     const tot = priceTotal.innerText;
-    price = parseInt(tot, 0) - parseInt(price, 0);
-    priceTotal.innerText = price;
+    price = parseFloat(tot, 0) - parseFloat(price, 0);
+    priceTotal.innerText = Math.round(price * 100) / 100;
   }
 };
 
