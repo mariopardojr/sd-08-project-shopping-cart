@@ -1,5 +1,7 @@
 const API_URL = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
 
+let cartSumPrices = 0;
+
 function saveLocalStorage() {
   const cart = document.querySelector('.cart__items');
   localStorage.setItem('cart', cart.innerHTML);
@@ -28,6 +30,23 @@ function loadCartFromLocalStorage() {
   document.querySelectorAll('li').forEach(li => li.addEventListener('click', cartItemClickListener));
 }
 
+function getLocalStoragePrice() {
+//   let localStoragePricesString = localStorage.getItem('cart-sum');
+//   cartSumPrices += parseInt(localStoragePricesString); 
+
+//   // cartSumPrices = parseInt(cartSumPrices);
+  document.querySelector('.display').innerHTML = localStorage.getItem('cart-sum');
+}
+
+function cartSumItems(price) {
+  // localStorage.clear();
+  // parseInt(cartSumPrices);
+  // cartSumPrices = getLocalStoragePrice();
+  cartSumPrices += price;
+  document.querySelector('.display').innerHTML = cartSumPrices;
+  localStorage.setItem('cart-sum', cartSumPrices);
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -36,8 +55,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addItemToCart(targetItemId) {
-  fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
+async function addItemToCart(targetItemId) {
+  await fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
     .then(response => response.json())
     .then((data) => {
       const { id, title, price } = data;
@@ -47,6 +66,7 @@ function addItemToCart(targetItemId) {
         salePrice: price,
       };
       document.querySelector('.cart__items').appendChild(createCartItemElement(selectedItemObject));
+      cartSumItems(price);
       saveLocalStorage();
     });
 }
@@ -97,4 +117,4 @@ function fetchAPI(url) {
     }));
 }
 
-window.onload = function onload() { fetchAPI(API_URL); loadCartFromLocalStorage(); };
+window.onload = function onload() { fetchAPI(API_URL); loadCartFromLocalStorage(); getLocalStoragePrice(); };
