@@ -32,7 +32,7 @@ function loadCartFromLocalStorage() {
 
 function getLocalStoragePrice() {
 //   let localStoragePricesString = localStorage.getItem('cart-sum');
-//   cartSumPrices += parseInt(localStoragePricesString); 
+//   cartSumPrices += parseInt(localStoragePricesString);
 
 //   // cartSumPrices = parseInt(cartSumPrices);
   document.querySelector('.display').innerHTML = localStorage.getItem('cart-sum');
@@ -117,4 +117,6 @@ function fetchAPI(url) {
     }));
 }
 
-window.onload = function onload() { fetchAPI(API_URL); loadCartFromLocalStorage(); getLocalStoragePrice(); };
+window.onload = function onload() {
+  fetchAPI(API_URL); loadCartFromLocalStorage(); getLocalStoragePrice();
+};
