@@ -21,14 +21,15 @@ function cartItemClickListener(event) {
 
 async function sum(price) {
   const totalPrice = document.querySelector('.total-price');
-  const total = (parseFloat(totalPrice.innerText) + price).toFixed(2);
+  let total = Math.abs((parseFloat(totalPrice.innerText) + price)).toFixed(2);
+  if(total.substr(-3) === '.00') { total = total.slice(0, -3); }
+  // totalPrice.innerText = await localStorage.getItem('total').substr(0);
   localStorage.setItem('total', total);
   totalPrice.innerText = await localStorage.getItem('total');
 }
 
 function createCartItemElement({ sku, name, salePrice }, newItem) {
   cart.push({ sku, name, salePrice });
-  console.log(cart);
   const stringCart = JSON.stringify(cart);
   localStorage.setItem('cart', stringCart);
   const li = document.createElement('li');
