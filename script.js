@@ -14,8 +14,13 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function cartItemClickListener(event) {
+async function cartItemClickListener(event, price) {
   const cartItems = document.querySelector('.cart__items');
+  const totalPrice = document.querySelector('.total-price');
+  let total = Math.abs((parseFloat(totalPrice.innerText) - price)).toFixed(2);
+  if (total.substr(-3) === '.00') { total = total.slice(0, -3); }
+  localStorage.setItem('total', total);
+  totalPrice.innerText = await localStorage.getItem('total');
   cartItems.removeChild(event.target);
 }
 
@@ -35,7 +40,7 @@ function createCartItemElement({ sku, name, salePrice }, newItem) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', () => cartItemClickListener(event, salePrice));
   if (!newItem) sum(salePrice);
   return li;
 }
@@ -82,6 +87,8 @@ function loadCart() {
 }
 
 window.onload = function onload() {
+  let test = document.querySelector('.loading');
+  test.innerText = 'loading';
   const items = document.querySelector('.items');
   if (localStorage.getItem('cart')) loadCart();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
