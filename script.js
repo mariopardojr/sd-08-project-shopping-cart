@@ -35,16 +35,30 @@ function getLocalStoragePrice() {
   }
 }
 
-function displayLoading() {
-  document.querySelector('.loading').style.display = 'block';
+// function displayLoading() {
+//   document.querySelector('.loading').style.display = 'block';
+// }
+
+// function displayNone() {
+//   document.querySelector('.loading').style.display = 'none';
+// }
+
+function createLoadingDiv() {
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'loading';
+  loadingDiv.innerHTML = 'loading...';
+  const container = document.querySelector('.loading-container');
+  container.appendChild(loadingDiv);
 }
 
-function displayNone() {
-  document.querySelector('.loading').style.display = 'none';
+function removeLoadingDiv() {
+  const container = document.querySelector('.loading-container');
+  const loadingDiv = document.querySelector('.loading');
+  container.removeChild(loadingDiv);
 }
 
 async function cartSumItems(id) {
-  displayLoading();
+  createLoadingDiv();
   await fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
     .then((data) => {
@@ -54,7 +68,7 @@ async function cartSumItems(id) {
     });
   document.querySelector('.display').innerHTML = cartSumPrices;
   localStorage.setItem('cart-sum', cartSumPrices);
-  displayNone();
+  removeLoadingDiv();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -66,7 +80,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 async function addItemToCart(targetItemId) {
-  displayLoading();
+  createLoadingDiv();
   await fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
     .then(response => response.json())
     .then((data) => {
@@ -80,7 +94,7 @@ async function addItemToCart(targetItemId) {
       cartSumItems(id);
       saveLocalStorage();
     });
-  displayNone();
+  removeLoadingDiv();
 }
 
 function selectItem(click) {
@@ -117,6 +131,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 async function fetchAPI(url) {
+  createLoadingDiv();
   await fetch(url)
     .then(response => response.json())
     .then(data => data.results.forEach((element) => {
@@ -127,6 +142,7 @@ async function fetchAPI(url) {
       };
       document.querySelector('.items').appendChild(createProductItemElement(elementObject));
     }));
+  removeLoadingDiv();
 }
 
 function clearChartList() {
