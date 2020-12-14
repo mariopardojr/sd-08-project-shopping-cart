@@ -18,9 +18,25 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function removeCartItemSubtraction(id) {
+  createLoadingDiv();
+  await fetch(`https://api.mercadolibre.com/items/${id}`)
+    .then(response => response.json())
+    .then((data) => {
+      const { price } = data;
+      cartSumPrices = parseFloat(document.querySelector('.display').innerHTML, 10);
+      cartSumPrices -= price;
+    });
+  document.querySelector('.display').innerHTML = cartSumPrices.toFixed(2);
+  localStorage.setItem('cart-sum', cartSumPrices);
+  removeLoadingDiv();
+}
+
 function cartItemClickListener(event) {
   event.target.classList.add('removeOnClick');
+  const id = event.target.id;
   document.querySelector('.cart__items').removeChild(document.querySelector('.removeOnClick'));
+  removeCartItemSubtraction(id)
   saveLocalStorage();
 }
 
@@ -34,14 +50,6 @@ function getLocalStoragePrice() {
     document.querySelector('.display').innerHTML = localStorage.getItem('cart-sum');
   }
 }
-
-// function displayLoading() {
-//   document.querySelector('.loading').style.display = 'block';
-// }
-
-// function displayNone() {
-//   document.querySelector('.loading').style.display = 'none';
-// }
 
 function createLoadingDiv() {
   const loadingDiv = document.createElement('div');
@@ -63,7 +71,7 @@ async function cartSumItems(id) {
     .then(response => response.json())
     .then((data) => {
       const { price } = data;
-      cartSumPrices = parseInt(document.querySelector('.display').innerHTML, 10);
+      cartSumPrices = parseFloat(document.querySelector('.display').innerHTML, 10);
       cartSumPrices += price;
     });
   document.querySelector('.display').innerHTML = cartSumPrices;
@@ -73,6 +81,7 @@ async function cartSumItems(id) {
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
+  li.id = sku;
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);

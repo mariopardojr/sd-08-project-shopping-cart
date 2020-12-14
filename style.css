@@ -79,6 +79,10 @@
   background-color: rgba( 43, 0, 255, 37.5% );
 }
 
+.cart__item {
+  cursor: pointer;
+}
+
 /* .loading {
   display: none;
 } */
