@@ -46,7 +46,7 @@ const productsAPI = async () => {
   const api = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   const items = await fetch(api)
     .then(element => element.json())
-    .then(result => result.results);
+    .then(element => element.results);
 
   const contItems = document.querySelector('.items');
   items.forEach((element) => {
@@ -56,4 +56,6 @@ const productsAPI = async () => {
   });
 };
 
-productsAPI();
+window.onload = function onload() {
+  productsAPI();
+}
