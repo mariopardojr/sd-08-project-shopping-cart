@@ -118,7 +118,7 @@ const eraser = () => {
 window.onload = function onload() {
   getProducts();
   addEvent();
+  eraser();
   cartItemClickListener();
   storage();
-  eraser();
 };
