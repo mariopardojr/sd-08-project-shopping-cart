@@ -22,7 +22,7 @@ function cartItemClickListener(event) {
 async function sum(price) {
   const totalPrice = document.querySelector('.total-price');
   let total = Math.abs((parseFloat(totalPrice.innerText) + price)).toFixed(2);
-  if(total.substr(-3) === '.00') { total = total.slice(0, -3); }
+  if (total.substr(-3) === '.00') { total = total.slice(0, -3); }
   // totalPrice.innerText = await localStorage.getItem('total').substr(0);
   localStorage.setItem('total', total);
   totalPrice.innerText = await localStorage.getItem('total');
