@@ -56,9 +56,24 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+const inLoading = (on = false) => {
+  if (on) {
+    const [getLoad] = document.querySelectorAll('.loading');
+    getLoad.parentNode.removeChild(getLoad);
+  } else {
+    const newElelemtn = document.createElement('h1');
+    const [getContainer] = document.querySelectorAll('body');
+    newElelemtn.className = 'loading';
+    newElelemtn.innerText = 'loading...';
+    getContainer.appendChild(newElelemtn);
+  }
+};
+
 const promiseApi = async (url) => {
+  inLoading();
   const response = await fetch(url);
   const data = await response.json();
+  inLoading(true);
   return data;
 };
 
@@ -68,28 +83,13 @@ const promiseApi = async (url) => {
 //   return image;
 // };
 
-const inLoading = (on = false) => {
-  if (on) {
-    const [getLoad] = document.querySelectorAll('.loading');
-    getLoad.style.display = 'none';
-  } else {
-    const newElelemtn = document.createElement('h1');
-    const [getContainer] = document.querySelectorAll('.items');
-    newElelemtn.className = 'loading';
-    newElelemtn.innerText = 'loading...';
-    getContainer.appendChild(newElelemtn);
-  }
-};
-
 const getListIdsProduct = async () => {
   const PRODUCT = 'computador';
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${PRODUCT}`;
   const [getSection] = document.querySelectorAll('.items');
   // const [getTextLoading] = document.querySelectorAll('.loading');
-  inLoading();
   const { results } = await promiseApi(url);
   results.forEach((item) => {
-    inLoading(true);
     const { id: sku, title: name, thumbnail: image } = item;
     // const image = await getImgBest(sku);
     const elProduct = createProductItemElement({ sku, name, image });
