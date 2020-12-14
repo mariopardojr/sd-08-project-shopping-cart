@@ -19,22 +19,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!')).addEventListener('click', (event) => { 
-    const test = event.target.parentNode;
-    const idItem = getSkuFromProductItem(test);
-    fetch(`https://api.mercadolibre.com/items/${idItem}`)
-    .then(resolve => resolve.json())
-    .then(data => {
-      const item = {
-        sku: data.id,
-        name: data.title,
-        salePrice: data.price,
-      };
-      const itemSelect = document.querySelector('.cart__items');
-      itemSelect.appendChild(createCartItemElement(item));
-    });
-  });
-
+  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!')).addEventListener('click', addProducts);
   return section;
 }
 
@@ -43,8 +28,7 @@ function cartItemClickListener(event) {
 }
 
 // Req1 - Criando os itens a partir da API e ligando com a função createProductItemElement
-const products = () => {
-  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=computador`)
+const products = () => {fetch(`https://api.mercadolibre.com/sites/MLB/search?q=computador`)
   .then(response => response.json())
   .then((data) => { data.results.forEach((product) => {
     const object = {
@@ -69,7 +53,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
 // Req2
 const addProducts = (event) => {
   const test = event.target.parentNode;
