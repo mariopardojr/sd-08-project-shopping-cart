@@ -35,7 +35,16 @@ function getLocalStoragePrice() {
   }
 }
 
+function displayLoading() {
+  document.querySelector('.loading').style.display = 'block';
+}
+
+function displayNone() {
+  document.querySelector('.loading').style.display = 'none';
+}
+
 async function cartSumItems(id) {
+  displayLoading();
   await fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
     .then((data) => {
@@ -45,6 +54,7 @@ async function cartSumItems(id) {
     });
   document.querySelector('.display').innerHTML = cartSumPrices;
   localStorage.setItem('cart-sum', cartSumPrices);
+  displayNone();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -55,8 +65,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addItemToCart(targetItemId) {
-  fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
+async function addItemToCart(targetItemId) {
+  displayLoading();
+  await fetch(`https://api.mercadolibre.com/items/${targetItemId}`)
     .then(response => response.json())
     .then((data) => {
       const { id, title, price } = data;
@@ -69,6 +80,7 @@ function addItemToCart(targetItemId) {
       cartSumItems(id);
       saveLocalStorage();
     });
+    displayNone();
 }
 
 function selectItem(click) {
@@ -77,13 +89,6 @@ function selectItem(click) {
   addItemToCart(parentNodeFirstChildId);
   click.target.classList.remove('selected');
 }
-
-// function clearChartList(click) {
-//   document.querySelector('.chat__items').innerHTML = '';
-//   localStorage.clear();
-// }
-
-// document.querySelector('.empty-chart').addEventListener('click', clearChartList);
 
 function createCustomElement(element, className, innerText) {
   if (element === 'button') {
@@ -111,8 +116,8 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function fetchAPI(url) {
-  fetch(url)
+async function fetchAPI(url) {
+  await fetch(url)
     .then(response => response.json())
     .then(data => data.results.forEach((element) => {
       const elementObject = {
