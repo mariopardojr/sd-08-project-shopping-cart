@@ -112,8 +112,8 @@ const eraser = () => {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = ' ';
-  })
-   };
+  });
+};
 
 window.onload = function onload() {
   getProducts();
