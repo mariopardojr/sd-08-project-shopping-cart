@@ -87,7 +87,7 @@ function loadCart() {
 }
 
 window.onload = function onload() {
-  let test = document.querySelector('.loading');
+  const test = document.querySelector('.loading');
   test.innerText = 'loading';
   const items = document.querySelector('.items');
   if (localStorage.getItem('cart')) loadCart();
