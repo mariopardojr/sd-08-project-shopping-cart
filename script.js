@@ -4,7 +4,7 @@ let cartSumPrices = 0;
 
 function saveLocalStorage() {
   const cart = document.querySelector('.cart__items');
-  localStorage.setItem('cart', cart.innerHTML);
+  localStorage.setItem('cart-tems', cart.innerHTML);
 }
 
 function createProductImageElement(imageSource) {
@@ -16,39 +16,6 @@ function createProductImageElement(imageSource) {
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-async function removeCartItemSubtraction(id) {
-  createLoadingDiv();
-  await fetch(`https://api.mercadolibre.com/items/${id}`)
-    .then(response => response.json())
-    .then((data) => {
-      const { price } = data;
-      cartSumPrices = parseFloat(document.querySelector('.display').innerHTML, 10);
-      cartSumPrices -= price;
-    });
-  document.querySelector('.display').innerHTML = cartSumPrices.toFixed(2);
-  localStorage.setItem('cart-sum', cartSumPrices);
-  removeLoadingDiv();
-}
-
-function cartItemClickListener(event) {
-  event.target.classList.add('removeOnClick');
-  const id = event.target.id;
-  document.querySelector('.cart__items').removeChild(document.querySelector('.removeOnClick'));
-  removeCartItemSubtraction(id)
-  saveLocalStorage();
-}
-
-function loadCartFromLocalStorage() {
-  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
-  document.querySelectorAll('li').forEach(li => li.addEventListener('click', cartItemClickListener));
-}
-
-function getLocalStoragePrice() {
-  if (localStorage.length > 0) {
-    document.querySelector('.display').innerHTML = localStorage.getItem('cart-sum');
-  }
 }
 
 function createLoadingDiv() {
@@ -63,6 +30,39 @@ function removeLoadingDiv() {
   const container = document.querySelector('.loading-container');
   const loadingDiv = document.querySelector('.loading');
   container.removeChild(loadingDiv);
+}
+
+async function removeCartItemSubtraction(id) {
+  createLoadingDiv();
+  await fetch(`https://api.mercadolibre.com/items/${id}`)
+    .then(resp => resp.json())
+    .then((dat) => {
+      const { price } = dat;
+      cartSumPrices = parseFloat(document.querySelector('.display').innerHTML, 10);
+      cartSumPrices -= price;
+    });
+  document.querySelector('.display').innerHTML = cartSumPrices.toFixed(2);
+  localStorage.setItem('cart-sum', cartSumPrices);
+  removeLoadingDiv();
+}
+
+function cartItemClickListener(event) {
+  event.target.classList.add('removeOnClick');
+  const id = event.target.id;
+  document.querySelector('.cart__items').removeChild(document.querySelector('.removeOnClick'));
+  removeCartItemSubtraction(id);
+  saveLocalStorage();
+}
+
+function loadCartFromLocalStorage() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart-tems');
+  document.querySelectorAll('li').forEach(li => li.addEventListener('click', cartItemClickListener));
+}
+
+function getLocalStoragePrice() {
+  if (localStorage.length > 0) {
+    document.querySelector('.display').innerHTML = localStorage.getItem('cart-sum');
+  }
 }
 
 async function cartSumItems(id) {
