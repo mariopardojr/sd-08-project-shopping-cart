@@ -86,8 +86,10 @@ const getListIdsProduct = async () => {
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${PRODUCT}`;
   const [getSection] = document.querySelectorAll('.items');
   // const [getTextLoading] = document.querySelectorAll('.loading');
+  inLoading();
   const { results } = await promiseApi(url);
   results.forEach((item) => {
+    inLoading(true);
     const { id: sku, title: name, thumbnail: image } = item;
     // const image = await getImgBest(sku);
     const elProduct = createProductItemElement({ sku, name, image });
@@ -185,9 +187,7 @@ const addEventClearAll = () => {
 };
 
 window.onload = async function onload() {
-  inLoading();
   await getListIdsProduct();
-  inLoading(true);
   localStorageLoad();
   addEvenBtnCar();
   addEventClearAll();
