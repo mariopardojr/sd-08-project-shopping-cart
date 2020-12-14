@@ -99,8 +99,8 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-async function fetchAPI(url) {
-  await fetch(url)
+function fetchAPI(url) {
+  fetch(url)
     .then(response => response.json())
     .then(data => data.results.forEach((element) => {
       const elementObject = {
