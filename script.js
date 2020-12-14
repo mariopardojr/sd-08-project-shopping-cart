@@ -81,7 +81,6 @@ const getProducts = async () => {
 
 const storage = () => {
   const Itens = document.querySelector('.cart__items').innerHTML;
-  // const string = JSON.stringify(Itens.innerHTML);
   localStorage.setItem('cart', Itens);
 };
 
@@ -109,9 +108,17 @@ const addEvent = () => {
   items.forEach(element => element.addEventListener('click', Btnevent));
 };
 
+const eraser = () =>{
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = ' ';
+}
+  )};
+
 window.onload = function onload() {
   getProducts();
   addEvent();
   cartItemClickListener();
   storage();
+  eraser();
 };
