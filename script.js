@@ -32,12 +32,12 @@ function removeLoadingDiv() {
   container.removeChild(loadingDiv);
 }
 
-async function removeCartItemSubtraction(id) {
+async function removeCartItemSubtraction(sku) {
   createLoadingDiv();
-  await fetch(`https://api.mercadolibre.com/items/${id}`)
-    .then(resp => resp.json())
-    .then((dat) => {
-      const { price } = dat;
+  await fetch(`https://api.mercadolibre.com/items/${sku}`)
+    .then(answer => answer.json())
+    .then((object) => {
+      const { price } = object;
       cartSumPrices = parseFloat(document.querySelector('.display').innerHTML, 10);
       cartSumPrices -= price;
     });
