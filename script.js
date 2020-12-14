@@ -31,14 +31,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const sum =  () => {
+const sum = async () => {
   const cartItens = document.querySelectorAll('.cart__item');
   const totalPrice = document.querySelector('.total-price');
   let total = 0;
   cartItens.forEach((e) => {
     total += parseFloat((e.innerHTML.split('$')[1]));
   });
-  totalPrice.innerHTML = total.toFixed(2);
+  totalPrice.innerHTML = total
 };
 
 const storage = () => {
