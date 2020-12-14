@@ -12,14 +12,14 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-const sumItems = () => {
+const sumItems = async () => {
   const items = document.querySelectorAll('.cart__item');
   const arrayItems = Array.from(items).reduce((acc, curr) => {
     const total = parseFloat(curr.innerText.split('$')[1]);
     return acc + total;
   }, 0);
   const h1 = document.querySelector('.total-price');
-  h1.innerHTML = `Preço total: $${arrayItems}`;
+  h1.innerHTML = `Preço total: $${arrayItems.toFixed(2)}`;
 };
 
 const creatLocalStorage = () => {
@@ -31,8 +31,8 @@ const creatLocalStorage = () => {
   localStorage.setItem('items', JSON.stringify(arrayElement));
 };
 
-function cartItemClickListener(event) {
-  document.querySelector('ol').removeChild(event.target);
+async function cartItemClickListener(event) {
+  await document.querySelector('ol').removeChild(event.target);
   sumItems();
   creatLocalStorage();
 }
