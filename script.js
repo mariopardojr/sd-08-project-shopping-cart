@@ -108,12 +108,12 @@ const addEvent = () => {
   items.forEach(element => element.addEventListener('click', Btnevent));
 };
 
-const eraser = () =>{
+const eraser = () => {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = ' ';
-}
-  )};
+  })
+   };
 
 window.onload = function onload() {
   getProducts();
