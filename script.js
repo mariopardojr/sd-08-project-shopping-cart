@@ -56,13 +56,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const promiseApi = (url) => {
-  const results = new Promise((resolve, reject) => {
-    fetch(url).then(response => response.json())
-      .then(data => resolve(data))
-      .catch(err => reject(err));
-  });
-  return results;
+const promiseApi = async (url) => {
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
 };
 
 // const getImgBest = async (id) => {
@@ -99,9 +96,28 @@ const localStorageSave = (description) => {
   }
 };
 
-const totalPrice = (item, add = false) => {
-  if (add) item.addEventListener('click', totalPrice);
+const totalPrice = async (item, add = false, op) => {
+  if (add) {
+    item.addEventListener('click', totalPrice);
+  }
+  const [priceTotal] = document.querySelectorAll('.total-price');
+  // const getItensCar = document.querySelectorAll('.cart__item');
+  // const arrayItens = Array.from(getItensCar).map(item => item.id);
+  let url = `https://api.mercadolibre.com/items/${item.id}`;
+  if (op === 'add' || op === 'load') {
+    let { price } = await promiseApi(url);
+    const tot = priceTotal.innerText;
+    price = (parseFloat(tot) + parseFloat(price)).toFixed(2);
+    priceTotal.innerText = price;
+  } else {
+    url = `https://api.mercadolibre.com/items/${item.target.id}`;
+    let { price } = await promiseApi(url);
+    const tot = priceTotal.innerText;
+    price = (parseFloat(tot) - parseFloat(price)).toFixed(2);
+    priceTotal.innerText = price;
+  }
 };
+
 
 const addItemCar = async (event) => {
   const idItem = getSkuFromProductItem(event.target.parentNode);
@@ -109,8 +125,8 @@ const addItemCar = async (event) => {
   const url = `https://api.mercadolibre.com/items/${idItem}`;
   const { id: sku, title: name, price: salePrice } = await promiseApi(url);
   const item = createCartItemElement({ sku, name, salePrice });
-  totalPrice(item, true);
   getShoppingCart.appendChild(item);
+  totalPrice(item, true, 'add');
   localStorageSave({ sku, name, salePrice });
 };
 
@@ -123,6 +139,7 @@ const storageLoadCar = (data) => {
   const [getOl] = document.querySelectorAll('.cart__items');
   const { id: sku, title: name, price: salePrice } = data;
   const newEl = createCartItemElement({ sku, name, salePrice });
+  totalPrice(newEl, true, 'load');
   getOl.appendChild(newEl);
 };
 
@@ -130,7 +147,7 @@ const localStorageLoad = () => {
   if (typeof localStorage !== 'undefined') {
     if (localStorage.length > 0) {
       const localItens = JSON.parse(localStorage.getItem('items'));
-      localItens.forEach(async (el) => {
+      localItens.forEach((el) => {
         storageLoadCar(el);
       });
     } else {
