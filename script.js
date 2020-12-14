@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const sum = async () => {
+const sum =  () => {
   const cartItens = document.querySelectorAll('.cart__item');
   const totalPrice = document.querySelector('.total-price');
   let total = 0;
