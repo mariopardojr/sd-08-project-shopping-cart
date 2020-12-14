@@ -2,6 +2,22 @@ const setLocalStorage = () => {
   localStorage.setItem('list', document.getElementById('cart-list').innerHTML);
 };
 
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+}
+
+const createLoading = () => {
+  const createParagraph = createCustomElement('p', 'loading', 'loading...');
+  document.querySelector('.cart').appendChild(createParagraph);
+};
+
+const removeLoading = () => {
+  document.querySelector('.cart').removeChild(document.querySelector('.loading'));
+};
+
 const showTotalPrice = async () => {
   const getTotalPrice = document.querySelector('.total-price');
   const getCartItems = document.getElementById('cart-list').childNodes;
@@ -39,13 +55,6 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -65,6 +74,7 @@ function createProductItemElement({ sku, name, image }) {
       createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'),
     )
     .addEventListener('click', () => {
+      createLoading();
       fetch(`https://api.mercadolibre.com/items/${sku}`)
         .then(resolve => resolve.json())
         .then(data => {
@@ -78,7 +88,8 @@ function createProductItemElement({ sku, name, image }) {
             .appendChild(createCartItemElement(cartItem));
           setLocalStorage();
           showTotalPrice();
-        });
+        })
+        .then(removeLoading);
     });
 
   return section;
@@ -89,6 +100,7 @@ function createProductItemElement({ sku, name, image }) {
 } */
 
 const getApiList = () => {
+  createLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(resolve => resolve.json())
     .then(data => {
@@ -102,7 +114,8 @@ const getApiList = () => {
           .querySelector('.items')
           .appendChild(createProductItemElement(productList));
       });
-    });
+    })
+    .then(removeLoading);
 };
 
 window.onload = function onload() {
