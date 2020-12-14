@@ -92,20 +92,17 @@ async function newFetch() {
   loading.style.display = 'block';
   try {
     const listaProd = await fetch(endpoint)
-    .then(r => r.json())
-    .then(r => r.results);
+      .then(r => r.json())
+      .then(r => r.results);
 
-  listaProd.forEach((element) => {
-    const itemsContainer = document.querySelector('.items');
-    const { id: sku, title: name, thumbnail: image } = element;
-    itemsContainer.appendChild(createProductItemElement(sku, name, image));
-  });
-  } catch (error) {
-    
+    listaProd.forEach((element) => {
+      const itemsContainer = document.querySelector('.items');
+      const { id: sku, title: name, thumbnail: image } = element;
+      itemsContainer.appendChild(createProductItemElement(sku, name, image));
+    });
   } finally {
     loading.style.display = 'none';
   }
-  
 }
 
 window.onload = function onload() {
