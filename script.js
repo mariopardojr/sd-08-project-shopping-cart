@@ -64,4 +64,25 @@ const fetchProducts = () => {
     });
 };
 
-window.onload = function onload() { fetchProducts(); };
+// const salvando = () => {
+//   const salvar = document.querySelector('.cart__items');
+//   salvar.addEventListener('click', addProducts);
+//   console.log(salvar);
+//      let lista = document.querySelector('.cart__items').innerHTML;
+//      localStorage.setItem('lista', lista);
+// }
+// salvando();
+
+// const recuperar = document.querySelector('cart__items')
+// .innerHTML = localStorage.getItem('lista');
+
+function limparCarrinho() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+  });
+}
+
+window.onload = function onload() {
+  fetchProducts();
+  limparCarrinho();
+};
