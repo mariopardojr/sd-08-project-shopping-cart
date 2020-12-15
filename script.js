@@ -24,11 +24,11 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-async function addProduct(e) {
+function addProduct(e) {
   const id = e.target.parentNode.firstChild.innerText;
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(res => res.json())
-  .then((data)=> {
+  .then((data) => {
     const item = {
       sku: data.id,
       name: data.title,
