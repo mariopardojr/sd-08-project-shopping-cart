@@ -68,7 +68,14 @@ const products = () => {
       });
     });
 };
+function cleanCart() {
+  const buttonClear = document.querySelector('.empty-cart');
+  buttonClear.addEventListener('click', () => {
+    const captureClass = document.querySelector('.cart__items');
+    captureClass.innerHTML = '';
+  });
+}
 window.onload = function onload() {
   products();
-  // addProducts();
+  cleanCart();
 };
