@@ -72,18 +72,9 @@ const getProduct = () => fetch(
   });
 });
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
-// // console.log(getProductToCart('MLB1532299476'));
-
-// async function addToCart() {
-//     await getProduct();
-//     const targetSection = button.parentElement;
-//     const realSku = getSkuFromProductItem(targetSection);
-//     getProductToCart(realSku);
-//   }
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
 
 window.onload = function onload() {
   getProduct();
