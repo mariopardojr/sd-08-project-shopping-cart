@@ -40,6 +40,12 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+document.querySelector('.empty-cart').addEventListener('click', () => {
+  const ol = document.querySelector('.cart__items');
+  ol.innerHTML = '';
+  localStorage.clear();
+});
+
 const addToCar = (event) => {
   const select = event.target.parentNode;
   const getId = getSkuFromProductItem(select);
