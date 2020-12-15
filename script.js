@@ -13,11 +13,9 @@ function createCustomElement(element, className, innerText) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
 }
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -25,12 +23,12 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-const addProducts = (event) => {
+const addProducts = event => {
   const test = event.target.parentNode;
   const idItem = getSkuFromProductItem(test);
   fetch(`https://api.mercadolibre.com/items/${idItem}`)
     .then(resolve => resolve.json())
-    .then((data) => {
+    .then(data => {
       const item = {
         sku: data.id,
         name: data.title,
@@ -47,15 +45,14 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'))
-  .addEventListener('click', addProducts);
+    .addEventListener('click', addProducts);
   return section;
 }
-
 const products = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then((data) => {
-      data.results.forEach((product) => {
+    .then(data => {
+      data.results.forEach(product => {
         const object = {
           sku: product.id,
           name: product.title,
@@ -65,6 +62,14 @@ const products = () => {
       });
     });
 };
+function cleanCart() {
+  const buttonClear = document.querySelector('.empty-cart');
+  buttonClear.addEventListener('click', () => {
+    const captureClass = document.querySelector('.cart__items');
+    captureClass.innerHTML = '';
+  });
+}
 window.onload = function onload() {
   products();
+  cleanCart();
 };
