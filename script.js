@@ -23,13 +23,16 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
-const addProducts = event => {
+function Removeloading() {
+  const captureSpam = document.querySelector('.loading');
+  captureSpam.remove();
+}
+const addProducts = (event) => {
   const test = event.target.parentNode;
   const idItem = getSkuFromProductItem(test);
   fetch(`https://api.mercadolibre.com/items/${idItem}`)
     .then(resolve => resolve.json())
-    .then(data => {
+    .then((data) => {
       const item = {
         sku: data.id,
         name: data.title,
@@ -45,26 +48,22 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section
-    .appendChild(
-      createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'),
-    )
+  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'))
     .addEventListener('click', addProducts);
   return section;
 }
 const products = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(data => {
-      data.results.forEach(product => {
+    .then((data) => {
+      Removeloading();
+      data.results.forEach((product) => {
         const object = {
           sku: product.id,
           name: product.title,
           image: product.thumbnail,
         };
-        document
-          .querySelector('.items')
-          .appendChild(createProductItemElement(object));
+        document.querySelector('.items').appendChild(createProductItemElement(object));
       });
     });
 };
@@ -75,7 +74,7 @@ function cleanCart() {
     captureClass.innerHTML = '';
   });
 }
-window.onload = function onload() {
-  products();
+window.onload = async () => {
+  await products();
   cleanCart();
 };
