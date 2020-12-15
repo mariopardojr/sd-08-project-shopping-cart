@@ -15,8 +15,15 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+// Requisito 4
+const saveLocalStorage = () => {
+  const ol = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('mlProductsList', JSON.stringify(ol));
+};
+
 function cartItemClickListener(event) {
-  document.querySelector('.cart__items').removeChild(event.target);
+  document.querySelector('.cart__items').removeChild(event.target); //Requisito 3
+  saveLocalStorage();
 }
 
 function getSkuFromProductItem(item) {
@@ -37,6 +44,7 @@ function mlGetProductByID(productId) {
     .then(response => response.json())
     .then((data) => {
       document.querySelector('.cart__items').appendChild(createCartItemElement(data));
+      saveLocalStorage();
     });
 }
 
@@ -55,6 +63,16 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+// Requisito 4
+const loadCartShopping = () => {
+  let mlListOfProducts = localStorage.getItem('mlProductsList');
+  mlListOfProducts = JSON.parse(mlListOfProducts);
+  const ol = document.querySelector('.cart__items');
+  ol.innerHTML = mlListOfProducts;
+  const liCartItemsList = document.querySelectorAll('li');
+  liCartItemsList.forEach(li => li.addEventListener('click', cartItemClickListener));  
+};
+
 // Requisito 1
 const mlGetListOfProducts = (product) => {
   fetch(`${urlMLGetListOfProducts}${product}`)
@@ -67,6 +85,7 @@ const mlGetListOfProducts = (product) => {
         const mlProductItem = createProductItemElement({ sku, name, image });
         sectionItems.appendChild(mlProductItem);
       });
+      loadCartShopping();
     });
 };
 
