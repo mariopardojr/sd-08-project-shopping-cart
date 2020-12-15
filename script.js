@@ -15,11 +15,12 @@ function createCustomElement(element, className, innerText) {
 const sumItems = async () => {
   const items = document.querySelectorAll('.cart__item');
   const arrayItems = Array.from(items).reduce((acc, curr) => {
-    const total = parseFloat(curr.innerText.split('$')[1]);
-    return acc + total;
+    let total = acc;
+    total += parseFloat(curr.innerText.split('$')[1]);
+    return total;
   }, 0);
   const h1 = document.querySelector('.total-price');
-  h1.innerHTML = Math.floor(arrayItems);
+  h1.innerHTML = Math.ceil(arrayItems);
 };
 
 const creatLocalStorage = () => {
