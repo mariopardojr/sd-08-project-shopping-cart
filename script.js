@@ -38,7 +38,6 @@ function createProductItemElement({ sku, name, image }) {
     'item__add',
     'Adicionar ao carrinho!',
   );
-  section.appendChild(button);
   button.addEventListener('click', () => {
     fetch(`https://api.mercadolibre.com/items/${sku}`).then(response => {
       response.json().then(data => {
@@ -52,7 +51,7 @@ function createProductItemElement({ sku, name, image }) {
       });
     });
   });
-
+  section.appendChild(button);
   return section;
 }
 
