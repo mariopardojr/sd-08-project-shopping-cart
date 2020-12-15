@@ -27,12 +27,12 @@ function Removeloading() {
   const captureSpam = document.querySelector('.loading');
   captureSpam.remove();
 }
-const addProducts = (event) => {
+const addProducts = event => {
   const test = event.target.parentNode;
   const idItem = getSkuFromProductItem(test);
   fetch(`https://api.mercadolibre.com/items/${idItem}`)
     .then(resolve => resolve.json())
-    .then((data) => {
+    .then(data => {
       const item = {
         sku: data.id,
         name: data.title,
@@ -55,9 +55,9 @@ function createProductItemElement({ sku, name, image }) {
 const products = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then((data) => {
+    .then(data => {
       Removeloading();
-      data.results.forEach((product) => {
+      data.results.forEach(product => {
         const object = {
           sku: product.id,
           name: product.title,
