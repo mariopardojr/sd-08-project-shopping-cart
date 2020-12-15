@@ -59,7 +59,7 @@ const calcTotalPrice = async (value) => {
   const price = totalPrice.querySelector('span');
   const actualPrice = parseInt(price.innerText.split('R$ ')[1], 10);
   const newPrice = (actualPrice + value).toFixed(2);
-  price.innerHTML = `Valor total: R$ ${newPrice}`;
+  price.innerText = `Valor total: R$ ${newPrice}`;
 };
 // Requisito 03 - 05
 const cartItemClickListener = () => {
