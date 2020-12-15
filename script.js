@@ -26,7 +26,6 @@ const saveLocalStorage = () => {
 
 // Requisito 5
 const sumPrices = async () => {
-  document.querySelector('.loading').style.display = 'flex'; // Requisito 7
   const liCartItemsList = document.querySelectorAll('li');
   const arrayOfLiItem = Array.from(liCartItemsList);
   const spanTotalPrice = document.querySelector('.total-price');
@@ -35,7 +34,6 @@ const sumPrices = async () => {
     const liSplited = value.split('$');
     return acc + Number(liSplited[1]);
   }, 0);
-  document.querySelector('.loading').style.display = 'none'; // Requisito 7
 };
 
 async function cartItemClickListener(event) {
@@ -108,12 +106,18 @@ const clearCartShopping = () => {
   });
 };
 
+const removeMessageLoading = () => {
+  const container = document.querySelector('.container');
+  const messageLoading = document.querySelector('.loading');
+  container.removeChild(messageLoading);
+};
+
 // Requisito 1
 const mlGetListOfProducts = (product) => {
   fetch(`${urlMLGetListOfProducts}${product}`)
     .then(response => response.json())
     .then((objects) => {
-      document.querySelector('.loading').style.display = 'none'; // Requisito 7
+      removeMessageLoading();
       const sectionItems = document.querySelector('.items');
       const mlListOfProducts = objects.results; // Array de produtos (objects.results)
       mlListOfProducts.forEach((mlProduct) => {
