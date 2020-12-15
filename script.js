@@ -21,7 +21,7 @@ function totalPrice() {
   const cartItem = document.querySelectorAll('.cart__item');
   let result = 0;
   cartItem.forEach((item) => { result += parseFloat(item.innerHTML.split('$')[1]); });
-  document.getElementById('price').innerText = result.toFixed(2);
+  document.getElementById('price').innerText = result;
 }
 
 function cartItemClickListener(event) {
@@ -69,7 +69,7 @@ const createLoading = () => {
   const loading = document.createElement('h1');
   loading.className = 'loading';
   loading.innerHTML = 'loading...';
-  document.querySelector('body').appendChild(loading);
+  document.body.appendChild(loading);
 };
 
 function createProductItemList(QUERY) {
