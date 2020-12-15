@@ -69,7 +69,15 @@ function cleanCart() {
     captureClass.innerHTML = '';
   });
 }
+function createLoading() {
+  const loading = document.createElement('div');
+  loading.className = 'loading';
+  loading.innerHTML = 'loading ...';
+  const captureBody = document.querySelector('body');
+  captureBody.appendChild(loading);
+}
 window.onload = function onload() {
   products();
   cleanCart();
+  createLoading();
 };
