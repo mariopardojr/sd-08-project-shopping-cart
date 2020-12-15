@@ -33,7 +33,7 @@ const sumPrices = async () => {
     const value = curr.innerText;
     const liSplited = value.split('$');
     return acc + Number(liSplited[1]);
-  }, 0).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'}); // https://www.horadecodar.com.br/2020/09/01/formatar-moeda-brasileira-em-javascript-float-para-real/
+  }, 0).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }); // https://www.horadecodar.com.br/2020/09/01/formatar-moeda-brasileira-em-javascript-float-para-real/
 };
 
 async function cartItemClickListener(event) {
