@@ -67,8 +67,7 @@ const cartItemClickListener = () => {
   cart.addEventListener('click', async (event) => {
     if (event.target.classList.contains('cart__item')) {
       // Requisito 05
-      const price = parseInt(event.target.innerText.split('PRICE: R$')[1], 10);
-      console.log(price);
+      const price = parseInt(event.target.innerText.split('PRICE: $')[1], 10);
       await calcTotalPrice(price * -1);
       // ----- Requisito 03
       event.target.remove();
@@ -80,8 +79,8 @@ const cartItemClickListener = () => {
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: R$${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  //li.addEventListener('click', cartItemClickListener);
   return li;
 }
 // Requisito 02 - 05+
