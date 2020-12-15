@@ -85,4 +85,5 @@ function limparCarrinho() {
 window.onload = function onload() {
   fetchProducts();
   limparCarrinho();
+  document.querySelector('.loading').remove();
 };
