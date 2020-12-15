@@ -57,17 +57,17 @@ function getSkuFromProductItem(item) {
 const calcTotalPrice = async (value) => {
   const totalPrice = document.querySelector('.total-price');
   const price = totalPrice.querySelector('span');
-  actualPrice = parseInt(price.innerText.split('R$ ')[1]);
+  const actualPrice = parseInt(price.innerText.split('R$ ')[1], 10);
   const newPrice = (actualPrice + value).toFixed(2);
   price.innerHTML = `Valor total: R$ ${newPrice}`;
-}
+};
 // Requisito 03 - 05
 const cartItemClickListener = () => {
   const cart = document.querySelector('.cart__items');
   cart.addEventListener('click', async (event) => {
     if (event.target.classList.contains('cart__item')) {
       // Requisito 05
-      const price = parseInt(event.target.innerText.split('PRICE: R$')[1]);
+      const price = parseInt(event.target.innerText.split('PRICE: R$')[1], 10);
       console.log(price);
       await calcTotalPrice(price * -1);
       // ----- Requisito 03
