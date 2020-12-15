@@ -24,6 +24,36 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
+function save() {
+  localStorage.setItem('carrinho', document.querySelector('ol.cart__items').innerHTML);
+}
+function load() {
+  const storage = localStorage.getItem('carrinho');
+  if (storage) {
+    document.querySelector('ol.cart__items').innerHTML = storage;
+  }
+}
+
+function totalItensCarrinho() {
+  const lista = document.querySelectorAll('li');
+  let total = 0;
+  lista.forEach((element) => {
+    const conteudo = element.innerText.split('$')[1];
+    total += parseFloat(conteudo);
+  });
+  document.querySelector('.total-price').innerText = total;
+}
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  save();
+  totalItensCarrinho();
+}
+
 const productList = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador').then(
     (response) => {
@@ -38,16 +68,9 @@ const productList = () => {
           return document.querySelector('.items').appendChild(upItens);
         });
       });
+      document.querySelector('.loading').remove();
     });
 };
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  event.target.remove();
-}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -60,13 +83,15 @@ function createCartItemElement({ sku, name, salePrice }) {
 const cartItens = (id) => {
   fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
-    .then((data) => {
+    .then(async (data) => {
       const itemCart = createCartItemElement({
         sku: data.id,
         name: data.title,
         salePrice: data.price,
       });
       document.querySelector('.cart__items').appendChild(itemCart);
+      await save();
+      await totalItensCarrinho();
     });
 };
 
@@ -84,11 +109,15 @@ const clearList = () => {
     while (itens.hasChildNodes()) {
       itens.removeChild(itens.firstChild);
     }
+    save();
+    totalItensCarrinho();
   });
 };
 
 window.onload = async function onload() {
+  load();
   await productList();
   await onClickButton();
   await clearList();
+  totalItensCarrinho();
 };
