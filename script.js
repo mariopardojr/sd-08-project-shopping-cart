@@ -1,3 +1,8 @@
+const localStorageGet = () => {
+  const ol = localStorage.getItem('compras');
+  document.querySelector('.cart__items').innerHTML = ol;
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -24,6 +29,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function localStorageSave() {
+  localStorage.setItem('compras', document.querySelector('.cart__items').innerHTML);
+}
 const addProducts = (event) => {
   const test = event.target.parentNode;
   const idItem = getSkuFromProductItem(test);
@@ -37,6 +46,7 @@ const addProducts = (event) => {
       };
       const itemSelect = document.querySelector('.cart__items');
       itemSelect.appendChild(createCartItemElement(item));
+      localStorageSave();
     });
 };
 function createProductItemElement({ sku, name, image }) {
@@ -49,7 +59,7 @@ function createProductItemElement({ sku, name, image }) {
   .addEventListener('click', addProducts);
   return section;
 }
-
+// ideia pega no repositorio do Douglas Cajueiro
 const loadRemove = () => {
   const loading = document.querySelector('.loading');
   loading.remove();
@@ -73,13 +83,10 @@ const fetchProducts = () => {
 
 // const salvando = () => {
 //   const salvar = document.querySelector('.cart__items');
-//   salvar.addEventListener('click', addProducts);
 //   console.log(salvar);
 //      let lista = document.querySelector('.cart__items').innerHTML;
 //      localStorage.setItem('lista', lista);
 // }
-// salvando();
-
 // const recuperar = document.querySelector('cart__items')
 // .innerHTML = localStorage.getItem('lista');
 
@@ -92,4 +99,5 @@ function limparCarrinho() {
 window.onload = async () => {
   await fetchProducts();
   limparCarrinho();
+  localStorageGet();
 };
