@@ -128,9 +128,19 @@ const loadLocalStorage = () => {
   }
 };
 
+const clearCart = () => {
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    document.querySelector('.total-price').querySelector('span').innerText = '0';
+    saveLocalStorage();
+  });
+};
+
 window.onload = function onload() {
   api();
   addItemToCart();
   cartItemClickListener();
   loadLocalStorage();
+  clearCart();
 };
