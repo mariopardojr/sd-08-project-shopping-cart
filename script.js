@@ -17,17 +17,16 @@ const saveCart = () => {
   localStorage.setItem('totalPrice', document.getElementById('price').innerHTML);
 };
 
-const sumPrice = (price) => {
-  document.getElementById('price').innerText = (price + parseFloat(document.getElementById('price').innerText)).toFixed(2);
-};
-
-const minusPrice = (price) => {
-  document.getElementById('price').innerText = (parseFloat(document.getElementById('price').innerText - price)).toFixed(2);
-};
+function totalPrice() {
+  const cartItem = document.querySelectorAll('.cart__item');
+  let result = 0;
+  cartItem.forEach((item) => { result += parseFloat(item.innerHTML.split('$')[1]); });
+  document.getElementById('price').innerText = result.toFixed(2);
+}
 
 function cartItemClickListener(event) {
-  minusPrice(event.target.innerText.split('$')[1]);
   event.target.parentNode.removeChild(event.target);
+  totalPrice();
   saveCart();
 }
 
@@ -58,7 +57,7 @@ function createProductItemElement({ sku, name, image }) {
       };
       const cartItem = createCartItemElement(product);
       document.getElementById('cart__items').appendChild(cartItem);
-      sumPrice(data.price);
+      totalPrice();
       saveCart();
     });
   });
