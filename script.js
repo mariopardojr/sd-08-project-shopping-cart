@@ -76,7 +76,8 @@ function createProductItemList(QUERY) {
   createLoading();
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`)
     .then(result => result.json())
-    .then(data =>
+    .then((data) => {
+      document.querySelector('.loading').parentNode.removeChild(document.querySelector('.loading'));
       data.results.forEach((item) => {
         const features = {
           sku: item.id,
@@ -86,9 +87,8 @@ function createProductItemList(QUERY) {
         document
           .getElementById('items')
           .appendChild(createProductItemElement(features));
-      }),
-    );
-  document.querySelector('.loading').parentNode.removeChild(document.querySelector('.loading'));
+      });
+    });
 }
 
 window.onload = () => {
