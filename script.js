@@ -1,5 +1,3 @@
-window.onload = function onload() { 
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -84,8 +82,9 @@ function createProductItemList(QUERY) {
       }),
     );
 }
-createProductItemList('computador');
 
+window.onload = () => {
+  createProductItemList('computador');
   document.getElementById('empty-cart').addEventListener('click', () => {
     document.getElementById('cart__items').innerHTML = '';
     document.getElementById('price').innerHTML = 0;
@@ -101,5 +100,4 @@ createProductItemList('computador');
   } else {
     document.getElementById('price').innerHTML = localStorage.totalPrice;
   }
-
 };
