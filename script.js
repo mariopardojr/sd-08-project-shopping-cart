@@ -56,13 +56,13 @@ function getSkuFromProductItem(item) {
 // Requisito 05
 const calcTotalPrice = async (value) => {
   const totalPrice = document.querySelector('.total-price');
-  const price = totalPrice.querySelector('span');
+  // const price = totalPrice.querySelector('span');
   // const actualPrice = parseInt(price.innerText.split('R$ ')[1], 10);
   // const newPrice = (actualPrice + value).tofixed(2);
   // price.innerText = `Valor total: R$ ${newPrice}`;
-  const actualPrice = parseInt(price.innerText, 10);
+  const actualPrice = parseInt(totalPrice.innerText, 10);
   const newPrice = (actualPrice + value);
-  price.innerText = `${newPrice}`;
+  totalPrice.innerText = `${newPrice}`;
 };
 // Requisito 03 - 05-
 const cartItemClickListener = () => {
@@ -132,7 +132,7 @@ const clearCart = () => {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
-    document.querySelector('.total-price').querySelector('span').innerText = '0';
+    document.querySelector('.total-price').innerText = '0';
     saveLocalStorage();
   });
 };
