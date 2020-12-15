@@ -22,7 +22,7 @@ const saveLocalStorage = () => {
 };
 
 function cartItemClickListener(event) {
-  document.querySelector('.cart__items').removeChild(event.target); //Requisito 3
+  document.querySelector('.cart__items').removeChild(event.target); // Requisito 3
   saveLocalStorage();
 }
 
@@ -70,7 +70,7 @@ const loadCartShopping = () => {
   const ol = document.querySelector('.cart__items');
   ol.innerHTML = mlListOfProducts;
   const liCartItemsList = document.querySelectorAll('li');
-  liCartItemsList.forEach(li => li.addEventListener('click', cartItemClickListener));  
+  liCartItemsList.forEach(li => li.addEventListener('click', cartItemClickListener));
 };
 
 // Requisito 1
