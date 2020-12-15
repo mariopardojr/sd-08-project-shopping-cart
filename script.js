@@ -60,8 +60,8 @@ const calcTotalPrice = async (value) => {
   // const actualPrice = parseInt(price.innerText.split('R$ ')[1], 10);
   // const newPrice = (actualPrice + value).tofixed(2);
   // price.innerText = `Valor total: R$ ${newPrice}`;
-  const actualPrice = parseInt(totalPrice.innerText, 10);
-  const newPrice = (actualPrice + value);
+  const actualPrice = parseFloat(totalPrice.innerText, 10);
+  const newPrice = (actualPrice + value).toFixed(2);
   totalPrice.innerText = `${newPrice}`;
 };
 // Requisito 03 - 05-
