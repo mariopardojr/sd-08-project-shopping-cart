@@ -21,7 +21,7 @@ function totalPrice() {
   const cartItem = document.querySelectorAll('.cart__item');
   let result = 0;
   cartItem.forEach((item) => { result += parseFloat(item.innerHTML.split('$')[1]); });
-  document.getElementById('price').innerText = result.toFixed(2);
+  document.getElementById('price').innerText = result.toFixed(0);
 }
 
 function cartItemClickListener(event) {
