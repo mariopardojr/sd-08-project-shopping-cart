@@ -29,12 +29,13 @@ function addProduct(e) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(res => res.json())
   .then((data) => {
+    const list = document.querySelector('ol');
     const item = {
       sku: data.id,
       name: data.title,
       salePrice: data.price,
     };
-    document.querySelector('ol').appendChild(createCartItemElement(item));
+    list.appendChild(createCartItemElement(item));
   });
 }
 
