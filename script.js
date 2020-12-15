@@ -15,7 +15,6 @@ function getSkuFromProductItem(item) {
 }
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
-  localStorageSave();
 }
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
