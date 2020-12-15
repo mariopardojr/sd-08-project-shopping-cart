@@ -28,13 +28,13 @@ async function addProduct(e) {
   const id = e.target.parentNode.firstChild.innerText;
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(res => res.json())
-  .then(data => {
-    const obj = {
+  .then((data)=> {
+    const item = {
       sku: data.id,
       name: data.title,
       salePrice: data.price,
     };
-    document.querySelector('ol').appendChild(createCartItemElement(obj));
+    document.querySelector('ol').appendChild(createCartItemElement(item));
   });
 }
 
