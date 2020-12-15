@@ -80,7 +80,7 @@ function createProductItemList(QUERY) {
           .appendChild(createProductItemElement(features));
       }),
     );
-  document.querySelector('#loading').style.display = 'none';
+  document.querySelector('#loading').parentNode.removeChild(document.querySelector('#loading'));
 }
 
 window.onload = () => {
