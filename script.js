@@ -19,7 +19,7 @@ const sumItems = async () => {
     return acc + total;
   }, 0);
   const h1 = document.querySelector('.total-price');
-  h1.innerHTML = arrayItems.toFixed(2);
+  h1.innerHTML = Math.floor(arrayItems);
 };
 
 const creatLocalStorage = () => {
