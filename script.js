@@ -50,7 +50,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'))
-  .addEventListener('click', addProducts);
+    .addEventListener('click', addProducts);
   return section;
 }
 
@@ -69,7 +69,16 @@ const products = () => {
     });
 };
 
+function cleanCart() {
+  const buttonClear = document.querySelector('.empty-cart');
+  buttonClear.addEventListener('click', () => {
+    const captureClass = document.querySelector('.cart__items');
+    captureClass.innerHTML = '';
+  });
+}
+
+
 window.onload = function onload() {
   products();
-  // addProducts();
+  cleanCart();
 };
