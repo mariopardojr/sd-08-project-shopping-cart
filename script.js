@@ -71,7 +71,8 @@ const cartItemClickListener = () => {
   cart.addEventListener('click', async (event) => {
     if (event.target.classList.contains('cart__item')) {
       // Requisito 05
-      const price = parseInt(event.target.innerText.split('PRICE: $')[1], 10);
+      const price = parseFloat(event.target.innerText.split('PRICE: $')[1]);
+      console.log(price);
       await calcTotalPrice(price * -1);
       // ----- Requisito 03
       event.target.remove();
@@ -128,7 +129,7 @@ const loadLocalStorage = () => {
     ol.innerHTML = localStorage.getItem('carrinho');
   }
 };
-
+// Requisito 06
 const clearCart = () => {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', () => {
@@ -138,8 +139,9 @@ const clearCart = () => {
   });
 };
 
-window.onload = function onload() {
-  api();
+window.onload = async function onload() {
+  await api();
+  document.querySelector('.loading').remove();
   addItemToCart();
   cartItemClickListener();
   loadLocalStorage();
