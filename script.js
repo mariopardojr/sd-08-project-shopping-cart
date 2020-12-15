@@ -19,10 +19,26 @@ function createCustomElement(element, className, innerText) {
 const saveLocalStorage = () => {
   const ol = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('mlProductsList', JSON.stringify(ol));
+  // Requisito 5
+  const totalPrice = document.querySelector('.total-price').innerHTML;
+  localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
 };
 
-function cartItemClickListener(event) {
+// Requisito 5
+const sumPrices = async () => {
+  const liCartItemsList = document.querySelectorAll('li');
+  const arrayOfLiItem = Array.from(liCartItemsList);
+  const spanTotalPrice = document.querySelector('.total-price');
+  spanTotalPrice.innerText = arrayOfLiItem.reduce((acc, curr) => {
+    const value = curr.innerText;
+    const liSplited = value.split('$');
+    return acc + Number(liSplited[1]);
+  }, 0).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+};
+
+async function cartItemClickListener(event) {
   document.querySelector('.cart__items').removeChild(event.target); // Requisito 3
+  await sumPrices(); // Requisito 5
   saveLocalStorage();
 }
 
@@ -42,8 +58,9 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 function mlGetProductByID(productId) {
   fetch(`${urlMLGetProductById}${productId}`)
     .then(response => response.json())
-    .then((data) => {
+    .then(async (data) => {
       document.querySelector('.cart__items').appendChild(createCartItemElement(data));
+      await sumPrices(); // Requisito 5
       saveLocalStorage();
     });
 }
@@ -71,6 +88,11 @@ const loadCartShopping = () => {
   ol.innerHTML = mlListOfProducts;
   const liCartItemsList = document.querySelectorAll('li');
   liCartItemsList.forEach(li => li.addEventListener('click', cartItemClickListener));
+  // Requisito 5
+  let totalPrice = localStorage.getItem('totalPrice');
+  totalPrice = JSON.parse(totalPrice);
+  const totalPriceOfCartShopping = document.querySelector('.total-price');
+  totalPriceOfCartShopping.innerHTML = totalPrice;
 };
 
 // Requisito 1
