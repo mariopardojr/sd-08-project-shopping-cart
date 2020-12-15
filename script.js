@@ -95,6 +95,17 @@ const loadCartShopping = () => {
   totalPriceOfCartShopping.innerHTML = totalPrice;
 };
 
+// Requisito 6
+const clearCartShopping = () => {
+  const btnClearCartShopping = document.querySelector('.empty-cart');
+  const ol = document.querySelector('.cart__items');
+  btnClearCartShopping.addEventListener('click', async () => {
+    ol.innerHTML = '';
+    await sumPrices();
+    saveLocalStorage();
+  });
+};
+
 // Requisito 1
 const mlGetListOfProducts = (product) => {
   fetch(`${urlMLGetListOfProducts}${product}`)
@@ -108,6 +119,7 @@ const mlGetListOfProducts = (product) => {
         sectionItems.appendChild(mlProductItem);
       });
       loadCartShopping();
+      clearCartShopping();
     });
 };
 
