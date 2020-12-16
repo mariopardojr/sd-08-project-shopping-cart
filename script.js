@@ -1,4 +1,18 @@
-window.onload = function onload() { };
+window.onload = function onload() { 
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then((response) => {
+    response.json().then((data) => {
+      const products = data.results;
+      products.forEach((element) => {
+        const product = { sku: element.id,
+          name: element.title,
+          image: element.thumbnail
+        }
+        document.querySelector('.items').appendChild(createProductItemElement(product));
+      })
+    })
+  });
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
