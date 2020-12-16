@@ -7,9 +7,9 @@ window.onload = function onload() {
         const product = { sku: element.id,
           name: element.title,
           image: element.thumbnail
-        }
+        };
         document.querySelector('.items').appendChild(createProductItemElement(product));
-      })
+      });
     });
   });
 };
