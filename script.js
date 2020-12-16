@@ -32,7 +32,6 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  'first commit'
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
