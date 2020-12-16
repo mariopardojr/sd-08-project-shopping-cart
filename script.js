@@ -4,6 +4,15 @@ function saveToLocalStorage() {
   localStorage.setItem('cart', cartList);
 }
 
+function cartTotal() {
+  const listItems = document.querySelectorAll('.cart__item');
+  let total = 0;
+  listItems.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = `Preço total: $${total}`;
+}
+
 function emptyCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
@@ -104,15 +113,6 @@ function getFromLocalStorage() {
     }
   }));
   cartTotal();
-}
-
-function cartTotal() {
-  const listItems = document.querySelectorAll('.cart__item');
-  let total = 0;
-  listItems.forEach((item) => {
-    total += parseFloat(item.innerHTML.split('$')[1]);
-  });
-  document.querySelector('.total-price').innerHTML = `Preço total: $${total}`;
 }
 
 window.onload = function onload() {
