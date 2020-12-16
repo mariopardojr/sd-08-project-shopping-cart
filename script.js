@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchCart();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -59,3 +55,7 @@ function fetchCart() {
     });
   });
 }
+
+window.onload = function onload() {
+  fetchCart();
+};
