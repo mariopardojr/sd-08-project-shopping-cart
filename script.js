@@ -14,6 +14,12 @@ const priceTotal = () => {
   // console.log(cartList);
 };
 
+const loadingPage = () => {
+  const loadingClass = document.querySelector('.loading');
+  loadingClass.remove();
+  // console.log(loadingClass);
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -52,6 +58,7 @@ const getProducts = (product) => {
       // console.log(sectionItems);
       sectionItems.appendChild(createProductItemElement({ sku, name, image, salePrice }));
     });
+    loadingPage();
   });
 };
 
