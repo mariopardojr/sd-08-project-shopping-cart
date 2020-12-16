@@ -16,10 +16,10 @@ function saveProductsLocalStorage() {
   );
 }
 
-document.querySelector('.empty-cart').addEventListener('click', () => {
-  document.querySelector('.cart__items').innerHTML = '';
-  saveProductsLocalStorage();
-});
+// document.querySelector('.empty-cart').addEventListener('click', () => {
+//   document.querySelector('.cart__items').innerHTML = '';
+//   saveProductsLocalStorage();
+// });
 
 function cartItemClickListener(event) {
   event.target.remove();
