@@ -12,6 +12,11 @@ function saveProductsLocalStorage() {
   );
 }
 
+document.querySelector('.empty-cart').addEventListener('click', () => {
+  document.querySelector('.cart__items').innerHTML = '';
+  saveProductsLocalStorage();
+});
+
 // function getSkuFromProductItem(item) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
