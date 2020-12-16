@@ -9,6 +9,7 @@ function createProductImageElement(imageSource) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
+/* Requisito 4 */
 function saveProductsLocalStorage() {
   localStorage.setItem(
     'productsCart',
@@ -16,18 +17,33 @@ function saveProductsLocalStorage() {
   );
 }
 
+/* Requisito 5 */
+function calcTotalPriceCart() {
+  const products = document.querySelectorAll('.cart__item');
+  let totalCart = 0;
+  products.forEach(product => {
+    totalCart += parseFloat(product.innerHTML.split('PRICE: $')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = totalCart;
+}
+
+/* Requisito 6 */
 function clearShoppingCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
+    calcTotalPriceCart();
     saveProductsLocalStorage();
   });
 }
 
+/* Requisito 3 */
 function cartItemClickListener(event) {
   event.target.remove();
+  calcTotalPriceCart();
   saveProductsLocalStorage();
 }
 
+/* Requisito 4 */
 function loadingProductsLocalStorage() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem(
     'productsCart',
@@ -37,6 +53,7 @@ function loadingProductsLocalStorage() {
   list.forEach(item => {
     item.addEventListener('click', cartItemClickListener);
   });
+  calcTotalPriceCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -47,6 +64,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+/* Requisito 2 */
 function createCustomElement(element, className, innerText, sku) {
   const e = document.createElement(element);
   e.className = className;
@@ -61,6 +79,7 @@ function createCustomElement(element, className, innerText, sku) {
       .then(products => {
         const listCart = document.querySelector('.cart__items');
         listCart.appendChild(createCartItemElement(products));
+        calcTotalPriceCart();
         saveProductsLocalStorage();
       });
   });
@@ -79,6 +98,7 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+/* Requisito 1 */
 function fetchProductsApi() {
   const sectionItems = document.querySelector('.items');
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
