@@ -16,10 +16,12 @@ function saveProductsLocalStorage() {
   );
 }
 
-// document.querySelector('.empty-cart').addEventListener('click', () => {
-//   document.querySelector('.cart__items').innerHTML = '';
-//   saveProductsLocalStorage();
-// });
+function clearShoppingCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveProductsLocalStorage();
+  });
+}
 
 function cartItemClickListener(event) {
   event.target.remove();
@@ -95,4 +97,5 @@ function fetchProductsApi() {
 window.onload = function onload() {
   fetchProductsApi();
   loadingProductsLocalStorage();
+  clearShoppingCart();
 };
