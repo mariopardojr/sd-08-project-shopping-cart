@@ -121,14 +121,14 @@ function fetchProductsApi() {
     .then(response => response.json())
     .then(data => data.results.map(el => [el.id, el.title, el.thumbnail]))
     .then(products => {
+      takeMessageLoading();
       products.forEach(product => {
         const [sku, name, image] = product;
         sectionItems.appendChild(
           createProductItemElement({ sku, name, image }),
         );
       });
-    })
-    .then(takeMessageLoading());
+    });
 }
 
 window.onload = function onload() {
