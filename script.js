@@ -127,8 +127,8 @@ function fetchProductsApi() {
           createProductItemElement({ sku, name, image }),
         );
       });
-    });
-  // .then(takeMessageLoading());
+    })
+    .then(takeMessageLoading());
 }
 
 window.onload = function onload() {
