@@ -10,7 +10,7 @@ function cartTotal() {
   listItems.forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerHTML = `Preço total: $${total}`;
+  document.querySelector('.total-price').innerHTML = total;
 }
 
 function emptyCart() {
