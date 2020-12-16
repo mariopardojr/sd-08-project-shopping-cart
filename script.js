@@ -7,6 +7,7 @@ function saveToLocalStorage() {
 function emptyCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
+    cartTotal();
     saveToLocalStorage();
   });
 }
@@ -42,7 +43,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  document.querySelector('.cart__items').removeChild(event.target);
+  event.target.remove();
+  cartTotal();
   saveToLocalStorage();
 }
 
@@ -85,6 +87,7 @@ function addItemToCart() {
             salePrice: data.price,
           };
           document.querySelector('.cart__items').appendChild(createCartItemElement(productChoosen));
+          cartTotal();
           saveToLocalStorage();
         });
       });
@@ -100,6 +103,16 @@ function getFromLocalStorage() {
       cartItemClickListener(event);
     }
   }));
+  cartTotal();
+}
+
+function cartTotal() {
+  const listItems = document.querySelectorAll('.cart__item');
+  let total = 0;
+  listItems.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = `Preço total: $${total}`;
 }
 
 window.onload = function onload() {
