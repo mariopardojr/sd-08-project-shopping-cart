@@ -1,3 +1,10 @@
+function emptyCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveToLocalStorage();
+  })
+}
+
 function saveToLocalStorage() {
   localStorage.clear();
   const cartList = document.querySelector('.cart__items').innerHTML;
@@ -99,4 +106,5 @@ window.onload = function onload() {
   fetchCart();
   addItemToCart();
   getFromLocalStorage();
+  emptyCart();
 };
