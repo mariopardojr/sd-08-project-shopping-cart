@@ -1,14 +1,14 @@
-function emptyCart() {
-  document.querySelector('.empty-cart').addEventListener('click', () => {
-    document.querySelector('.cart__items').innerHTML = '';
-    saveToLocalStorage();
-  })
-}
-
 function saveToLocalStorage() {
   localStorage.clear();
   const cartList = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cart', cartList);
+}
+
+function emptyCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveToLocalStorage();
+  });
 }
 
 function createProductImageElement(imageSource) {
