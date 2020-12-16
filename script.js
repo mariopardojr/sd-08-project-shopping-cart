@@ -1,3 +1,13 @@
+const showPrice = () => {
+  const getPrice = document.querySelector('.total-price');
+  const getCartItems = document.querySelector('.cart__items').childNodes;
+  let sum = 0;
+  getCartItems.forEach((item) => {
+    sum += parseFloat(item.innerText.split('$')[1]);
+  });
+  getPrice.innerHTML = sum;
+};
+
 const localStorageGet = () => {
   const ol = localStorage.getItem('carrinho');
   document.querySelector('.cart__items').innerHTML = ol;
@@ -65,17 +75,7 @@ const addToCar = (event) => {
       selOl.appendChild(addCar);
       localStorageSave();
       showPrice();
-    })
-};
-
-const showPrice = () => {
-  const getPrice = document.querySelector('.total-price');
-  const getCartItems = document.querySelector('.cart__items').childNodes;
-  let sum = 0;
-  getCartItems.forEach(item => {
-    sum += parseFloat(item.innerText.split('$')[1]);
-  });
-  getPrice.innerHTML = sum;
+    });
 };
 
 function createProductItemElement({ sku, name, image }) {
