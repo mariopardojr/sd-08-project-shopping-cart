@@ -25,7 +25,6 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
   const containerItems = document.querySelector('.cart__items');
   containerItems.removeChild(event.target);
-  localStorageSave();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
