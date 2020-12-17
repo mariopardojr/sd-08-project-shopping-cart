@@ -1,15 +1,12 @@
-const getPrice = item => parseFloat(item.innerHTML.split('PRICE: $')[1]);
-
-async function getTotalPrice() {
-  const totalPrice = document.querySelector('.total-price');
-  const cartItems = document.querySelector('.cart__items');
+function getTotalPrice() {
+  const cartItem = document.querySelectorAll('.cart__item');
   let sumOfPrices = 0;
-  cartItems.childNodes.forEach((element) => {
-    const price = getPrice(element);
-    sumOfPrices += price;
+  cartItem.forEach((element) => {
+    sumOfPrices += parseFloat(element.innerHTML.split('$')[1]);
   });
-  totalPrice.innerHTML = parseFloat(sumOfPrices);
-}
+  
+  document.querySelector('.total-price').innerHTML = Math.round(sumOfPrices * 100) / 100;
+  }
 
 const getItemStorage = () => {
   const cartItems = document.querySelector('.cart__items');
@@ -132,6 +129,6 @@ window.onload = function onload() {
   addToCart();
   buttonEmptyCart();
   getItemStorage();
-  getTotalPrice();
+  getTotalPrice()
   removeFromCar();
 };
