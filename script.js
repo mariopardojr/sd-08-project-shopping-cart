@@ -4,9 +4,8 @@ function getTotalPrice() {
   cartItem.forEach((element) => {
     sumOfPrices += parseFloat(element.innerHTML.split('$')[1]);
   });
-  
   document.querySelector('.total-price').innerHTML = Math.round(sumOfPrices * 100) / 100;
-  }
+}
 
 const getItemStorage = () => {
   const cartItems = document.querySelector('.cart__items');
@@ -129,6 +128,6 @@ window.onload = function onload() {
   addToCart();
   buttonEmptyCart();
   getItemStorage();
-  getTotalPrice()
+  getTotalPrice();
   removeFromCar();
 };
