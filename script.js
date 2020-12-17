@@ -8,7 +8,7 @@ async function getTotalPrice() {
     const price = getPrice(element);
     sumOfPrices += price;
   });
-  totalPrice.innerHTML = parseFloat(sumOfPrices.toFixed(2));
+  totalPrice.innerHTML = parseFloat(sumOfPrices);
 }
 
 const getItemStorage = () => {
@@ -61,9 +61,9 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
 
 const appendObject = (object) => {
   object.forEach((element) => {
