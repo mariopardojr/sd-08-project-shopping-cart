@@ -1,6 +1,6 @@
 const getPrice = item => parseFloat(item.innerHTML.split('PRICE: $')[1]);
 
-function getTotalPrice() {
+async function getTotalPrice() {
   const totalPrice = document.querySelector('.total-price');
   const cartItems = document.querySelector('.cart__items');
   let sumOfPrices = 0;
