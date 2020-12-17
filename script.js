@@ -44,6 +44,21 @@ function updateLocalStorage() {
   localStorage.list = ol.innerHTML;
 }
 
+function sumTotalPrice() {
+  const items = document.querySelectorAll('.cart__item');
+  if (items.length === 0) {
+    return 0;
+  }
+  let sum = 0;
+  items.forEach((product) => {
+    const text = product.innerText;
+    const initialPosition = text.indexOf('PRICE: $') + 8;
+    const value = parseFloat(text.substr(initialPosition, text.length));
+    sum += value;
+  });
+  return sum;
+}
+
 // prettier-ignore
 function cartItemClickListener() {
   addEventListener('click', (event) => {
@@ -126,23 +141,8 @@ function buttonClearCart() {
   btnClear.addEventListener('click', () => {
     document.querySelector('ol.cart__items').innerHTML = '';
     updateLocalStorage();
-    document.querySelector('.total-price').innerText = `Preço total: $0`;
+    document.querySelector('.total-price').innerText = 'Preço total: $0';
   });
-}
-
-function sumTotalPrice() {
-  const items = document.querySelectorAll('.cart__item');
-  if (items.length === 0) {
-    return 0;
-  }
-  let sum = 0;
-  items.forEach((product) => {
-    const text = product.innerText;
-    const initialPosition = text.indexOf('PRICE: $') + 8;
-    const value = parseFloat(text.substr(initialPosition, text.length));
-    sum += value;
-  });
-  return sum;
 }
 
 window.onload = function onload() {
