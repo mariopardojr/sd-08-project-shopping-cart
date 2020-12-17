@@ -1,4 +1,35 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
+  Array.from(document.getElementsByClassName('cart__item')).forEach(element => {
+    element.addEventListener('click', cartItemClickListener(element));
+  });
+  updatePriceElement();
+  createLoadingElement()
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+    .then(response => {
+      deleteLoadingElement();
+      return response.json();
+    })
+    .then(obj => obj.results.map(product =>
+      ({sku: product.id, name: product.title, image: product.thumbnail})))
+    .then(products => products.forEach(product => {
+      let element = createProductItemElement(product);
+      document.getElementsByClassName('items')[0]
+        .appendChild(element);
+    }));
+};
+
+function createLoadingElement() {
+  let loadingElement = document.createElement('div');
+  loadingElement.className = 'loading';
+  loadingElement.innerText = 'loading...';
+  document.getElementsByClassName('container')[0]
+    .appendChild(loadingElement);
+}
+
+function deleteLoadingElement() {
+  document.getElementsByClassName('loading')[0].remove();
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -21,23 +52,63 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'))
+    .addEventListener('click', (() => addProduct({sku, name, image})));
 
   return section;
+}
+
+function addProduct({sku, name, image}) {
+  fetch(`https://api.mercadolibre.com/items/${sku}`)
+    .then(res => res.json())
+    .then(data => {
+      let element = createCartItemElement({sku, name, salePrice: data.price});
+      document.querySelector('.cart__items').appendChild(element);
+      localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
+      updatePriceElement();
+    });
+  
 }
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
+function cartItemClickListener(element) {
+  return function() {
+    element.parentNode.removeChild(element);
+    localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
+    updatePriceElement();
+  }
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', cartItemClickListener(li));
+  localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
   return li;
+}
+
+async function priceCalc() {
+  return Array.from(document.getElementsByClassName('cart__item'))
+    .reduce((acc, el) => {
+      let match_obj = el.innerText.match(/PRICE: \$(?<price>.*)/);
+      return acc + parseFloat(match_obj.groups.price);
+    }, 0);
+};
+
+function updatePriceElement() {
+  priceCalc()
+  .then(x => {
+    let priceEl = document.getElementsByClassName('total-price')[0];
+    priceEl.innerHTML = `${x}`;
+  });
+}
+
+function emptyCart() {
+  document.querySelector('.cart__items').innerHTML = '';
+  localStorage.setItem('cart', '');
+  updatePriceElement();
 }
