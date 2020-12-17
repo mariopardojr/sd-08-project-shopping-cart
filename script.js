@@ -67,7 +67,6 @@ function addProduct({sku, name, image}) {
       localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
       updatePriceElement();
     });
-  
 }
 
 function getSkuFromProductItem(item) {
@@ -94,8 +93,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 async function priceCalc() {
   return Array.from(document.getElementsByClassName('cart__item'))
     .reduce((acc, el) => {
-      let match_obj = el.innerText.match(/PRICE: \$(?<price>.*)/);
-      return acc + parseFloat(match_obj.groups.price);
+      let match_obj = el.innerText.match(/PRICE: \$(.*)/);
+      return acc + parseFloat(match_obj[1]);
     }, 0);
 };
 
