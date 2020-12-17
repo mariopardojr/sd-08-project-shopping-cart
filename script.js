@@ -27,6 +27,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 // prettier-ignore
 function appendAllItemsElements(allInfo) {
+  document.querySelector('.loading').remove();
   allInfo.forEach((element) => {
     const section = createProductItemElement(element);
     const sectionItens = document.querySelector('.items');
