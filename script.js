@@ -23,8 +23,8 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  const removeElement = event.target;
-  removeElement.parentElement.removeChild(removeElement);
+  const containerItems = document.querySelector('.cart__items');
+  containerItems.removeChild(event.target);
   localStorageSave();
 }
 
