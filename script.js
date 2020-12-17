@@ -72,6 +72,7 @@ const appendObject = (object) => {
       name: element.title,
       image: element.thumbnail,
     };
+    document.querySelector('.loading').remove();
     const items = document.querySelector('.items');
     items.appendChild(createProductItemElement(newObject));
   });
