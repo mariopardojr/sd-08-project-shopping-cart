@@ -73,7 +73,7 @@ function createProductItemElement({ sku, name, image }) {
 const removeLoading = () => {
   const loading = document.querySelector('.loading');
   loading.remove();
-}
+};
 
 const productsAPI = async () => {
   const api = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
