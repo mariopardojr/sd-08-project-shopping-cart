@@ -1,3 +1,18 @@
+const localStorageSave = () => {
+  const cartItems = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', cartItems);
+};
+
+const localStorageLoad = () => {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
+  cartList.addEventListener('click', ((event) => {
+    if (event.target.classlist.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  }))
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -18,8 +33,8 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  const containerItems = document.querySelector('.cart__items');
-  containerItems.removeChild(event.target);
+  event.target.remove();
+  localStorageSave();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -39,6 +54,7 @@ async function addItemCart(event) {
   const { id: sku, title: name, price: salePrice } = itemFetch;
   const carItem = createCartItemElement({ sku, name, salePrice });
   containerCart.appendChild(carItem);
+  localStorageSave();
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -68,6 +84,7 @@ const productsAPI = async () => {
   });
 };
 
-window.onload = function onload() {
+window.onload = async () => {
   productsAPI();
+  localStorageLoad();
 };
