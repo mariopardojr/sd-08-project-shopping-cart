@@ -70,11 +70,17 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+const removeLoading = () => {
+  const loading = document.querySelector('.loading');
+  loading.remove();
+}
+
 const productsAPI = async () => {
   const api = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   const items = await fetch(api)
-    .then(element => element.json())
+    .then(response => response.json())
     .then(element => element.results);
+  removeLoading();
 
   const contItems = document.querySelector('.items');
   items.forEach((element) => {
