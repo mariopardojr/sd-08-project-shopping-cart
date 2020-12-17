@@ -91,10 +91,10 @@ const cleanCartEvent = () => {
     cartItems.innerHTML = '';
     price.innerText = '0,00';
     localStorageSave();
-  }
+  };
   const cleanCartBtn = document.querySelector('.empty-cart');
   cleanCartBtn.addEventListener('click', cleanCart);
-}
+};
 
 window.onload = async () => {
   productsAPI();
