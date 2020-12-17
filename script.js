@@ -84,7 +84,20 @@ const productsAPI = async () => {
   });
 };
 
+const cleanCartEvent = () => {
+  const cleanCart = () => {
+    const cartItems = document.querySelector('.cart__items');
+    const price = document.querySelector('.total-price');
+    cartItems.innerHTML = '';
+    price.innerText = '0,00';
+    localStorageSave();
+  }
+  const cleanCartBtn = document.querySelector('.empty-cart');
+  cleanCartBtn.addEventListener('click', cleanCart);
+}
+
 window.onload = async () => {
   productsAPI();
   localStorageLoad();
+  cleanCartEvent();
 };
