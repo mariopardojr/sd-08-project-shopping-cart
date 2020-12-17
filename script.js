@@ -3,16 +3,6 @@ const localStorageSave = () => {
   localStorage.setItem('cart', cartItems);
 };
 
-const localStorageLoad = () => {
-  const cartList = document.querySelector('.cart__items');
-  cartList.innerHTML = localStorage.getItem('cart');
-  cartList.addEventListener('click', ((event) => {
-    if (event.target.classlist.contains('cart__item')) {
-      cartItemClickListener(event);
-    }
-  }))
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -36,6 +26,16 @@ function cartItemClickListener(event) {
   event.target.remove();
   localStorageSave();
 }
+
+const localStorageLoad = () => {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
+  cartList.addEventListener('click', ((event) => {
+    if (event.target.classlist.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  }));
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
