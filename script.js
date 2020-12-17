@@ -66,13 +66,13 @@ function createProductItemElement({ sku, name, image }) {
 // }
 
 const appendObject = (object) => {
+  document.querySelector('.loading').remove();
   object.forEach((element) => {
     const newObject = {
       sku: element.id,
       name: element.title,
       image: element.thumbnail,
     };
-    document.querySelector('.loading').remove();
     const items = document.querySelector('.items');
     items.appendChild(createProductItemElement(newObject));
   });
