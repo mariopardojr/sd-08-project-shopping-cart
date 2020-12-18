@@ -24,11 +24,27 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+async function priceCalc() {
+  return Array.from(document.getElementsByClassName('cart__item'))
+    .reduce((acc, el) => {
+      const match_obj = el.innerText.match(/PRICE: \$(.*)/);
+      return acc + parseFloat(match_obj[1]);
+    }, 0);
+};
+
+function updatePriceElement() {
+  priceCalc()
+  .then(x => {
+    const priceEl = document.getElementsByClassName('total-price')[0];
+    priceEl.innerHTML = `${x}`;
+  });
+}
+
 function addProduct({sku, name}) {
   fetch(`https://api.mercadolibre.com/items/${sku}`)
     .then(res => res.json())
     .then(data => {
-      let element = createCartItemElement({sku, name, salePrice: data.price});
+      const element = createCartItemElement({sku, name, salePrice: data.price});
       document.querySelector('.cart__items').appendChild(element);
       localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
       updatePriceElement();
@@ -71,21 +87,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-async function priceCalc() {
-  return Array.from(document.getElementsByClassName('cart__item'))
-    .reduce((acc, el) => {
-      let match_obj = el.innerText.match(/PRICE: \$(.*)/);
-      return acc + parseFloat(match_obj[1]);
-    }, 0);
-};
 
-function updatePriceElement() {
-  priceCalc()
-  .then(x => {
-    let priceEl = document.getElementsByClassName('total-price')[0];
-    priceEl.innerHTML = `${x}`;
-  });
-}
 
 function emptyCart() {
   document.querySelector('.cart__items').innerHTML = '';
@@ -108,7 +110,7 @@ window.onload = function onload() {
     .then(obj => obj.results.map(product =>
       ({sku: product.id, name: product.title, image: product.thumbnail})))
     .then(products => products.forEach(product => {
-      let element = createProductItemElement(product);
+      const element = createProductItemElement(product);
       document.getElementsByClassName('items')[0]
         .appendChild(element);
     }));
