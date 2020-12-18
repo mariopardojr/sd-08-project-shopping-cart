@@ -84,18 +84,17 @@ function addItemToCart() {
 
 function loadItems() {
   const loadedCart = localStorage.getItem('cart');
-  const cartList = document.querySelector('.cart__items')
+  const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = loadedCart;
   cartList.addEventListener('click', (event) => {
     if (event.target.classList.contains('cart__item')) {
       cartItemClickListener(event);
     }
-  })
+  });
 }
 
 window.onload = function onload() {
-  loadItems();  
+  loadItems();
   listProducts();
   addItemToCart();
-  
 };
