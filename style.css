@@ -61,6 +61,8 @@
   cursor: pointer;
   margin: 0;
   padding: 5px;
+  color: white;
+  font-weight: 900;
 }
 
 .cart {
