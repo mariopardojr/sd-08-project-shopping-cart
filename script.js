@@ -105,7 +105,7 @@ window.onload = function onload() {
     })
     .then(obj => obj.results.map(product =>
       ({ sku: product.id, name: product.title, image: product.thumbnail })))
-    .then((products) => products.forEach((product) => {
+    .then(products => products.forEach((product) => {
       const element = createProductItemElement(product);
       document.getElementsByClassName('items')[0]
         .appendChild(element);
