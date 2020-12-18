@@ -99,8 +99,6 @@ function clearCart() {
     saveItems();
   });
 }
-    
-  
 
 window.onload = function onload() {
   loadItems();
