@@ -55,11 +55,11 @@ function listProducts() {
     document.querySelector('.loading').remove();
     data.results.forEach((elem) => {
       const obj = {
-      sku: elem.id,
-      name: elem.title,
-      image: elem.thumbnail,
-    };
-    document.querySelector('.items').appendChild(createProductItemElement(obj));
+        sku: elem.id,
+        name: elem.title,
+        image: elem.thumbnail,
+      };
+      document.querySelector('.items').appendChild(createProductItemElement(obj));
     });
   });
 }
