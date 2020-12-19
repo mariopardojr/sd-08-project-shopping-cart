@@ -57,6 +57,7 @@ function listProducts() {
       name: elem.title,
       image: elem.thumbnail,
     };
+    document.querySelector('.loading').style.display = 'none';
     document.querySelector('.items').appendChild(createProductItemElement(obj));
   }));
 }
