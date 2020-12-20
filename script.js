@@ -35,7 +35,7 @@ const cartSum = () => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
   const p = document.querySelector('.total-price');
-  p.innerHTML = `Preço total: $${Math.round(total * 100) / 100}`;
+  p.innerHTML = Math.round(total * 100) / 100;
 };
 
 const saveCart = () => {
