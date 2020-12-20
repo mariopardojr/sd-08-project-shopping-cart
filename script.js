@@ -62,4 +62,3 @@ function getProducts() {
 }
 
 getProducts();
-
