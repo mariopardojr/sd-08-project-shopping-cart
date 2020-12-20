@@ -24,13 +24,29 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
+
+const cartSum = () => {
+  const ol = document.querySelectorAll('.cart__items li');
+  let total = 0;
+  ol.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  const p = document.querySelector('.total-price');
+  p.innerHTML = `Preço total: $${Math.round(total * 100) / 100}`;
+};
+
+const saveCart = () => {
+  const ol = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', ol);
+};
 
 function cartItemClickListener(event) {
   const parent = event.target.parentElement;
   parent.removeChild(event.target);
+  cartSum();
   saveCart();
 }
 
@@ -41,11 +57,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const saveCart = () => {
-  const ol = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', ol);
-};
-
 const loadCart = (callback) => {
   const olStorage = localStorage.getItem('cart');
   const ol = document.querySelector('.cart__items');
@@ -53,6 +64,7 @@ const loadCart = (callback) => {
   ol.addEventListener('click', (event) => {
     callback(event);
   });
+  cartSum();
 };
 
 const fecthML = (item) => {
@@ -90,6 +102,7 @@ const addShoppingCart = () => {
               };
               const ol = document.querySelector('.cart__items');
               ol.appendChild(createCartItemElement(object));
+              cartSum();
               saveCart();
             });
         });
@@ -97,8 +110,21 @@ const addShoppingCart = () => {
   });
 };
 
+const removeButton = (callback) => {
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', () => {
+    olLI = document.querySelectorAll('.cart__items li');
+    ol = document.querySelector('.cart__items');
+    olLI.forEach((item) => {
+      ol.removeChild(item);
+      callback();
+    });
+  });
+};
+
 window.onload = function onload() {
   fecthML('computador');
   addShoppingCart();
   loadCart(cartItemClickListener);
+  removeButton(cartSum);
 };
