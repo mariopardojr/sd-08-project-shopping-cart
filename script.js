@@ -64,7 +64,7 @@ function eventButton() {
         const item = {
           idItem,
           name: data.title,
-          salesPrice: data.price,
+          salePrice: data.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(item));
       });
