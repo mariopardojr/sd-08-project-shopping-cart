@@ -68,14 +68,14 @@ function generateItemList() {
   fetch(api)
     .then(response => response.json())
     .then((data) => {
-      data.results.forEach(element => {
+      data.results.forEach((element) => {
         const object = {
           sku: element.id,
           name: element.title,
           image: element.thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(object));
-      })
+      });
     });
   removeLoading();
 }
