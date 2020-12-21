@@ -63,13 +63,13 @@ function generateItemList() {
   fetch(api)
     .then(response => response.json())
     .then((data) => {
+      document.querySelector('.loading').remove();
       data.results.forEach((element) => {
         const object = {
           sku: element.id,
           name: element.title,
           image: element.thumbnail,
         };
-        document.querySelector('.loading').style.display = 'none';
         document.querySelector('.items').appendChild(createProductItemElement(object));
       });
     });
