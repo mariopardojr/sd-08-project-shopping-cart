@@ -9,7 +9,7 @@ function cartTotal() {
   cartList.forEach((element) => {
     total += parseFloat(element.innerHTML.split('$')[1]);
     document.querySelector('.total-price').innerHTML = Math.round(total * 100) / 100;
-  })
+  });
 }
 
 const removeLoading = () => {
@@ -59,7 +59,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  //li.addEventListener('click', cartItemClickListener);
+  //  li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -67,14 +67,16 @@ function generateItemList() {
   const api = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   fetch(api)
     .then(response => response.json())
-    .then(data => data.results.forEach(element => {
-      const object = {
-        sku: element.id,
-        name: element.title,
-        image: element.thumbnail,
-      }
-      document.querySelector('.items').appendChild(createProductItemElement(object))
-    }));
+    .then((data) => {
+      data.results.forEach(element => {
+        const object = {
+          sku: element.id,
+          name: element.title,
+          image: element.thumbnail,
+        };
+        document.querySelector('.items').appendChild(createProductItemElement(object));
+      })
+    });
   removeLoading();
 }
 
@@ -85,12 +87,12 @@ function addItemToCart() {
       const sku = getSkuFromProductItem(parentElement);
       fetch(`https://api.mercadolibre.com/items/${sku}`)
         .then(response => response.json())
-        .then(data => {
+        .then((data) => {
           const object = {
             sku,
             name: data.title,
             salePrice: data.price,
-          }
+          };
           document.querySelector('.cart__items').appendChild(createCartItemElement(object));
           saveItems();
           cartTotal();
@@ -116,7 +118,7 @@ function clearCart() {
     document.querySelector('.cart__items').innerHTML = '';
     saveItems();
     cartTotal();
-  })
+  });
 }
 
 window.onload = function onload() {
