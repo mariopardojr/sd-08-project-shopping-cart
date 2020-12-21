@@ -61,7 +61,7 @@ function addProductToCart() {
       .then(response => response.json())
       .then((data) => {
         const item = {
-          idItem,
+          sku: data.id,
           name: data.title,
           salePrice: data.price,
         };
