@@ -12,11 +12,6 @@ function cartTotal() {
   });
 }
 
-const removeLoading = () => {
-  const loading = document.querySelector('.loading');
-  loading.remove();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -74,10 +69,10 @@ function generateItemList() {
           name: element.title,
           image: element.thumbnail,
         };
+        document.querySelector('.loading').style.display = 'none';
         document.querySelector('.items').appendChild(createProductItemElement(object));
       });
     });
-  removeLoading();
 }
 
 function addItemToCart() {
