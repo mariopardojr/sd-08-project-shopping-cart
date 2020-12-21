@@ -56,12 +56,12 @@ function createProductRequest() {
 function addProductToCart() {
   document.querySelector('.items').addEventListener('click', (Event) => {
     if (Event.target.classList.contains('item__add')) {
-      const idItem = getSkuFromProductItem(Event.target.parentNode);
-      fetch(`https://api.mercadolibre.com/items/${idItem}`)
+      const sku = getSkuFromProductItem(Event.target.parentNode);
+      fetch(`https://api.mercadolibre.com/items/${sku}`)
       .then(response => response.json())
       .then((data) => {
         const item = {
-          sku: data.id,
+          sku,
           name: data.title,
           salePrice: data.price,
         };
