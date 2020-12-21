@@ -53,10 +53,9 @@ function createProductRequest() {
   }));
 }
 
-function eventButton() {
-  const buttonProduct = document.querySelectorAll('.item__add');
-  buttonProduct.forEach((element) => {
-    element.addEventListener('click', (Event) => {
+function addProductToCart() {
+  document.querySelector('.items').addEventListener('click', (Event) => {
+    if (Event.target.classList.contains('item__add')) {
       const idItem = getSkuFromProductItem(Event.target.parentNode);
       fetch(`https://api.mercadolibre.com/items/${idItem}`)
       .then(response => response.json())
@@ -68,11 +67,10 @@ function eventButton() {
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(item));
       });
-    },
-  );
+    }
   });
 }
 window.onload = function onload() {
   createProductRequest();
-  eventButton();
+  addProductToCart();
 };
