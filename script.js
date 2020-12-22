@@ -85,6 +85,8 @@ async function listProducts() {
     .then(res => res.json())
     .then(data => data.results);
 
+  document.querySelector('.loading').remove();
+
   items.forEach((item) => {
     const { id: sku, title: name, thumbnail: image } = item;
     const product = createProductItemElement({ sku, name, image });
