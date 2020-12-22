@@ -80,9 +80,8 @@ const localStorageGet = () => {
   const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = localStorage.getItem('cartlist');
   cartList.addEventListener('click', (event) => {
-    const element = event.target;
-    element.parentElement.removeChild(element);
     addValue();
+    event.target.remove();
     localStorageSave();
   });
 };
