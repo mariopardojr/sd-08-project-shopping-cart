@@ -133,12 +133,12 @@ const createLoading = () => {
   loading.className = 'loading';
   loading.innerHTML = 'loading...';
   sectionLoading.appendChild(loading);
-}
+};
 
 const removeLoading = () => {
   const sectionLoading = document.querySelector('.loading');
   sectionLoading.remove();
-}
+};
 
 window.onload = function onload() {
   createLoading();
