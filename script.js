@@ -105,6 +105,7 @@ function cartInit() {
 
 function deleteCart() {
   document.querySelector('.cart__items').innerHTML = '';
+  localStorage.setItem('cart__items', '');
 }
 
 window.onload = function onload() {
