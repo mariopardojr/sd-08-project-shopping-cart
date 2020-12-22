@@ -98,7 +98,7 @@ const apiCreateProduct = async (produto) => {
     })
     .then((data) => data.results);
 
-    setTimeout(() => document.querySelector('.loading').outerHTML = ''), 500);
+    setTimeout(() => (document.querySelector('.loading').outerHTML = ''), 500);
     const container = document.querySelector('.itens');
     items.forEach(({id, title, thumbnail})) => {
       container.appendChild(createProductItemElement({
@@ -108,5 +108,4 @@ const apiCreateProduct = async (produto) => {
       }));
     });
 };
-
 apiCreateProduct('computador');
