@@ -14,6 +14,15 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function saveLocalStorage() {
+  localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
+}
+
+function fetchLocalStorage() {
+  const loadingCart = localStorage.getItem('cart');
+  document.querySelector('.cart__items').innerHTML = loadingCart;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   saveLocalStorage();
@@ -25,15 +34,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-function saveLocalStorage() {
-  localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
-}
-
-function fetchLocalStorage() {
-  const loadingCart = localStorage.getItem('cart');
-  document.querySelector('.cart__items').innerHTML = loadingCart;
 }
 
 function createProductItemElement({ sku, name, image }) {
