@@ -101,7 +101,6 @@ const localStorageGet = () => {
 };
 
 const fecthProductId = (productId) => {
-  createLoading();
   fetch(`https://api.mercadolibre.com/items/${productId}`)
     .then((response) => {
       response.json().then((data) => {
@@ -115,7 +114,6 @@ const fecthProductId = (productId) => {
         selCart.appendChild(addCart);
         addValue();
         localStorageSave();
-        setTimeout(removeLoading, 8000);
       });
     });
 };
