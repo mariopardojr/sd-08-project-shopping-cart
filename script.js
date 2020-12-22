@@ -42,7 +42,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-let sectionItem = document.querySelector('.items');
+const sectionItem = document.querySelector('.items');
 
 function makeList(url) {
   if (url !== undefined) {
@@ -56,4 +56,4 @@ function makeList(url) {
   throw new Error('Erro na url');
 }
 
-makeList("https://api.mercadolibre.com/sites/MLB/search?q=computador");
+makeList('https://api.mercadolibre.com/sites/MLB/search?q=computador');
