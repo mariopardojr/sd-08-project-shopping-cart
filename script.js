@@ -58,7 +58,7 @@ const fecthProduct = () => {
           });
           return document.querySelector('.items').appendChild(addProduct);
         });
-        setTimeout(removeLoading, 8000);
+        removeLoading();
       });
     });
 };
