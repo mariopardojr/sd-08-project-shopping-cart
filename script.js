@@ -114,7 +114,7 @@ const fecthProductId = (productId) => {
         addValue();
         localStorageSave();
       })
-      .then(() => removeLoading())
+      .then(() => setTimeout(removeLoading, 8000));
     });
 };
 
