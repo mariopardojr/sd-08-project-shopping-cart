@@ -99,11 +99,10 @@ const removeLoading = () => {
 };
 
 const fecthProductId = (productId) => {
-  fetch(`https://api.mercadolibre.com/items/${productId}`);
-  createLoading()
+  fetch(`https://api.mercadolibre.com/items/${productId}`)
+    .then(() => createLoading())
     .then((response) => {
       response.json().then((data) => {
-        removeLoading();
         const addProduct = {
           sku: data.id,
           name: data.title,
@@ -114,7 +113,8 @@ const fecthProductId = (productId) => {
         selCart.appendChild(addCart);
         addValue();
         localStorageSave();
-      });
+      })
+      .then(() => removeLoading())
     });
 };
 
