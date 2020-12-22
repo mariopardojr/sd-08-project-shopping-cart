@@ -1,3 +1,15 @@
+body {
+  background-color: #048243;
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  margin: 20px;
+  color: #92d3b8;
+  text-shadow: 2px 2px black;
+}
+
 .top-bar {
   align-items: center;
   display: flex;
@@ -28,6 +40,8 @@
   flex-basis: 70%;
   flex-wrap: wrap;
   justify-content: center;
+  background-color: #CAFFFB;
+  border: 15px groove #32BF84;
 }
 
 .item {
@@ -67,10 +81,25 @@
   display: flex;
   flex-basis: 30%;
   flex-flow: column wrap;
+  background-color: #CAFFFB;
+  border: 15px groove #32BF84;
 }
 
 .cart .cart__title {
   flex-basis: 1;
   font-size: 16pt;
   text-align: center;
+}
+
+.cart__items {
+  padding: 0 10px;
+}
+
+.cart__item {
+  background-color: #048243;
+  color: #CAFFFB;
+  border: 1px solid #32BF84;
+  border-radius: 5px;
+  list-style: none;
+  margin-bottom: 5px;
 }
