@@ -128,16 +128,15 @@ const clearCart = () => {
 };
 
 const createLoading = () => {
-  const sectionLoading = document.querySelector('.loading');
+  const body = document.body;
   const loading = document.createElement('h1');
   loading.className = 'loading';
   loading.innerHTML = 'loading...';
-  sectionLoading.appendChild(loading);
+  body.appendChild(loading);
 };
 
 const removeLoading = () => {
-  const sectionLoading = document.querySelector('.loading');
-  sectionLoading.remove();
+  document.querySelector('.loading').remove();
 };
 
 window.onload = function onload() {
