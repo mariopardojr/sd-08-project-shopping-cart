@@ -81,7 +81,7 @@ function cleanCart() {
   const cleanButton = document.querySelector('.empty-cart');
   cleanButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
-    localStorageSave();
+    saveLocalStorage();
   });
 }
 
