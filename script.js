@@ -3,12 +3,12 @@
 const saveLocalStorage = () => {
   currentCart = document.querySelector('.cart__items');
   localStorage.setItem('cart', currentCart);
-}
+};
 
 const fetchLocalStorage = () => {
   const loadedCart = localStorage.getItem('cart');
   document.querySelector('.cart__items').innerText = loadedCart;
-}
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -81,11 +81,11 @@ const getProduct = () => fetch('https://api.mercadolibre.com/sites/MLB/search?q=
 const cleanCart = () => {
   createProductItemElement();
   cleanButton = document.querySelector('.empty-cart');
-  cleanButton.addEventListener("click", () => {
+  cleanButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
     saveLocalStorage();
   });
-}
+};
 
 window.onload = function onload() {
   getProduct();
