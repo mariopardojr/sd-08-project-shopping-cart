@@ -77,7 +77,7 @@ function addItemToCart() {
                 };
                 return createCartItemElement(product);
               });
-          })
+          });
       }
     });
 }
