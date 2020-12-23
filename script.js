@@ -70,6 +70,7 @@ async function somar() {
   carrinhoCompras.innerHTML = '';
   const criaDivTotal = document.createElement('div');
   criaDivTotal.innerText = `Total: + ${total.toFixed(2)}`;
+  criaDivTotal.className = 'total-price';
   carrinhoCompras.appendChild(criaDivTotal);
 }
 
