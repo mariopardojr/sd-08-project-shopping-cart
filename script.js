@@ -47,9 +47,9 @@ function createCartItemElement({ sku, name, salePrice }) {
 // 1. Listagem de produtos
 function theItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then((response) => response.json())
-    .then((jsonObj) => jsonObj.results)
-    .then((array) =>
+    .then(response => response.json())
+    .then(jsonObj => jsonObj.results)
+    .then(array =>
       array.forEach((item) => {
         const eachItem = {
           sku: item.id,
@@ -113,7 +113,7 @@ function emptyCart() {
 
 function highLightButtons() {
   const theList = document.querySelector('.items');
-  theList.addEventListener('mouseover', (hover) => {
+  theList.addEventListener('mouseover', hover => {
     if (
       hover.target.className === 'item__add' &&
       hover.target.style.opacity !== '0.85'
@@ -121,7 +121,7 @@ function highLightButtons() {
       hover.target.style.opacity = '0.85';
     }
   });
-  theList.addEventListener('mouseout', (hovered) => {
+  theList.addEventListener('mouseout', hovered => {
     hovered.target.className === 'item__add' &&
     hovered.target.style.opacity === '0.85'
       ? (hovered.target.style.opacity = '1')
