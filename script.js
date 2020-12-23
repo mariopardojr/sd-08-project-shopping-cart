@@ -44,6 +44,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+// 1. Listagem de produtos
 function theItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then((response) => response.json())
@@ -67,11 +68,13 @@ function saveCartItems() {
   localStorage.setItem('shopCart', shopCart.innerHTML);
 }
 
+// 4. Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
 function loadCartItem() {
   const shopCartItems = document.querySelector('.cart__items');
   shopCartItems.innerHTML = localStorage.getItem('shopCart');
 }
 
+// 2. Adicione o produto ao carrinho de compras
 function addItemToCart() {
   const itemsList = document.querySelector('.items');
   itemsList.addEventListener('click', (event) => {
@@ -101,6 +104,7 @@ async function totalPriceSum() {
   totalPrice.className = 'total-price';
 }
 
+// 6. Botão para limpar carrinho de compras
 function emptyCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
@@ -109,18 +113,18 @@ function emptyCart() {
 
 function highLightButtons() {
   const theList = document.querySelector('.items');
-  theList.addEventListener('mouseover', (event) => {
+  theList.addEventListener('mouseover', (hover) => {
     if (
-      event.target.className === 'item__add' &&
-      event.target.style.opacity !== '0.85'
+      hover.target.className === 'item__add' &&
+      hover.target.style.opacity !== '0.85'
     ) {
-      event.target.style.opacity = '0.85';
+      hover.target.style.opacity = '0.85';
     }
   });
-  theList.addEventListener('mouseout', (event) => {
-    event.target.className === 'item__add' &&
-    event.target.style.opacity === '0.85'
-      ? (event.target.style.opacity = '1')
+  theList.addEventListener('mouseout', (hovered) => {
+    hovered.target.className === 'item__add' &&
+    hovered.target.style.opacity === '0.85'
+      ? (hovered.target.style.opacity = '1')
       : false;
   });
 }
