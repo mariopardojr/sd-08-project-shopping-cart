@@ -1,16 +1,3 @@
-window.onload = function onload() { 
-  criaItens();
-  document.body.addEventListener('click', async event => {
-    if(event.target.matches('.item__add')){
-      const parent = event.target.parentNode;
-      const id = getSkuFromProductItem(parent);
-      const { id: sku, title: name, price: salePrice} = await pegaItem(id)
-      const cartItems = document.querySelector('.cart__items');
-      cartItems.appendChild(createCartItemElement({sku, title, price}))
-    }
-  })
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -53,21 +40,61 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function criaItens(){
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+function responseFetch() {
+  return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(data => {
-      const results = data.results;
-      const itemsContainer = document.querySelector('.items');
-      results.forEach(item => {
-        const { id: sku, title: name, thumbnail: image} = item;
-        itemsContainer.appendChild(createProductItemElement({sku, name, image }));
-  })
-});
+    .then(data => data.results)
 }
 
-function pegaItem(id){
-  fetch(`https://api.mercadolibre.com/items/${id}`)
+function createItems(items) {
+  const item = document.querySelector('.items');
+  items.forEach((element) => {
+    const { id: sku, title: name, thumbnail: image } = element;
+    item.appendChild(createProductItemElement({ sku, name, image }));
+  });
+}
+
+function pegaItem(id) {
+  return fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => data);
+}
+
+window.onload = async function () {
+  const items = await responseFetch();
+  createItems(items);
+  adicionarItems();
+  clicarEsvaziar();
+  somar();
+}
+
+function adicionarItems(){
+  document.body.addEventListener('click', async event => {
+    if (event.target.matches('.item__add')) {
+      const parent = event.target.parentNode;
+      const id = getSkuFromProductItem(parent);
+      const { id: sku, title: name, price: salePrice } = await pegaItem(id);
+      const cartItems = document.querySelector('.cart__items');
+      cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
+      somar();
+    };
+  })
+}
+
+async function somar(){  
+  const cartItems = document.querySelectorAll('.cart__item');
+  let total = 0;
+  cartItems.forEach(element => { total += parseFloat(element.innerText.split('$')[1])
+  });
+  console.log(total.toFixed(2));
+}
+
+function clicarEsvaziar(){
+  const emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', emptyCart)
+}
+
+function emptyCart() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = '';
 }
