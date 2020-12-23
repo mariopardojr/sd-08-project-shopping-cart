@@ -44,10 +44,10 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function theItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then(response => response.json())
-    .then(jsonObj => jsonObj.results)
-    .then(array =>
-      array.forEach(item => {
+    .then((response) => response.json())
+    .then((jsonObj) => jsonObj.results)
+    .then((array) =>
+      array.forEach((item) => {
         const eachItem = {
           sku: item.id,
           name: item.title,
@@ -62,27 +62,46 @@ function theItemsList() {
 
 function addItemToCart() {
   const itemsList = document.querySelector('.items');
-  itemsList.addEventListener('click', event => {
-    console.log(event.target);
-    document
-      .querySelector('.cart__items')
-      .appendChild(event.target.parentElement);
+  itemsList.addEventListener('click', (event) => {
+    if (event.target.className === 'item__add') {
+      const parentEl = event.target.parentElement;
+      const theSkuTxt = getSkuFromProductItem(parentEl);
+      fetch(`https://api.mercadolibre.com/items/${theSkuTxt}`)
+        .then((response) => response.json())
+        .then((responsedJson) => {
+          const cartItems = {
+            sku: responsedJson.id,
+            name: responsedJson.title,
+            salePrice: responsedJson.price,
+          };
+          console.log(cartItems);
+          document
+            .querySelector('.cart__items')
+            .appendChild(createCartItemElement(cartItems));
+        });
+    }
   });
 }
 
-function highLights() {
+function emptyCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+  });
+}
+
+function highLightButtons() {
   const theList = document.querySelector('.items');
-  theList.addEventListener('mouseover', event => {
+  theList.addEventListener('mouseover', (event) => {
     if (
       event.target.className === 'item__add' &&
-      event.target.style.opacity !== '0.9'
+      event.target.style.opacity !== '0.85'
     ) {
-      event.target.style.opacity = '0.9';
+      event.target.style.opacity = '0.85';
     }
   });
-  theList.addEventListener('mouseout', event => {
+  theList.addEventListener('mouseout', (event) => {
     event.target.className === 'item__add' &&
-    event.target.style.opacity === '0.9'
+    event.target.style.opacity === '0.85'
       ? (event.target.style.opacity = '1')
       : false;
   });
@@ -90,5 +109,6 @@ function highLights() {
 window.onload = function onload() {
   theItemsList();
   addItemToCart();
-  highLights();
+  highLightButtons();
+  emptyCart();
 };
