@@ -74,12 +74,12 @@ async function somar() {
   carrinhoCompras.appendChild(criaDivTotal);
 }
 
-function removerItems(){
-  document.body.addEventListener('click', async event => {
-    if (event.target.matches('.cart__item')){
+function removerItems() {
+  document.body.addEventListener('click', async (event) => {
+    if (event.target.matches('.cart__item')) {
       somar();
     }
-  })
+  });
 }
 
 function adicionarItems() {
