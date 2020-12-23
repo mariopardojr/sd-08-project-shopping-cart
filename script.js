@@ -69,7 +69,7 @@ async function somar() {
   const carrinhoCompras = document.querySelector('.xablau');
   carrinhoCompras.innerHTML = '';
   const criaDivTotal = document.createElement('div');
-  criaDivTotal.innerText = total.toFixed(2);
+  criaDivTotal.innerText = total;
   criaDivTotal.className = 'total-price';
   carrinhoCompras.appendChild(criaDivTotal);
 }
