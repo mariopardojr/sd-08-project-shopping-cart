@@ -58,7 +58,7 @@ async function pegaItem(id) {
   return fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
     .then(data => data);
-};
+}
 
 async function somar() {
   const cartItems = document.querySelectorAll('.cart__item');
@@ -101,4 +101,4 @@ window.onload = async function () {
   adicionarItems();
   clicarEsvaziar();
   somar();
-}
+};
