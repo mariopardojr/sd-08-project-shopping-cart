@@ -78,6 +78,11 @@ function removerItems() {
   });
 }
 
+function guardarCarrinho() {
+  const cartItems = document.querySelector('.cart__items');
+  localStorage.setItem('cartItems', cartItems.innerHTML);
+}
+
 function adicionarItems() {
   document.body.addEventListener('click', async (event) => {
     if (event.target.matches('.item__add')) {
@@ -105,11 +110,6 @@ function clicarEsvaziar() {
   somar();
 }
 
-function guardarCarrinho() {
-  const cartItems = document.querySelector('.cart__items');
-  localStorage.setItem('cartItems', cartItems.innerHTML);
-}
-
 function recuperar() {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = localStorage.getItem('cartItems');
@@ -117,10 +117,10 @@ function recuperar() {
 }
 
 window.onload = async function () {
-  recuperar()
+  recuperar();
   const items = await responseFetch();
   createItems(items);
   adicionarItems();
   clicarEsvaziar();
-  somar();  
+  somar();
 };
