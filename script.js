@@ -54,7 +54,7 @@ function createItems(items) {
   });
 }
 
-function pegaItem(id) {
+async function pegaItem(id) {
   return fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
     .then(data => data);
@@ -68,7 +68,7 @@ window.onload = async function () {
   somar();
 }
 
-function adicionarItems(){
+function adicionarItems() {
   document.body.addEventListener('click', async event => {
     if (event.target.matches('.item__add')) {
       const parent = event.target.parentNode;
@@ -81,15 +81,20 @@ function adicionarItems(){
   })
 }
 
-async function somar(){  
+async function somar() {
   const cartItems = document.querySelectorAll('.cart__item');
   let total = 0;
-  cartItems.forEach(element => { total += parseFloat(element.innerText.split('$')[1])
+  cartItems.forEach(element => {
+    total += parseFloat(element.innerText.split('$')[1])
   });
-  console.log(total.toFixed(2));
+  const carrinhoCompras = document.querySelector('.xablau');
+  carrinhoCompras.innerHTML = '';
+  const criaDivTotal = document.createElement('div');
+  criaDivTotal.innerText = 'Total: ' + total.toFixed(2);
+  carrinhoCompras.appendChild(criaDivTotal);
 }
 
-function clicarEsvaziar(){
+function clicarEsvaziar() {
   const emptyCartButton = document.querySelector('.empty-cart');
   emptyCartButton.addEventListener('click', emptyCart)
 }
