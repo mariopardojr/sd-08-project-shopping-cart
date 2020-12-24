@@ -36,25 +36,21 @@ function saveCartItems() {
 
 async function totalPricesSum() {
   const allPrices = [];
-  document.querySelectorAll('.cart__item').forEach((element) => {
-    allPrices.push(Number(element.innerHTML.split('$')[1]));
-  });
+  document.querySelectorAll('.cart__item').forEach(element => allPrices.push(Number(element.innerHTML.split('$')[1])));
   totalPrices = allPrices.reduce((acc, price) => acc + price, 0);
-  document.querySelector(
-    '.total-price',
-  ).innerHTML = totalPrices;
+  document.querySelector('.total-price').innerHTML = totalPrices;
 }
 
 function frescurites() {
   const cartOl = document.querySelector('.cart__items');
-  const priceTxt = document.querySelector('.total-price')
+  const priceTxt = document.querySelector('.total-price');
   const priceTag = document.querySelector('.priceTag');
   if (cartOl.innerHTML) {
     priceTxt.style.color = 'blue';
-    priceTag.style.color = 'blue'
+    priceTag.style.color = 'blue';
   } else {
     priceTxt.style.color = 'red';
-    priceTag.style.color = 'red'
+    priceTag.style.color = 'red';
   }
 }
 
