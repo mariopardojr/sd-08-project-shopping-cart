@@ -99,6 +99,7 @@ function theItemsList() {
           name: item.title,
           image: item.thumbnail,
         };
+        document.querySelector('.loading').style.display = 'none';
         document
           .querySelector('.items')
           .appendChild(createProductItemElement(eachItem));
