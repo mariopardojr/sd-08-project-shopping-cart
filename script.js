@@ -100,4 +100,3 @@ window.onload = async function () {
     cartItems.innerHTML = '';
   });
 };
-
