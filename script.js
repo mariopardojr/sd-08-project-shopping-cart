@@ -42,16 +42,19 @@ async function totalPricesSum() {
   totalPrices = allPrices.reduce((acc, price) => acc + price, 0).toFixed(2);
   document.querySelector(
     '.total-price',
-  ).innerHTML = `Soma dos preços: $${totalPrices}`;
+  ).innerHTML = totalPrices;
 }
 
 function frescurites() {
   const cartOl = document.querySelector('.cart__items');
-  const priceTxt = document.querySelector('.total-price');
+  const priceTxt = document.querySelector('.total-price')
+  const priceTag = document.querySelector('.priceTag');
   if (cartOl.innerHTML) {
     priceTxt.style.color = 'blue';
+    priceTag.style.color = 'blue'
   } else {
     priceTxt.style.color = 'red';
+    priceTag.style.color = 'red'
   }
 }
 
