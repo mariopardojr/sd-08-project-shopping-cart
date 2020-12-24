@@ -132,22 +132,6 @@ function addItemToCart() {
   });
 }
 
-// function highLightButtons() {
-//   const theList = document.querySelector('.items');
-//   theList.addEventListener('mouseover', (hover) => {
-//     if (hover.target.className === 'item__add') {
-//       hover.target.style.opacity = '0.5';
-//     } else {
-//       hover.target.style.opacity = '1';
-//     }
-//   });
-//   theList.addEventListener('mouseout', (hovered) => {
-//     if (hovered.target.className === 'item__add') {
-//       hovered.target.style.opacity = '1';
-//     }
-//   });
-// }
-
 window.onload = function onload() {
   addItemToCart();
   emptyCart();
