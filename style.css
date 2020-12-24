@@ -67,6 +67,12 @@ body {
   padding: 5px;
 }
 
+.item .item__add:hover {
+  cursor: pointer;
+  opacity: 0.85;
+  transition: 0.2;
+}
+
 .cart {
   display: flex;
   flex-basis: 30%;
