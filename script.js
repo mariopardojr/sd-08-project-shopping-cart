@@ -119,6 +119,7 @@ function recuperar() {
 window.onload = async function () {
   recuperar();
   const items = await responseFetch();
+  document.querySelector('.loading').remove();
   createItems(items);
   adicionarItems();
   clicarEsvaziar();
