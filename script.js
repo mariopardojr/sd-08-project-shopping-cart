@@ -77,6 +77,10 @@ function loadCartItem() {
   shopCartItems.innerHTML = localStorage.getItem('shopCart');
 }
 
+// 7. Adicionar um texto de "loading" durante uma requisição à API
+function loadingTxt() {
+  document.body.removeChild(document.body.firstElementChild);
+}
 // 6. Botão para limpar carrinho de compras
 function emptyCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
@@ -92,19 +96,19 @@ function theItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then((response) => response.json())
     .then((jsonObj) => jsonObj.results)
-    .then((array) =>
+    .then((array) => {
+      loadingTxt();
       array.forEach((item) => {
         const eachItem = {
           sku: item.id,
           name: item.title,
           image: item.thumbnail,
         };
-        document.querySelector('.loading').style.display = 'none';
         document
           .querySelector('.items')
           .appendChild(createProductItemElement(eachItem));
-      }),
-    );
+      });
+    });
 }
 
 // 2. Adicione o produto ao carrinho de compras
