@@ -39,7 +39,7 @@ async function totalPricesSum() {
   document.querySelectorAll('.cart__item').forEach((element) => {
     allPrices.push(Number(element.innerHTML.split('$')[1]));
   });
-  totalPrices = allPrices.reduce((acc, price) => acc + price, 0).toFixed(2);
+  totalPrices = allPrices.reduce((acc, price) => acc + price, 0);
   document.querySelector(
     '.total-price',
   ).innerHTML = totalPrices;
