@@ -33,7 +33,7 @@ function getTotalValueItens() {
   let total = 0;
   cartItem.forEach((element) => {
     total += parseFloat(element.innerText.split('$')[1]);
-  });  
+  });
   const totalPrice = document.querySelector('.total-price');
   totalPrice.innerHTML = total;
 }
