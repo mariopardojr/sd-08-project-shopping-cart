@@ -43,14 +43,14 @@ function createCartItemElement({ sku, name, salePrice }) {
 function responseFetch() {
   return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(data => data.results)
+    .then(data => data.results);
 }
 
 function createItems(items) {
   const item = document.querySelector('.items');
   items.forEach((element) => {
-    const {id: sku, title: name, thumbnail: image} = element;
-    item.appendChild(createProductItemElement({sku, name, image}));
+    const { id: sku, title: name, thumbnail: image } = element;
+    item.appendChild(createProductItemElement({ sku, name, image }));
   });
 }
 
@@ -63,7 +63,7 @@ function getItem(id) {
 async function sum() {
   const cartItems = document.querySelectorAll('.cart__item');
   let total = 0;
-  cartItems.forEach(element => {total += parseFloat(element.innerText.split('$')[1])});
+  cartItems.forEach((element) => { total += parseFloat(element.innerText.split('$')[1]); });
   document.querySelector('.total-price').innerHTML = total;
 }
 
@@ -78,24 +78,24 @@ function recover() {
   sum();
 }
 
-window.onload = async function() {
+window.onload = async function () {
   recover();
   const items = await responseFetch();
   document.querySelector('.loading').remove();
   createItems(items);
-  document.body.addEventListener('click', async event => {
-    if(event.target.matches('.item__add')){
+  document.body.addEventListener('click', async (event) => {
+    if (event.target.matches('.item__add')) {
       const parent = event.target.parentNode;
       const id = getSkuFromProductItem(parent);
-      const {id: sku, title: name, price: salePrice} = await getItem(id);
+      const { id: sku, title: name, price: salePrice } = await getItem(id);
       const cartItems = document.querySelector('.cart__items');
-      cartItems.appendChild(createCartItemElement({sku, name, salePrice}));
+      cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
     }
     sum();
     save();
   });
   const emptyCartButton = document.querySelector('.empty-cart');
-  emptyCartButton.addEventListener('click', function() {
+  emptyCartButton.addEventListener('click', function () {
     const cartItems = document.querySelector('.cart__items');
     cartItems.innerHTML = '';
   });
