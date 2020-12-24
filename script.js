@@ -120,4 +120,5 @@ window.onload = function onload() {
   getItemsCarsLocalStorage();
   emptyCartItems();
   getTotalValueItens();
+  document.querySelector('.loading').remove();
 };
