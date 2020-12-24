@@ -40,9 +40,17 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  font-weight: 500;
   height: auto;
   margin: 5px;
+  text-decoration: none;
+  transition: text-decoration font-weight 0.2s;
   width: 200px;
+}
+
+.item:hover {
+  font-weight: 550;
+  text-decoration: underline;
 }
 
 .item .item__sku {
@@ -62,15 +70,17 @@ body {
 .item .item__add {
   background-color: green;
   border: 0;
-  cursor: pointer;
+  color: black;
   margin: 0;
+  opacity: 1;
   padding: 5px;
+  transition: opacity 0.4s, color 0.2s;
 }
 
 .item .item__add:hover {
-  cursor: pointer;
-  opacity: 0.85;
-  transition: 0.2;
+  color: white;
+  cursor: copy;
+  opacity: 0.8;
 }
 
 .cart {
