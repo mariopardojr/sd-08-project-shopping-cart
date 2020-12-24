@@ -45,6 +45,38 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function saveCartItems() {
+  const shopCart = document.querySelector('.cart__items');
+  localStorage.setItem('shopCart', shopCart.innerHTML);
+}
+
+// 4. Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
+function loadCartItem() {
+  const shopCartItems = document.querySelector('.cart__items');
+  shopCartItems.innerHTML = localStorage.getItem('shopCart');
+}
+
+async function totalPricesSum() {
+  let allPrices = [];
+  document.querySelectorAll('.cart__item').forEach((element) => {
+    allPrices.push(Number(element.innerHTML.split('$')[1]));
+  });
+  totalPrices = allPrices.reduce((acc, price) => acc + price, 0).toFixed(2);
+  document.querySelector(
+    '.total-price',
+  ).innerHTML = `Soma dos preços: $${totalPrices}`;
+}
+
+// 6. Botão para limpar carrinho de compras
+function emptyCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveCartItems();
+    totalPricesSum();
+    frescurites();
+  });
+}
+
 // 1. Listagem de produtos
 function theItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
@@ -62,17 +94,6 @@ function theItemsList() {
           .appendChild(createProductItemElement(eachItem));
       }),
     );
-}
-
-function saveCartItems() {
-  const shopCart = document.querySelector('.cart__items');
-  localStorage.setItem('shopCart', shopCart.innerHTML);
-}
-
-// 4. Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
-function loadCartItem() {
-  const shopCartItems = document.querySelector('.cart__items');
-  shopCartItems.innerHTML = localStorage.getItem('shopCart');
 }
 
 // 2. Adicione o produto ao carrinho de compras
@@ -101,42 +122,17 @@ function addItemToCart() {
   });
 }
 
-async function totalPricesSum() {
-  console.log(document.querySelectorAll('.cart__item'));
-  let allPrices = [];
-  document.querySelectorAll('.cart__item').forEach((element) => {
-    allPrices.push(Number(element.innerHTML.split('$')[1]));
-  });
-  totalPrices = allPrices.reduce((acc, price) => acc + price, 0).toFixed(2);
-  document.querySelector(
-    '.total-price',
-  ).innerHTML = `Soma dos preços: $${totalPrices}`;
-}
-
-// 6. Botão para limpar carrinho de compras
-function emptyCart() {
-  document.querySelector('.empty-cart').addEventListener('click', () => {
-    document.querySelector('.cart__items').innerHTML = '';
-    saveCartItems();
-    totalPricesSum();
-    frescurites();
-  });
-}
 function highLightButtons() {
   const theList = document.querySelector('.items');
   theList.addEventListener('mouseover', (hover) => {
-    if (
-      hover.target.className === 'item__add' &&
-      hover.target.style.opacity !== '0.85'
-    ) {
+    if (hover.target.className === 'item__add') {
       hover.target.style.opacity = '0.85';
     }
   });
   theList.addEventListener('mouseout', (hovered) => {
-    hovered.target.className === 'item__add' &&
-    hovered.target.style.opacity === '0.85'
-      ? (hovered.target.style.opacity = '1')
-      : false;
+    if (hovered.target.className === 'item__add') {
+      hovered.target.style.opacity = '1';
+    }
   });
 }
 
