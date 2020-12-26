@@ -117,4 +117,12 @@ async function deployStorage() {
 window.onload = function onload() {
   insertDataOnDocSelector('.items');
   deployStorage();
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    const items = document.querySelectorAll('.cart__item');
+    for (let index = items.length - 1; index >= 0; index -= 1) {
+      items[index].remove();
+    }
+    updateStorage();
+    updateTotalPrice();
+  });
 };
