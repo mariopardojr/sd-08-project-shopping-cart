@@ -84,6 +84,25 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+async function verifyIfIsLoaded() {
+  const interval = setInterval(() => {
+    const items = document.querySelector('.items');
+    const loading = document.createElement('p');
+    loading.classList.add('loading');
+    loading.innerHTML = 'Loading...';
+    if (items.children.length === 0) {
+      if (!document.querySelector('.loading')) {
+        document.querySelector('.container').insertAdjacentElement('afterbegin',loading);
+        items.classList.add('none');
+      }
+    } else {
+      clearInterval(interval);
+      document.querySelector('.loading').remove();
+      items.classList.remove('none');
+    }
+  }, 10)
+}
+
 async function insertDataOnDocSelector(selector) {
   try {
     const importedData = await fetchMlbSearch('computador');
@@ -115,6 +134,7 @@ async function deployStorage() {
 }
 
 window.onload = function onload() {
+  verifyIfIsLoaded();
   insertDataOnDocSelector('.items');
   deployStorage();
   document.querySelector('.empty-cart').addEventListener('click', () => {
