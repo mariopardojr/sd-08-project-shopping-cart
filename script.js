@@ -50,7 +50,7 @@ function updateStorage() {
     const objItem = {
       sku: text[0].split('SKU: ')[1],
       name: text[1].split('NAME: ')[1],
-      salePrice: text[2].split('PRICE: ')[1],
+      salePrice: text[2].split('PRICE: $')[1],
     };
     return objItem;
   });
