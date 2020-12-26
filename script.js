@@ -24,23 +24,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-// async function fetchMlbItemsById(idsArr) {
-//   const itemsData = idsArr.map(async id =>
-//   fetch(`https://api.mercadolibre.com/items/${id}`)
-//     .then(resp => resp.json())
-//     .then((itemObj) => {
-//       const itemData = {
-//         sku: itemObj.id,
-//         name: itemObj.title,
-//         image: itemObj.pictures[0].url,
-//         price: itemObj.price,
-//       };
-//       return itemData;
-//     })
-//     .catch(() => { throw new Error('Erro ao consutar o item por id'); }));
-//   return Promise.all(itemsData);
-// }
-
 async function fetchMlbSearch(query) {
   return fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
     .then(resp => resp.json())
@@ -60,8 +43,23 @@ async function fetchMlbSearch(query) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
+function updateStorage() {
+  const objCartItems = Array.from(document.querySelectorAll('.cart__item'))
+  .map((item) => {
+    const text = item.innerHTML.split(' | ');
+    const objItem = {
+      sku: text[0].split('SKU: ')[1],
+      name: text[1].split('NAME: ')[1],
+      salePrice: text[2].split('PRICE: ')[1],
+    };
+    return objItem;
+  });
+  localStorage.cartItems = JSON.stringify(objCartItems);
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
+  updateStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -81,6 +79,7 @@ async function insertDataOnDocSelector(selector) {
         const li = createCartItemElement(item);
         const cartItems = document.querySelector('.cart__items');
         cartItems.appendChild(li);
+        updateStorage();
       });
       document.querySelector(selector).appendChild(newItem);
     });
@@ -89,7 +88,17 @@ async function insertDataOnDocSelector(selector) {
   }
 }
 
+function deployStorage() {
+  if (localStorage.cartItems) {
+    const cartItems = JSON.parse(localStorage.cartItems);
+    const cartItemsDOM = document.querySelector('.cart__items');
+    cartItems.forEach((item) => {
+      cartItemsDOM.appendChild(createCartItemElement(item));
+    });
+  }
+}
+
 window.onload = function onload() {
   insertDataOnDocSelector('.items');
-  // fetchMlbSearch('computador');
+  deployStorage();
 };
