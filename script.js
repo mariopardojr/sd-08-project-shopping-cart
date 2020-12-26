@@ -84,6 +84,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function isThereLoading(loading, items) {
+  if (!document.querySelector('.loading')) {
+    document.querySelector('.container').insertAdjacentElement('afterbegin', loading);
+    items.classList.add('none');
+  }
+}
+
 async function verifyIfIsLoaded() {
   const interval = setInterval(() => {
     const items = document.querySelector('.items');
@@ -91,16 +98,13 @@ async function verifyIfIsLoaded() {
     loading.classList.add('loading');
     loading.innerHTML = 'Loading...';
     if (items.children.length === 0) {
-      if (!document.querySelector('.loading')) {
-        document.querySelector('.container').insertAdjacentElement('afterbegin',loading);
-        items.classList.add('none');
-      }
+      isThereLoading(loading, items);
     } else {
       clearInterval(interval);
       document.querySelector('.loading').remove();
       items.classList.remove('none');
     }
-  }, 10)
+  }, 10);
 }
 
 async function insertDataOnDocSelector(selector) {
