@@ -80,8 +80,20 @@ async function getproducts(product) {
 }
 // addItemListener("MLB1341706310");
 
+
+function clearChart() {
+  const chartList = document.querySelectorAll('.cart__item');
+  chartList.forEach(element => element.parentElement.removeChild(element));
+}
+
+function clearChartEvent() {
+  const emptyButton = document.querySelector('body > section > section.cart > button');
+  emptyButton.addEventListener('click', clearChart);
+}
+
 window.onload = function onload() {
   getproducts('computador');
+  clearChartEvent();
 };
 
 // function getSkuFromProductItem(item) {
