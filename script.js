@@ -91,17 +91,23 @@ function isThereLoading(loading, items) {
   }
 }
 
+function remove(selector) {
+  const node = document.querySelector(selector);
+  if (node) node.remove();
+}
+
 async function verifyIfIsLoaded() {
   const interval = setInterval(() => {
     const items = document.querySelector('.items');
     const loading = document.createElement('p');
     loading.classList.add('loading');
     loading.innerHTML = 'Loading...';
+    // console.log(items.children.length, ' Fase 1');
     if (items.children.length === 0) {
       isThereLoading(loading, items);
     } else {
       clearInterval(interval);
-      document.querySelector('.loading').remove();
+      remove('.loading');
       items.classList.remove('none');
     }
   }, 10);
