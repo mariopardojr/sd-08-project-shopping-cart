@@ -61,7 +61,7 @@ async function updateStorage() {
     return total;
   }, 0);
   /* eslint-disable no-param-reassign */
-  localStorage.totalPrice = `Preço total: $${(Math.round(100 * sum) / 100).toFixed(2)}`;
+  localStorage.totalPrice = `${(Math.round(100 * sum) / 100)}`;
 }
 
 function updateTotalPrice() {
