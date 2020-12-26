@@ -43,7 +43,7 @@ async function fetchMlbSearch(query) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
-function updateStorage() {
+async function updateStorage() {
   const objCartItems = Array.from(document.querySelectorAll('.cart__item'))
   .map((item) => {
     const text = item.innerHTML.split(' | ');
@@ -55,11 +55,25 @@ function updateStorage() {
     return objItem;
   });
   localStorage.cartItems = JSON.stringify(objCartItems);
+  /* eslint-disable no-param-reassign */
+  const sum = objCartItems.reduce((total, { salePrice }) => {
+    total += parseFloat(salePrice);
+    return total;
+  }, 0);
+  /* eslint-disable no-param-reassign */
+  localStorage.totalPrice = `Preço total: $${(Math.round(100 * sum) / 100).toFixed(2)}`;
+}
+
+function updateTotalPrice() {
+  if (localStorage.totalPrice) {
+    document.querySelector('.total-price').innerHTML = localStorage.totalPrice;
+  }
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
   updateStorage();
+  updateTotalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -80,6 +94,7 @@ async function insertDataOnDocSelector(selector) {
         const cartItems = document.querySelector('.cart__items');
         cartItems.appendChild(li);
         updateStorage();
+        updateTotalPrice();
       });
       document.querySelector(selector).appendChild(newItem);
     });
@@ -88,13 +103,14 @@ async function insertDataOnDocSelector(selector) {
   }
 }
 
-function deployStorage() {
+async function deployStorage() {
   if (localStorage.cartItems) {
     const cartItems = JSON.parse(localStorage.cartItems);
     const cartItemsDOM = document.querySelector('.cart__items');
     cartItems.forEach((item) => {
       cartItemsDOM.appendChild(createCartItemElement(item));
     });
+    updateTotalPrice();
   }
 }
 
