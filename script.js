@@ -1,3 +1,7 @@
+function Removeloading() {
+  const loadPage = document.querySelector('.loading');
+  loadPage.remove();
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -20,7 +24,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 }
 
@@ -28,26 +31,26 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function Removeloading() {
-  const loadPage = document.querySelector('.loading');
-  loadPage.remove();
-}
-
 function localStorageSave() {
   localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
+}
+
+function cartItemClickListener(Event) {
+  Event.stopPropagation();
+  Event.currentTarget.remove('');
+  localStorageSave();
+}
+
+function removeItemCart() {
+  const ItemCart = document.querySelectorAll('.cart__item');
+  ItemCart.forEach(element => element.addEventListener('click', cartItemClickListener));
 }
 
 function localStorageGet() {
   const loadingCart = localStorage.getItem('cart');
   document.querySelector('.cart__items').innerHTML = loadingCart;
+  removeItemCart();
 }
-
-function cartItemClickListener(event) {
-  const element = event.target;
-  element.parentNode.removeChild(element);
-  localStorageSave();
-}
-
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -73,7 +76,6 @@ function createProductRequest() {
   });
 }
 
-
 function addProductToCart() {
   document.querySelector('.items').addEventListener('click', (Event) => {
     if (Event.target.classList.contains('item__add')) {
@@ -92,6 +94,7 @@ function addProductToCart() {
     }
   });
 }
+
 function buttonClear() {
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', () => {
