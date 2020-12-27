@@ -22,10 +22,23 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function save() {
+  const cartList = document.getElementsByClassName('cart__item');
+  const cartListToStorage = [];
+  for (let index = 0; index < cartList.length; index += 1) {
+    cartListToStorage.push(cartList[index].innerHTML);
+  }
+  // const cartListToStorage = cartList.map((element, index) => element[index].innerText);
+  // console.log(cartListToStorage);
+  // console.log(cartList)
+  localStorage.setItem('cartItems', JSON.stringify(cartListToStorage));
+}
+
 function cartItemClickListener(event) {
   const itemParent = event.target.parentNode;
   const listItem = event.target;
-  return itemParent.removeChild(listItem);
+  itemParent.removeChild(listItem);
+  save();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -34,6 +47,19 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function load() {
+  const cartItemsSaved = JSON.parse(localStorage.getItem('cartItems'));
+  console.log(cartItemsSaved);
+  return cartItemsSaved.forEach((element) => {
+    const olContainer = document.querySelector('body > section > section.cart > ol');
+    const li = document.createElement('li');
+    li.className = 'cart__item';
+    li.innerText = element;
+    li.addEventListener('click', cartItemClickListener);
+    olContainer.appendChild(li);
+  });
 }
 
 async function addItemListener(id) {
@@ -47,7 +73,8 @@ async function addItemListener(id) {
         const content = createCartItemElement(newObject);
         const olContainer = document.querySelector('body > section > section.cart > ol');
         olContainer.appendChild(content);
-        console.log(newObject);
+        // console.log(newObject);
+        save();
         return olContainer;
       });
     });
@@ -84,6 +111,7 @@ async function getproducts(product) {
 function clearChart() {
   const chartList = document.querySelectorAll('.cart__item');
   chartList.forEach(element => element.parentElement.removeChild(element));
+  save();
 }
 
 function clearChartEvent() {
@@ -92,6 +120,7 @@ function clearChartEvent() {
 }
 
 window.onload = function onload() {
+  load();
   getproducts('computador');
   clearChartEvent();
 };
