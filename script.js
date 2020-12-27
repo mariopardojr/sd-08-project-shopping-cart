@@ -27,7 +27,6 @@ function getSkuFromProductItem(item) {
   return skuItemClicked;
 }
 const valorTotal = document.createElement('span');
-//guardar o valor total da soma dos prdutos
 
 const createElementTotal = (value = 0) => {
   valorTotal.innerText = value;
