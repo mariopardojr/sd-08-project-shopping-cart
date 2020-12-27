@@ -62,7 +62,7 @@ const cartUpdate = async () => {
       })));
       armazena.push(itensObject);
     });
-    localStorage.setItem(`cart`, JSON.stringify(armazena));
+    localStorage.setItem('cart', JSON.stringify(armazena));
   }
   setTimeout(() => totalPrice(), 1000);
 };
@@ -101,7 +101,7 @@ const apiCreateProduct = async (produto) => {
 
   setTimeout(() => (document.querySelector('.loading').outerHTML = ''), 500);
   const container = document.querySelector('.itens');
-  items.forEach(({ id, title, thumbnail } ) => {
+  items.forEach(({id, title, thumbnail} ) => {
     container.appendChild(createProductItemElement({
       sku: id,
       name: title,
