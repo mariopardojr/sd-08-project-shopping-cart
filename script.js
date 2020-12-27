@@ -15,12 +15,10 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 }
 
@@ -68,12 +66,12 @@ const cartUpdate = async () => {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   const targetEvent = event;
-  if (targetEvent === 'LI') {
+  if (targetEvent.target.nodName === 'LI') {
     targetEvent.target.outerHTML = '';
   } else if (targetEvent.parentElement.nodName === 'LI') {
     targetEvent.target.parentElement.outerHTML = '';
   } else if (targetEvent.target.parentElement.parentElement.nodName === 'LI') {
-    targetEvent.target.parentElement.outerHTML = '';
+    targetEvent.target.parentElement.parentEouterHTML = '';
   }
   cartUpdate();
 }
@@ -89,17 +87,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const apiCreateProduct = async (product) => {
-  const items = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
-    .then((response) => {
-      document.querySelector('.items').appendChild(createCustomElement('span', 'loading', 'loading...'));
-      return response.json();
-    })
+const apiCreateProduct = async (produto) => {
+  const listItems = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${produto}`)
+  .then((response) => {
+    document.querySelector('.items').appendChild(createCustomElement('span', 'loading', 'loading...'));
+    return response.json();
+  })
     .then(data => data.results);
 
   setTimeout(() => (document.querySelector('.loading').outerHTML = ''), 500);
-  const container = document.querySelector('.itens');
-  items.forEach(({ id, title, thumbnail }) => {
+  const container = document.querySelector('.items');
+  listItems.forEach(({ id, title, thumbnail }) => {
     container.appendChild(createProductItemElement({
       sku: id,
       name: title,
@@ -140,7 +138,7 @@ const clearAll = () => {
 const emptyCartBtn = document.querySelector('.empty-cart');
 emptyCartBtn.addEventListener('click', clearAll);
 
-const recoveryCart = async () => {
+const recovCart = async () => {
   const cartRecovered = localStorage.getItem('cart');
   if (typeof cartRecovered === 'string') {
     const itemsCartRecovred = JSON.parse(cartRecovered);
@@ -154,6 +152,8 @@ const recoveryCart = async () => {
 };
 
 window.onload = async function onload() {
-  await createProductList('computador');
+  recovCart();
+  await apiCreateProduct('computador');
   itemBtn();
+  setTimeout(() => totalPrice(), 1000)
 ;}
