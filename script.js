@@ -155,5 +155,5 @@ window.onload = async function onload() {
   recovCart();
   await apiCreateProduct('computador');
   itemBtn();
-  setTimeout(() => totalPrice(), 1000)
-;}
+  setTimeout(() => totalPrice(), 1000);
+};
