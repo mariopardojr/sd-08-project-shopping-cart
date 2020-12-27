@@ -76,7 +76,7 @@ function cartItemClickListener(event) {
     targetEvent.target.parentElement.outerHTML = '';
   } else if (targetEvent.target.parentElement.parentElement.nodName === 'LI') {
     targetEvent.target.parentElement.outerHTML = '';
-  };
+  }
   cartUpdate();
 }
 
@@ -101,11 +101,11 @@ const apiCreateProduct = async (produto) => {
 
   setTimeout(() => (document.querySelector('.loading').outerHTML = ''), 500);
   const container = document.querySelector('.itens');
-  items.forEach(({id,title,thumbnail} ) => {
+  items.forEach(({ id, title, thumbnail } ) => {
     container.appendChild(createProductItemElement({
-     sku: id,
-     name: title,
-     image: thumbnail,
+      sku: id,
+      name: title,
+      image: thumbnail,
     }));
   });
 };
