@@ -102,6 +102,7 @@ async function getproducts(product) {
           btn[index].addEventListener('click', event => onClick(event));
           return newObject;
         });
+        load();
       });
   });
 }
@@ -120,7 +121,6 @@ function clearChartEvent() {
 }
 
 window.onload = function onload() {
-  load();
   getproducts('computador');
   clearChartEvent();
 };
