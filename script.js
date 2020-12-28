@@ -72,7 +72,20 @@ function btnAddEvent() {
       console.log(sku);
       fetch(`https://api.mercadolibre.com/items/${sku}`)
       .then(resposta => resposta.json())
-      .then(console.log);
+      // .then(console.log);
+      .then(dados => {
+        const { id, title, price } = dados;
+        // console.log(id, title, price);
+        const itemSelect = {
+          sku: id,
+          name: title,
+          salePrice: price,
+        }
+        // console.log(itemSelect);
+        createCartItemElement(itemSelect); //sku, name, salePrice
+      })
+      
+      
     }
   });
 }
