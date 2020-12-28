@@ -1,5 +1,3 @@
-// window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -59,4 +57,8 @@ function findItems(items = 'computador') {
       createProductItemElement(item);
     }));
 }
-findItems();
+
+window.onload = function onload() {
+  findItems();
+};
+
