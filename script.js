@@ -82,10 +82,9 @@ function btnAddEvent() {
           salePrice: price,
         }
         // console.log(itemSelect);
-        createCartItemElement(itemSelect); //sku, name, salePrice
+        const classCart = document.querySelector('.cart__items');
+        classCart.appendChild(createCartItemElement(itemSelect));
       })
-      
-      
     }
   });
 }
