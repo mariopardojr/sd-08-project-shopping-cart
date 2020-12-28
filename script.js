@@ -63,18 +63,16 @@ function btnAddEvent() {
     if (event.target.className === 'item__add') {
       // console.log('ok');
       const parent = event.target.parentElement;
-      console.log(parent);
+      // console.log(parent);
       const child = parent.children;
-      console.log(child);
-      console.log(child[0]);
-       console.log(child[0].innerText);
+      // console.log(child);
+      // console.log(child[0]);
+      //  console.log(child[0].innerText);
+      const sku = child[0].innerText;
+      console.log(sku);
       
     }
   });
-
-  // const btnItemAdd = document.querySelectorAll('.item__add');
-  // console.log(btnItemAdd);
-  // btnItemAdd.forEach()
 }
 
 
