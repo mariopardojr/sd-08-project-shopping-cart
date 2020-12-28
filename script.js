@@ -70,7 +70,9 @@ function btnAddEvent() {
       //  console.log(child[0].innerText);
       const sku = child[0].innerText;
       console.log(sku);
-      
+      fetch(`https://api.mercadolibre.com/items/${sku}`)
+      .then(resposta => resposta.json())
+      .then(console.log);
     }
   });
 }
