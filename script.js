@@ -63,8 +63,11 @@ function btnAddEvent() {
     if (event.target.className === 'item__add') {
       // console.log('ok');
       const parent = event.target.parentElement;
-      console.log(parent.className);
-      
+      console.log(parent);
+      const child = parent.children;
+      console.log(child);
+      console.log(child[0]);
+       console.log(child[0].innerText);
       
     }
   });
