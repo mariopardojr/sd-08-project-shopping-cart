@@ -61,4 +61,3 @@ function findItems(items = 'computador') {
 window.onload = function onload() {
   findItems();
 };
-
