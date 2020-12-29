@@ -45,7 +45,7 @@ async function sumPrice() {
     total += parseFloat(element.innerHTML.slice(element.innerHTML.indexOf('$') + 1, element.innerHTML.length));
     total = parseFloat(total.toFixed(2));
   });
-  const containerPrice = document.querySelector('body > section > section.cart > div > span');
+  const containerPrice = document.querySelector('body > section > section.cart > div');
   containerPrice.innerHTML = `${total}`;
 }
 
