@@ -85,7 +85,7 @@ function load() {
 // }
 
 async function addItemListener(id) {
-  return fetch(`https://api.mercadolibre.com/items/${id}`).then(
+  await fetch(`https://api.mercadolibre.com/items/${id}`).then(
     (response) => {
       response.json().then((data) => {
         const newObject = {};
@@ -110,8 +110,13 @@ const onClick = (event) => {
   addItemListener(elementTarget.parentNode.firstChild.innerText);
 };
 
+function removeLoading() {
+  const element = document.querySelector("body > section > section.items > h1");
+  element.parentElement.removeChild(element);
+}
+
 async function getproducts(product) {
-  return fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
+  await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
   .then((response) => {
     response.json()
       .then((data) => {
@@ -127,6 +132,7 @@ async function getproducts(product) {
           btn[index].addEventListener('click', event => onClick(event));
           return newObject;
         });
+        removeLoading();
         load();
         sumPrice();
       });
