@@ -1,4 +1,3 @@
-window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -39,3 +38,24 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+
+function createItemsList() {
+  const url = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
+  const items = document.querySelector('.items');
+  fetch(url) // pega o json do ML
+    .then(response => response.json())   // precisa trnsformar/tratar com then
+    .then(data => data.results.forEach(item => {
+      const obj = {
+        sku: item.id,
+        name: item.title,
+        image: item.thumbnail,
+      }
+      items.appendChild(createProductItemElement(obj)); //crio o objeto 
+    }))
+}
+createItemsList();
+
+window.onload = function onload() {
+  createItemsList();
+}; // Depois que carregar serão executadas as funções dentro das chaves
