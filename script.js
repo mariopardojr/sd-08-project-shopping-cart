@@ -80,13 +80,10 @@ function btnAddEvent() {
 
 function emptyCart() {
   const btnEmpty = document.querySelector('.empty-cart');
-  btnEmpty.addEventListener('click', fBtnEmpty);
-}
-
-function fBtnEmpty(){
-  const cartOl = document.querySelector('.cart__items');
-  console.log(cartOl);
-  cartOl.textContent = '';
+  btnEmpty.addEventListener('click', () => {
+    const cartOl = document.querySelector('.cart__items');
+    cartOl.textContent = '';
+  });
 }
 
 window.onload = function onload() {
