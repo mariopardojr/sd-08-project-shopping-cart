@@ -32,20 +32,7 @@ function cartItemClickListener(event) {
   const cartOl = document.querySelector('.cart__items');
   console.log(cartOl);
   const itemSelect = event.target;
-  // console.log(itemSelect);
-  // itemSelect.className = 'remove';
   cartOl.removeChild(itemSelect);
-  // cartOl.forEach((el, index, array) => {
-  //   console.log(el.className);
-  //   if (el.className === 'remove') {
-  //     el.innerText = '';
-  //     console.log(array);
-  //     console.log(index);
-  //     array[index];
-      // array[index].removeChild;
-      // array.splice(index, 1);
-  //   }
-  // })
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
