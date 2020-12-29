@@ -62,7 +62,6 @@ function btnAddEvent() {
       const parent = event.target.parentElement;
       const child = parent.children;
       const sku = child[0].innerText;
-      console.log(sku);
       fetch(`https://api.mercadolibre.com/items/${sku}`)
       .then(resposta => resposta.json())
       .then((dados) => {
@@ -79,7 +78,19 @@ function btnAddEvent() {
   });
 }
 
+function emptyCart() {
+  const btnEmpty = document.querySelector('.empty-cart');
+  btnEmpty.addEventListener('click', fBtnEmpty);
+}
+
+function fBtnEmpty(){
+  const cartOl = document.querySelector('.cart__items');
+  console.log(cartOl);
+  cartOl.textContent = '';
+}
+
 window.onload = function onload() {
   findItems();
   btnAddEvent();
+  emptyCart();
 };
