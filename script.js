@@ -41,21 +41,21 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 
 function createItemsList() {
-  const url = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
+  const url = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   const items = document.querySelector('.items');
-  fetch(url) // pega o json do ML
-    .then(response => response.json())   // precisa trnsformar/tratar com then
-    .then(data => data.results.forEach(item => {
+  fetch(url)
+    .then(response => response.json())
+    .then(data => data.results.forEach((item) => {
       const obj = {
         sku: item.id,
         name: item.title,
         image: item.thumbnail,
-      }
-      items.appendChild(createProductItemElement(obj)); //crio o objeto 
-    }))
+      };
+      items.appendChild(createProductItemElement(obj));
+    }));
 }
 createItemsList();
 
 window.onload = function onload() {
   createItemsList();
-}; // Depois que carregar serão executadas as funções dentro das chaves
+};
