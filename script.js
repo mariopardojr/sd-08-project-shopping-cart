@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -57,4 +55,7 @@ function generateItemList() {
   });
 });
 }
-generateItemList();
+
+window.onload = function onload() {
+  generateItemList();
+};
