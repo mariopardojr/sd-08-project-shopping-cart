@@ -46,7 +46,7 @@ async function sumPrice() {
     total = parseFloat(total.toFixed(2));
   });
   const containerPrice = document.querySelector('body > section > section.cart > div > p');
-  containerPrice.innerHTML = `R$ ${total}`;
+  containerPrice.innerHTML = `${total}`;
 }
 
 function cartItemClickListener(event) {
@@ -138,6 +138,7 @@ async function getproducts(product) {
 function clearChart() {
   const chartList = document.querySelectorAll('.cart__item');
   chartList.forEach(element => element.parentElement.removeChild(element));
+  sumPrice();
   save();
 }
 
