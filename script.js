@@ -111,7 +111,7 @@ const onClick = (event) => {
 };
 
 function removeLoading() {
-  const element = document.querySelector("body > section > section.items > h1");
+  const element = document.querySelector('body > section > section.items > h1');
   element.parentElement.removeChild(element);
 }
 
