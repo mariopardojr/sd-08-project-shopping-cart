@@ -29,25 +29,20 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  const cartOl = document.querySelectorAll('.cart__item');
+  const cartOl = document.querySelector('.cart__items');
   console.log(cartOl);
   const itemSelect = event.target;
   // console.log(itemSelect);
-  itemSelect.className = 'remove';
-  for (let index = 0; index < cartOl.length; index += 1) {
-    console.log(cartOl[index].className);
-    if (cartOl[index].className === 'remove') {
-      cartOl[index].innerText = '';
-      // cartOl.remove[index];
-    }
-  }
+  // itemSelect.className = 'remove';
+  cartOl.removeChild(itemSelect);
   // cartOl.forEach((el, index, array) => {
   //   console.log(el.className);
   //   if (el.className === 'remove') {
+  //     el.innerText = '';
   //     console.log(array);
   //     console.log(index);
   //     array[index];
-  //     array[index].removeChild;
+      // array[index].removeChild;
       // array.splice(index, 1);
   //   }
   // })
