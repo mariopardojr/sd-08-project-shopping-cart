@@ -45,7 +45,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 window.onload = function onload() {
   Object.keys(localStorage).forEach((key) => {
     const retrievables = Object.fromEntries(localStorage[key].split(' | ').map(element => element.split(': ')));
-    const { SKU: sku, NAME: name, PRICE: salePrice } = retrievables;
+    const { SKU: sku, NAME: name, PRICE } = retrievables;
+    const salePrice = PRICE.slice(1);
     document.querySelector('.cart__items').appendChild(createCartItemElement({ sku, name, salePrice }));
   });
 };
