@@ -62,7 +62,7 @@ function createProductItemElement({ sku, name, image }) {
   );
   createBtn.addEventListener('click', () => {
     fetch(`https://api.mercadolibre.com/items/${sku}`)
-      .then((response) => response.json())
+      .then(response => response.json())
       .then((value) => {
         const { price } = value;
         const productObj = { sku, name, salePrice: price };
