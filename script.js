@@ -69,9 +69,9 @@ function addItemCart() {
             itemID,
             name: data.title,
             salePrice: data.price,
-          }
+          };
           const cartItems = document.querySelector('.cart__items');
-          cartItems.appendChild(createCartItemElement(item))
+          cartItems.appendChild(createCartItemElement(item));
         });
     }
   });
@@ -79,5 +79,5 @@ function addItemCart() {
 
 window.onload = function onload() {
   createItemsList();
-  addItemCart()
+  addItemCart();
 };
