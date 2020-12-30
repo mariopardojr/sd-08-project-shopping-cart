@@ -1,4 +1,9 @@
 
+function saveLocalStorage() {
+  const cart = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', cart);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -76,11 +81,6 @@ function addItemCart() {
         });
     }
   });
-}
-
-function saveLocalStorage() {
-  const cart = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', cart);
 }
 
 function loadCart() {
