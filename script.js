@@ -13,7 +13,6 @@ const totalPrice = () => {
     total += parseFloat(fullItem[1]);
   });
   document.querySelector('.total-price').innerHTML = total;
-  console.log(total);
 };
 
 function cartItemClickListener(event) {
