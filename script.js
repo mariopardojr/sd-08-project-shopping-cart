@@ -62,6 +62,12 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function clearList() {
+  document.querySelector('.cart__items').textContent = '';
+  localStorage.clear();
+  priceCount();
+}
+
 window.onload = function onload() {
   Object.keys(localStorage).forEach((key) => {
     const retrievables = Object.fromEntries(localStorage[key].split(' | ').map(element => element.split(': ')));
@@ -70,6 +76,7 @@ window.onload = function onload() {
     document.querySelector('.cart__items').appendChild(createCartItemElement({ sku, name, salePrice }));
   });
   priceCount();
+  document.querySelector('.empty-cart').addEventListener('click', clearList);
 };
 
 async function buttonClickListener(event) {
