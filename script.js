@@ -108,6 +108,7 @@ fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
 
       document.querySelector('.items').appendChild(createProductItemElement(product));
     });
+    document.querySelector('.items').removeChild(document.querySelector('.loading'));
   })
   .then(() => {
     const itemList = document.querySelectorAll('.item');
