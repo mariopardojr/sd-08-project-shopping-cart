@@ -5,6 +5,22 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+const totalPrice = () => {
+  const cartItem = document.querySelectorAll('.cart__item');
+  let total = 0;
+  cartItem.forEach(value => {
+    const fullItem = value.innerHTML.split('PRICE: $');
+    total += parseFloat(fullItem[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total;
+  console.log(total);
+};
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  totalPrice();
+}
+
 function saveStorage() {
   const saveOl = document.querySelector('.cart__items');
   localStorage.setItem('save data', saveOl.innerHTML);
@@ -58,12 +74,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  event.target.remove();
-  // localStorage.removeItem('save data', event.target.innerHTML);
-  totalPrice();
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -88,6 +98,12 @@ const listarProdutos = () => {
     },
   );
 };
+
+document.getElementById('clean-btn').addEventListener('click', () => {
+  document.querySelector('.cart__items').innerHTML = ''
+  saveStorage();
+  totalPrice();
+})
 
 window.onload = function onload() {
   listarProdutos();
