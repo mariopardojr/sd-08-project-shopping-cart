@@ -107,5 +107,5 @@ document.getElementById('clean-btn').addEventListener('click', () => {
 window.onload = function onload() {
   listarProdutos();
   loadStorage();
-  // totalPrice();
+  totalPrice();
 };
