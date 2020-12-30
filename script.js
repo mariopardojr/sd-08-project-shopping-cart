@@ -5,6 +5,19 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function saveStorage() {
+  const saveOl = document.querySelector('.cart__items');
+  localStorage.setItem('save data', saveOl.innerHTML);
+}
+
+function loadStorage() {
+  const receiveOl = document.querySelector('.cart__items');
+  receiveOl.innerHTML = localStorage.getItem('save data');
+  document
+    .querySelectorAll('.cart__items')
+    .forEach(item => item.addEventListener('click', cartItemClickListener));
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -47,6 +60,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  // localStorage.removeItem('save data', event.target.innerHTML);
   totalPrice();
 }
 
@@ -77,6 +91,6 @@ const listarProdutos = () => {
 
 window.onload = function onload() {
   listarProdutos();
-  // loadStorage();
+  loadStorage();
   // totalPrice();
 };
