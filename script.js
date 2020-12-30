@@ -5,9 +5,33 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+const totalPrice = () => {
+  const cartItem = document.querySelectorAll('.cart__item');
+  let total = 0;
+  cartItem.forEach((value) => {
+    const fullItem = value.innerHTML.split('PRICE: $');
+    total += parseFloat(fullItem[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total;
+  console.log(total);
+};
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  totalPrice();
+}
+
 function saveStorage() {
   const saveOl = document.querySelector('.cart__items');
   localStorage.setItem('save data', saveOl.innerHTML);
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
 }
 
 function loadStorage() {
@@ -39,8 +63,8 @@ function createProductItemElement({ sku, name, image }) {
   );
   createBtn.addEventListener('click', () => {
     fetch(`https://api.mercadolibre.com/items/${sku}`)
-      .then(response => response.json())
-      .then(value => {
+      .then((response) => response.json())
+      .then((value) => {
         const { price } = value;
         const productObj = { sku, name, salePrice: price };
         document
@@ -58,25 +82,11 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  event.target.remove();
-  // localStorage.removeItem('save data', event.target.innerHTML);
-  totalPrice();
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
-
 const listarProdutos = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador').then(
-    request => {
-      request.json().then(arquivo => {
-        arquivo.results.map(produto => {
+    (request) => {
+      request.json().then((arquivo) => {
+        arquivo.results.map((produto) => {
           const dataMl = createProductItemElement({
             sku: produto.id,
             name: produto.title,
@@ -88,6 +98,12 @@ const listarProdutos = () => {
     },
   );
 };
+
+document.getElementById('clean-btn').addEventListener('click', () => {
+  document.querySelector('.cart__items').innerHTML = '';
+  saveStorage();
+  totalPrice();
+});
 
 window.onload = function onload() {
   listarProdutos();
