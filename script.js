@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -18,11 +16,29 @@ function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
-  section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
+  section.appendChild(createCustomElement('span', 'item__sku', sku));
+  const createBtn = createCustomElement(
+    'button',
+    'item__add',
+    'Adicionar ao carrinho!',
+  );
+  createBtn.addEventListener('click', () => {
+    fetch(`https://api.mercadolibre.com/items/${sku}`)
+      .then(response => response.json())
+      .then(value => {
+        const { price } = value;
+        console.log(price);
+        const productObj = { sku, name, salePrice: price };
+        document
+          .querySelector('.cart__items')
+          .appendChild(createCartItemElement(productObj));
+        saveStorage();
+        totalPrice();
+      });
+  });
+  section.appendChild(createBtn);
   return section;
 }
 
@@ -31,7 +47,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  console.log(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -41,3 +57,26 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+const listarProdutos = () => {
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador').then(
+    request => {
+      request.json().then(arquivo => {
+        arquivo.results.map(produto => {
+          const dataMl = createProductItemElement({
+            sku: produto.id,
+            name: produto.title,
+            image: produto.thumbnail,
+          });
+          return document.querySelector('.items').appendChild(dataMl);
+        });
+      });
+    },
+  );
+};
+
+window.onload = function onload() {
+  listarProdutos();
+  // loadStorage();
+  // totalPrice();
+};
