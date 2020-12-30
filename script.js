@@ -44,7 +44,7 @@ function countIterator() {
 async function priceCount() {
   const totalPrice = document.querySelector('.total-price');
   const countResult = await countIterator();
-  totalPrice.innerText = `Preço total: $${countResult}`;
+  totalPrice.innerText = `${countResult}`;
 }
 
 function cartItemClickListener(event) {
