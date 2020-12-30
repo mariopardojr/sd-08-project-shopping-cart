@@ -4,7 +4,6 @@ function createProductImageElement(imageSource) {
   img.src = imageSource;
   return img;
 }
-
 const totalPrice = () => {
   const cartItem = document.querySelectorAll('.cart__item');
   let total = 0;
@@ -14,17 +13,14 @@ const totalPrice = () => {
   });
   document.querySelector('.total-price').innerHTML = total;
 };
-
 function cartItemClickListener(event) {
   event.target.remove();
   totalPrice();
 }
-
 function saveStorage() {
   const saveOl = document.querySelector('.cart__items');
   localStorage.setItem('save data', saveOl.innerHTML);
 }
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -32,7 +28,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
 function loadStorage() {
   const receiveOl = document.querySelector('.cart__items');
   receiveOl.innerHTML = localStorage.getItem('save data');
@@ -40,14 +35,12 @@ function loadStorage() {
     .querySelectorAll('.cart__items')
     .forEach(item => item.addEventListener('click', cartItemClickListener));
 }
-
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
   return e;
 }
-
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -76,11 +69,9 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createBtn);
   return section;
 }
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
 const listarProdutos = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador').then(
     (request) => {
@@ -97,13 +88,11 @@ const listarProdutos = () => {
     },
   );
 };
-
 document.getElementById('clean-btn').addEventListener('click', () => {
   document.querySelector('.cart__items').innerHTML = '';
   saveStorage();
   totalPrice();
 });
-
 window.onload = function onload() {
   listarProdutos();
   loadStorage();
