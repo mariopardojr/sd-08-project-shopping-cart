@@ -29,7 +29,6 @@ function createProductItemElement({ sku, name, image }) {
       .then(response => response.json())
       .then(value => {
         const { price } = value;
-        console.log(price);
         const productObj = { sku, name, salePrice: price };
         document
           .querySelector('.cart__items')
@@ -47,7 +46,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  console.log(event.target);
+  event.target.remove();
+  totalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
