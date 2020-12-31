@@ -30,9 +30,10 @@ function getSkuFromProductItem(item) {
 
 function addlocalStorage(chave = 'cartItem') {
   localStorage.removeItem('cartItem');
-  const olCartItems = document.querySelector('.cart__items');
-  console.log(olCartItems);
+  const olCartItems = document.querySelector('.cart__items').innerHTML;
+  // console.log(olCartItems);
   localStorage.setItem(chave, olCartItems);
+  console.log(localStorage.getItem(chave));
 }
 
 function cartItemClickListener(event) {
