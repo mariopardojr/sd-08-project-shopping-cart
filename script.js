@@ -40,7 +40,7 @@ function removeFromLocalStorage(index) {
 function updateCartTotal() {
   let total = 0;
   document.querySelectorAll('.cart__item')
-  .forEach((item) => total += parseFloat(getCartItemPrice(item.innerText)));
+  .forEach(item => (total += parseFloat(getCartItemPrice(item.innerText))));
 
   document.querySelector('.total-price').innerText = total;
 }
