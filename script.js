@@ -40,7 +40,7 @@ function cartItemClickListener(event) {
   const cartOl = document.querySelector('.cart__items');
   const itemSelect = event.target;
   cartOl.removeChild(itemSelect);
-  addlocalStorage();
+  // addlocalStorage();
 }
 
 function getLocalStorage() {
