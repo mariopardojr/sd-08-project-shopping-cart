@@ -30,7 +30,6 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   const cartOl = document.querySelector('.cart__items');
-  console.log(cartOl);
   const itemSelect = event.target;
   cartOl.removeChild(itemSelect);
 }
@@ -87,6 +86,12 @@ function emptyCart() {
     const cartOl = document.querySelector('.cart__items');
     cartOl.textContent = '';
   });
+}
+
+function localStorage(chave, valor) {
+  const olCartItems = document.querySelector('.cart__items');
+  console.log(olCartItems);
+  localStorage.setItem(chave, valor);
 }
 
 window.onload = function onload() {
