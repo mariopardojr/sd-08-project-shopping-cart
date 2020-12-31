@@ -41,6 +41,7 @@ function getLocalStorage() {
   const olCartItems = document.querySelector('.cart__items');
   olCartItems.innerHTML = cartItems;
   console.log(cartItems);
+  olCartItems.addEventListener('click', cartItemClickListener);
 }
 
 function cartItemClickListener(event) {
