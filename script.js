@@ -32,6 +32,7 @@ function cartItemClickListener(event) {
   const cartOl = document.querySelector('.cart__items');
   const itemSelect = event.target;
   cartOl.removeChild(itemSelect);
+  addlocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -86,6 +87,7 @@ function emptyCart() {
   btnEmpty.addEventListener('click', () => {
     const cartOl = document.querySelector('.cart__items');
     cartOl.textContent = '';
+    addlocalStorage();
   });
 }
 
