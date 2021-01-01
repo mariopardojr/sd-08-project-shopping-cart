@@ -50,8 +50,8 @@ function productList() {
       sku: element.id,
       name: element.title,
       image: element.thumbnail,
-    }
-    document.querySelector('.items').appendChild(createProductItemElement(elementInfo)); 
+    };
+    document.querySelector('.items').appendChild(createProductItemElement(elementInfo));
   }));
 }
 productList();
