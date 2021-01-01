@@ -86,8 +86,15 @@ function recoveryItems() {
   document.querySelectorAll('.cart__item').forEach(item => item.addEventListener('click', cartItemClickListener));
 }
 
+function clearCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => document
+  .querySelectorAll('.cart__item').forEach(item => item.remove()));
+  localStorage.clear();
+}
+
 window.onload = function () {
   recoveryItems();
   productList();
   addProductCart();
+  clearCart();
 };
