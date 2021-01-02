@@ -94,7 +94,8 @@ function storageCart() {
   ol.innerHTML = localStorage.getItem('lists');
   totalprice = +((localStorage.getItem('prices')));
 }
- function deleteLoading() {
+
+function deleteLoading() {
   const deleteLoad = document.querySelector('.loading');
   deleteLoad.remove();
 }
