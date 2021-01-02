@@ -59,7 +59,7 @@ function createResultListItem() {
           image: item.thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(obj));
-      })
+      });
     );
 }
 
@@ -81,16 +81,11 @@ addEventListener('click', (event) => {
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(obj));
         saveItems();
-    });
-  } else if (event.target.className === 'cart__item') {
+      });
+    } else if (event.target.className === 'cart__item') {
     cartItemClickListener(event);
   }
 });
-
-function initClick() {
-  document.getElementsByClassName('item__add')[0].click();
-}
-
 
 window.onload = function onload() {
   loadItems();
