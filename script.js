@@ -82,8 +82,8 @@ addEventListener('click', (event) => {
         saveItems();
       });
   } else if (event.target.className === 'cart__item') {
-      cartItemClickListener(event);
-    }
+    cartItemClickListener(event);
+  };
 });
 
 window.onload = function onload() {
