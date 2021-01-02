@@ -53,7 +53,7 @@ async function addItemToCart(evt) {
   totalprice += salePrice;
   localStorage.setItem('prices', totalprice);
   const spann = document.querySelector('.total-price');
-  spann.innerText = `Preço Total:${totalprice} `;
+  spann.innerText = `${totalprice} `;
   localStorage.setItem('lists', ol.innerHTML);
 }
 function fetchResponse() {
@@ -73,7 +73,7 @@ function addSpan() {
   const ol = document.querySelector('.cart__items');
   const span = document.createElement('span');
   span.className = 'total-price';
-  span.innerText = `Preço Total:${totalprice} `;
+  span.innerText = `${totalprice} `;
   ol.parentNode.appendChild(span);
 }
 
@@ -85,7 +85,7 @@ function addEventListenerClean() {
     cartItemSelector.forEach(element => element.remove());
     totalprice = 0;
     const spann = document.querySelector('.total-price');
-    spann.innerText = `Preço Total:${totalprice} `;
+    spann.innerText = `${totalprice} `;
   });
 }
 
@@ -95,15 +95,15 @@ function storageCart() {
   totalprice = +((localStorage.getItem('prices')));
 }
 async function deleteLoading() {
-  const deleteLoad = document.querySelector('.loading');
+  const deleteLoad = document.querySelector(".loading");
   deleteLoad.remove();
 }
 
 window.onload = async function () {
-  await deleteLoading();
   storageCart();
   addSpan();
   addEventListenerClean();
+  deleteLoading();
   const items = await fetchResponse();
   createItemsElements(items);
 };
