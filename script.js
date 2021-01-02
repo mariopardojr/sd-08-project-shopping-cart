@@ -102,8 +102,17 @@ function loadShoppingCart() {
   });
 }
 
+function emptyCart() {
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', () => {
+    const cartItem = document.querySelector('.cart__items');
+    cartItem.innerHTML = '';
+  });
+}
+
 window.onload = () => {
   productList('computador');
   addProductToCart();
   loadShoppingCart();
+  emptyCart();
 };
