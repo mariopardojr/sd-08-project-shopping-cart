@@ -53,7 +53,7 @@ async function addItemToCart(evt) {
   totalprice += salePrice;
   localStorage.setItem('prices', totalprice);
   const spann = document.querySelector('.total-price');
-  spann.innerText = `${totalprice} `;
+  spann.innerText = `${totalprice}`;
   localStorage.setItem('lists', ol.innerHTML);
 }
 function fetchResponse() {
@@ -73,7 +73,7 @@ function addSpan() {
   const ol = document.querySelector('.cart__items');
   const span = document.createElement('span');
   span.className = 'total-price';
-  span.innerText = `${totalprice} `;
+  span.innerText = `${totalprice}`;
   ol.parentNode.appendChild(span);
 }
 
@@ -94,7 +94,7 @@ function storageCart() {
   ol.innerHTML = localStorage.getItem('lists');
   totalprice = +((localStorage.getItem('prices')));
 }
-async function deleteLoading() {
+ function deleteLoading() {
   const deleteLoad = document.querySelector('.loading');
   deleteLoad.remove();
 }
