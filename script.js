@@ -63,7 +63,7 @@ function loadItems() {
     if (event.target.classList.contains('cart__item')) {
       cartItemClickListener(event);
     }
-  })
+  });
 }
 
 addEventListener('click', (event) => {
@@ -80,7 +80,7 @@ addEventListener('click', (event) => {
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(obj));
       });
-      localStorage.setItem('item', document.querySelector('.cart__items').innerHTML);
+    localStorage.setItem('item', document.querySelector('.cart__items').innerHTML);
   }
 });
 
