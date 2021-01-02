@@ -95,7 +95,7 @@ function storageCart() {
   totalprice = +((localStorage.getItem('prices')));
 }
 async function deleteLoading() {
-  const deleteLoad = document.querySelector(".loading");
+  const deleteLoad = document.querySelector('.loading');
   deleteLoad.remove();
 }
 
