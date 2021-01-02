@@ -1,5 +1,5 @@
 const localStorageGet = () => {
-  const ol = localStorage.getItem('compras');
+  const ol = localStorage.setItem('compras');
   document.querySelector('.cart__items').innerHTML = ol;
 };
 
@@ -21,6 +21,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   //   // coloque seu código aqui
   event.target.parentNode.removeChild(event.target);
+  totalPrice();
 }
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -47,6 +48,7 @@ const addProducts = (event) => {
       const itemSelect = document.querySelector('.cart__items');
       itemSelect.appendChild(createCartItemElement(item));
       localStorageSave();
+      totalPrice();
     });
 };
 function createProductItemElement({ sku, name, image }) {
@@ -63,6 +65,7 @@ function createProductItemElement({ sku, name, image }) {
 const loadRemove = () => {
   const loading = document.querySelector('.loading');
   loading.remove();
+  totalPrice();
 };
 
 const fetchProducts = () => {
@@ -83,21 +86,33 @@ const fetchProducts = () => {
 
 // const salvando = () => {
 //   const salvar = document.querySelector('.cart__items');
-//   console.log(salvar);
 //      let lista = document.querySelector('.cart__items').innerHTML;
 //      localStorage.setItem('lista', lista);
 // }
 // const recuperar = document.querySelector('cart__items')
 // .innerHTML = localStorage.getItem('lista');
 
+// ideia pega com o Massaki
+function totalPrice() {
+  const listItems = document.querySelectorAll('.cart__item');
+  let total = 0;
+  listItems.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total.toFixed(2);
+};
+
 function limparCarrinho() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
+    totalPrice();
   });
-}
+};
+
 
 window.onload = async () => {
   await fetchProducts();
   limparCarrinho();
   localStorageGet();
+  totalPrice();
 };
