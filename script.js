@@ -59,8 +59,7 @@ function createResultListItem() {
           image: item.thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(obj));
-      });
-    );
+      }));
 }
 
 function loadItems() {
