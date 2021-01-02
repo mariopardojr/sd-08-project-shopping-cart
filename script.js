@@ -59,8 +59,8 @@ function createResultListItem() {
 addEventListener('click', (event) => {
   if (event.target.className === 'item__add') {
     const sku = getSkuFromProductItem(event.target.parentElement);
-    const id_URL = `https://api.mercadolibre.com/items/${sku}`;
-    fetch(id_URL)
+    const idURL = `https://api.mercadolibre.com/items/${sku}`;
+    fetch(idURL)
       .then(response => response.json())
       .then((data) => {
         const obj = {
