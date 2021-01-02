@@ -1,4 +1,3 @@
-
 function saveLocalStorage() {
   const cart = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cart', cart);
@@ -33,16 +32,17 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+  // coloque seu código aqui
   const parentElement = event.target.parentElement;
-  parentElement.removeChild(event.target);
-  saveLocalStorage();
+  parentElement.removeChild(event.target)
+  saveLocalStorage()
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  // li.addEventListener('click', cartItemClickListener);
+  //li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -51,21 +51,24 @@ function createItemsList() {
   const items = document.querySelector('.items');
   fetch(url)
     .then(response => response.json())
-    .then(data => data.results.forEach((item) => {
-      const obj = {
-        sku: item.id,
-        name: item.title,
-        image: item.thumbnail,
-      };
-      items.appendChild(createProductItemElement(obj));
-    }));
+    .then((data) => {
+      document.querySelector('.loading').remove() // retira o loading da tela depois que carrega os items da API
+      data.results.forEach((item) => {
+        const obj = {
+          sku: item.id,
+          name: item.title,
+          image: item.thumbnail,
+        };
+        items.appendChild(createProductItemElement(obj));
+      })} 
+    );
 }
 
 function addItemCart() {
   const items = document.querySelector('.items');
   items.addEventListener('click', (event) => {
     if (event.target.classList.contains('item__add')) {
-      const parentElement = event.target.parentNode;
+      const parentElement = event.target.parentNode;  // vou até o elemento pai
       const itemID = getSkuFromProductItem(parentElement);
       fetch(`https://api.mercadolibre.com/items/${itemID}`)
         .then(response => response.json())
@@ -98,7 +101,15 @@ function clearCart() {
   emptyCart.addEventListener('click', () => {
     const items = document.querySelector('.cart__items');
     items.innerHTML = '';
-  });
+  })
+}
+function createLoading() {
+  const container = document.querySelector('.container');
+  const items = document.querySelector('.items');
+  const createH2 = document.createElement('h2');
+  createH2.innerHTML = 'Loading...'
+  createH2.classList.add('loading');
+  container.insertBefore(createH2, items);
 }
 
 window.onload = function onload() {
@@ -106,4 +117,5 @@ window.onload = function onload() {
   addItemCart();
   loadCart();
   clearCart();
+  createLoading();
 };
