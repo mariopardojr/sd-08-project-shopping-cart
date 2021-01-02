@@ -3,6 +3,16 @@ const localStorageGet = () => {
   document.querySelector('.cart__items').innerHTML = ol;
 };
 
+// ideia pega com o Massaki
+function totalPrice() {
+  const listItems = document.querySelectorAll('.cart__item');
+  let total = 0;
+  listItems.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total.toFixed(2);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -92,23 +102,12 @@ const fetchProducts = () => {
 // const recuperar = document.querySelector('cart__items')
 // .innerHTML = localStorage.getItem('lista');
 
-// ideia pega com o Massaki
-function totalPrice() {
-  const listItems = document.querySelectorAll('.cart__item');
-  let total = 0;
-  listItems.forEach((item) => {
-    total += parseFloat(item.innerHTML.split('$')[1]);
-  });
-  document.querySelector('.total-price').innerHTML = total.toFixed(2);
-};
-
 function limparCarrinho() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
     totalPrice();
   });
-};
-
+}
 
 window.onload = async () => {
   await fetchProducts();
