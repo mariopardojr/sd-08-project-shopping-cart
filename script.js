@@ -87,4 +87,4 @@ addEventListener('click', (event) => {
 window.onload = function onload() {
   loadItems();
   createResultListItem();
-}
+};
