@@ -87,7 +87,7 @@ function addEventListenerClean() {
     const spann = document.querySelector('.total-price');
     spann.innerText = `${parseFloat(totalprice.toFixed(2))}`;
   });
-}parseInt(localStorage.getItem('prices'))
+}
 
 function storageCart() {
   const ol = document.querySelector('.cart__items');
