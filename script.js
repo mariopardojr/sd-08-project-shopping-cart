@@ -58,4 +58,3 @@ function createResultListItem() {
 window.onload = function onload() {
   createResultListItem();
 };
-
