@@ -108,8 +108,8 @@ function limparCarrinho() {
   });
 }
 
-window.onload = async () => {
-  await fetchProducts();
+window.onload = () => {
+  fetchProducts();
   limparCarrinho();
   localStorageGet();
   totalPrice();
