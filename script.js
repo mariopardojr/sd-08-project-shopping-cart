@@ -34,7 +34,7 @@ function cartItemClickListener(event) {
 let totalprice = 0;
 async function fetchId(id) {
   return fetch(`https://api.mercadolibre.com/items/${id}`)
-    .then(response => response.json());
+    .then((response) => response.json());
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -53,12 +53,12 @@ async function addItemToCart(evt) {
   totalprice += salePrice;
   localStorage.setItem('prices', totalprice);
   const spann = document.querySelector('.total-price');
-  spann.innerText = `${Math.round(totalprice*100)/100}`;
+  spann.innerText = `${Math.round(totalprice * 100) / 100}`;
   localStorage.setItem('lists', ol.innerHTML);
 }
 function fetchResponse() {
   return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then(response => response.json()).then(data => data.results);
+    .then((response) => response.json()).then((data) => data.results);
 }
 function createItemsElements(items) {
   const item = document.querySelector('.items');
@@ -73,7 +73,7 @@ function addSpan() {
   const ol = document.querySelector('.cart__items');
   const span = document.createElement('span');
   span.className = 'total-price';
-  span.innerText = `${Math.round(totalprice*100)/100}`;
+  span.innerText = `${Math.round(totalprice * 100) / 100}`;
   ol.parentNode.appendChild(span);
 }
 
@@ -82,10 +82,10 @@ function addEventListenerClean() {
 
   button.addEventListener('click', () => {
     const cartItemSelector = document.querySelectorAll('.cart__item');
-    cartItemSelector.forEach(element => element.remove());
+    cartItemSelector.forEach((element) => element.remove());
     totalprice = 0;
     const spann = document.querySelector('.total-price');
-    spann.innerText = `${Math.round(totalprice*100)/100} `;
+    spann.innerText = `${Math.round(totalprice * 100) / 100} `;
   });
 }
 
