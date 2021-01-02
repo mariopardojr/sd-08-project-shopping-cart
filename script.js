@@ -45,7 +45,7 @@ function createResultListItem() {
   fetch(URL)
     .then(response => response.json())
     .then(data =>
-      data.results.forEach( item => {
+      data.results.forEach((item) => {
         const obj = {
           sku: item.id,
           name: item.title,
