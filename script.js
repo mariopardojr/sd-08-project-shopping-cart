@@ -29,7 +29,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  const parentElement = event.target.parentElement;
+  parentElement.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -66,7 +67,7 @@ function addItemToCart() {
         .then(response => response.json())
         .then((data) => {
           const obj = {
-            sku: data.id,
+            sku,
             name: data.title,
             salePrice: data.price,
           };
@@ -80,4 +81,5 @@ function addItemToCart() {
 
 window.onload = function onload() {
   generateItemsList();
+  addItemToCart();
 };
