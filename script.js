@@ -53,7 +53,7 @@ async function addItemToCart(evt) {
   totalprice += salePrice;
   localStorage.setItem('prices', totalprice);
   const spann = document.querySelector('.total-price');
-  spann.innerText = `${Math.round(totalprice * 10) / 10}`;
+  spann.innerText = `${Math.round(totalprice * 100) / 100}`;
   localStorage.setItem('lists', ol.innerHTML);
 }
 function fetchResponse() {
@@ -73,7 +73,7 @@ function addSpan() {
   const ol = document.querySelector('.cart__items');
   const span = document.createElement('span');
   span.className = 'total-price';
-  span.innerText = `${Math.round(totalprice * 10) / 10}`;
+  span.innerText = `${Math.round(totalprice * 100) / 100}`;
   ol.parentNode.appendChild(span);
 }
 
@@ -85,7 +85,7 @@ function addEventListenerClean() {
     cartItemSelector.forEach(element => element.remove());
     totalprice = 0;
     const spann = document.querySelector('.total-price');
-    spann.innerText = `${Math.round(totalprice * 10) / 10} `;
+    spann.innerText = `${Math.round(totalprice * 100) / 100} `;
   });
 }
 
