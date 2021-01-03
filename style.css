@@ -1,6 +1,7 @@
 body {
-  background-color: rgb(235, 233, 231);
+  background-color: rgb( 235, 233, 231 );
 }
+
 .titleShopping {
   align-items: center;
   display: flex;
@@ -11,9 +12,10 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 80px;
   font-style: italic;
-  background-color:rgb(246, 246, 60);
-  color: rgb(3, 3, 70);
+  background-color: rgb( 246, 246, 60 );
+  color: rgb( 3, 3, 70 );
 }
+
 .top-bar {
   align-items: center;
   display: flex;
@@ -85,7 +87,7 @@ body {
   flex-basis: 30%;
   flex-flow: column wrap;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: rgba(137, 141, 136, 0.596);
+  background-color: rgba( 137, 141, 136, 0.596 );
 }
 
 .cart .cart__title {
@@ -97,11 +99,12 @@ body {
 }
 
 .empty-cart {
-  background-color: rgb(238, 10, 48);
+  background-color: rgb( 238, 10, 48 );
   font-size: 20px;
   padding: 8px;
   color: black;
 }
+
 .finalize {
   background-color: green;
   border: 0;
