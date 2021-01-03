@@ -1,6 +1,16 @@
 
 // const fetch = require('node-fetch')
 
+
+const getTotalPrice = () => {
+  const list = document.querySelectorAll('.cart__item');
+  let total = 0;
+  list.forEach((element) => {
+    total += parseFloat(element.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total;
+};
+
 const saveStorage = () => {
   const cartList = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cart', cartList);
@@ -41,6 +51,7 @@ function cartItemClickListener(event) {
   if (event.target.classList.contains('cart__item')) {
     event.target.remove();
     saveStorage();
+    getTotalPrice();
   }
 }
 
@@ -94,6 +105,7 @@ const addItem = () => {
             .querySelector('.cart__items')
             .appendChild(createCartItemElement(obj));
           saveStorage();
+          getTotalPrice();
         });
     }
   });
@@ -110,5 +122,6 @@ window.onload = function onload() {
   loadStorage();
   getItem();
   addItem();
+  getTotalPrice();
   emptyCart();
 };
