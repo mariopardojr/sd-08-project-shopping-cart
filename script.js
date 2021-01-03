@@ -78,14 +78,17 @@ const getItem = async () => {
   const items = document.querySelector('.items');
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-      .then(data => data.results.forEach((item) => {
+    .then((data) => {
+      document.querySelector('.loading').remove();
+      data.results.forEach((item) => {
         const objto = {
           sku: item.id,
           name: item.title,
           image: item.thumbnail,
         };
         items.appendChild(createProductItemElement(objto));
-      }));
+      });
+    });
 };
 
 const addItem = () => {
@@ -125,3 +128,4 @@ window.onload = function onload() {
   getTotalPrice();
   emptyCart();
 };
+//  Parte do projeto feito graças ao plantão com a lógica do Massaki"
