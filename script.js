@@ -92,7 +92,7 @@ function addEventListenerClean() {
 function storageCart() {
   const ol = document.querySelector('.cart__items');
   ol.innerHTML = localStorage.getItem('lists');
-  totalprice = parseFloat((localStorage.getItem('prices')));
+  totalprice = +(localStorage.getItem('prices'));
 }
 
 function deleteLoading() {
