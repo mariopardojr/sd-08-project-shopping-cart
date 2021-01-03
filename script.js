@@ -24,12 +24,18 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function loading() {
+  const loadingMessage = document.querySelector('.loading');
+  loadingMessage.remove();
+}
+
 const productList = (product) => {
   const itemsSection = document.querySelector('.items');
 
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
   .then(response => response.json())
   .then((data) => {
+    loading();
     const results = data.results;
     results.forEach(({ id, title, thumbnail }) => {
       const items = {
@@ -37,7 +43,6 @@ const productList = (product) => {
         name: title,
         image: thumbnail,
       };
-
       itemsSection.appendChild(createProductItemElement(items));
     });
   });
