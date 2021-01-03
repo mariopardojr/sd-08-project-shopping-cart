@@ -30,13 +30,34 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function sumPrice() {
+  const cartItems = document.querySelectorAll('.cart__item');
+  const pricesArray = [];
+  if (cartItems.length !== 0) {
+    cartItems.forEach((price) => {
+      pricesArray.push(Number(price.innerHTML.split('$')[1]));
+    });
+    const total = pricesArray.reduce((sum, current) => {
+      const totalSum = sum + current;
+      return totalSum;
+    }, 0);
+    document.querySelector('.total-price').innerHTML = total;
+  } else {
+    document.querySelector('.total-price').innerHTML = 0;
+  }
+}
+
 function saveItems() {
+  localStorage.clear();
   const itemsList = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('items', itemsList);
+  const totalPrice = document.querySelector('.total-price').innerHTML;
+  localStorage.setItem('total', totalPrice);
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
+  sumPrice();
   saveItems();
 }
 
@@ -74,6 +95,7 @@ function addProductCart() {
           salePrice: data.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(productInfo));
+        sumPrice();
         saveItems();
       });
     }
@@ -84,26 +106,22 @@ function recoveryItems() {
   if (localStorage.items !== undefined) {
     document.querySelector('.cart__items').innerHTML = localStorage.getItem('items');
     document.querySelectorAll('.cart__item').forEach(item => item.addEventListener('click', cartItemClickListener));
+    document.querySelector('.total-price').innerHTML = localStorage.getItem('total');
   }
 }
 
 function clearCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => document
-  .querySelectorAll('.cart__item').forEach(item => item.remove()));
-  localStorage.clear();
+  .querySelectorAll('.cart__item').forEach((item) => {
+    item.remove();
+    document.querySelector('.total-price').innerHTML = 0;
+    saveItems();
+  }));
 }
-
-// function sumPrice() {
-//   const cartItems = document.querySelectorAll('.cart__item');
-//   cartItems.forEach(price => {
-//     console.log(price.innerHTML.split('$')[1]);
-//   })
-// }
 
 window.onload = function () {
   recoveryItems();
   productList();
   addProductCart();
   clearCart();
-  // sumPrice();
 };
