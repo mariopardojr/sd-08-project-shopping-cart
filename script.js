@@ -9,7 +9,7 @@ function totalPrice() {
   listItems.forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerHTML = total;
+  document.querySelector('.total-price').innerHTML = total.toFixed(2);
 }
 
 function createProductImageElement(imageSource) {
