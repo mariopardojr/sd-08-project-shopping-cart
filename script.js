@@ -32,20 +32,38 @@ function createProductItemElement({ sku, name, image }) {
 //   // coloque seu código aqui
 // }
 
-// function createCartItemElement({ sku, name, salePrice }) {
-//   const li = document.createElement('li');
-//   li.className = 'cart__item';
-//   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-//   li.addEventListener('click', cartItemClickListener);
-//   return li;
-// }
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+//  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
 
-function generateItemsList() {
-  const API_URL = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
-  fetch(API_URL)
+function createCartItem(event) {
+  const sku = event.target.parentElement.firstChild.innerText;
+  fetch(`https://api.mercadolibre.com/items/${sku}`)
     .then(response => response.json())
-    .then((data) => {
-      data.results.forEach((item) => {
+    .then((itemTarget) => {
+      const objTarget = {
+        sku,
+        name: itemTarget.title,
+        salePrice: itemTarget.price,
+      };
+      document.querySelector('.cart__items').appendChild(createCartItemElement(objTarget));
+    });
+}
+
+function eventClickButtonItem() {
+  const buttonItems = document.querySelectorAll('.item__add');
+  buttonItems.forEach(buttonItem => buttonItem.addEventListener('click', createCartItem));
+}
+
+async function generateItemsList() {
+  await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+    .then(response => response.json())
+    .then((listItems) => {
+      listItems.results.forEach((item) => {
         const obj = {
           sku: item.id,
           name: item.title,
@@ -54,6 +72,7 @@ function generateItemsList() {
         document.querySelector('.items').appendChild(createProductItemElement(obj));
       });
     });
+  eventClickButtonItem();
 }
 
 window.onload = function onload() {
