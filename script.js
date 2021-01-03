@@ -30,9 +30,9 @@ async function addItemToCart(event) {
   const request = await fetch(`https://api.mercadolibre.com/items/${targetParentId}`);
   const itemToCart = await request.json();
 
-  const { id:sku, title:name, price:salePrice } = itemToCart;
+  const { id: sku, title: name, price: salePrice } = itemToCart;
   const itemToCartElement = createCartItemElement({ sku, name, salePrice });
-  
+
   const cartList = document.querySelector('.cart__items');
   cartList.appendChild(itemToCartElement);
 }
