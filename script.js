@@ -4,7 +4,7 @@ function saveItems() {
 }
 
 function cartTotal() {
-  const cartList = document.querySelectorAll('.cart__items');
+  const cartList = document.querySelectorAll('.cart__item');
   let total = 0;
   cartList.forEach(
     item => (total += parseFloat(item.innerHTML.split('$')[1])),
