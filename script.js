@@ -89,6 +89,8 @@ const fetchItems = async () => {
       throw new Error(object.error);
     } else {
       handleResults(object.results);
+      const loading = document.querySelector('.loading');
+      loading.remove();
     }
   } catch (error) {
     console.error(error);
