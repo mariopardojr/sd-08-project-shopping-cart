@@ -109,8 +109,17 @@ function loadItems() {
   cartTotal();
 }
 
+function clearCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveItems();
+    cartTotal();
+  });
+}
+
 window.onload = function onload() {
   loadItems();
   generateItemsList();
   addItemToCart();
+  clearCart();
 };
