@@ -53,7 +53,7 @@ async function addItemToCart(evt) {
   totalprice += salePrice;
   localStorage.setItem('prices', totalprice);
   const spann = document.querySelector('.total-price');
-  spann.innerText = `${parseFloat(totalprice.toFixed(2))}`;
+  spann.innerText = `${parseFloat(totalprice.toFixed(3))}`;
   localStorage.setItem('lists', ol.innerHTML);
 }
 function fetchResponse() {
@@ -73,7 +73,7 @@ function addSpan() {
   const ol = document.querySelector('.cart__items');
   const span = document.createElement('span');
   span.className = 'total-price';
-  span.innerText = `${parseFloat(totalprice.toFixed(2))}`;
+  span.innerText = `${parseFloat(totalprice.toFixed(3))}`;
   ol.parentNode.appendChild(span);
 }
 
