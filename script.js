@@ -1,9 +1,3 @@
-window.onload = async function onload() {
-  const productList = await getProductList();
-
-  console.log(productList);
-};
-
 async function getProductList(query = 'computador') {
   const request = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
   const requestObject = await request.json();
@@ -52,3 +46,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = async function onload() {
+  const productList = await getProductList();
+
+  console.log(productList);
+};
