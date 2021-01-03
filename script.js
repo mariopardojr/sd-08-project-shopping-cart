@@ -36,6 +36,7 @@ function cartItemClickListener(event) {
   const parentElement = event.target.parentElement;
   parentElement.removeChild(event.target);
   saveLocalStorage();
+  createTotal();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -81,6 +82,7 @@ function addItemCart() {
           const cartItems = document.querySelector('.cart__items');
           cartItems.appendChild(createCartItemElement(item));
           saveLocalStorage();
+          createTotal();
         });
     }
   });
@@ -94,6 +96,18 @@ function loadCart() {
       cartItemClickListener(event);
     }
   }));
+  createTotal();
+}
+
+function createTotal() {
+  const itemsCart = document.querySelectorAll('.cart__item');
+  let total = 0
+  itemsCart.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);// quebro o texto até o $ da string e pego a posição 1 que é só o preço.
+  });
+  const totalCart = document.querySelector('.total-price');
+  totalCart.innerHTML = total;
+  console.log(total);
 }
 
 function clearCart() {
