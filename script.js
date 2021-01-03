@@ -99,8 +99,16 @@ const addItem = () => {
   });
 };
 
+const emptyCart = () => {
+  const clearButton = document.querySelector('.empty-cart');
+  clearButton.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+  });
+};
+
 window.onload = function onload() {
   loadStorage();
   getItem();
   addItem();
+  emptyCart();
 };
