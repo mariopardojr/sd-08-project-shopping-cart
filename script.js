@@ -1,5 +1,3 @@
-// let storedCartItems = [];
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -29,11 +27,6 @@ function createProductItemElement({ sku, name, image }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
-// const updateTotalPrice = async (value) => {
-//   const displayTotal = document.querySelector('.total-price');
-//   const cartItems = document.querySelector('.cart__items');
-// };
 
 const updateCartLocalStorage = () => {
   const cartItems = document.querySelector('.cart__items').innerHTML;
@@ -74,7 +67,6 @@ const addToCart = async (event) => {
     const { id: sku, title: name, price: salePrice } = item;
     const newToCart = createCartItemElement({ sku, name, salePrice });
     newToCart.addEventListener('click', cartItemClickListener);
-    // storedCartItems.push({ sku, name, salePrice, elem: newToCart });
     await updateTotalPrice(salePrice);
     document.querySelector('.cart__items').appendChild(newToCart);
     updateCartLocalStorage();
