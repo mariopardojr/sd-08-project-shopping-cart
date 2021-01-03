@@ -45,12 +45,12 @@ async function createProductList(query = 'computador') {
   const requestObject = await request.json();
   const requestList = requestObject.results;
 
-  //const { id: sku, title: name, thumbnail: image } = requestList[0];
-  //const aqui = { sku, name, image };
-  //const teste = createProductItemElement(aqui);
-  //console.log(teste);
+  // const { id: sku, title: name, thumbnail: image } = requestList[0];
+  // const aqui = { sku, name, image };
+  // const teste = createProductItemElement(aqui);
+  // console.log(teste);
 
-  requestList.forEach(product => {
+  requestList.forEach((product) => {
     const { id: sku, title: name, thumbnail: image } = product;
     createProductItemElement({ sku, name, image });
   });
