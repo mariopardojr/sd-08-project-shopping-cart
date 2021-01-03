@@ -38,7 +38,7 @@ function createTotal() { // soma os valores do carrinho
     total += parseFloat(item.innerHTML.split('$')[1]);// quebro o texto até o $ da string e pego a posição 1 que é só o preço.
   });
   const totalCart = document.querySelector('.total-price');
-  totalCart.innerHTML = Math.round(total * 100)/100;
+  totalCart.innerHTML = Math.round(total * 100) / 100;
 }
 
 function cartItemClickListener(event) {
