@@ -4,7 +4,10 @@ async function sumTotalPrice() {
 
   if (localStorage.cartList) {
     const cartList = JSON.parse(localStorage.cartList);
-    total = await cartList.reduce((acc, current) => acc += current.salePrice, 0);
+    total = await cartList.reduce((acc, current) => {
+      const sum = acc + current.salePrice;
+      return sum;
+    }, 0);
   }
 
   totalPriceElement.innerText = `Preço total: $${total}`;
