@@ -24,10 +24,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-// function getSkuFromProductItem(item) {
-//   return item.querySelector('span.item__sku').innerText;
-// }
-
 const cartSum = () => {
   const ol = document.querySelectorAll('.cart__items li');
   let total = 0;
