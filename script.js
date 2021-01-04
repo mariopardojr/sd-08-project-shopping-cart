@@ -58,8 +58,8 @@ function recoveryData() {
 
     cartList.forEach((item) => {
       const itemToCartElement = createCartItemElement(item);
-      const cartList = document.querySelector('.cart__items');
-      cartList.appendChild(itemToCartElement);
+      const cartListElement = document.querySelector('.cart__items');
+      cartListElement.appendChild(itemToCartElement);
     });
   }
 }
