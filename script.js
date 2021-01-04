@@ -84,7 +84,7 @@ function addItemToCart() {
 }
 
 function retrieveItems() {
-  const retrievededCart = localStorage.getItem('cart');
+  const retrievedCart = localStorage.getItem('cart');
   const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = retrievedCart;
   cartList.addEventListener('click', (event) => {
