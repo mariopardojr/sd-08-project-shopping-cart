@@ -40,7 +40,7 @@ async function priceTotal() {
   items.forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerText = `Preço total: $${total.toFixed(2)}`;
+  document.querySelector('.total-price').innerText = total.toFixed(2);
 }
 
 function cartItemClickListener(event) {
