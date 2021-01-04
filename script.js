@@ -12,11 +12,48 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function removeFromLocalStorage(id) {
+  const cartList = JSON.parse(localStorage.cartList);
+  const newCartList = cartList.filter(cartItem => cartItem.sku != id);
+
+  if (newCartList.length === 0) {
+    localStorage.removeItem('cartList');
+  } else {
+    localStorage.cartList = JSON.stringify(newCartList);
+  }
+}
+
+function addToLocalStorage(item) {
+  let cartList;
+  if (localStorage.cartList) {
+    cartList = JSON.parse(localStorage.cartList);
+    cartList.push(item);
+  } else {
+    cartList = [item];
+  }
+
+  localStorage.cartList = JSON.stringify(cartList);
+}
+
+function recoveryData() {
+  if (localStorage.cartList) {
+    const cartList = JSON.parse(localStorage.cartList);
+
+    cartList.forEach(item => {
+      const itemToCartElement = createCartItemElement(item);
+      const cartList = document.querySelector('.cart__items');
+      cartList.appendChild(itemToCartElement);
+    });
+  }
+}
+
 function cartItemClickListener(event) {
   const itemToRemove = event.target;
   const parent = itemToRemove.parentNode;
+  const itemToRemoveId = itemToRemove.innerText.split(' ')[1];
 
   parent.removeChild(itemToRemove);
+  removeFromLocalStorage(itemToRemoveId);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -31,13 +68,15 @@ async function addItemToCart(event) {
   const target = event.target;
   const targetParentId = target.parentNode.querySelector('.item__sku').innerText;
   const request = await fetch(`https://api.mercadolibre.com/items/${targetParentId}`);
-  const itemToCart = await request.json();
+  const item = await request.json();
+  const { id: sku, title: name, price: salePrice } = item;
 
-  const { id: sku, title: name, price: salePrice } = itemToCart;
-  const itemToCartElement = createCartItemElement({ sku, name, salePrice });
-
+  const itemToCart = { sku, name, salePrice };
+  const itemToCartElement = createCartItemElement(itemToCart);
   const cartList = document.querySelector('.cart__items');
   cartList.appendChild(itemToCartElement);
+
+  addToLocalStorage(itemToCart);
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -73,7 +112,6 @@ async function createProductList(query = 'computador') {
 }
 
 window.onload = async function onload() {
-  const productList = await createProductList();
-
-  console.log(productList);
+  await createProductList();
+  recoveryData();
 };
