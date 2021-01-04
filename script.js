@@ -10,7 +10,7 @@ async function sumTotalPrice() {
     }, 0);
   }
 
-  totalPriceElement.innerText = `Preço total: $${total}`;
+  totalPriceElement.innerText = `${total}`;
 }
 
 function createProductImageElement(imageSource) {
