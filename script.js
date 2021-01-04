@@ -1,3 +1,18 @@
+async function sumTotalPrice() {
+  const totalPriceElement = document.querySelector('.total-price');
+  let total = 0;
+
+  if (localStorage.cartList) {
+    const cartList = JSON.parse(localStorage.cartList);
+
+    total = await cartList.reduce((acc, current) => {
+      return acc += current.salePrice;
+    }, 0);
+  }
+
+  totalPriceElement.innerText = `Preço total: $${total}`;
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -21,6 +36,7 @@ function removeFromLocalStorage(id) {
   } else {
     localStorage.cartList = JSON.stringify(newCartList);
   }
+  sumTotalPrice();
 }
 
 function addToLocalStorage(item) {
@@ -33,6 +49,7 @@ function addToLocalStorage(item) {
   }
 
   localStorage.cartList = JSON.stringify(cartList);
+  sumTotalPrice();
 }
 
 function cartItemClickListener(event) {
@@ -61,6 +78,7 @@ function recoveryData() {
       const cartListElement = document.querySelector('.cart__items');
       cartListElement.appendChild(itemToCartElement);
     });
+    sumTotalPrice();
   }
 }
 
