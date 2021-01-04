@@ -73,8 +73,10 @@ function addItemToCart() {
           document.querySelector('.cart__items').appendChild(createCartItemElement(obj));
         });
     }
-  }
+  });
+}
 
 window.onload = function onload() {
-      createItemList();
-    };
+  createItemList();
+  addItemToCart();
+};
