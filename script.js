@@ -93,9 +93,19 @@ function loadItems() {
   });
 }
 
+function removeItems() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    itemsLocalStorage();
+  });
+}
 
 window.onload = function onload() {
   loadItems();
   generateItemsList();
   addItem();
+  removeItems();
 };
+
+
+// conteúdo para estudo: plantão guiado pelo aluno - Eric Massaki Hirayama
