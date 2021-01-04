@@ -42,12 +42,12 @@ const updateCartLocalStorage = () => {
   } else {
     localStorage.setItem('cart', JSON.stringify(storedCartItems));
     updateTotalPrice();
-  };
+  }
 };
 
 function cartItemClickListener(event) {
   const target = event.target;
-  storedCartItems = storedCartItems.filter((e) => e.element != target);
+  storedCartItems = storedCartItems.filter(e => e.element !== target);
   console.log(storedCartItems);
   target.remove();
   updateCartLocalStorage();
@@ -63,7 +63,7 @@ const loadCartLocalStorage = () => {
       storedCartItems.push({ sku, name, salePrice, element: newToCart });
       document.querySelector('.cart__items').appendChild(newToCart);
     });
-  };
+  }
   updateCartLocalStorage();
 };
 
@@ -94,7 +94,7 @@ const addToCart = async (event) => {
     storedCartItems.push({ sku, name, salePrice, element: newToCart });
     document.querySelector('.cart__items').appendChild(newToCart);
     updateCartLocalStorage();
-  };
+  }
 };
 
 const createItems = async () => {
