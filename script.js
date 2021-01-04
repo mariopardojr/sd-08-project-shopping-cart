@@ -135,7 +135,7 @@ function clearCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
     priceTotal();
-    saveInLocalStorage();
+    cartSaveChange();
   });
 }
 
