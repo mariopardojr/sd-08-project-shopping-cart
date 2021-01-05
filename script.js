@@ -35,9 +35,11 @@ function itemsLocalStorage() {
 
 function cartAllPrice() {
   const cartList = document.querySelectorAll('.cart__item');
-  const total = 0;
-  cartList.forEach(item => total + parseFloat(item.innerHTML.split('$')[1]));
-  document.querySelector('.total__price').innerHTML = total.toFixed[2];
+  let total = 0;
+  cartList.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total__price').innerHTML = total.toFixed(2);
 }
 
 function cartItemClickListener(event) {
