@@ -48,6 +48,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
 async function putList(item) {
   let arrayObjects = {};
   const carrinho = document.querySelector('.cart__items');
@@ -58,10 +66,10 @@ async function putList(item) {
       sku: info.id,
       name: info.title,
       image: info.thumbnail,
-      salePrice: info.price
-    }
+      salePrice: info.price,
+    };
     const itemNoCarrinho = createCartItemElement(arrayObjects);
-    carrinho.appendChild(itemNoCarrinho)
+    carrinho.appendChild(itemNoCarrinho);
     total();
     setLocalStorage();
   })
@@ -109,14 +117,6 @@ function createProductItemElement({ sku, name, image }) {
   botao.addEventListener('click', () => (putList(botao.parentElement)))
   section.appendChild(botao);
   return section;
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
 
 window.onload = function onload() {
