@@ -107,7 +107,7 @@ async function createObject() {
   const produtos = document.querySelector('.items');
   await fetchAwaitAsync('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then((info) => {
-    produtos.innerText = ''
+    produtos.innerText = '';
     for (let i = 0; i < info.results.length; i += 1) {
       arrayObjects = {
         sku: info.results[i].id,
