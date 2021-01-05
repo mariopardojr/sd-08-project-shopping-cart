@@ -13,6 +13,21 @@ function createCustomElement(element, className, innerText) {
   e.innerText = innerText;
   return e;
 }
+function addItemToCart(event) {
+  const parentElem = event.target.parentNode;
+  const idProduct = getSkuFromProductItem(parentElem);
+  fetch(`https://api.mercadolibre.com/items/${idProduct}`)
+    .then(response => response.json())
+    .then((object) => {
+      const objResult = {
+        sku: object.id,
+        name: object.title,
+        saleprice: object.price,
+      };
+  const listProduct = document.querySelector('.cart__items');
+  listProduct.appendChild(createCartItemElement(objResult));
+ });
+}
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -41,37 +56,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-function addItemToCart() {
-  const selectItems = document.querySelector('.items');
-  selectItems.addEventListener('click', (event) => {
-    if (event.target.className === 'item__id') {
-      const parentElem = event.target.parentElement;
-      const idProduct = getSkuFromProductItem(parentElem);
-      fetch(`https://api.mercadolibre.com/items/${idProduct}`)
-        .then(response => response.json())
-        .then((object) => {
-          const objResult = {
-            sku: object.id,
-            name: object.title,
-            saleprice: object.price,
-          };
-        });
-      const listProduct = document.querySelector('.cart_items');
-      listProduct.appendChild(createCartItemElement(objResult));
-    }
-  });
-}
+
 window.onload = function onload() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   fetch(endpoint)
-  .then(response => response.json())// transforme o resultaod e json
-  .then((object) => {
-    const { results } = object;
-    const sectionItens = document.querySelector('.items');
-    results.forEach((product) => {
-      const obj = { sku: product.id, name: product.title, image: product.thumbnail }
-      sectionItens.appendChild(createProductItemElement(obj));
+    .then(response => response.json())// transforme o resultaod e json
+    .then((object) => {
+      const { results } = object;
+      const sectionItens = document.querySelector('.items');
+      results.forEach((product) => {
+        const obj = { sku: product.id, name: product.title, image: product.thumbnail };
+        sectionItens.appendChild(createProductItemElement(obj));
+      });
     });
-  });
- 
 };
