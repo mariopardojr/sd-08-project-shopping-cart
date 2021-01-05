@@ -126,7 +126,6 @@ function getSkuFromProductItem(item) {
 }
 
 async function createProductList(query = 'computador') {
-  const itemsSection = document.querySelector('.items');
   const request = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
   const requestObject = await request.json();
   const requestList = requestObject.results;
