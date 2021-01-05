@@ -100,8 +100,8 @@ function cleanShoppingCart() {
   btnClean.addEventListener('click', function () {
     const cartList = document.querySelector('.cart__items');
     cartList.innerHTML = '';
-    cartTotal();
-    saveItems();
+    cartTotalPrice();
+    storeItems();
   });
 }
 
