@@ -1,3 +1,8 @@
+const loading = () => {
+  const load = document.createElement('h1').classList.add('loading').innerText = 'loading...';
+  document.getElementsByClassName('cart').appendChild(load);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -41,12 +46,12 @@ function itemsFetch() {
       response.json()
         .then((data) => {
           data.results.forEach((element) => {
-            const obj = {
+            const item = {
               sku: element.id,
               name: element.title,
               image: element.thumbnail,
             };
-            document.querySelector('.items').appendChild(createProductItemElement(obj));
+            document.querySelector('.items').appendChild(createProductItemElement(item));
           });
         });
     });
