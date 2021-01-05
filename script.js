@@ -1,9 +1,14 @@
 
+  async function cartItemClickListener(event) {
+    event.target.remove('')
+    await setLocalStorage()
+    await total()
+  }
 
 function getLocalStorage() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('cartList');
   const lista = document.querySelector('.cart__items');
-  for(let i = 0; i < lista.childNodes.length; i++){
+  for (let i = 0; i < lista.childNodes.length; i += 1) {
     console.log(lista.childNodes[i]);
     lista.childNodes[i].addEventListener('click', cartItemClickListener)
   }
@@ -11,8 +16,7 @@ function getLocalStorage() {
 
 function apagarTudo() {
   const botao = document.querySelector('.empty-cart');
-  const lista =  document.querySelector('.cart__items');
-  console.log(lista);
+  const lista = document.querySelector('.cart__items');
   botao.addEventListener('click', () => {
     lista.innerHTML = '';
     localStorage.clear;
@@ -106,11 +110,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-async function cartItemClickListener(event) {
-  event.target.remove('')
-  await setLocalStorage()
-  await total()
-}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
