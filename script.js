@@ -97,7 +97,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   const botao = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
-  botao.addEventListener('click', () => (putList(botao.parentElement)))
+  botao.addEventListener('click', () => (putList(botao.parentElement)));
   section.appendChild(botao);
   return section;
 }
@@ -114,9 +114,9 @@ async function createObject() {
         image: info.results[i].thumbnail,
       };
       const section = createProductItemElement(arrayObjects);
-      produtos.appendChild(section)
+      produtos.appendChild(section);
     }
-  })
+  });
 }
 
 window.onload = function onload() {
