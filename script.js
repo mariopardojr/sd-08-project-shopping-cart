@@ -107,6 +107,7 @@ async function createObject() {
   const produtos = document.querySelector('.items');
   await fetchAwaitAsync('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then((info) => {
+    produtos.innerText = ''
     for (let i = 0; i < info.results.length; i += 1) {
       arrayObjects = {
         sku: info.results[i].id,
@@ -117,6 +118,7 @@ async function createObject() {
       produtos.appendChild(section);
     }
   });
+  document.querySelector('.loading').innerHTML = ''
 }
 
 window.onload = function onload() {
