@@ -6,6 +6,12 @@ function total() {
   totalPricePlace.innerText = totalPrice;
 }
 
+async function setLocalStorage() {
+  localStorage.clear();
+  const cartList = await document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cartList', cartList);
+}
+
 async function cartItemClickListener(event) {
   event.target.remove('');
   await setLocalStorage();
@@ -31,11 +37,6 @@ function apagarTudo() {
   });
 }
 
-async function setLocalStorage() {
-  localStorage.clear();
-  const cartList = await document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cartList', cartList);
-}
 
 const fetchAwaitAsync = async (endpoint) => {
   const response = await fetch(endpoint);
