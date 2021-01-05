@@ -50,6 +50,6 @@ async function getProducts() {
   });
 }
 
-window.onload = async function onload() { 
+window.onload = async function onload() {
   await getProducts();
 };
