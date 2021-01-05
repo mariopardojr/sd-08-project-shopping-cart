@@ -62,11 +62,9 @@ function addItemToCart() {
   });
 }
   
-    
-     
 
 window.onload = function onload() {
-  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+  const endpoint = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
   fetch(endpoint)
   .then(response => response.json())// transforme o resultaod e json
   .then((object) => {
