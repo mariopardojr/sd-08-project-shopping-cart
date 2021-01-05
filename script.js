@@ -118,7 +118,7 @@ async function createObject() {
       produtos.appendChild(section);
     }
   });
-  document.querySelector('.loading').innerHTML = '';
+  document.querySelector('.loading').remove();
 }
 
 window.onload = function onload() {
