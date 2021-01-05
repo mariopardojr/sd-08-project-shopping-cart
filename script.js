@@ -21,8 +21,8 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
+  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'))
+    .addEventListener('click', addItemToCart);
   return section;
 }
 
@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.parentNode.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -44,19 +44,19 @@ function createCartItemElement({ sku, name, salePrice }) {
 function addItemToCart() {
   const selectItems = document.querySelector('.items');
   selectItems.addEventListener('click', (event) => {
-    if (event.target.className === 'item_id') {
-      const parentElement = event.target.parentElement;
-      const idProduct = getSkuFromProductItem(parentElement);
+    if (event.target.className === 'item__id') {
+      const parentElem = event.target.parentElement;
+      const idProduct = getSkuFromProductItem(parentElem);
       fetch(`https://api.mercadolibre.com/items/${idProduct}`)
         .then(response => response.json())
         .then((object) => {
           const objResult = {
             sku: object.id,
             name: object.title,
-            saleprice: object.Price,
+            saleprice: object.price,
           };
         });
-      const listProduct = document.querySelector('.cart.items');
+      const listProduct = document.querySelector('.cart_items');
       listProduct.appendChild(createCartItemElement(objResult));
     }
   });
@@ -69,8 +69,9 @@ window.onload = function onload() {
     const { results } = object;
     const sectionItens = document.querySelector('.items');
     results.forEach((product) => {
-      const { id: sku, title: name, thumbnail: image } = product;
-      sectionItens.appendChild(createProductItemElement(sku, name, image));
+      const obj = { sku: product.id, name: product.title, image: product.thumbnail }
+      sectionItens.appendChild(createProductItemElement(obj));
     });
   });
+ 
 };
