@@ -5,6 +5,30 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function getItemPrice(item) {
+  return parseFloat(item.innerText.split('PRICE: $')[1]);
+}
+
+function getTotalPrices() {
+  const cart = document.querySelector('.cart__items');
+  const element = document.querySelector('.total-price');
+  let price = 0;
+  cart.childNodes.forEach((li) => {
+    price += getItemPrice(li);
+  });
+  element.innerText = price;
+}
+
+async function addCartItems(event) {
+  const cart = document.querySelector('.cart__items');
+  const item = event.target.parentNode;
+  const sku = getSkuFromProductItem(item);
+  const endPoint = await fetch(`https://api.mercadolibre.com/items/${sku}`);
+  const { id, title, price } = await endPoint.json();
+  cart.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
+  getTotalPrices();
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -20,7 +44,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createProductImageElement(image));
   const itemBtn = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   itemBtn.addEventListener('click', addCartItems);
-  section.appendChild(itemBtn)
+  section.appendChild(itemBtn);
   return section;
 }
 
@@ -39,30 +63,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-function getTotalPrices() {
-  const cart = document.querySelector('.cart__items');
-  const element = document.querySelector('.total-price');
-  let price = 0;
-  cart.childNodes.forEach((li) => {
-    price += getItemPrice(li);
-  });
-  element.innerText = price;
-}
-
-function getItemPrice(item) {
-  return parseFloat(item.innerText.split('PRICE: $')[1]);
-}
-
-async function addCartItems(event) {
-  const cart = document.querySelector('.cart__items');
-  const item = event.target.parentNode;
-  const sku = getSkuFromProductItem(item);
-  const endPoint = await fetch(`https://api.mercadolibre.com/items/${sku}`);
-  const { id, title, price } = await endPoint.json();
-  cart.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
-  getTotalPrices();
 }
 
 async function getProducts() {
