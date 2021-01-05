@@ -1,4 +1,4 @@
-window.onload = getObjByID();
+// window.onload = ;
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -87,3 +87,5 @@ async function getObjByID() {
     });
   });
 }
+
+getObjByID();
