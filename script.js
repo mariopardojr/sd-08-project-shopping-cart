@@ -39,7 +39,7 @@ function cartAllPrice() {
   cartList.forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total__price').innerHTML = total;
+  document.querySelector('.total__price').innerHTML = Math.round(total * 100) / 100;
 }
 
 function cartItemClickListener(event) {
