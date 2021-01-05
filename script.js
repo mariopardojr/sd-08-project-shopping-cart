@@ -1,3 +1,13 @@
+function clearCart() {
+  if (localStorage.cartList) {
+    const cartItems = document.querySelector('.cart__items');
+    const totalPrice = document.querySelector('.total-price');
+    localStorage.removeItem('cartList');
+    cartItems.innerHTML = '';
+    totalPrice.innerText = '0';
+  }
+}
+
 async function sumTotalPrice() {
   const totalPriceElement = document.querySelector('.total-price');
   let total = 0;
@@ -9,7 +19,6 @@ async function sumTotalPrice() {
       return sum;
     }, 0);
   }
-
   totalPriceElement.innerText = `${total}`;
 }
 
@@ -130,6 +139,8 @@ async function createProductList(query = 'computador') {
 }
 
 window.onload = async function onload() {
+  const emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', clearCart);
   await createProductList();
   recoveryData();
 };
