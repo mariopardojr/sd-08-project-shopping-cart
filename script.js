@@ -131,16 +131,27 @@ async function createProductList(query = 'computador') {
   const requestObject = await request.json();
   const requestList = requestObject.results;
 
-  requestList.forEach((product) => {
-    const { id: sku, title: name, thumbnail: image } = product;
-    const productElement = createProductItemElement({ sku, name, image });
-    itemsSection.appendChild(productElement);
-  });
+  return requestList;
 }
 
 window.onload = async function onload() {
   const emptyCartButton = document.querySelector('.empty-cart');
+  const itemsSection = document.querySelector('.items');
+  const loading = document.createElement('span');
+
   emptyCartButton.addEventListener('click', clearCart);
-  await createProductList();
+  loading.className = 'loading';
+  loading.innerText = 'Loading...';
+
+  itemsSection.appendChild(loading);
+
+  const productList = await createProductList();
+  productList.forEach((product) => {
+    const { id: sku, title: name, thumbnail: image } = product;
+    const productElement = createProductItemElement({ sku, name, image });
+    itemsSection.appendChild(productElement);
+  });
+  itemsSection.removeChild(loading);
+
   recoveryData();
 };
