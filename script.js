@@ -16,14 +16,14 @@ async function cartItemClickListener(event) {
   event.target.remove('');
   await setLocalStorage();
   await total();
-  }
+}
 
-  function getLocalStorage() {
-    document.querySelector('.cart__items').innerHTML = localStorage.getItem('cartList');
-    const lista = document.querySelector('.cart__items');
-    for (let i = 0; i < lista.childNodes.length; i += 1) {
-      console.log(lista.childNodes[i]);
-      lista.childNodes[i].addEventListener('click', cartItemClickListener)
+function getLocalStorage() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cartList');
+  const lista = document.querySelector('.cart__items');
+  for (let i = 0; i < lista.childNodes.length; i += 1) {
+    console.log(lista.childNodes[i]);
+    lista.childNodes[i].addEventListener('click', cartItemClickListener)
   }
 }
 
@@ -32,7 +32,7 @@ function apagarTudo() {
   const lista = document.querySelector('.cart__items');
   botao.addEventListener('click', () => {
     lista.innerHTML = '';
-    localStorage.clear;
+    localStorage.clear();
     total()
   });
 }
