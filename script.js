@@ -63,16 +63,16 @@ async function responseFetch() {
 function AddCart() {
   document.querySelector('.items').addEventListener('click', (event) => {
     if (event.target.classList.contains('item__add')) {
-      const value = getSkuFromProductItem(event.target.parentElement);
-      fetch(`https://api.mercadolibre.com/items/${value}`)
-        .then(response => response.json())
+      const sku = getSkuFromProductItem(event.target.parentElement);
+      fetch(`https://api.mercadolibre.com/items/${sku}`).then(response => response.json())
         .then((resp) => {
-          const obj = {
-            value,
+          const result = {
+            sku,
             name: resp.title,
             salePrice: resp.price,
           };
-          document.querySelector('.cart__items').appendChild(createCartItemElement(obj));
+          const carItens = document.querySelector('.cart__items');
+          carItens.appendChild(createCartItemElement(result));
         });
     }
   });
