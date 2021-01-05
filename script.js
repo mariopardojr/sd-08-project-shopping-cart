@@ -95,8 +95,20 @@ function retrieveItems() {
   cartTotalPrice();
 }
 
+function cleanShoppingCart() {
+  const btnClean = document.querySelector('.empty-cart');
+  btnClean.addEventListener('click', function () {
+    const cartList = document.querySelector('.cart__items');
+    cartList.innerHTML = '';
+    cartTotal();
+    saveItems();
+  });
+}
+
+
 window.onload = function onload() {
   retrieveItems();
   generateItemList();
   addItemToCart();
+  cleanShoppingCart();
 };
