@@ -94,4 +94,5 @@ function addItemToCart() {
 window.onload = function onload() {
   addItemToCart();
   createList();
+  cartItem();
 };
