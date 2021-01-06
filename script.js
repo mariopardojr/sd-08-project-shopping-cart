@@ -44,7 +44,7 @@ function getItem(item) {
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${item}`)
     .then((response) => {
       response.json().then((data) => {
-        const itemArray = data.results.map(function(value) {
+        const itemArray = data.results.map(function (value) {
           return { sku: value.id,
             name: value.title,
             image: value.thumbnail };
