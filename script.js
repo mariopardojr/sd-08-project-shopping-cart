@@ -61,7 +61,6 @@ const getApi = () => new Promise((resolve, reject) => {
   .catch(results => reject(console.log(results)));
 });
 
-window.onload = function onload() { 
-  getApi();
+  window.onload = function onload() {
+    getApi();
 };
- 
