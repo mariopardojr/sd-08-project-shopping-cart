@@ -78,7 +78,7 @@ function addItemToCart() {
           const objResult = {
             sku: resp.id,
             name: resp.title,
-            saleprice: resp.price,
+            salePrice: resp.price,
           };
           document.querySelector('.cart__items')
           .appendChild(createCartItemElement(objResult));
