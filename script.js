@@ -101,6 +101,4 @@ function addItemToCart() {
 window.onload = function onload() {
   addItemToCart();
   createList();
-  //pricesSum();
-  clearCart();
 };
