@@ -45,15 +45,15 @@ function getItem(item) {
     .then((response) => {
       response.json().then((data) => {
         const itemArray = data.results.map((value) => {
-        return { sku: value.id,
-        name: value.title,
-        image: value.thumbnail };
+          return { sku: value.id,
+          name: value.title,
+          image: value.thumbnail };
+          });
+        itemArray.forEach((element) => {
+          createProductItemElement(element);
         });
-      itemArray.forEach((element) => {
-        createProductItemElement(element);
       });
     });
-  });
 }
 
 window.onload = function onload() {
