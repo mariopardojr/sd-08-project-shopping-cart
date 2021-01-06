@@ -60,7 +60,7 @@ function clearCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
     saveCartItems();
-    PricesSum();
+    pricesSum();
   });
 }
 
