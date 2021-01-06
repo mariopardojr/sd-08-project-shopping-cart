@@ -78,7 +78,13 @@ function AddCart() {
   });
 }
 
+function clear() {
+  const bt = document.querySelector('.empty-cart');
+  bt.addEventListener('click', () => { document.querySelector('.cart__items').innerHTML = ''; });
+}
+
 window.onload = function onload() {
   responseFetch();
   AddCart();
+  clear();
 };
