@@ -85,8 +85,8 @@ function addItemToCart() {
           };
           document.querySelector('.cart__items')
           .appendChild(createCartItemElement(objResult));
-        saveCartItems();
-        pricesSum();
+          saveCartItems();
+          pricesSum();
         });
     }
   });
