@@ -60,7 +60,7 @@ const clickEvent = () => {
 };
 
 const loadProducts = async () => {
-  const endpoint = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
+  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   await fetch(endpoint).then(Response => Response.json()).then((data) => {
     const items = document.querySelector('.items');
     data.results.forEach((product) => {
