@@ -60,7 +60,7 @@ function sumPrices() {
 
 async function totalPrice() {
   const sum = await sumPrices();
-  document.querySelector('.total-price').innerHTML = `Preço total: $${sum}`;
+  document.querySelector('.total-price').innerHTML = sum;
 }
 
 function cartItemClickListener(event) {
