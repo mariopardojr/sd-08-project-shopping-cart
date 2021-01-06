@@ -29,11 +29,12 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+//  referencia de total price: https://github.com/tryber/sd-08-project-shopping-cart/blob/gustavothirion-project-shopping-cart/script.js
+
 const totalPrice = async () => {
   const cartItems = document.querySelectorAll('.cart__item');
-  console.log(cartItems);
   let total = 0;
-  cartItems.forEach((Item) => {
+  await cartItems.forEach((Item) => {
     total += parseFloat(Item.innerHTML.split('$')[1]);
   });
   document.querySelector('.total-price').innerHTML = `Total: R$ ${total}`;
