@@ -51,8 +51,8 @@ function sumPrices() {
   return new Promise((resolve) => {
     let sum = 0;
     document.querySelectorAll('.cart__item').forEach((item) => {
-    value = parseFloat(item.innerText.split('$')[1]);
-    sum += value;
+      value = parseFloat(item.innerText.split('$')[1]);
+      sum += value;
     });
     resolve(sum);
   });
