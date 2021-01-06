@@ -39,7 +39,9 @@ async function pricesSum() {
   totalPrices = allPrices.reduce((acc, price) => acc + price, 0);
   document.querySelector('.total-price').innerHTML = totalPrices;
 }
-
+function loadingTxt() {
+  document.body.removeChild(document.body.firstElementChild);
+}
 function cartItemClickListener(event) {
   event.target.parentElement.removeChild(event.target);
   saveCartItems();
@@ -55,6 +57,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+function loadingTxt() {
+  document.body.removeChild(document.body.firstElementChild);
 }
 function clearCart() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
