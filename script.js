@@ -57,6 +57,7 @@ async function responseFetch() {
   return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
     .then((data) => {
+      document.querySelector('.loading').remove();
       data.results.forEach((item) => {
         const obj = {
           sku: item.id,
