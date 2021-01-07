@@ -41,6 +41,7 @@ function criaListaItem() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
   .then((data) => {
+    document.querySelector('.loading').remove();
     data.results.forEach((element) => {
       const objetoItem = {
         sku: element.id,
