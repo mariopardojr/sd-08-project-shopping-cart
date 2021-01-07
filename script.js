@@ -40,7 +40,8 @@ function gettingLocalStorage() {
 }
 
 function cartItemClickListener(event) {
-  event.target.remove();
+  const object = event.target;
+  object.parentNode.removeChild(object);
   savingLocalStorage();
 }
 
@@ -93,8 +94,8 @@ function clearButton() {
 }
 
 window.onload = function onload() {
+  gettingLocalStorage();
   createListOfProducts();
   addButton();
-  gettingLocalStorage();
   clearButton();
 };
