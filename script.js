@@ -80,7 +80,6 @@ function addEventItemCar() {
   const items = document.querySelector('.items');
   items.addEventListener('click', addItem);
 }
-
 window.onload = function onload() {
   criaListaItem();
   addEventItemCar();
