@@ -78,6 +78,7 @@ window.onload = function onload() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
   .then((data) => {
+    document.querySelector('.loading').remove();
     data.results.forEach((res) => {
       const obj = {
         sku: res.id,
