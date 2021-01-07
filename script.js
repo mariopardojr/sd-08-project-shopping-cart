@@ -30,6 +30,10 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function savingLocalStorage() {
+  localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   savingLocalStorage();
@@ -73,10 +77,6 @@ function addButton() {
       });
     }
   });
-}
-
-function savingLocalStorage() {
-  localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
 }
 
 function gettingLocalStorage() {
