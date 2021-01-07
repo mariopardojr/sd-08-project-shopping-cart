@@ -3,6 +3,15 @@ function saveItems() {
   localStorage.setItem('cart', cartItem);
 }
 
+function totalPrice() {
+  const list = document.querySelectorAll('.cart__item');
+  let total = 0;
+  list.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1])
+  });
+  document.querySelector('.total-price').innerHTML = Math.round(total * 100) / 100;
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -36,6 +45,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.parentElement.removeChild(event.target);
   saveItems();
+  totalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -49,14 +59,17 @@ function createCartItemElement({ sku, name, salePrice }) {
 function generateItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(data => data.results.forEach((element) => {
-      const elementsList = {
-        sku: element.id,
-        name: element.title,
-        image: element.thumbnail,
-      };
-      document.querySelector('.items').appendChild(createProductItemElement(elementsList));
-    }),
+    .then((data) => {
+      document.querySelector('.loading').remove()
+      data.results.forEach((element) => {
+        const elementsList = {
+          sku: element.id,
+          name: element.title,
+          image: element.thumbnail,
+        };
+        document.querySelector('.items').appendChild(createProductItemElement(elementsList));
+      })
+    },
     );
 }
 
@@ -77,6 +90,7 @@ function addItem() {
           const cart = document.querySelector('.cart__items');
           cart.appendChild(createCartItemElement(elementsList));
           saveItems();
+          totalPrice();
         });
     }
   });
@@ -91,10 +105,20 @@ function loadItems() {
       cartItemClickListener(event);
     }
   });
+  totalPrice();
+}
+
+function deleteAllCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerText = '';
+    totalPrice();
+    saveItems();
+  });
 }
 
 window.onload = function onload() {
   loadItems();
   generateItemsList();
   addItem();
+  deleteAllCart();
 };
