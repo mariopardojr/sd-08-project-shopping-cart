@@ -39,9 +39,7 @@ async function pricesSum() {
   totalPrices = allPrices.reduce((acc, price) => acc + price, 0);
   document.querySelector('.total-price').innerHTML = totalPrices;
 }
-function loadingTxt() {
-  document.body.removeChild(document.body.firstElementChild);
-}
+
 function cartItemClickListener(event) {
   event.target.parentElement.removeChild(event.target);
   saveCartItems();
@@ -74,9 +72,10 @@ function createList() {
   fetch(endpoint)
   .then(response => response.json())// transforme o resultaod e json
   .then((object) => {
+    loadingTxt();
     const { results } = object;
     const sectionItens = document.querySelector('.items');
-    results.forEach((product) => {
+      results.forEach((product) => {
       const obj = { sku: product.id, name: product.title, image: product.thumbnail };
       sectionItens.appendChild(createProductItemElement(obj));
     });
