@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // código aqui
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
