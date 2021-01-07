@@ -121,7 +121,7 @@ function openLocalStorage() {
 window.onload = async function onload() {
   fetchMBL();
   openLocalStorage();
-  const itemsLocal = document.querySelector('.items');
+  const itemsLocal = document.querySelector('.loading');
   itemsLocal.innerText = 'loading';
   await sumCartPrices();
 };
