@@ -9,9 +9,9 @@ async function soma() {
   const cartItens = document.querySelectorAll('.cart__item');
   const totalPrice = document.querySelector('.total-price');
   let total = 0;
-  
+
   cartItens.forEach((cI) => {
-    total = total + parseFloat(cI.innerHTML.split('$')[1]);
+    total += parseFloat(cI.innerHTML.split('$')[1]);
     totalPrice.innerText = total;
   });
 }
