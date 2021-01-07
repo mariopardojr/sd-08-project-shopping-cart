@@ -34,6 +34,11 @@ function savingLocalStorage() {
   localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
 }
 
+function gettingLocalStorage() {
+  const cart = localStorage.getItem('cart');
+  document.querySelector('.cart__items').innnerHTML = cart;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   savingLocalStorage();
@@ -77,11 +82,6 @@ function addButton() {
       });
     }
   });
-}
-
-function gettingLocalStorage() {
-  const cart = localStorage.getItem('cart');
-  document.querySelector('.cart__items').innnerHTML = cart;
 }
 
 window.onload = function onload() {
