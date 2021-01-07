@@ -48,7 +48,7 @@ function getSkuFromProductItem(item) {
 function savingLocalStorage() {
   localStorage.setItem('cart', document.querySelector('.cart__items').innerHTML);
 }
-  
+
 function cartItemClickListener(event) {
   event.stopPropagation();
   event.currentTarget.remove('');
