@@ -124,7 +124,7 @@ window.onload = async function onload() {
   openLocalStorage();
   const itemsLocal = document.querySelector('.items');
   itemsLocal.className += ' loading';
-  const itemsLocal = document.querySelector('.loading');
-  itemsLocal.innerText = 'loading';
+  const loadLocal = document.querySelector('.loading');
+  loadLocal.innerText = 'loading';
   await sumCartPrices();
 };
