@@ -68,7 +68,7 @@ function addItem() {
       fetch(`https://api.mercadolibre.com/items/${SKU}`)
       .then(response => response.json())
       .then((data) => {
-        const obj = { sku: data.id, name: data.title, salePrice: data.salePrice };
+        const obj = { sku: data.id, name: data.title, salePrice: data.price };
         document.querySelector('.cart__items')
         .appendChild(createCartItemElement(obj));
         localSave();
