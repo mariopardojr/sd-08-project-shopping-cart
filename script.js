@@ -128,6 +128,9 @@ function localStorageFill() {
       li.addEventListener('click', cartItemClickListener);
       olCartItems.appendChild(li);
     });
+    const priceStorage = JSON.parse(localStorage.getItem('priceStorage'));
+    const spanPriceToPay = document.querySelector('.total-price');
+    spanPriceToPay.innerText = `${priceStorage}`;
   }
 }
 
