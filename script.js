@@ -78,6 +78,15 @@ function addItem() {
     }
   });
 }
+function loadLocalSave() {
+  const list = document.querySelector('.cart__items');
+  list.innerHTML = localStorage.getItem('cart');
+  list.addEventListener('click', ((event) => {
+    if (event.target.classList.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  }));
+}
 
 function clearAll() {
   document.querySelector('.total-price').innerHTML = '0';
@@ -89,5 +98,6 @@ function clearAll() {
 window.onload = function onload() {
   gerarLista();
   addItem();
+  loadLocalSave();
   document.querySelector('.empty-cart').addEventListener('click', clearAll);
 };
