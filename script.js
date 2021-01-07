@@ -96,10 +96,10 @@ const createItems = async () => {
 const clearCart = () => {
   const cart = document.querySelector('.cart__items');
   Array.from(cart.children).forEach(children => children.remove());
-}
+};
 
 window.onload = function onload() {
-  createItems();
   const clearCartButton = document.querySelector('.empty-cart');
+  createItems();
   clearCartButton.addEventListener('click', clearCart);
 };
