@@ -68,12 +68,11 @@ function addButton() {
           salePrice: object.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(item));
-    });
-  }
+      });
+    }
   });
 }
 window.onload = function onload() {
   createListOfProducts();
   addButton();
-  };
-  
+};
