@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 function salvaCarrinhoStorage() {
   const carrinhoCompras = document.querySelector('.cart__items');
   localStorage.setItem('carrinhoDeCompras', carrinhoCompras.innerHTML);
-};
+}
 
 function recuperaCarrinhoStorage() {
   const recuperaCarrinhoCompras = localStorage.getItem('carrinhoDeCompras');
