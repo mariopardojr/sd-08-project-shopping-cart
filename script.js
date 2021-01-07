@@ -12,6 +12,8 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+const spanPriceToPay = document.querySelector('.total-price');
+
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -46,7 +48,6 @@ async function cartItemClickListener(event) {
   priceStorageRemove -= price;
   priceStorageRemove = Math.round(priceStorageRemove * 100) / 100;
 
-  const spanPriceToPay = document.querySelector('.total-price');
   spanPriceToPay.innerText = `${priceStorageRemove}`;
 
   localStorage.setItem('priceStorage', JSON.stringify(priceStorageRemove));
@@ -86,7 +87,6 @@ async function priceToPay(string) {
   priceStorageAdd += price;
   priceStorageAdd = Math.round(priceStorageAdd * 100) / 100;
 
-  const spanPriceToPay = document.querySelector('.total-price');
   spanPriceToPay.innerText = `${priceStorageAdd}`;
 
   localStorage.setItem('priceStorage', JSON.stringify(priceStorageAdd));
@@ -129,10 +129,21 @@ function localStorageFill() {
       olCartItems.appendChild(li);
     });
     const priceStorage = JSON.parse(localStorage.getItem('priceStorage'));
-    const spanPriceToPay = document.querySelector('.total-price');
     spanPriceToPay.innerText = `${priceStorage}`;
   }
 }
+
+const emptyBtn = document.querySelector('.empty-cart');
+emptyBtn.addEventListener('click', () => {
+  if (localStorage.length !== 0) {
+    localStorage.removeItem('save');
+    localStorage.removeItem('priceStorage');
+    olCartItems.innerHTML = '';
+    spanPriceToPay.innerHTML = '';
+  } else {
+    alert('Carrinho já está vazio.');
+  }
+});
 
 window.onload = async function onload() {
   await makeList('https://api.mercadolibre.com/sites/MLB/search?q=computador');
