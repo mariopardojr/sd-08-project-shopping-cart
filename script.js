@@ -37,6 +37,7 @@ function saveItems() {
 
 function cartItemClickListener(event) {
   event.target.parentElement.removeChild(event.target);
+  cartTotalPrice();
   saveItems();
 }
 
@@ -87,13 +88,23 @@ addEventListener('click', (event) => {
           salePrice: data.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(obj));
+        cartTotalPrice();
         saveItems();
       });
   } else if (event.target.className === 'cart__item') { cartItemClickListener(event); } else if (event.target.className === 'empty-cart') {
     document.querySelector('.cart__items').innerHTML = ' ';
+    cartTotalPrice();
     saveItems();
   }
 });
+
+function cartTotalPrice() {
+  let total = 0;
+  document.querySelectorAll('.cart__item').forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total;
+}
 
 window.onload = function onload() {
   loadItems();
