@@ -19,7 +19,7 @@ function saveLocalStorage() {
   localStorage.setItem('totalPrice', document.querySelector('.total-price').innerHTML);
 }
 
-function totalCartValue () {
+function totalCartValue() {
   const cartItems = document.querySelectorAll('.cart__item');
   let totalPrice = 0;
   cartItems.forEach(item => {
