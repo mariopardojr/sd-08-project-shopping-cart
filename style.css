@@ -1,7 +1,8 @@
-body{
+body {
   width: 1366px;
   height: 768px;
 }
+
 .top-bar {
   align-items: center;
   display: flex;
