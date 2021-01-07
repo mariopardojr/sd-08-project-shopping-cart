@@ -33,7 +33,7 @@ function somaValorItems() {
     accumulator += parseFloat(element.innerText.split('$')[1]);
   });
   const total = document.querySelector('.total-price');
-  total.innerText = `Preço total: $${accumulator}`;
+  total.innerText = accumulator;
 }
 
 function cartItemClickListener(event) {
