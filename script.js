@@ -93,7 +93,7 @@ const fetchMBL = () => {
     .then(response => response.json())
     .then((data) => {
       const itemsLocal = document.querySelector('.items');
-      itemsLocal.className = 'items';
+      itemsLocal.className = '';
       itemsLocal.innerText = '';
       const compMBL = data.results.map(el => ({ sku: el.id, name: el.title, image: el.thumbnail }));
       compMBL.forEach((element) => {
