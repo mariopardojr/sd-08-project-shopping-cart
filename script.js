@@ -61,11 +61,11 @@ function colocarCarrinho() {
     const item = getSkuFromProductItem(event.target.parentElement);
     fetch(`https://api.mercadolibre.com/items/${item}`)
       .then(response => response.json())
-      .then(({ id, title, price }) => {
+      .then((data) => {
         const datas = {
-          sku: id,
-          name: title,
-          salePrice: price,
+          sku: data.id,
+          name: data.title,
+          salePrice: data.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(datas));
       });
