@@ -26,6 +26,16 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function somaValorItems() {
+  const captura = document.querySelectorAll('.cart__item');
+  let accumulator = 0;
+  captura.forEach((element) => {
+    accumulator += parseFloat(element.innerText.split('$')[1]);
+  });
+  const total = document.querySelector('.total-price');
+  total.innerText = `Preço total: $${accumulator}`;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   somaValorItems();
@@ -90,16 +100,6 @@ function createEventEmptyCar() {
     const listaOrdenada = document.querySelector('.cart__items');
     listaOrdenada.innerHTML = '';
   });
-}
-
-function somaValorItems() {
-  const captura = document.querySelectorAll('.cart__item');
-  let accumulator = 0;
-  captura.forEach(element => {
-    accumulator += parseFloat(element.innerText.split('$')[1]);
-  });
-  const total = document.querySelector('.total-price');
-  total.innerText = `Preço total: $${accumulator}`;
 }
 
 window.onload = function onload() {
