@@ -37,7 +37,7 @@ const totalPrice = async () => {
   await cartItems.forEach((Item) => {
     total += parseFloat(Item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerHTML = `Total: R$ ${total}`;
+  document.querySelector('.total-price').innerHTML = `${total}`;
 };
 
 const createPrice = (callback) => {
