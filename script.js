@@ -6,7 +6,9 @@ function createProductImageElement(imageSource) {
 }
 
 function cartItemClickListener(event) {
-  event.target
+event.target.addEventListener('click', () => {
+event.target.remove();
+});
 }
 
 function getSkuFromProductItem(item) {
