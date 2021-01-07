@@ -50,8 +50,8 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   if (event.target.classList.contains('cart__item')) {
     event.target.parentElement.removeChild(event.target);
+    localSave();
   }
-  localSave();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
