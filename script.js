@@ -65,6 +65,7 @@ function gettingLocalStorage() {
   const cart = localStorage.getItem('cart');
   document.querySelector('.cart__items').innnerHTML = cart;
   totalValue();
+  removeItem();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
