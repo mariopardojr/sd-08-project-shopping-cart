@@ -37,6 +37,7 @@ function cartItemClickListener(event) {
   if (event.target.classList.contains('cart__item')) {
     event.target.parentElement.removeChild(event.target);
   }
+  localSave();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
