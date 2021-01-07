@@ -61,11 +61,11 @@ function addButton() {
       const itemId = getSkuFromProductItem(Event.target.parentNode);
       fetch(`https://api.mercadolibre.com/items/${itemId}`)
       .then(response => response.json())
-      .then((object) => {
+      .then((product) => {
         const item = {
-          sku: object.id,
-          name: object.title,
-          salePrice: object.price,
+          sku: product.id,
+          name: product.title,
+          salePrice: product.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(item));
       });
