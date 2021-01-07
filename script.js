@@ -58,12 +58,12 @@ function createListOfProducts() {
 function addButton() {
   document.querySelector('.items').addEventListener('click', (Event) => {
     if (Event.target.classList.contains('item__add')) {
-      const itemId = getSkuFromProductItem(Event.target.parentNode);
-      fetch(`https://api.mercadolibre.com/items/${itemId}`)
+      const skuCode = getSkuFromProductItem(Event.target.parentNode);
+      fetch(`https://api.mercadolibre.com/items/${skuCode}`)
       .then(response => response.json())
       .then((data) => {
         const item = {
-          sku: data.id,
+          sku,
           name: data.title,
           salePrice: data.price,
         };
