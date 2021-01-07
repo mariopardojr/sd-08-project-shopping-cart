@@ -20,7 +20,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   const btn = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
-  btn.addEventListener('click',itself);
+  btn.addEventListener('click',tocart);
   section.appendChild(btn);
   
 
@@ -40,6 +40,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  const itemsCart = document.querySelector('.cart__items');
+  itemsCart.appendChild(li);
   return li;
 }
 
@@ -64,26 +66,24 @@ const getApi = () => new Promise((resolve, reject) => {
   .catch(results => reject(alert(results)));
 });
 
-//pega o id do objeto clicado
-const itself = (fonte) => {
-ids = fonte.target.parentNode.firstChild.innerText;
-tocart(ids);
-}
+
+
 
 
 //cria o objeto com os parametros e chama a função que cria o item do carrinho
-const tocart = () => new Promise((resolve, reject) => {
+const tocart = async (event) => {
+  ids = getSkuFromProductItem(event.target.parentNode);
   fetch(`https://api.mercadolibre.com/items/${ids}`)
   .then(objapi => objapi.json())
   .then(objson => { return (
     { 
-      sku: info.id,
-      name: info.title,
-      salePrice: info.salePrice
+      sku: objson.id,
+      name: objson.title,
+      salePrice: objson.price
     })
-})
+  })
   .then(objparam => createCartItemElement(objparam));
-})
+};
 
 
 
