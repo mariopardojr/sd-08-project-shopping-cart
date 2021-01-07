@@ -78,3 +78,9 @@
 .cart__item {
   margin-bottom: 5px;
 }
+
+.loading {
+  display: none;
+  font-size: 100px;
+  font-weight: 900;
+}
