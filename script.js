@@ -54,3 +54,23 @@ function createListOfProducts() {
     document.querySelector('.items').appendChild(createProductItemElement(item));
   }));
 }
+
+function addButton() {
+  const addProduct = document.querySelectorAll('.items');
+  addProduct.forEach((element) => {
+    element.addEventListener('click', (Event) => {
+      const itemId = getSkuFromProductItem(Event.target.parentNode);
+      fetch(`https://api.mercadolibre.com/items/${idItem}`)
+      .then(response => response.json())
+      .then((object) => {
+        const item = {
+          itemId,
+          name: object.title,
+          salesPrice: object.price,
+        };
+        document.querySelector('.cart__items').appendChild(createCartItemElement(item));
+      });
+    },
+  );
+});
+}
