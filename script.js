@@ -5,6 +5,23 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function cartItemClickListener(event) {
+  // coloque seu código aqui, criar uma função para fetch, url passada como param
+}
+
+async function fetchItem(event) {
+  fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentElement)}`)
+  .then((response) => {
+    response.json().then((data) => {
+      const cartItem = Object.create({});
+      cartItem.sku = data.id;
+      cartItem.name = data.title;
+      cartItem.salePrice = data.price;
+      createCartItemElement(cartItem);
+    });
+  });
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const cartSection = document.getElementsByClassName('cart')[0];
   const li = document.createElement('li');
@@ -13,19 +30,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   cartSection.appendChild(li);
   return li;
-}
-
-async function fetchItem(event) {
-  fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentElement)}`)
-  .then((response) => {
-    response.json().then((data) => {
-      const cartItem = Object.create( {} );
-      cartItem.sku = data.id;
-      cartItem.name = data.title;
-      cartItem.salePrice = data.price;
-      createCartItemElement(cartItem);
-    });
-  });
 }
 
 function createCustomElement(element, className, innerText) {
@@ -50,10 +54,6 @@ function createProductItemElement({ sku, name, image }) {
   section.querySelector('button').addEventListener('click', fetchItem);
   itemSection.appendChild(section);
   return section;
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui, criar uma função para fetch, url passada como param
 }
 
 async function getItem(item) {
