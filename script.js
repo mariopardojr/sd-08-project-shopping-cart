@@ -87,9 +87,12 @@ const createItems = async () => {
   const itemsContainer = document.querySelector('.items');
   items.forEach((item) => {
     const { id: sku, title: name, thumbnail: image } = item;
-    itemsContainer.appendChild(createProductItemElement({ sku, name, image }));
+    const productItem = createProductItemElement({ sku, name, image });
+    productItem.addEventListener('click', addItemToCartHandler);
+    itemsContainer.appendChild(productItem);
   });
 };
+
 window.onload = function onload() {
   createItems();
 };
