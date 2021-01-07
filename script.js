@@ -145,14 +145,15 @@ emptyBtn.addEventListener('click', () => {
   }
 });
 
-const loading = document.querySelector('.loading');
+const container = document.querySelector('.container');
+const loading = createCustomElement('span', 'loading', 'loading...');
 
 function loadingDisplayOn() {
-  loading.style.display = 'flex';
+  container.appendChild(loading);
 }
 
 function loadingDisplayOff() {
-  loading.style.display = 'none';
+  container.removeChild(loading);
 }
 
 window.onload = async function onload() {
