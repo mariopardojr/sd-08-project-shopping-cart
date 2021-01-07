@@ -5,17 +5,27 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-async function fetchItem(event) { //usar uma função para fetch, url passada como param
+function createCartItemElement({ sku, name, salePrice }) {
+  const cartSection = document.getElementsByClassName('cart')[0];
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  cartSection.appendChild(li);
+  return li;
+}
+
+async function fetchItem(event) {
   fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentElement)}`)
   .then((response) => {
     response.json().then((data) => {
-        const cartItem = Object.create( {} );
-        cartItem.sku = data.id;
-        cartItem.name = data.title;
-        cartItem.salePrice = data.price;
-        createCartItemElement(cartItem)
+      const cartItem = Object.create( {} );
+      cartItem.sku = data.id;
+      cartItem.name = data.title;
+      cartItem.salePrice = data.price;
+      createCartItemElement(cartItem);
     });
-  });  
+  });
 }
 
 function createCustomElement(element, className, innerText) {
@@ -23,6 +33,10 @@ function createCustomElement(element, className, innerText) {
   e.className = className;
   e.innerText = innerText;
   return e;
+}
+
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -35,27 +49,11 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   section.querySelector('button').addEventListener('click', fetchItem);
   itemSection.appendChild(section);
-  
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
 function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const cartSection = document.getElementsByClassName('cart')[0];
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  cartSection.appendChild(li)
-  console.log(li)
-  return li;
+  // coloque seu código aqui, criar uma função para fetch, url passada como param
 }
 
 async function getItem(item) {
@@ -76,4 +74,4 @@ async function getItem(item) {
 
 window.onload = async function onload() {
   await getItem('computador');
-  }
+};
