@@ -58,7 +58,7 @@ function createLoading() {
 function createResultListItem() {
   fetch(URL)
   .then(response => response.json())
-  .then(data => {
+  .then((data) => {
     data.results.forEach((item) => {
       const obj = {
         sku: item.id,
@@ -66,7 +66,8 @@ function createResultListItem() {
         image: item.thumbnail,
       };
       document.querySelector('.items').appendChild(createProductItemElement(obj));
-    })});
+    })
+  });
 }
 
 function loadItems() {
@@ -96,6 +97,6 @@ addEventListener('click', (event) => {
 
 window.onload = function onload() {
   loadItems();
-  createLoading(); 
+  createLoading();
   createResultListItem();
 };
