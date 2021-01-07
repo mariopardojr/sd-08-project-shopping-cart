@@ -1,13 +1,13 @@
 async function totalValue() {
   const cartValue = await document.querySelectorAll('.cart__item');
-  let initialPrice = 0;
+  const initialPrice = 0;
   await cartValue.forEach((product) => {
     const value = parseFloat(product.innnerHTML.split('$')[1]);
-    initialValue = value + initialValue;
-    return Math.round(initialValue.toFixed(2));
+    initialPrice = value + initialPrice;
+    return Math.round(initialPrice.toFixed(2));
   });
   const totalValue = document.querySelector('.total-price');
-  totalValue.innerHTML = initialValue;
+  totalValue.innerHTML = initialPrice;
 }
 
 function createProductImageElement(imageSource) {
