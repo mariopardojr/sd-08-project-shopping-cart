@@ -2,7 +2,7 @@ async function totalValue() {
   const cartValue = await document.querySelectorAll('.cart__item');
   let initialPrice = 0;
   await cartValue.forEach((product) => {
-    const value = parseFloat(product.innnerHTML.split('$')[1]);
+    const value = parseFloat(product.innerHTML.split('$')[1]);
     initialPrice = value + initialPrice;
     return Math.round(initialPrice.toFixed(2));
   });
@@ -63,7 +63,7 @@ function removeItem() {
 
 function gettingLocalStorage() {
   const cart = localStorage.getItem('cart');
-  document.querySelector('.cart__items').innnerHTML = cart;
+  document.querySelector('.cart__items').innerHTML = cart;
   totalValue();
   removeItem();
 }
@@ -93,16 +93,16 @@ function createListOfProducts() {
 }
 
 function addProduct() {
-  document.querySelector('.items').addEventListener('click', (Event) => {
-    if (Event.target.classList.contains('item__add')) {
-      const sku = getSkuFromProductItem(Event.target.parentNode);
+  document.querySelector('.items').addEventListener('click', (event) => {
+    if (event.target.classList.contains('item__add')) {
+      const sku = getSkuFromProductItem(event.target.parentNode);
       fetch(`https://api.mercadolibre.com/items/${sku}`)
       .then(response => response.json())
-      .then((data) => {
+      .then((object) => {
         const item = {
           sku,
-          name: data.title,
-          salePrice: data.price,
+          name: object.title,
+          salePrice: object.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(item));
         totalValue();
