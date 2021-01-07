@@ -47,7 +47,7 @@ async function cartItemClickListener(event) {
   priceStorageRemove = Math.round(priceStorageRemove * 100) / 100;
 
   const spanPriceToPay = document.querySelector('.total-price');
-  spanPriceToPay.innerText = `Total a pagar: ${priceStorageRemove}`;
+  spanPriceToPay.innerText = `${priceStorageRemove}`;
 
   localStorage.setItem('priceStorage', JSON.stringify(priceStorageRemove));
 
@@ -87,7 +87,7 @@ async function priceToPay(string) {
   priceStorageAdd = Math.round(priceStorageAdd * 100) / 100;
 
   const spanPriceToPay = document.querySelector('.total-price');
-  spanPriceToPay.innerText = `Total a pagar: ${priceStorageAdd}`;
+  spanPriceToPay.innerText = `${priceStorageAdd}`;
 
   localStorage.setItem('priceStorage', JSON.stringify(priceStorageAdd));
 }
