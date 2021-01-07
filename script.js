@@ -69,7 +69,7 @@ function apiMercado() {
           name: element.title,
           image: element.thumbnail,
         };
-        document.querySelector('.items').appendChild(createProductItemElement(newData));
+        return document.querySelector('.items').appendChild(createProductItemElement(newData));
       });
     });
 }
