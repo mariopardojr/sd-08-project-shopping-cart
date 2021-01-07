@@ -85,8 +85,8 @@ function addButton() {
 }
 
 function clearButton() {
-  const clearButton = document.querySelector('.empty-cart');
-  clearButton.addEventListener('click', () => {
+  const clearBtn = document.querySelector('.empty-cart');
+  clearBtn.addEventListener('click', () => {
     document.querySelector('cart__items').innerHTML = '';
     savingLocalStorage();
   });
