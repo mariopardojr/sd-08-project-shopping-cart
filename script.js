@@ -93,6 +93,7 @@ function clearAll() {
   document.querySelector('.total-price').innerHTML = '0';
   document.querySelector('.cart__items').innerHTML = '';
   localStorage.setItem('cart__items', '');
+  localSave();
 }
 
 
