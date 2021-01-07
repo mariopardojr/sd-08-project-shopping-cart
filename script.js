@@ -86,5 +86,4 @@ function addItemToCart() {
 window.onload = function onload() {
   getProducts();
   addItemToCart();
-  cartItemClickListener();
 };
