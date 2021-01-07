@@ -12,8 +12,9 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function cartItemClickListener() {
-  // coloque seu código aqui
+function cartItemClickListener(event) {
+  const cartItem = event.target;
+  cartItem.parentNode.removeChild(cartItem);
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
