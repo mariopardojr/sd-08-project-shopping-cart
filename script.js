@@ -57,7 +57,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  event.target.parentElement.removeChild(event.target);
+  const parent = event.target.parentElement;
+  parent.removeChild(event.target);
   totalPrice();
   localSave();
 }
