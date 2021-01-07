@@ -54,3 +54,5 @@ function createListOfProducts() {
     document.querySelector('.items').appendChild(createProductItemElement(item));
   }));
 }
+
+
