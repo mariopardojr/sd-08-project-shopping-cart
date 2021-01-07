@@ -73,8 +73,8 @@ function createList() {
   .then(response => response.json())// transforme o resultaod e json
   .then((object) => {
     loadingTxt();
-    const { results } = object;
-    const sectionItens = document.querySelector('.items');
+      const { results } = object;
+      const sectionItens = document.querySelector('.items');
       results.forEach((product) => {
       const obj = { sku: product.id, name: product.title, image: product.thumbnail };
       sectionItens.appendChild(createProductItemElement(obj));
