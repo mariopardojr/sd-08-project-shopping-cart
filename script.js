@@ -6,7 +6,7 @@ function createProductImageElement(imageSource) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui, criar uma função para fetch, url passada como param
+  event.target
 }
 
 function getSkuFromProductItem(item) {
@@ -14,7 +14,7 @@ function getSkuFromProductItem(item) {
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
-  const cartSection = document.getElementsByClassName('cart')[0];
+  const cartSection = document.getElementsByClassName('cart__items')[0];
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
