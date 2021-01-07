@@ -56,6 +56,14 @@ function createLoading() {
   document.body.appendChild(loading);
 }
 
+function cartTotalPrice() {
+  let total = 0;
+  document.querySelectorAll('.cart__item').forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = total;
+}
+
 function createResultListItem() {
   fetch(URL)
   .then(response => response.json())
@@ -97,14 +105,6 @@ addEventListener('click', (event) => {
     saveItems();
   }
 });
-
-function cartTotalPrice() {
-  let total = 0;
-  document.querySelectorAll('.cart__item').forEach((item) => {
-    total += parseFloat(item.innerHTML.split('$')[1]);
-  });
-  document.querySelector('.total-price').innerHTML = total;
-}
 
 window.onload = function onload() {
   loadItems();
