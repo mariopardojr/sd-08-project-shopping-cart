@@ -31,8 +31,8 @@ function cartItemClickListener(event) {
 function clearCart() {
   const cart = document.querySelector('.cart__items');
   cart.childNodes.forEach((item) => {
-    item.addEventListener('click', cartItemClickListener)
-  })
+    item.addEventListener('click', cartItemClickListener);
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -96,5 +96,5 @@ async function getProducts() {
 
 window.onload = async function onload() {
   await getProducts();
-  cartFullClear()
+  cartFullClear();
 };
