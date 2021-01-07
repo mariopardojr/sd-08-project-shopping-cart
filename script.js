@@ -56,7 +56,22 @@ function gerarProdutos() {
     },
     );
 }
-
+function colocarCarrinho() {
+  document.querySelector('.items').addEventListener('click', (event) => {
+    const item = getSkuFromProductItem(event.target.parentElement);
+    fetch(`https://api.mercadolibre.com/items/${item}`)
+      .then(response => response.json())
+      .then(({ id, title, price }) => {
+        const obj = {
+          sku: id,
+          name: title,
+          salePrice: price,
+        };
+        document.querySelector('.cart__items').appendChild(createCartItemElement(obj));
+      });
+  });
+}
 window.onload = function onload() {
   gerarProdutos('computador');
+  colocarCarrinho();
 };
