@@ -80,7 +80,16 @@ function addEventItemCar() {
   const items = document.querySelector('.items');
   items.addEventListener('click', addItem);
 }
+
+function createEventEmptyCar() {
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', () => {
+    const listaOrdenada = document.querySelector('.cart__items');
+    listaOrdenada.innerHTML = '';
+  });
+}
 window.onload = function onload() {
   criaListaItem();
   addEventItemCar();
+  createEventEmptyCar();
 };
