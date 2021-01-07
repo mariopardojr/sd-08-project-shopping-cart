@@ -102,7 +102,7 @@ const clearCart = () => {
 
 window.onload = async function onload() {
   await loadProducts();
-  document.querySelector('.loading').style.display = 'none';
+  document.querySelector('.loading').remove();
   clickEvent();
   clearCart();
   createPrice(totalPrice);
