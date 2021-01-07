@@ -65,9 +65,11 @@ function createLoading() {
 }
 
 function createResultListItem() {
+  createLoading();
   fetch(URL)
   .then(response => response.json())
   .then((data) => {
+    document.querySelector('.loading').remove();
     data.results.forEach((item) => {
       const obj = {
         sku: item.id,
@@ -108,6 +110,5 @@ addEventListener('click', (event) => {
 
 window.onload = function onload() {
   loadItems();
-  createLoading();
   createResultListItem();
 };
