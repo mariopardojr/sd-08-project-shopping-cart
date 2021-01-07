@@ -99,7 +99,7 @@ const fetchMBL = () => {
         itemsLocal.appendChild(createProductItemElement(element));
       });
     });
-}
+};
 
 function openLocalStorage() {
   if (localStorage.length !== 0) {
