@@ -99,8 +99,10 @@ const clearCart = () => {
   });
 };
 
+
 window.onload = async function onload() {
   await loadProducts();
+  document.querySelector('.loading').style.display = 'none';
   clickEvent();
   clearCart();
   createPrice(totalPrice);
