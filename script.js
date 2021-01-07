@@ -93,6 +93,7 @@ const fetchMBL = () => {
     .then(response => response.json())
     .then((data) => {
       const itemsLocal = document.querySelector('.items');
+      itemsLocal.className = 'items';
       itemsLocal.innerText = '';
       const compMBL = data.results.map(el => ({ sku: el.id, name: el.title, image: el.thumbnail }));
       compMBL.forEach((element) => {
@@ -121,6 +122,8 @@ function openLocalStorage() {
 window.onload = async function onload() {
   fetchMBL();
   openLocalStorage();
+  const itemsLocal = document.querySelector('.items');
+  itemsLocal.className += ' loading';
   const itemsLocal = document.querySelector('.loading');
   itemsLocal.innerText = 'loading';
   await sumCartPrices();
