@@ -53,12 +53,14 @@ function getApi() {
   .then(data => data.json())
   .then((data) => {
     const arrayResults = data.results;
+    const listItems = document.querySelector('.items');
     arrayResults.forEach((element) => {
-      createProductItemElement({
+      const product = createProductItemElement({
         sku: element.id,
         name: element.title,
         image: element.thumbnail,
       });
+      listItems.appendChild(product);
     });
     console.log(arrayResults);
     return arrayResults;
