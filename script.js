@@ -20,9 +20,9 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   const btn = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
-  btn.addEventListener('click',tocart);
+  btn.addEventListener('click', tocart);
   section.appendChild(btn);
-  
+
 
   return section;
 }
@@ -54,16 +54,16 @@ const ProductsOnScr = (array) => {
 
 const getApi = () => new Promise((resolve, reject) => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-  .then(response => response.json())
-  .then(data => data.results)
-  .then(array => array.map(product => ({
-    sku: product.id,
-    name: product.title,
-    image: product.thumbnail,
-  })))
-  .then(newArray => ProductsOnScr(newArray))
-  .then(results => resolve(results))
-  .catch(results => reject(alert(results)));
+    .then(response => response.json())
+    .then(data => data.results)
+    .then(array => array.map(product => ({
+      sku: product.id,
+      name: product.title,
+      image: product.thumbnail,
+    })))
+    .then(newArray => ProductsOnScr(newArray))
+    .then(results => resolve(results))
+    .catch(results => reject(alert(results)));
 });
 
 
@@ -74,15 +74,16 @@ const getApi = () => new Promise((resolve, reject) => {
 const tocart = async (event) => {
   ids = getSkuFromProductItem(event.target.parentNode);
   fetch(`https://api.mercadolibre.com/items/${ids}`)
-  .then(objapi => objapi.json())
-  .then(objson => { return (
-    { 
-      sku: objson.id,
-      name: objson.title,
-      salePrice: objson.price
+    .then(objapi => objapi.json())
+    .then(objson => {
+      return (
+        {
+          sku: objson.id,
+          name: objson.title,
+          salePrice: objson.price
+        })
     })
-  })
-  .then(objparam => createCartItemElement(objparam));
+    .then(objparam => createCartItemElement(objparam));
 };
 
 
