@@ -57,11 +57,9 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  if (event.target.classList.contains('cart__item')) {
-    event.target.parentElement.removeChild(event.target);
-    totalPrice();
-    localSave();
-  }
+  event.target.parentElement.removeChild(event.target);
+  totalPrice();
+  localSave();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
