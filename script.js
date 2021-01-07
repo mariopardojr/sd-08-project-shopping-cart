@@ -68,11 +68,11 @@ function addItem(event) {
         sku,
         name: data.title,
         salePrice: data.price,
-      }
+      };
       const itemCar = document.querySelector('.cart__items');
       itemCar.appendChild(createCartItemElement(descricaoItem));
     });
-  };
+  }
 }
 
 function addEventItemCar() {
