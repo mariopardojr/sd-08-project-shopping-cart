@@ -12,6 +12,22 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+// cria o objeto com os parametros e chama a função que cria o item do carrinho
+const tocart = async (event) => {
+  ids = getSkuFromProductItem(event.target.parentNode);
+  fetch(`https://api.mercadolibre.com/items/${ids}`)
+    .then(objapi => objapi.json())
+    .then(objson => {
+      return (
+        {
+          sku: objson.id,
+          name: objson.title,
+          salePrice: objson.price
+        })
+    })
+    .then(objparam => createCartItemElement(objparam));
+};
+
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -66,30 +82,7 @@ const getApi = () => new Promise((resolve, reject) => {
     .catch(results => reject(alert(results)));
 });
 
-
-
-
-
-//cria o objeto com os parametros e chama a função que cria o item do carrinho
-const tocart = async (event) => {
-  ids = getSkuFromProductItem(event.target.parentNode);
-  fetch(`https://api.mercadolibre.com/items/${ids}`)
-    .then(objapi => objapi.json())
-    .then(objson => {
-      return (
-        {
-          sku: objson.id,
-          name: objson.title,
-          salePrice: objson.price
-        })
-    })
-    .then(objparam => createCartItemElement(objparam));
-};
-
-
-
-
-//Traz a lista da  primeira api 
+// Traz a lista da  primeira api
 window.onload = function onload() {
   getApi();
 };
