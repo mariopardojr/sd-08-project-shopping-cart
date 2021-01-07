@@ -81,8 +81,14 @@ addEventListener('click', (event) => {
         document.querySelector('.cart__items').appendChild(createCartItemElement(obj));
         saveItems();
       });
-  } else if (event.target.className === 'cart__item') { cartItemClickListener(event); }
+  } else if (event.target.className === 'cart__item') { cartItemClickListener(event); };
+  
+  if (event.target.className === 'empty-cart'){
+    document.querySelector('.cart__items').innerHTML = ' ';
+    saveItems();
+  }
 });
+
 
 window.onload = function onload() {
   loadItems();
