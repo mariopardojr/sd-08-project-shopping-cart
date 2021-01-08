@@ -101,5 +101,5 @@ async function clearCart() {
 window.onload = async function onload() {
   await getItem('computador');
   await getStorageCart();
-  await document.querySelector('button.empty-cart').addEventListener('click', clearCart)
+  await document.querySelector('button.empty-cart').addEventListener('click', clearCart);
 };
