@@ -1,6 +1,8 @@
 function saveCart() {
   const lastCart = document.querySelector('.cart__items').innerHTML;
+  const lastTotal = document.querySelector('.total-price').innerHTML;
   localStorage.setItem('cart', lastCart);
+  localStorage.setItem('totalPrice', lastTotal);
 }
 
 function createProductImageElement(imageSource) {
@@ -36,8 +38,19 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.parentElement.removeChild(event.target);
+  showTotalPrices(getItemsInCartPrice());
   saveCart();
 }
+
+const getItemsInCartPrice = () => {
+  const items = document.querySelectorAll('.cart__item');
+  let totalPrice = 0;
+  items.forEach((getValue) => {
+   totalPrice += parseFloat(getValue.innerHTML.split('$').slice(-1));
+  });
+  const result = `Valor Total : $ ${totalPrice.toFixed(2)}`;
+  return result;
+};
 
 const removeProductInCart = () => {
   const itemCart = document.querySelectorAll('cart__item');
@@ -70,6 +83,7 @@ const addProductInCart = () => {
             salePrice: data.price,
           };
           document.querySelector('.cart__items').appendChild(createCartItemElement(item));
+          showTotalPrices(getItemsInCartPrice());
           saveCart();
         });
     }));
@@ -90,9 +104,16 @@ const findItens = (item) => {
     .then(() => addProductInCart());
 };
 
+const showTotalPrices = (totalValues) => {
+  const element = document.querySelector('.total-price');
+  element.innerHTML = totalValues;
+  return element;
+};
 const loadCart = () => {
   const currentCart = document.querySelector('.cart__items');
+  const currentPrice =  document.querySelector('.total-price');
   currentCart.innerHTML = localStorage.getItem('cart');
+  currentPrice.innerHTML = localStorage.getItem('totalPrice');
   // restaura a função de remover com um clique sobre o item que está no carrinho.
   const currentElements = document.querySelectorAll('.cart__item');
   currentElements.forEach(items => items.addEventListener('click', cartItemClickListener));
@@ -102,6 +123,7 @@ function eraseAllButton() {
   const eraseButton = document.querySelector('.empty-cart');
   eraseButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
+    showTotalPrices(getItemsInCartPrice());
     saveCart();
   });
 }
