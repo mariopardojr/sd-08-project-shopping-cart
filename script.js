@@ -1,7 +1,14 @@
 const loading = () => {
-  const load = document.createElement('h1').classList.add('loading').innerText = 'loading...';
-  document.getElementsByClassName('cart').appendChild(load);
-}
+  const load = document.createElement('h1');
+  load.classList.add('loading').innerText = 'loading...';
+  document.querySelector('.cart').appendChild(load);
+};
+
+const loadingDone = () => {
+  const cart = document.querySelector('.cart');
+  const load = document.querySelector('.loading');
+  cart.removeChild(load);
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -37,7 +44,8 @@ function getSkuFromProductItem(item) {
 }
 
 async function cartItemClickListener(event) {
-  return event;
+  console.log('click')
+  // return event;
 }
 
 function itemsFetch() {
@@ -58,7 +66,10 @@ function itemsFetch() {
 }
 
 window.onload = async function onload() {
-  itemsFetch();
+  // loading();
+  await itemsFetch();
+  addCartItem();
+  // loadingDone();
 };
 
 function createCartItemElement({
@@ -69,6 +80,29 @@ function createCartItemElement({
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function addCartItem() {
+  document.querySelector('.items').addEventListener('click', (e) => {
+    if (e.target.classList.contains('item__add')) {
+      const parent = e.target.parentElement;
+      const sku = getSkuFromProductItem(parent);
+      fetch(`https://api.mercadolibre.com/items/${sku}`)
+        .then(response => response.json())
+        .then((data) => {
+          const object = {
+            sku,
+            name: data.title,
+            salePrice: data.price,
+          };
+          let cartItem = document.querySelector('.cart__items');
+          cartItem.appendChild(createCartItemElement(object));
+        })
+    }
+  })
+}
+
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
 }
