@@ -81,7 +81,6 @@ function colocarCarrinho() {
 
 
 window.onload = function onload() {
-
   gerarProdutos('computador');
   colocarCarrinho();
 };
