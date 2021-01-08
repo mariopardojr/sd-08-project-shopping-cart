@@ -59,13 +59,13 @@ const tocart = async (event) => {
   const ids = getSkuFromProductItem(event.target.parentNode);
   fetch(`https://api.mercadolibre.com/items/${ids}`)
     .then(objapi => objapi.json())
-    .then((objson) => {
-      return {
+    .then(objson =>
+      ({
         sku: objson.id,
         name: objson.title,
         salePrice: objson.price,
-      };
-    })
+      })
+    )
     .then(objparam => createCartItemElement(objparam));
 };
 //  recebe os parametros e cria elementos
