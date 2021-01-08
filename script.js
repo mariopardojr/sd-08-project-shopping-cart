@@ -1,3 +1,7 @@
+function salvar() {
+  const salvados = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', salvados);
+}
 
 
 function createProductImageElement(imageSource) {
@@ -73,10 +77,6 @@ function colocarCarrinho() {
         salvar();
       });
   });
-}
-function salvar() {
-  const salvados = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', salvados);
 }
 window.onload = function onload() {
   gerarProdutos('computador');
