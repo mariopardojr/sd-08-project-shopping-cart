@@ -1,15 +1,3 @@
-const loading = () => {
-  const load = document.createElement('h1');
-  load.classList.add('loading').innerText = 'loading...';
-  document.querySelector('.cart').appendChild(load);
-};
-
-const loadingDone = () => {
-  const cart = document.querySelector('.cart');
-  const load = document.querySelector('.loading');
-  cart.removeChild(load);
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -39,13 +27,8 @@ function createProductItemElement({
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
 async function cartItemClickListener(event) {
-  console.log('click')
-  // return event;
+  console.log('click');
 }
 
 function itemsFetch() {
@@ -66,10 +49,8 @@ function itemsFetch() {
 }
 
 window.onload = async function onload() {
-  // loading();
   await itemsFetch();
   addCartItem();
-  // loadingDone();
 };
 
 function createCartItemElement({
@@ -83,11 +64,15 @@ function createCartItemElement({
   return li;
 }
 
+function getSku(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
 function addCartItem() {
   document.querySelector('.items').addEventListener('click', (e) => {
     if (e.target.classList.contains('item__add')) {
       const parent = e.target.parentElement;
-      const sku = getSkuFromProductItem(parent);
+      const sku = getSku(parent);
       fetch(`https://api.mercadolibre.com/items/${sku}`)
         .then(response => response.json())
         .then((data) => {
@@ -96,13 +81,9 @@ function addCartItem() {
             name: data.title,
             salePrice: data.price,
           };
-          let cartItem = document.querySelector('.cart__items');
+          const cartItem = document.querySelector('.cart__items');
           cartItem.appendChild(createCartItemElement(object));
-        })
+        });
     }
-  })
-}
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
+  });
 }
