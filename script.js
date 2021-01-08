@@ -1,13 +1,13 @@
+function saveCartItems() {
+  const cartItem = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', cartItem);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-}
-
-function saveCartItems() {
-  const cartItem = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', cartItem);
 }
 
 function createCustomElement(element, className, innerText) {
