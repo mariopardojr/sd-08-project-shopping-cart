@@ -90,7 +90,16 @@ async function getStorageCart() {
   }
 }
 
+async function clearCart() {
+  const cartSection = document.querySelector('ol.cart__items');
+  while (cartSection.firstChild) {
+    cartSection.firstChild.remove();
+  }
+  localStorage.clear();
+}
+
 window.onload = async function onload() {
   await getItem('computador');
   await getStorageCart();
+  await document.querySelector('button.empty-cart').addEventListener('click', clearCart)
 };
