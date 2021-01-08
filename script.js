@@ -34,11 +34,11 @@ const tocart = async (event) => {
     .then(objapi => objapi.json())
     .then((objson) => {
       return (
-        {
-          sku: objson.id,
-          name: objson.title,
-          salePrice: objson.price,
-        } 
+      {
+        sku: objson.id,
+        name: objson.title,
+        salePrice: objson.price,
+      }
       );
     })
     .then(objparam => createCartItemElement(objparam));
