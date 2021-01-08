@@ -38,6 +38,11 @@ const removeProductInCart = () => {
   itemCart.forEach(item => item.addEventListener('click', cartItemClickListener));
 };
 
+function saveCart() {
+  const lastCart = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', lastCart);
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -84,18 +89,13 @@ const findItens = async (item) => {
   addProductInCart();
 };
 
-function saveCart() {
-  const lastCart=document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', lastCart);
-}
-
 const loadCart = () => {
   const currentCart = document.querySelector('.cart__items');
   currentCart.innerHTML = localStorage.getItem('cart');
   // restaura a função de remover com um clique sobre o item que está no carrinho.
   const currentElements = document.querySelectorAll('.cart__item');
   currentElements.forEach(items => items.addEventListener('click', cartItemClickListener));
-}
+};
 
 removeProductInCart();
 
