@@ -87,8 +87,8 @@ function addCartItem() {
 function emptyCart() {
   const buttonEsvaziar = document.querySelector('.empty-cart');
   buttonEsvaziar.addEventListener('click', () => {
-    document.querySelector('.cart__items').innerHTML = ''
-  })
+    document.querySelector('.cart__items').innerHTML = '';
+  });
 }
 
 window.onload = async function onload() {
