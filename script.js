@@ -1,5 +1,5 @@
 function salvar() {
-  const salvados = document.querySelector('.cart__items');
+  const salvados = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('carrinho', salvados);
 }
 
@@ -79,12 +79,16 @@ function colocarCarrinho() {
   });
 }
 function carregar() {
-  const carregarItens = localStorage.getItem('carrinho');
-  const compras = document.querySelector('.cart__items');
-  compras.innerHTML = carregarItens;
-  const itens = document.querySelectorAll('li.cart__item');
-  itens.forEach(compra => compra.addEventListener('click', cartItemClickListener));
+  const carregados = localStorage.getItem('carrinho');
+  const lista = document.querySelector('.cart__items');
+  lista.innerHTML = carregados;
+  lista.addEventListener('click', (event) => {
+    if (event.target.classList.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  });
 }
+
 window.onload = function onload() {
   carregar();
   gerarProdutos('computador');
