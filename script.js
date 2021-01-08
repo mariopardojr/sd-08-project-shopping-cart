@@ -1,6 +1,3 @@
-window.onload = function onload() {
-  fetchProducts();
-};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -53,3 +50,7 @@ function fetchProducts() {
       itens.appendChild(createProductItemElement(obj));
     }));
 }
+
+window.onload = function onload() {
+  fetchProducts();
+};
