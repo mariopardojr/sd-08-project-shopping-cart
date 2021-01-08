@@ -1,3 +1,12 @@
+const sumPrices = () => {
+  const items = document.querySelectorAll('.cart__item');
+  let sum = 0;
+  items.forEach((item) => {
+    sum += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = sum;
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -110,15 +119,6 @@ const strLoad = () => {
   }));
   sumPrices();
 };
-
-const sumPrices = () => {
-  const items = document.querySelectorAll('.cart__item');
-  let sum = 0;
-  items.forEach((item) => {
-    sum += parseFloat(item.innerHTML.split('$')[1]);
-  });
-  document.querySelector('.total-price').innerHTML = sum;
-}
 
 window.onload = async function onload() {
   await itemsFetch();
