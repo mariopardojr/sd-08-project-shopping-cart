@@ -98,7 +98,8 @@ function emptyCart() {
 }
 
 const strLoad = () => {
-  const strItems = document.querySelector('.cart__items').innerHTML = localStorage.getItem('str');
+  const strItems = document.querySelector('.cart__items');
+  strItems.innerHTML = localStorage.getItem('str');
   strItems.addEventListener('click', ((e) => {
     if (e.target.classList.contains('cart__item')) {
       cartItemClickListener(e);
