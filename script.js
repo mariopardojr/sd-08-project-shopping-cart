@@ -15,6 +15,8 @@ function createCustomElement(element, className, innerText) {
 function cartItemClickListener(event) {
   const cartItem = event.target;
   cartItem.parentNode.removeChild(cartItem);
+  const cartSection = document.querySelector('.cart__items');
+  localStorage.setItem('oldCart', JSON.stringify(cartSection.innerHTML));
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
@@ -27,7 +29,9 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 
 const loadCartItem = (item) => {
   const cartSection = document.querySelector('.cart__items');
-  cartSection.appendChild(createCartItemElement(item));
+  const cartItem = createCartItemElement(item);
+  cartSection.appendChild(cartItem);
+  localStorage.setItem('oldCart', JSON.stringify(cartSection.innerHTML));
 };
 async function productByID(itemID, loadFn) {
   const url = `https://api.mercadolibre.com/items/${itemID}`;
@@ -39,6 +43,9 @@ async function productByID(itemID, loadFn) {
     throw new Error(err);
   }
 }
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -48,15 +55,11 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   section.querySelector('.item__add').addEventListener('click', async (element) => {
     const itemSection = element.target.parentNode;
-    const productID = itemSection.firstElementChild.innerText;
+    const productID = getSkuFromProductItem(itemSection);
     await productByID(productID, loadCartItem);
   });
   return section;
 }
-
-// function getSkuFromProductItem(item) {
-//   return item.querySelector('span.item__sku').innerText;
-// }
 
 async function productsByQuery(word, loadFn) {
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${word}`;
@@ -76,6 +79,16 @@ const loadProducts = (products) => {
   });
 };
 
+const oldCart = () => {
+  if (localStorage.getItem('oldCart')) {
+    const cartSection = document.querySelector('.cart__items');
+    cartSection.innerHTML = JSON.parse(localStorage.getItem('oldCart'));
+    const oldCartItems = cartSection.children;
+    Array.from(oldCartItems).forEach(oldCartItem => oldCartItem.addEventListener('click', cartItemClickListener));
+  }
+};
+
 window.onload = function onload() {
+  oldCart();
   productsByQuery('computer', loadProducts);
 };

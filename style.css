@@ -75,6 +75,14 @@
   text-align: center;
 }
 
+.cart__items {
+  margin: 6px;
+}
+
 .cart__item {
   margin-top: 8px;
+}
+
+.empty-cart {
+  border-radius: 4px;
 }
