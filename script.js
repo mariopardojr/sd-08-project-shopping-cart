@@ -17,9 +17,9 @@ function getSkuFromProductItem(item) {
 }
 
 function sumCart(salePrice) {
-  let sum = parseInt(document.querySelector('span.total-price').innerText);
+  let sum = parseFloat(document.querySelector('span.total-price').innerText, );
   sum += salePrice;
-  return sum; 
+  return sum;
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -30,7 +30,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   cartSection.appendChild(li);
-  total.innerText = sumCart(parseInt(salePrice));
+  total.innerText = sumCart(parseFloat(salePrice));
   const array = [...cartSection.childNodes].map(item => item.innerText);
   localStorage.setItem('cart', JSON.stringify(array));
   return li;
@@ -98,11 +98,11 @@ async function getStorageCart() {
   }
 }
 
-async function clearTotal () {
+async function clearTotal() {
   document.querySelector('span.total-price').innerText = 0;
 }
 
-function removeChildren () {
+function removeChildren() {
   const cartSection = document.querySelector('ol.cart__items');
   cartSection.innerHTML = '';
 }
@@ -112,8 +112,6 @@ async function clearCart() {
   .then(localStorage.clear())
   .then(removeChildren());
 }
-
-
 
 window.onload = async function onload() {
   await getItem('computador');
