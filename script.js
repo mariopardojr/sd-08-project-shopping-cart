@@ -104,7 +104,16 @@ async function getListItem() {
   results.results.map(result => createProductItemElement(result));
 }
 
+function emptyCart() {
+  shoppingCart = [];
+  localStorageUpdate();
+  document.querySelector('.cart__items').innerText = '';
+}
+
 window.onload = function onload() {
+  const emptyBtn = document.querySelector('.empty-cart');
+  emptyBtn.addEventListener('click', emptyCart);
+
   if (localStorage.getItem('savedCart') && localStorage.getItem('savedCart') !== '') {
     const parse = JSON.parse(localStorage.getItem('savedCart'));
     starterShoppingCart(parse);
