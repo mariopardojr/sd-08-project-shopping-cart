@@ -33,6 +33,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   total.innerText = sumCart(parseFloat(salePrice));
   const array = [...cartSection.childNodes].map(item => item.innerText);
   localStorage.setItem('cart', JSON.stringify(array));
+  localStorage.setItem('total', JSON.stringify(total.innerText))
   return li;
 }
 
