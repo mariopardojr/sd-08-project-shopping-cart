@@ -91,8 +91,8 @@ function colocarCarrinho() {
 function limpar() {
   const botao = document.querySelector('.empty-cart');
   botao.addEventListener('click', function () {
-    const limpar = document.querySelector('.cart__items');
-    limpar.innerHTML = '';
+    const limparItem = document.querySelector('.cart__items');
+    limparItem.innerHTML = '';
     precoTotal();
   });
 }
