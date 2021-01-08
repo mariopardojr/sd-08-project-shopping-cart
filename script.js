@@ -10,8 +10,8 @@ function cartItemClickListener(event) {
   const cartSection = document.getElementsByClassName('cart__items')[0];
   const splitTotal = [...cartSection.childNodes].reduce((acc, curr) => {
     acc += parseFloat(curr.innerText.split('$')[1]);
-    return acc
-  });
+    return acc;
+  }, 0);
   const array = [...cartSection.childNodes].map(item => item.innerText);
   localStorage.setItem('cart', JSON.stringify(array));
   localStorage.setItem('total', splitTotal);
