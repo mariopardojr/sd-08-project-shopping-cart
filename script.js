@@ -48,11 +48,6 @@ function itemsFetch() {
     });
 }
 
-window.onload = async function onload() {
-  await itemsFetch();
-  addCartItem();
-};
-
 function createCartItemElement({
   sku,
   name,
@@ -87,3 +82,8 @@ function addCartItem() {
     }
   });
 }
+
+window.onload = async function onload() {
+  await itemsFetch();
+  addCartItem();
+};
