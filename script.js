@@ -12,6 +12,11 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function cartItemClickListener(event) {
+  //  aqui deletamos os li ao clicar neles
+  const toDel = event.target.parentNode;
+  toDel.removeChild(event.target);
+}
 //  aqui deletamos os intens do carrinho
 function cartClear() {
   document.querySelector('.cart__items').innerHTML = '';
@@ -68,12 +73,6 @@ function createProductItemElement({ sku, name, image }) {
   btn.addEventListener('click', tocart);
   section.appendChild(btn);
   return section;
-}
-
-function cartItemClickListener(event) {
-  //  aqui deletamos os li ao clicar neles
-  const toDel = event.target.parentNode;
-  toDel.removeChild(event.target);
 }
 
 //  calculaitens no carinho
