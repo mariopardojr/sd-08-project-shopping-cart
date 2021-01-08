@@ -68,6 +68,7 @@ function getProducts() {
     .then((response) => {
       response.json()
         .then((data) => {
+          document.querySelector('.loading').remove();
           data.results.map((item) => {
             const items = {
               sku: item.id,
