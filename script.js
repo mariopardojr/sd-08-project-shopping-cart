@@ -17,7 +17,7 @@ const getItemPromise = ((item) => {
 });
 
 async function getTotalPrice() {
-  const cartItems = document.querySelector('.cart__items');
+  const cartItems = document.querySelector('.cart');
 
   if (document.querySelector('.total-price')) {
     cartItems.removeChild(document.querySelector('.total-price'));
