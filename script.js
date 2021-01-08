@@ -7,8 +7,9 @@ async function sumPrice() {
     const price = Number(element.innerText.split('$')[1]);
     sumPrices += price;
   });
+  sumPrices = sumPrices.toFixed(2);
   const totalPrice = document.querySelector('.total-price');
-  totalPrice.innerText = sumPrices.toFixed(2);
+  totalPrice.innerText = sumPrices;
 }
 
 function saveLocalStorage() {
