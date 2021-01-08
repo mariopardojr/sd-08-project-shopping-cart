@@ -1,6 +1,6 @@
 // const { promises } = require("fs");
 
-function saveStorage () {
+function saveStorage() {
   const cart = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cart', cart);
 }
