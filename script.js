@@ -1,5 +1,10 @@
 // const { promises } = require("fs");
 
+function saveStorage () {
+  const cart = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', cart);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -33,6 +38,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
+  saveStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -62,13 +68,20 @@ const fetchMercado = () => new Promise(() => {
           const { id: sku, title: name, price: salePrice } = data2;
           const cartLi = document.querySelector('ol , .cart__items');
           cartLi.appendChild(createCartItemElement({ sku, name, salePrice }));
+          saveStorage();
         });
       }
     });
   });
 });
 
+function loadCart() {
+  const cartStorage = localStorage.getItem('cart');
+  document.querySelector('cart__items').innerHTML = cartStorage;
+}
+
 
 window.onload = function onload() {
   fetchMercado();
+  loadCart();
 };
