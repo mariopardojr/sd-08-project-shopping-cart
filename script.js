@@ -30,7 +30,13 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  event.target.parentElement.removeChild(event.target);
 }
+
+const removeProductInCart = () => {
+  const itemCart = document.querySelectorAll('cart__item');
+  itemCart.forEach(item => item.addEventListener('click', cartItemClickListener));
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -40,8 +46,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-// A função addProductOnCart está sendo executada dentro da função findItens.
-const addProductOnCart = () => {
+// A função addProductInCart está sendo executada dentro da função findItens.
+const addProductInCart = () => {
   const addButton = document.querySelectorAll('.item__add');
   addButton.forEach(allAddButtons => allAddButtons
     .addEventListener('click', (event) => {
@@ -61,7 +67,7 @@ const addProductOnCart = () => {
     }));
 };
 
-/* utilizar async/await para que a função addProductOnCart só seja executada depois que
+/* utilizar async/await para que a função addProductInCart só seja executada depois que
 os elementos foram criados tive problemas ao tentar executar de outras formas.*/
 const findItens = async (item) => {
   await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${item}`)
@@ -74,7 +80,7 @@ const findItens = async (item) => {
       }));
       items.forEach(itemList => document.querySelector('.items').appendChild(createProductItemElement(itemList)));
     });
-  addProductOnCart();
+  addProductInCart();
 };
 
 window.onload = () => {
