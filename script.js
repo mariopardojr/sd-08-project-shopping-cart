@@ -23,6 +23,19 @@ function cartClear() {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
+
+//  cria os itens do carrinho
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  const itemsCart = document.querySelector('.cart__items');
+  itemsCart.appendChild(li);
+  calcTotalPrice(`${salePrice}`);
+  return li;
+}
+
 //  cria o objeto com os parametros e chama a função que cria o item do carrinho
 const tocart = async (event) => {
   //  tambem adiciona evento do BTN. limpa carrinho
@@ -71,17 +84,7 @@ const calcTotalPrice = async (value) => {
   console.log(newPrice);
   totalPrice.innerText = `${newPrice}`;
 };
-//  cria os itens do carrinho
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  const itemsCart = document.querySelector('.cart__items');
-  itemsCart.appendChild(li);
-  calcTotalPrice(`${salePrice}`);
-  return li;
-}
+
 //  povoa com os elementos
 const ProductsOnScr = (array) => {
   const items = document.querySelector('.items');
