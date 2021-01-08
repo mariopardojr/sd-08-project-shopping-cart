@@ -131,4 +131,3 @@ window.onload = () => {
   loadShoppingCart();
   emptyCart();
 };
-
