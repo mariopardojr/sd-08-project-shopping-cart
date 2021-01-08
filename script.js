@@ -80,7 +80,7 @@ function colocarCarrinho() {
 }
 function carregar() {
   const carregados = localStorage.getItem('carrinho');
-  const lista = document.querySelector('.cart__items');
+  const lista = document.querySelector('ol.cart__items');
   lista.innerHTML = carregados;
   lista.addEventListener('click', (event) => {
     if (event.target.classList.contains('cart__item')) {
