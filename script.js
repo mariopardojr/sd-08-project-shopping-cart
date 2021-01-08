@@ -41,3 +41,19 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function generateItemList() {
+  fetch("https://api.mercadolibre.com/sites/MLB/search?q=computador")
+  .then(response => response.json())
+  .then(data => data.results.forEach(item => {
+    const { id, title, thumbnail } = item;
+    const obj = {
+      sku: id,
+      name: title,
+      image: thumbnail,
+    };
+    console.log(createProductItemElement(obj))
+  }))
+}
+
+generateItemList()
