@@ -17,8 +17,7 @@ function cartClear() {
   document.querySelector('.cart__items').innerHTML = '';
   document.querySelectorAll('.cart__item').innerText = '';
   document.querySelector('.total-price').innerText = '0';
-
-};
+}
 
 //  cria o objeto com os parametros e chama a função que cria o item do carrinho
 const tocart = async (event) => {
@@ -29,13 +28,13 @@ const tocart = async (event) => {
   const ids = getSkuFromProductItem(event.target.parentNode);
   fetch(`https://api.mercadolibre.com/items/${ids}`)
     .then(objapi => objapi.json())
-    .then(objson => {
-      return (
-        {
-          sku: objson.id,
-          name: objson.title,
-          salePrice: objson.price
-        })
+    .then((objson) => {
+    return (
+      {
+        sku: objson.id,
+        name: objson.title,
+        salePrice: objson.price,
+    })
     })
     .then(objparam => createCartItemElement(objparam));
 };
@@ -59,10 +58,9 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   //  aqui deletamos os li ao clicar neles
-  let toDel = event.target.parentNode;
+  const toDel = event.target.parentNode;
   toDel.removeChild(event.target);
-
-}
+};
 
 //  calculaitens no carinho
 const calcTotalPrice = async (value) => {
@@ -72,9 +70,6 @@ const calcTotalPrice = async (value) => {
   console.log(newPrice);
   totalPrice.innerText = `${newPrice}`;
 };
-
-
-
 //  cria os itens do carrinho
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -86,13 +81,11 @@ function createCartItemElement({ sku, name, salePrice }) {
   calcTotalPrice(`${salePrice}`);
   return li;
 }
-
 //  povoa com os elementos
 const ProductsOnScr = (array) => {
   const items = document.querySelector('.items');
   array.forEach(element => items.appendChild(createProductItemElement(element)));
 };
-
 //  pega dados no api e repassa
 const getApi = () => new Promise((resolve, reject) => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
@@ -107,9 +100,6 @@ const getApi = () => new Promise((resolve, reject) => {
     .then(results => resolve(results))
     .catch(results => reject(alert(results)));
 });
-
-
-
 //  chama  a lista da  primeira api ao carregar a pagina
 window.onload = function onload() {
   getApi();
