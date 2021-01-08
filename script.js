@@ -1,5 +1,5 @@
 function salvar() {
-  const salvados = document.querySelector('.cart__items').innerHTML;
+  const salvados = document.querySelector('ol.cart__items').innerHTML;
   localStorage.setItem('cart', salvados);
 }
 
