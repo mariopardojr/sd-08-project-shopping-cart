@@ -91,13 +91,30 @@ function localStorageCheck() {
   });
 }
 
-
+function cartClear() {
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', (event) => {
+    if (event.target.classList.contains('empty-cart')) {
+      document.querySelector('ol').innerHTML = '';
+      addToStorage();
+    }
+  });
+}
+// função para somar o valor dos itens no cart. Ainda em duvida como resolver assincronicidade.
+// function totalPrice(price) {
+//   const display = document.querySelector('h3');
+//   const total = total + price;
+//   display.innerHTML = `Preço total: $ ${total}`;
+//   console.log(display)
+// }
 window.onload = function onload() {
-  // // criação Loading
+  //   criação Loading
   //   const msg = document.createElement('h1');
   //   msg.className = 'items';
   //   msg.innerHTML = 'Loading!';
   //   document.querySelector('.items').appendChild(msg);
   localStorageCheck();
+  cartClear();
   apiMercado();
+  // totalPrice();
 };
