@@ -53,19 +53,26 @@ function cartItemClickListener(event) {
   // aqui deletamos os li ao clicar neles
   let toDel = event.target.parentNode;
   toDel.removeChild(event.target);
-  
-}
-// aqui deletamos os instens do carrinho
-function cartClear() {
-  const olSel = document.querySelector('.cart__items');
-  const lilist = document.querySelectorAll('.cart__item');
 
-  lilist.forEach(position =>{ lilist.appendChild(position)
-  });
-  
+}
+// aqui deletamos os intens do carrinho
+function cartClear() {
+  document.querySelector('.cart__items').innerHTML = '';
+  document.querySelectorAll('.cart__item').innerText = '';
+  document.querySelector('.total-price').innerText = '0';
+
 };
-  
-  
+
+// calculaitens no carinho
+const calcTotalPrice = async (value) => {
+  const totalPrice = document.querySelector('.total-price');
+  const actualPrice = parseFloat(totalPrice.innerText);
+  const newPrice = parseFloat(actualPrice + parseFloat(value));
+  console.log(newPrice);
+  totalPrice.innerText = `${newPrice}`;
+};
+
+
 
 // cria os itens do carrinho
 function createCartItemElement({ sku, name, salePrice }) {
@@ -75,6 +82,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   const itemsCart = document.querySelector('.cart__items');
   itemsCart.appendChild(li);
+  calcTotalPrice(`${salePrice}`);
   return li;
 }
 
