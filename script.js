@@ -7,7 +7,6 @@ async function sumPrice() {
     const price = Number(element.innerText.split('$')[1]);
     sumPrices += price;
   });
-  sumPrices = sumPrices;
   const totalPrice = document.querySelector('.total-price');
   totalPrice.innerText = sumPrices;
 }
