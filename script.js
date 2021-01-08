@@ -94,12 +94,12 @@ function createCartItemElement({ sku, name, salePrice }) {
 const createCartItem = async (id) => {
   const cart = document.querySelector('.cart__items');
   const item = await getItem(id);
-      const { id: sku, title: name, price: salePrice } = item;
-      const newCartItem = createCartItemElement({ sku, name, salePrice });
-      cart.appendChild(newCartItem);
-      cartItems.push({ id: sku, elem: newCartItem });
-      updateCartTotal();
-    };
+  const { id: sku, title: name, price: salePrice } = item;
+  const newCartItem = createCartItemElement({ sku, name, salePrice });
+  cart.appendChild(newCartItem);
+  cartItems.push({ id: sku, elem: newCartItem });
+  updateCartTotal();
+};
 
 const addItemToCartHandler = (event) => {
   if (event.target.classList.contains('item__add')) {
