@@ -31,6 +31,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.parentElement.removeChild(event.target);
+  saveCart();
 }
 
 const removeProductInCart = () => {
@@ -69,6 +70,7 @@ const addProductInCart = () => {
             salePrice: data.price,
           };
           document.querySelector('.cart__items').appendChild(createCartItemElement(item));
+          saveCart();
         });
     }));
 };
