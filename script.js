@@ -29,6 +29,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+//  calculaitens no carinho
+const calcTotalPrice = async (value) => {
+  const totalPrice = document.querySelector('.total-price');
+  const actualPrice = parseFloat(totalPrice.innerText);
+  const newPrice = parseFloat(actualPrice + parseFloat(value));
+  console.log(newPrice);
+  totalPrice.innerText = `${newPrice}`;
+};
+
 //  cria os itens do carrinho
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -74,15 +83,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(btn);
   return section;
 }
-
-//  calculaitens no carinho
-const calcTotalPrice = async (value) => {
-  const totalPrice = document.querySelector('.total-price');
-  const actualPrice = parseFloat(totalPrice.innerText);
-  const newPrice = parseFloat(actualPrice + parseFloat(value));
-  console.log(newPrice);
-  totalPrice.innerText = `${newPrice}`;
-};
 
 //  povoa com os elementos
 const ProductsOnScr = (array) => {
