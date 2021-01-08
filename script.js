@@ -55,9 +55,9 @@ function generateList() {
         document
           .querySelector('.items')
           .appendChild(createProductItemElement(obj));
-      })
+      }),
     );
-};
+}
 
 function addToCart() {
   document.querySelector('.items').addEventListener('click', (event) => {
