@@ -77,7 +77,7 @@ const fetchMercado = () => new Promise(() => {
 
 function loadCart() {
   const cartStorage = localStorage.getItem('cart');
-  document.querySelector('cart__items').innerHTML = cartStorage;
+  document.querySelector('.cart__items').innerHTML = cartStorage;
 }
 
 
