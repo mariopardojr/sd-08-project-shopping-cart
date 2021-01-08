@@ -60,7 +60,7 @@ const tocart = async (event) => {
   fetch(`https://api.mercadolibre.com/items/${ids}`)
     .then(objapi => objapi.json())
     .then((objson) => {
-      ({
+      return ({
         sku: objson.id,
         name: objson.title,
         salePrice: objson.price,
