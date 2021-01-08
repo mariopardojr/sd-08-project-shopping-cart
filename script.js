@@ -112,8 +112,20 @@ function loadCartItems() {
   totalPrice();
 }
 
+function emptyCart() {
+  const button = document.querySelector('.empty-cart');
+  const cart = document.querySelector('.cart__items');
+
+  button.addEventListener('click', () => {
+    cart.innerHTML = '';
+    totalPrice();
+    localStorageItems();
+  });
+}
+
 window.onload = function onload() {
   loadCartItems();
   getProducts();
   addItemToCart();
+  emptyCart();
 };
