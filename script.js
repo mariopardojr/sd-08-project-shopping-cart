@@ -75,10 +75,8 @@ const addProductInCart = () => {
     }));
 };
 
-/* utilizar async/await para que a função addProductInCart só seja executada depois que
-os elementos foram criados tive problemas ao tentar executar de outras formas.*/
-const findItens = async (item) => {
-  await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${item}`)
+const findItens = (item) => {
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${item}`)
     .then(response => response.json())
     .then((data) => {
       const items = data.results.map(results => ({
@@ -88,8 +86,8 @@ const findItens = async (item) => {
       }));
       document.querySelector('.loading').remove();
       items.forEach(itemList => document.querySelector('.items').appendChild(createProductItemElement(itemList)));
-    });
-  addProductInCart();
+    })
+    .then(() => addProductInCart());
 };
 
 const loadCart = () => {
