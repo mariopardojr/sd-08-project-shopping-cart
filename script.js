@@ -99,10 +99,7 @@ function restorageItems() {
   });
 }
 
-function totalPrice() {
-  const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach();
-}
+
 
 window.onload = function onload() {
   restorageItems();
