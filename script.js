@@ -17,7 +17,7 @@ function getSkuFromProductItem(item) {
 }
 
 function sumCart(salePrice) {
-  let sum = parseFloat(document.querySelector('span.total-price').innerText, );
+  let sum = parseFloat(document.querySelector('span.total-price').innerText);
   sum += salePrice;
   return sum;
 }
