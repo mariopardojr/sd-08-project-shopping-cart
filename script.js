@@ -136,5 +136,5 @@ async function createItems() {
     createItems();
     init();
     document.querySelector('.empty-cart').addEventListener('click', clearCart);
-};
+  };
 }
