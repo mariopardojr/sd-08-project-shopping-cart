@@ -28,7 +28,8 @@ function createProductItemElement({
 }
 
 async function cartItemClickListener(event) {
-  console.log('click');
+  const elementToRemove = event.target;
+  elementToRemove.parentElement.removeChild(elementToRemove);
 }
 
 function itemsFetch() {
@@ -83,7 +84,15 @@ function addCartItem() {
   });
 }
 
+function emptyCart() {
+  const buttonEsvaziar = document.querySelector('.empty-cart');
+  buttonEsvaziar.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = ''
+  })
+}
+
 window.onload = async function onload() {
   await itemsFetch();
   addCartItem();
+  emptyCart();
 };
