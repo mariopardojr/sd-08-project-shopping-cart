@@ -77,11 +77,11 @@ function addProductCartItems() {
 }
 
 function emptyCart() {
-  const emptyCart = document.querySelector('.empty-cart');
-  emptyCart.addEventListener('click', () => {
+  const emptyCarts = document.querySelector('.empty-cart');
+  emptyCarts.addEventListener('click', () => {
     const ol = document.querySelector('.cart__items');
     ol.innerHTML = '';
-  })
+  });
 }
 
 window.onload = function onload() {
