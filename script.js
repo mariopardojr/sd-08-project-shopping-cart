@@ -88,9 +88,18 @@ function colocarCarrinho() {
       });
   });
 }
+function limpar() {
+  const botao = document.querySelector('.empty-cart');
+  botao.addEventListener('click', function () {
+    const limpar = document.querySelector('.cart__items');
+    limpar.innerHTML = '';
+    precoTotal();
+  });
+}
 
 
 window.onload = function onload() {
   gerarProdutos('computador');
   colocarCarrinho();
+  limpar();
 };
