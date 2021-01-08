@@ -86,3 +86,17 @@
 .empty-cart {
   border-radius: 4px;
 }
+
+.total-div {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 10px;
+}
+
+.total-price {
+  display: flex;
+}
+
+.total-price-description {
+  display: flex;
+}
