@@ -65,6 +65,6 @@ function getApi() {
   });
 }
 
-window.onload = function onload() { 
+window.onload = function onload() {
   getApi();
 };
