@@ -1,6 +1,6 @@
 function salvar() {
-  const salvados = document.querySelector('ol.cart__items').innerHTML;
-  localStorage.setItem('cart', salvados);
+  const salvados = document.querySelector('ol.cart__items');
+  localStorage.carrinho = salvados.innerHTML;
 }
 
 
