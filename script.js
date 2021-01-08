@@ -71,7 +71,6 @@ async function addFunction(event) {
   const result = await reqItem.json();
   const listItems = document.querySelector('.cart__items');
   listItems.appendChild(createCartItemElement(result));
-  
   sumPrice();
 }
 
@@ -82,22 +81,18 @@ function addEventToBtns() {
   });
 }
 
-
-
 const clearCart = () => {
-  const cartItem = document.querySelector('.cart__items');  
+  const cartItem = document.querySelector('.cart__items');
   const totalPrice = document.querySelector('.total-price');
-  while(cartItem.lastChild) {
-    cartItem.removeChild(cartItem.lastChild)
+  while (cartItem.lastChild) {
+    cartItem.removeChild(cartItem.lastChild);
   }
-
   totalPrice.innerHTML = 0;
 };
 
 const emptyCart = () => {
   const emptyCartBtn = document.querySelector('.empty-cart');
   emptyCartBtn.addEventListener('click', clearCart);
-  
 };
 
 window.onload = async function onload() {
