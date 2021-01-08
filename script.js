@@ -48,10 +48,13 @@ function creatItems(obj) {
 function fetchProducts() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(object => object.results.forEach((element) => {
-      const obj = { sku: element.id, name: element.title, image: element.thumbnail };
-      creatItems(obj);
-    }));
+    .then((object) => {
+      document.querySelector('.loading').remove();
+      object.results.forEach((element) => {
+        const obj = { sku: element.id, name: element.title, image: element.thumbnail };
+        creatItems(obj);
+      });
+    });
 }
 
 function creatMoveItems(obj) {
