@@ -82,7 +82,7 @@ function addToCart() {
           document
             .querySelector('.cart__items')
             .appendChild(createCartItemElement(objItem));
-            saveCartItems();
+          saveCartItems();
         });
     }
   });
@@ -100,7 +100,7 @@ function restorageItems() {
 }
 
 window.onload = function onload() {
-  restorageItems()
+  restorageItems();
   generateList();
   addToCart();
 };
