@@ -49,7 +49,7 @@ const findItens = (item) => {
         name: results.title,
         image: results.thumbnail,
       }));
-      items.forEach(data => document.querySelector('.items').appendChild(createProductItemElement(data)));
+      items.forEach(itemList => document.querySelector('.items').appendChild(createProductItemElement(itemList)));
     });
 };
 
