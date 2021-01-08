@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 // function savedStorage() {
 //   const cartItems = document.querySelector('.cart__items').innerHTML;
 //   localStorage.setItem('itens', cartItems);
@@ -67,4 +65,6 @@ function getApi() {
   });
 }
 
-getApi();
+window.onload = function onload() { 
+  getApi();
+};
