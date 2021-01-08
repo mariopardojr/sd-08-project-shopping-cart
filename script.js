@@ -6,6 +6,16 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function totalItensCartPrice() {
+  const itensOnCart = document.querySelectorAll('.cart__item');
+  const display = document.querySelector('.total-price');
+  let totalPrice = 0;
+  itensOnCart.forEach((item) => {
+    totalPrice += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  display.innerHTML = `${totalPrice}`;
+}
+
 function addToStorage() {
   const cartItens = document.querySelector('ol').innerHTML;
   localStorage.setItem('cartItens', cartItens);
@@ -14,6 +24,7 @@ function addToStorage() {
 function cartItemClickListener(event) {
   event.target.remove();
   addToStorage();
+  totalItensCartPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -36,6 +47,7 @@ function apiItem(event) {
       };
       document.querySelector('ol').appendChild(createCartItemElement(cartItem));
       addToStorage();
+      totalItensCartPrice();
     });
 }
 
@@ -57,7 +69,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
 
   return section;
 }
@@ -89,6 +100,7 @@ function localStorageCheck() {
       cartItemClickListener(event);
     }
   });
+  totalItensCartPrice();
 }
 
 function cartClear() {
@@ -97,24 +109,13 @@ function cartClear() {
     if (event.target.classList.contains('empty-cart')) {
       document.querySelector('ol').innerHTML = '';
       addToStorage();
+      totalItensCartPrice();
     }
   });
 }
-// função para somar o valor dos itens no cart. Ainda em duvida como resolver assincronicidade.
-// function totalPrice(price) {
-//   const display = document.querySelector('h3');
-//   const total = total + price;
-//   display.innerHTML = `Preço total: $ ${total}`;
-//   console.log(display)
-// }
+
 window.onload = function onload() {
-  //   criação Loading
-  //   const msg = document.createElement('h1');
-  //   msg.className = 'items';
-  //   msg.innerHTML = 'Loading!';
-  //   document.querySelector('.items').appendChild(msg);
   localStorageCheck();
   cartClear();
   apiMercado();
-  // totalPrice();
 };
