@@ -82,7 +82,8 @@ function carregar() {
   const carregarItens = localStorage.getItem('carrinho');
   const compras = document.querySelector('.cart__items');
   compras.innerHTML = carregarItens;
-  compras.forEach(compra => compra.addEventListener('click', cartItemClickListener));
+  const itens = document.querySelectorAll('li.cart__item');
+  itens.forEach(compra => compra.addEventListener('click', cartItemClickListener));
 }
 window.onload = function onload() {
   carregar();
