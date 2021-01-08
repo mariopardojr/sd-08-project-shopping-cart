@@ -33,6 +33,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   const remover = event.target.parentElement;
   remover.removeChild(event.target);
+  salvar();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -69,8 +70,13 @@ function colocarCarrinho() {
           salePrice: data.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(datas));
+        salvar();
       });
   });
+}
+function salvar() {
+  const salvados = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', salvados);
 }
 window.onload = function onload() {
   gerarProdutos('computador');
