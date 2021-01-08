@@ -47,10 +47,11 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 const fetchItems = async () => {
   const req = await fetch(API_URL);
   const { results } = await req.json();
-  results.forEach((item) => {
-    const section = document.querySelector('.items');
-    section.append(createProductItemElement(item));
-  });
+    document.querySelector('.loading').remove();
+    results.forEach((item) => {
+      const section = document.querySelector('.items');
+      section.append(createProductItemElement(item));
+    });
 };
 
 
