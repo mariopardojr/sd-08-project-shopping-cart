@@ -29,6 +29,16 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function sumPrices() {
+  const cartItem = document.querySelectorAll('.cart__item');
+  let total = 0;
+  cartItem.forEach((element) => {
+    total += parseFloat(element.innerText.split('$')[1]);
+  });
+  const totalPrice = document.querySelector('.total-price');
+  totalPrice.innerText = total;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   sumPrices();
@@ -88,16 +98,6 @@ function emptyCart() {
     ol.innerHTML = '';
     sumPrices();
   });
-}
-
-async function sumPrices() {
-  const cartItem = document.querySelectorAll('.cart__item');
-  let total = 0;
-  cartItem.forEach((element) => {
-    total += parseFloat(element.innerText.split('$')[1]);
-  });
-  const totalPrice = document.querySelector('.total-price');
-  totalPrice.innerText = total;
 }
 
 window.onload = function onload() {
