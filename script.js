@@ -64,7 +64,8 @@ async function addFunction(event) {
 function addEventToBtns() {
   const addBtn = document.querySelectorAll('.item__add');
   addBtn.forEach((btn) => {
-    btn.addEventListener('click', addFunction)});
+    btn.addEventListener('click', addFunction);
+  });
 }
 
 window.onload = async function onload() {
