@@ -83,6 +83,8 @@ const findItens = async (item) => {
   addProductInCart();
 };
 
+removeProductInCart();
+
 window.onload = () => {
   findItens('computador');
 };
