@@ -11,11 +11,49 @@ function createCustomElement(element, className, innerText) {
   e.innerText = innerText;
   return e;
 }
+async function getTotalFromCartItems(cartItems, num = 0) {
+  return cartItems.reduce((total, cartItem) => {
+    const pattern = /(\d+[.]?\d{0,2})$/g;
+    const matcher = cartItem.innerText.match(pattern);
+    const itemPrice = parseFloat(matcher);
+    const newTotal = total + itemPrice;
+    return parseFloat(newTotal.toFixed(2));
+  }, num);
+}
+const asyncSum = async (num = 0) => {
+  const cartItems = Array.from(document.querySelectorAll('.cart__item'));
+  let totalPrice = 0;
+  if (cartItems.length !== 0) {
+    totalPrice = await getTotalFromCartItems(cartItems, num);
+  }
+  return totalPrice;
+};
+const createTotalDiv = async () => {
+  const totalDiv = document.createElement('div');
+  totalDiv.className = 'total-div';
+  const legendField = createCustomElement('span', 'total-price-description', 'Total: R$');
+  const totalField = createCustomElement('span', 'total-price', await asyncSum());
+  totalDiv.appendChild(legendField);
+  totalDiv.appendChild(totalField);
+  return totalDiv;
+};
+async function updateTotalField() {
+  const cartElement = document.querySelector('.cart');
+  const emptyButton = cartElement.querySelector('.empty-cart');
+  const totalField = cartElement.querySelector('.total-price');
+  if (!totalField) {
+    const totalDiv = await createTotalDiv();
+    cartElement.insertBefore(totalDiv, emptyButton);
+  } else {
+    totalField.innerText = `${await asyncSum()}`;
+  }
+}
 
 function cartItemClickListener(event) {
   const cartItem = event.target;
   cartItem.parentNode.removeChild(cartItem);
   const cartSection = document.querySelector('.cart__items');
+  updateTotalField();
   localStorage.setItem('oldCart', JSON.stringify(cartSection.innerHTML));
 }
 
@@ -31,6 +69,7 @@ const loadCartItem = (item) => {
   const cartSection = document.querySelector('.cart__items');
   const cartItem = createCartItemElement(item);
   cartSection.appendChild(cartItem);
+  updateTotalField();
   localStorage.setItem('oldCart', JSON.stringify(cartSection.innerHTML));
 };
 async function productByID(itemID, loadFn) {
@@ -91,6 +130,7 @@ const oldCart = () => {
 const emptyCart = ({ target }) => {
   const cart = target.parentNode;
   cart.querySelector('.cart__items').innerHTML = '';
+  updateTotalField();
   localStorage.removeItem('oldCart');
 };
 
@@ -100,6 +140,7 @@ const emptyButtonListener = () => {
 
 window.onload = function onload() {
   oldCart();
+  updateTotalField();
   emptyButtonListener();
   productsByQuery('computer', loadProducts);
 };
