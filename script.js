@@ -1,4 +1,5 @@
 window.onload = function onload() {};
+
 let shoppingCart = [];
 
 const getItemPromise = ((item) => {
