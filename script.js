@@ -19,6 +19,10 @@ function cartClear() {
   document.querySelector('.total-price').innerText = '0';
 }
 
+//  pega o id do item
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
 //  cria o objeto com os parametros e chama a função que cria o item do carrinho
 const tocart = async (event) => {
   //  tambem adiciona evento do BTN. limpa carrinho
@@ -28,13 +32,14 @@ const tocart = async (event) => {
   const ids = getSkuFromProductItem(event.target.parentNode);
   fetch(`https://api.mercadolibre.com/items/${ids}`)
     .then(objapi => objapi.json())
-    .then((objson) => {
-    return (
-      {
-        sku: objson.id,
-        name: objson.title,
-        salePrice: objson.price,
-    })
+    .then(objson => {
+        return (
+          {
+            sku: objson.id,
+            name: objson.title,
+            salePrice: objson.price,
+          }  
+        );
     })
     .then(objparam => createCartItemElement(objparam));
 };
@@ -51,16 +56,12 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(btn);
   return section;
 }
-//  pega o id do item
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
 
 function cartItemClickListener(event) {
   //  aqui deletamos os li ao clicar neles
   const toDel = event.target.parentNode;
   toDel.removeChild(event.target);
-};
+}
 
 //  calculaitens no carinho
 const calcTotalPrice = async (value) => {
