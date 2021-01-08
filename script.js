@@ -88,7 +88,18 @@ const oldCart = () => {
   }
 };
 
+const emptyCart = ({ target }) => {
+  const cart = target.parentNode;
+  cart.querySelector('.cart__items').innerHTML = '';
+  localStorage.removeItem('oldCart');
+};
+
+const emptyButtonListener = () => {
+  document.querySelector('.empty-cart').addEventListener('click', evento => emptyCart(evento));
+};
+
 window.onload = function onload() {
   oldCart();
+  emptyButtonListener();
   productsByQuery('computer', loadProducts);
 };
