@@ -12,13 +12,15 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function cartItemClickListener(event) {
+  event.target.remove();
+}
+
+
 // function getSkuFromProductItem(item) {
 //  return item.querySelector('span.item__sku').innerText;
 // }
 
-function cartItemClickListener(event) {
-  event.targe.remove();
-}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
