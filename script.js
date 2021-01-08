@@ -130,11 +130,11 @@ async function createItems() {
     const productItem = createProductItemElement({ sku, name, image });
     productItem.addEventListener('click', addItemToCartHandler);
     itemsContainer.appendChild(productItem);
-  })
+  });
 
-window.onload = function onload() {
+  window.onload = function onload() {
     createItems();
     init();
     document.querySelector('.empty-cart').addEventListener('click', clearCart);
-  };
 };
+}
