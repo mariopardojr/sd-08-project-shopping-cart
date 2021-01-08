@@ -99,6 +99,7 @@ function restorageItems() {
   });
 }
 
+
 window.onload = function onload() {
   restorageItems();
   generateList();
