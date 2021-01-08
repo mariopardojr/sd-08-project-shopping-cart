@@ -10,6 +10,12 @@ const salvandoLocal = () => {
   const itensCarrinho = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('itens', itensCarrinho);
 };
+const limparCarrinho = () => {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    salvandoLocal();
+  });
+};
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
@@ -99,4 +105,5 @@ window.onload = function onload() {
   buscarApi();
   addItemCarrinho();
   carregandoLocal();
+  limparCarrinho();
 };
