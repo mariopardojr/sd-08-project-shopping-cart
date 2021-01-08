@@ -40,7 +40,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-//A função addProductOnCart está sendo executada dentro da função findItens.
+// A função addProductOnCart está sendo executada dentro da função findItens.
 const addProductOnCart = () => {
   const addButton = document.querySelectorAll('.item__add');
   addButton.forEach(allAddButtons => allAddButtons
@@ -61,8 +61,8 @@ const addProductOnCart = () => {
     }));
 };
 
-/*utilizar async/await para que a função addProductOnCart só seja executada depois que os elementos foram criados
-tive problemas ao tentar executar de outras formas.*/
+/* utilizar async/await para que a função addProductOnCart só seja executada depois que
+os elementos foram criados tive problemas ao tentar executar de outras formas.*/
 const findItens = async (item) => {
   await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${item}`)
     .then(response => response.json())
@@ -73,7 +73,7 @@ const findItens = async (item) => {
         image: results.thumbnail,
       }));
       items.forEach(itemList => document.querySelector('.items').appendChild(createProductItemElement(itemList)));
-    })
+    });
   addProductOnCart();
 };
 
