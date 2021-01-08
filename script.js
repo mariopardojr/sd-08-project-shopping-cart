@@ -70,7 +70,6 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  saveLocalStorage();
   return li;
 }
 
@@ -91,6 +90,7 @@ async function addToCartFunction(event) {
   const listItems = document.querySelector('.cart__items');
   listItems.appendChild(createCartItemElement(result));
   sumPrice();
+  saveLocalStorage();
 }
 
 function addEventToBtns() {
