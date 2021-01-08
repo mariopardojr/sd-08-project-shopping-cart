@@ -45,7 +45,7 @@ const addProductOnCart = () => {
   const addButton = document.querySelectorAll('.item__add');
   addButton.forEach(allAddButtons => allAddButtons
     .addEventListener('click', (event) => {
-      //Essa variavel pega o ID do mercado livre para passar para o fetch.
+      // Essa variavel pega o ID do mercado livre para passar para o fetch.
       const id = event.target.parentElement.firstChild.innerText;
       const url = `https://api.mercadolibre.com/items/${id}`;
       fetch(url)
