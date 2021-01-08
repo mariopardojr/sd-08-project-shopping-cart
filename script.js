@@ -101,11 +101,11 @@ const loadCart = () => {
 };
 
 function eraseAllButton() {
-  const eraseButton = document.querySelector('.empty-cart')
+  const eraseButton = document.querySelector('.empty-cart');
   eraseButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
-    saveCart(); 
-  })
+    saveCart();
+  });
 }
 removeProductInCart();
 
