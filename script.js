@@ -16,13 +16,21 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function sumCart(salePrice) {
+  let sum = parseInt(document.querySelector('span.total-price').innerText);
+  sum += salePrice;
+  return sum; 
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const cartSection = document.getElementsByClassName('cart__items')[0];
   const li = document.createElement('li');
+  const total = document.querySelector('span.total-price');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   cartSection.appendChild(li);
+  total.innerText = sumCart(parseInt(salePrice));
   const array = [...cartSection.childNodes].map(item => item.innerText);
   localStorage.setItem('cart', JSON.stringify(array));
   return li;
@@ -90,13 +98,22 @@ async function getStorageCart() {
   }
 }
 
-async function clearCart() {
-  const cartSection = document.querySelector('ol.cart__items');
-  while (cartSection.firstChild) {
-    cartSection.firstChild.remove();
-  }
-  localStorage.clear();
+async function clearTotal () {
+  document.querySelector('span.total-price').innerText = 0;
 }
+
+function removeChildren () {
+  const cartSection = document.querySelector('ol.cart__items');
+  cartSection.innerHTML = '';
+}
+
+async function clearCart() {
+  return clearTotal()
+  .then(localStorage.clear())
+  .then(removeChildren());
+}
+
+
 
 window.onload = async function onload() {
   await getItem('computador');
