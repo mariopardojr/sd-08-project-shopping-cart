@@ -66,7 +66,7 @@ const tocart = async (event) => {
         salePrice: objson.price,
       })
     )
-    .then(objparam => createCartItemElement(objparam));
+    .then(objparam => createCartItemElement(objparam))
 };
 //  recebe os parametros e cria elementos
 function createProductItemElement({ sku, name, image }) {
