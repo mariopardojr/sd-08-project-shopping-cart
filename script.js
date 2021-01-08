@@ -14,6 +14,10 @@ function createCustomElement(element, className, innerText) {
 
 // cria o objeto com os parametros e chama a função que cria o item do carrinho
 const tocart = async (event) => {
+  //tambem adiciona evento do BTN. limpa carrinho
+  const delAll = document.querySelector('.empty-cart');
+  delAll.addEventListener('click',cartClear)
+
   ids = getSkuFromProductItem(event.target.parentNode);
   fetch(`https://api.mercadolibre.com/items/${ids}`)
     .then(objapi => objapi.json())
@@ -27,7 +31,7 @@ const tocart = async (event) => {
     })
     .then(objparam => createCartItemElement(objparam));
 };
-
+// recebe os parametros e cria elementos
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -38,19 +42,32 @@ function createProductItemElement({ sku, name, image }) {
   const btn = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   btn.addEventListener('click', tocart);
   section.appendChild(btn);
-
-
   return section;
 }
-
+// pega o id do item
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  // aqui deletamos os li ao clicar neles
+  let toDel = event.target.parentNode;
+  toDel.removeChild(event.target);
+  
 }
+// aqui deletamos os instens do carrinho
+function cartClear() {
+  const olSel = document.querySelector('.cart__items');
+  const lilist = document.querySelectorAll('.cart__item');
 
+  lilist.forEach(position =>{ lilist.appendChild(position)
+  });
+  
+};
+  
+  
+
+// cria os itens do carrinho
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -61,13 +78,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-
+// povoa com os elementos
 const ProductsOnScr = (array) => {
   const items = document.querySelector('.items');
   array.forEach(element => items.appendChild(createProductItemElement(element)));
 };
 
-
+//pega dados no api e repassa
 const getApi = () => new Promise((resolve, reject) => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
@@ -82,7 +99,9 @@ const getApi = () => new Promise((resolve, reject) => {
     .catch(results => reject(alert(results)));
 });
 
-// Traz a lista da  primeira api
+
+
+// chama  a lista da  primeira api ao carregar a pagina
 window.onload = function onload() {
   getApi();
 };
