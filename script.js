@@ -59,6 +59,8 @@ async function addFunction(event) {
   const result = await reqItem.json();
   const listItems = document.querySelector('.cart__items');
   listItems.appendChild(createCartItemElement(result));
+  
+  sumPrice();
 }
 
 function addEventToBtns() {
@@ -66,6 +68,18 @@ function addEventToBtns() {
   addBtn.forEach((btn) => {
     btn.addEventListener('click', addFunction);
   });
+}
+
+
+async function sumPrice() {
+  const cartItem = document.querySelectorAll('.cart__item');
+  let sumPrices = 0;
+  cartItem.forEach((element) => {
+    const price = Number(element.innerText.split('$')[1]);
+    sumPrices += price;
+  });
+  const totalPrice = document.querySelector('.total-price');
+  totalPrice.innerText = sumPrices.toFixed(2);
 }
 
 window.onload = async function onload() {
