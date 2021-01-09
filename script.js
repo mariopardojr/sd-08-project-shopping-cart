@@ -34,17 +34,16 @@ function cartItemClickListener(event) {
       await calcTotalPrice(price * -1);
       event.target.remove();
       saveLocalStorage();
-  //  aqui deletamos os li ao clicar neles
-  //  const toDel = event.target.parentNode;
-  //  toDel.removeChild(event.target);
-}})}
+    }
+  })
+}
 
 const loadLocalStorage = () => {
   if (localStorage.getItem('carrinho')) {
     const ol = document.querySelector('.cart__items');
     ol.innerHTML = localStorage.getItem('carrinho');
   }
-}
+};
 //  aqui deletamos os intens do carrinho
 function cartClear() {
   document.querySelector('.cart__items').innerHTML = '';
