@@ -27,7 +27,7 @@ const saveLocalStorage = () => {
 
 function cartItemClickListener(event) {
   const cart = document.querySelector('.cart__items');
-  cart.addEventListener('click', async (event2) => {
+  cart.addEventListener('click', async (event) => {
     if (event.target.classList.contains('cart__item')) {
       const price = parseFloat(event.target.innerText.split('PRICE: $')[1]);
       console.log(price);
