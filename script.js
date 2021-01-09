@@ -41,8 +41,7 @@ const getItemsInCartPrice = () => {
   items.forEach((getValue) => {
     totalPrice += parseFloat(getValue.innerHTML.split('$').slice(-1));
   });
-  const result = `Valor Total : $ ${totalPrice.toFixed(2)}`;
-  return result;
+  return totalPrice;
 };
 
 const showTotalPrices = (totalValues) => {
