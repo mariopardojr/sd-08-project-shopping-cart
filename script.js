@@ -15,7 +15,6 @@ function createCustomElement(element, className, innerText) {
 
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
-  const sectionItems = document.getElementsByClassName('items');
   section.className = 'item';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
@@ -44,19 +43,18 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 
 async function fetchAndRenderProducts() {
-  try{ 
+  try {
     const response = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
-    const { results } = await response.json()
-    results.forEach(product => {
-     const productItem = createProductItemElement(product);
-     document.querySelector('.items').appendChild(productItem);
-    })
+    const { results } = await response.json();
+    results.forEach((product) => {
+      const productItem = createProductItemElement(product);
+      document.querySelector('.items').appendChild(productItem);
+    });
   } catch (error) {
-    console.log('caiu aqui', error)
+    console.log('caiu aqui', error);
   }
 }
 
 window.onload = function onload() {
   fetchAndRenderProducts();
 };
-
