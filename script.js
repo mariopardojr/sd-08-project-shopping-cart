@@ -20,6 +20,11 @@ const calcTotalPrice = async (value) => {
   totalPrice.innerText = `${newPrice}`;
 };
 
+const saveLocalStorage = () => {
+  const ol = document.querySelector('.cart__items');
+  localStorage.setItem('carrinho', ol.innerHTML);
+};
+
 function cartItemClickListener(event) {
   const cart = document.querySelector('.cart__items');
   cart.addEventListener('click', async (event) => {
@@ -39,7 +44,7 @@ const loadLocalStorage = () => {
     const ol = document.querySelector('.cart__items');
     ol.innerHTML = localStorage.getItem('carrinho');
   }
-};
+}
 //  aqui deletamos os intens do carrinho
 function cartClear() {
   document.querySelector('.cart__items').innerHTML = '';
@@ -82,11 +87,6 @@ const tocart = async (event) => {
       }),
     )
     .then(objparam => createCartItemElement(objparam));
-};
-
-const saveLocalStorage = () => {
-  const ol = document.querySelector('.cart__items');
-  localStorage.setItem('carrinho', ol.innerHTML);
 };
 
 //  recebe os parametros e cria elementos
