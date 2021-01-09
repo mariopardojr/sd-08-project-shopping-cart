@@ -12,18 +12,6 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
-  const section = document.createElement('section');
-  section.className = 'item';
-
-  section.appendChild(createCustomElement('span', 'item__sku', sku));
-  section.appendChild(createCustomElement('span', 'item__title', name));
-  section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
-  return section;
-}
-
 async function sumPrices() {
   const cartItem = document.querySelectorAll('.cart__item');
   let total = 0;
@@ -45,6 +33,27 @@ function cartItemClickListener(event) {
   saveListItemsCartLocalStorage();
 }
 
+function getListCartItemsLocalStorage() {
+  const cartItemsLocalStorage = localStorage.getItem('list');
+  const carItems = document.querySelector('.cart__items');
+  carItems.innerHTML = cartItemsLocalStorage;
+  const cartItem = document.querySelectorAll('.cart__item');
+  cartItem.forEach((element) => {
+    element.addEventListener('click', cartItemClickListener);
+  });
+}
+
+function createProductItemElement({ sku, name, image }) {
+  const section = document.createElement('section');
+  section.className = 'item';
+
+  section.appendChild(createCustomElement('span', 'item__sku', sku));
+  section.appendChild(createCustomElement('span', 'item__title', name));
+  section.appendChild(createProductImageElement(image));
+  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+
+  return section;
+}
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
@@ -105,16 +114,6 @@ function emptyCart() {
     ol.innerHTML = '';
     sumPrices();
     saveListItemsCartLocalStorage();
-  });
-}
-
-function getListCartItemsLocalStorage() {
-  const cartItemsLocalStorage = localStorage.getItem('list');
-  const carItems = document.querySelector('.cart__items');
-  carItems.innerHTML = cartItemsLocalStorage;
-  const cartItem = document.querySelectorAll('.cart__item');
-  cartItem.forEach((element) => {
-    element.addEventListener('click', cartItemClickListener);
   });
 }
 
