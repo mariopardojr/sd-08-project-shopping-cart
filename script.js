@@ -83,6 +83,12 @@ const tocart = async (event) => {
     )
     .then(objparam => createCartItemElement(objparam));
 };
+
+const saveLocalStorage = () => {
+  const ol = document.querySelector('.cart__items');
+  localStorage.setItem('carrinho', ol.innerHTML);
+};
+
 //  recebe os parametros e cria elementos
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
