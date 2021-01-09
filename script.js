@@ -25,7 +25,7 @@ const saveLocalStorage = () => {
   localStorage.setItem('carrinho', ol.innerHTML);
 };
 
-function cartItemClickListener(event) {
+function cartItemClickListener(eventt) {
   const cart = document.querySelector('.cart__items');
   cart.addEventListener('click', async (event) => {
     if (event.target.classList.contains('cart__item')) {
