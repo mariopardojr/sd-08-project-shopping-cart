@@ -83,7 +83,6 @@ function fetchProducts() {
       });
     });
 }
-
 function creatMoveItems(obj) {
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(createCartItemElement(obj));
