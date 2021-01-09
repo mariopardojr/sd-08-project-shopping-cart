@@ -56,7 +56,7 @@ function addItemCart() {
       const parent = event.target.parentElement;
       const sku = getSkuFromProductItem(parent);
       fetch(`https://api.mercadolibre.com/items/${sku}`)
-        .then((response) => response.json())
+        .then(response => response.json())
         .then((data) => {
           const { id, title, price } = data;
           const obj = {
