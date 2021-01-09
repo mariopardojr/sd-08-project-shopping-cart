@@ -12,6 +12,14 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+//  calculaitens no carinho
+const calcTotalPrice = async (value) => {
+  const totalPrice = document.querySelector('.total-price');
+  const actualPrice = parseFloat(totalPrice.innerText);
+  const newPrice = parseFloat(actualPrice + parseFloat(value));
+  totalPrice.innerText = `${newPrice}`;
+};
+
 function cartItemClickListener(event) {
   const cart = document.querySelector('.cart__items');
   cart.addEventListener('click', async (event) => {
@@ -44,20 +52,12 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-//  calculaitens no carinho
-const calcTotalPrice = async (value) => {
-  const totalPrice = document.querySelector('.total-price');
-  const actualPrice = parseFloat(totalPrice.innerText);
-  const newPrice = parseFloat(actualPrice + parseFloat(value));
-  totalPrice.innerText = `${newPrice}`;
-};
-
 //  cria os itens do carrinho
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  //li.addEventListener('click', cartItemClickListener);
+  //  li.addEventListener('click', cartItemClickListener);
   const itemsCart = document.querySelector('.cart__items');
   itemsCart.appendChild(li);
   saveLocalStorage();
