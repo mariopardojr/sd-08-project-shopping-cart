@@ -8,13 +8,11 @@ function createProductImageElement(imageSource) {
 function cartItemClickListener(event) {
   event.target.remove();
   const cartSection = document.getElementsByClassName('cart__items')[0];
-  const splitTotal = [...cartSection.childNodes].reduce((acc, curr) => {
-    acc += parseFloat(curr.innerText.split('$')[1]);
-    return acc;
-  }, 0);
+  const splitTotal = [...cartSection.childNodes].reduce((acc, curr)=> acc += parseFloat(curr.innerText.split('$')[1]), 0)
   const array = [...cartSection.childNodes].map(item => item.innerText);
   localStorage.setItem('cart', JSON.stringify(array));
   localStorage.setItem('total', splitTotal);
+  document.querySelector('span.total-price').innerText = localStorage.total;
 }
 
 function getSkuFromProductItem(item) {
