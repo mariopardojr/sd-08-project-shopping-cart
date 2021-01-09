@@ -73,7 +73,7 @@ function addItemsToCart() {
 }
 
 function returnDatas() {
- const salvo = document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
 }
 
 async function fetchAndRenderProducts() {
