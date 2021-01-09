@@ -52,7 +52,7 @@ async function fetchAndRenderProduct() {
 function addItemCart() {
   document.querySelector('.items').addEventListener('click', (event) => {
     if (event.target.classList.contains('item__add')) {
-      //const parent = event.target.parentNode
+      // const parent = event.target.parentNode
       const parent = event.target.parentElement;
       const sku = getSkuFromProductItem(parent);
       fetch(`https://api.mercadolibre.com/items/${sku}`)
