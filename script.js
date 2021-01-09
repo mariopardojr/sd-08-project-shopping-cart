@@ -1,4 +1,3 @@
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -6,6 +5,17 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+const carregando = () => {
+  const loading = document.createElement('h1');
+  loading.className = 'loading';
+  loading.innerHTML = 'loading...';
+  document.body.appendChild(loading);
+};
+
+const removeCarregando = () => {
+  const loading = document.querySelector('.loading');
+  document.body.removeChild(loading);
+};
 const somandoTotal = () => {
   const selectSOMA = document.querySelectorAll('.cart__item');
   let total = 0;
@@ -99,10 +109,12 @@ const carregandoLocal = () => {
 };
 
 const buscarApi = () => {
+  carregando();
   const endApi = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   fetch(endApi)
     .then(response => response.json())
-    .then(data =>
+    .then((data) => {
+      removeCarregando();
       data.results.forEach((item) => {
         const obj = {
           sku: item.id,
@@ -110,9 +122,10 @@ const buscarApi = () => {
           image: item.thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(obj));
-      }),
-    );
+      });
+    });
 };
+
 
 window.onload = function onload() {
   buscarApi();
