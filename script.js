@@ -13,10 +13,26 @@ function createCustomElement(element, className, innerText) {
 }
 
 function cartItemClickListener(event) {
+  const cart = document.querySelector('.cart__items');
+  cart.addEventListener('click', async (event) => {
+    if (event.target.classList.contains('cart__item')) {
+      const price = parseFloat(event.target.innerText.split('PRICE: $')[1]);
+      console.log(price);
+      await calcTotalPrice(price * -1);
+      // ----- Requisito 03
+      event.target.remove();
+      saveLocalStorage();
   //  aqui deletamos os li ao clicar neles
-  const toDel = event.target.parentNode;
-  toDel.removeChild(event.target);
-}
+  //const toDel = event.target.parentNode;
+  //toDel.removeChild(event.target);
+}})}
+
+const loadLocalStorage = () => {
+  if (localStorage.getItem('carrinho')) {
+    const ol = document.querySelector('.cart__items');
+    ol.innerHTML = localStorage.getItem('carrinho');
+  }
+};
 //  aqui deletamos os intens do carrinho
 function cartClear() {
   document.querySelector('.cart__items').innerHTML = '';
@@ -34,7 +50,6 @@ const calcTotalPrice = async (value) => {
   const totalPrice = document.querySelector('.total-price');
   const actualPrice = parseFloat(totalPrice.innerText);
   const newPrice = parseFloat(actualPrice + parseFloat(value));
-  console.log(newPrice);
   totalPrice.innerText = `${newPrice}`;
 };
 
@@ -43,7 +58,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  //li.addEventListener('click', cartItemClickListener);
   const itemsCart = document.querySelector('.cart__items');
   itemsCart.appendChild(li);
   calcTotalPrice(`${salePrice}`);
@@ -102,6 +117,9 @@ const getApi = () => new Promise((resolve, reject) => {
     .catch(results => reject(alert(results)));
 });
 //  chama  a lista da  primeira api ao carregar a pagina
-window.onload = function onload() {
-  getApi();
+window.onload = async function onload() {
+  await getApi();
+  document.querySelector('.loading').remove();
+  cartItemClickListener();
+  loadLocalStorage();
 };
