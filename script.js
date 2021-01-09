@@ -61,6 +61,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   //li.addEventListener('click', cartItemClickListener);
   const itemsCart = document.querySelector('.cart__items');
   itemsCart.appendChild(li);
+  saveLocalStorage();
   calcTotalPrice(`${salePrice}`);
   return li;
 }
