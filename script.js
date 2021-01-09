@@ -19,12 +19,11 @@ function cartItemClickListener(event) {
       const price = parseFloat(event.target.innerText.split('PRICE: $')[1]);
       console.log(price);
       await calcTotalPrice(price * -1);
-      // ----- Requisito 03
       event.target.remove();
       saveLocalStorage();
   //  aqui deletamos os li ao clicar neles
-  //const toDel = event.target.parentNode;
-  //toDel.removeChild(event.target);
+  //  const toDel = event.target.parentNode;
+  //  toDel.removeChild(event.target);
 }})}
 
 const loadLocalStorage = () => {
