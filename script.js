@@ -64,6 +64,7 @@ function getApi() {
   return fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
   .then(data => data.json())
   .then((data) => {
+    document.querySelector('.loading').remove();
     const arrayResults = data.results;
     const listItems = document.querySelector('.items');
     arrayResults.forEach((element) => {
