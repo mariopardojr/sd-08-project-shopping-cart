@@ -80,6 +80,14 @@ function getApi() {
   });
 }
 
+function removeAllItems() {
+  const btnRemove = document.getElementsByClassName('empty-cart')[0];
+  btnRemove.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+  });
+}
+
 window.onload = function onload() {
   getApi();
+  removeAllItems();
 };
