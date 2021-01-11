@@ -42,9 +42,11 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 async function fetchItem(event) {
+  displayLoading();
   fetch(`https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentElement)}`)
   .then((response) => {
     response.json().then((data) => {
+      hideLoading();
       const cartItem = Object.create({});
       cartItem.sku = data.id;
       cartItem.name = data.title;
@@ -75,9 +77,11 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 async function getItem(item) {
+  displayLoading();
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${item}`)
     .then((response) => {
       response.json().then((data) => {
+        hideLoading();
         const itemArray = data.results.map(function (value) {
           return { sku: value.id,
             name: value.title,
@@ -116,6 +120,19 @@ async function clearCart() {
   return clearTotal()
   .then(localStorage.clear())
   .then(removeChildren());
+}
+
+function displayLoading() {
+  const loader = document.querySelector('span.loading')
+  loader.className = 'loading display';
+  setTimeout(() => {
+    loader.className = 'loading';
+  }, 3000)
+}
+
+function hideLoading() {
+  const loader = document.querySelector('span.loading');
+  loader.className = 'loading';
 }
 
 window.onload = async function onload() {
