@@ -6,16 +6,15 @@ function createProductImageElement(imageSource) {
 }
 
 function displayLoading() {
-  const loader = document.querySelector('span.loading');
-  loader.className = 'loading display';
-  setTimeout(() => {
-    loader.className = 'loading';
-  }, 3000);
+  const span = document.createElement('span');
+  span.className = 'loading';
+  span.innerText = 'loading...';
+  document.querySelector('section.cart').appendChild(span);
 }
 
 function hideLoading() {
-  const loader = document.querySelector('span.loading');
-  loader.className = 'loading';
+  const loading = document.querySelector('span.loading');
+  document.querySelector('section.cart').removeChild(loading);
 }
 
 function cartItemClickListener(event) {
