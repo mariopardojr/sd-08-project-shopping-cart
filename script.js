@@ -7,7 +7,7 @@ function cartTotalPrice() {
   const cartListItem = document.querySelectorAll('.cart__item');
   let totalPrice = 0;
   cartListItem.forEach((items) => {
-    return totalPrice += parseFloat(items.innerHTML.split('$')[1]);
+    totalPrice += parseFloat(items.innerHTML.split('$')[1]);
   });
   document.querySelector('.total-price').innerHTML = totalPrice.toFixed(2);
 }
