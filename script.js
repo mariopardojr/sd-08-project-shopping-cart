@@ -6,7 +6,10 @@ function saveItemsLocalStorage() {
 function cartTotalPrice() {
   const cartListItem = document.querySelectorAll('.cart__item');
   let totalPrice = 0;
-  cartListItem.forEach((items) => totalPrice += parseFloat(items.innerHTML.split('$')[1]));
+  cartListItem.forEach(items => {
+    const itemPrice = totalPrice += parseFloat(items.innerHTML.split('$')[1]);
+    return itemPrice;
+  });
   document.querySelector('.total-price').innerHTML = totalPrice.toFixed(2);
 }
 
@@ -97,7 +100,6 @@ function restorageItems() {
       cartItemClickListener(event);
     }
   });
-  
 }
 
 window.onload = function onload() {
