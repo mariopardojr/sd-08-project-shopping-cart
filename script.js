@@ -8,7 +8,7 @@ async function totalCartPrice() {
   cartProducts.forEach((item) => {
     finalCartPrice += parseFloat(item.innerHTML.split('$')[1]);
   });
-  document.querySelector('.cart-price').innerHTML = finalCartPrice;
+  document.querySelector('.total-price').innerHTML = finalCartPrice;
 }
 
 function createProductImageElement(imageSource) {
