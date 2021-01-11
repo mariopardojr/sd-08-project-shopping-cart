@@ -9,7 +9,7 @@ function cartTotalPrice() {
   cartListItem.forEach((items) => {
     totalPrice += parseFloat(items.innerHTML.split('$')[1]);
   });
-  document.querySelector('.total-price').innerHTML = totalPrice.toFixed(0);
+  document.querySelector('.total-price').innerHTML = Math.round(totalPrice * 100) / 100;
 }
 
 function createProductImageElement(imageSource) {
