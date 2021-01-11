@@ -45,6 +45,15 @@ function cartItemClickListener() {
   });
 }
 
+function clearList() {
+  const list = document.querySelector('.cart__items').innerHTML = "";
+}
+
+function removeList() {
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', clearList);
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -94,4 +103,5 @@ window.onload = function onload() {
   addItemsToCart();
   cartItemClickListener();
   returnDatas();
+  removeList();
 };
