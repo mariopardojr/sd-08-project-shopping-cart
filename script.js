@@ -48,7 +48,6 @@ function cartItemClickListener() {
 function clearList() {
   document.querySelector('.cart__items').innerHTML = '';
   document.querySelector('.total-price').innerHTML = 0;
-  totalPrice();
   saveDatas();
 }
 
