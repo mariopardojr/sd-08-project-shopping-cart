@@ -107,7 +107,7 @@ function removeCartItems() {
     document.querySelector('.cart__items').innerHTML = '';
     saveItemsLocalStorage();
     cartTotalPrice();
-  })
+  });
 }
 
 window.onload = function onload() {
