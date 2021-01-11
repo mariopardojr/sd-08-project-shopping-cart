@@ -6,9 +6,8 @@ function saveItemsLocalStorage() {
 function cartTotalPrice() {
   const cartListItem = document.querySelectorAll('.cart__item');
   let totalPrice = 0;
-  cartListItem.forEach(items => {
-    const itemPrice = totalPrice += parseFloat(items.innerHTML.split('$')[1]);
-    return itemPrice;
+  cartListItem.forEach((items) => {
+    return totalPrice += parseFloat(items.innerHTML.split('$')[1]);
   });
   document.querySelector('.total-price').innerHTML = totalPrice.toFixed(2);
 }
