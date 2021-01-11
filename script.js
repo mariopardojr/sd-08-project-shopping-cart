@@ -101,9 +101,19 @@ function restorageItems() {
   });
 }
 
+function removeCartItems() {
+  document.querySelector('.empty-cart')
+  .addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveItemsLocalStorage();
+    cartTotalPrice();
+  })
+}
+
 window.onload = function onload() {
   restorageItems();
   fetchAndRenderProduct();
   addItemCart();
   cartTotalPrice();
+  removeCartItems();
 };
