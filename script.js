@@ -65,9 +65,11 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 function totalPrice() {
+  const items = document.querySelectorAll('.cart__item');
   let total = 0;
-  document.querySelectorAll('.cart__item')
-  .forEach((items) => { total += parseFloat(items.innerHTML.split('$')[1]); });
+  items.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
   document.querySelector('.total-price').innerHTML = total;
 }
 
