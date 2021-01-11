@@ -68,7 +68,7 @@ function totalPrice() {
   let total = 0;
   document.querySelectorAll('.cart__item')
   .forEach((items) => { total += parseFloat(items.innerHTML.split('$')[1]); });
-  document.querySelector('.total-price').innerHTML = total;
+  document.querySelector('.total-price').innerHTML = total.toFixed(2);
 }
 
 function addItemsToCart() {
