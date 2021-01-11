@@ -46,7 +46,7 @@ function cartItemClickListener() {
 }
 
 function clearList() {
-  const list = document.querySelector('.cart__items').innerHTML = "";
+  document.querySelector('.cart__items').innerHTML = '';
 }
 
 function removeList() {
@@ -61,7 +61,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
 
 function addItemsToCart() {
   const buttonAddItem = document.querySelector('.items');
