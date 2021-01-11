@@ -13,8 +13,8 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-// recebe o objeto da api retornada da função fetchAndRenderProducts,
-// para criar os elementos no html.
+// Recebe o objeto da api retornada da função fetchAndRenderProducts,
+// Para criar os elementos no html.
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -26,16 +26,18 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   return section;
 }
 
-// retorna o id do item
+// Retorna o id do item
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// Salva os itens da lista no localStorage.
 function saveDatas() {
   const chosen = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cart', chosen);
 }
 
+// Usa forEach e split para percorrer e retornar os números com a string $ e somar os valores.
 function totalPrice() {
   let total = 0;
   document.querySelectorAll('.cart__item')
@@ -43,7 +45,7 @@ function totalPrice() {
   document.querySelector('.total-price').innerHTML = total;
 }
 
-// remove o item do carrinho ai clicar nele
+// Remove o item do carrinho ai clicar nele
 function cartItemClickListener() {
   const ol = document.querySelector('.cart__items');
   ol.addEventListener('click', (event) => {
@@ -53,6 +55,7 @@ function cartItemClickListener() {
   });
 }
 
+// função para limpar a lista e a soma dos preços.
 function clearList() {
   document.querySelector('.cart__items').innerHTML = '';
   document.querySelector('.total-price').innerHTML = 0;
@@ -91,15 +94,18 @@ function addItemsToCart() {
   });
 }
 
+// retorna a lista salva no localStorage quando reabrimos o site
 function returnDatas() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
   totalPrice();
 }
 
+// Função que renderiza os produtos recebidos da api na página.
 async function fetchAndRenderProducts() {
   try {
     const response = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
     const { results } = await response.json();
+    document.querySelector('.loading').remove();
     results.forEach((product) => {
       const productItem = createProductItemElement(product);
       document.querySelector('.items').appendChild(productItem);
