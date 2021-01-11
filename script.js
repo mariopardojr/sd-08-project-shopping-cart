@@ -39,7 +39,7 @@ async function createTotal(value) {
   }
 }
 
-function sum() {
+async function sum() {
   const getItens = document.getElementsByClassName('cart__item');
   let value = 0;
 
