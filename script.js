@@ -36,6 +36,13 @@ function saveDatas() {
   localStorage.setItem('cart', chosen);
 }
 
+function totalPrice() {
+  let total = 0;
+  document.querySelectorAll('.cart__item')
+  .forEach((items) => { total += parseFloat(items.innerHTML.split('$')[1]); });
+  document.querySelector('.total-price').innerHTML = total;
+}
+
 // remove o item do carrinho ai clicar nele
 function cartItemClickListener() {
   const ol = document.querySelector('.cart__items');
@@ -63,13 +70,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-function totalPrice() {
-  let total = 0;
-  document.querySelectorAll('.cart__item')
-  .forEach((items) => { total += parseFloat(items.innerHTML.split('$')[1]); });
-  document.querySelector('.total-price').innerHTML = total;
 }
 
 function addItemsToCart() {
