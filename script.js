@@ -12,17 +12,15 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-  function createTotal() {
+function createTotal() {
   const cartFather = document.getElementsByClassName('cart')[0];
   const section = document.createElement('section');
   const getItens = document.getElementsByClassName('cart__item');
   const findTotalOld = document.getElementsByClassName('total-price')[0];
-  
   let value = 0;
   for (let i = 0; i < getItens.length; i += 1) {
     const get = getItens[i].innerText;
@@ -45,7 +43,6 @@ function getSkuFromProductItem(item) {
   }
 }
 
-
 async function cartItemClickListener(event) {
   event.target.remove();
   const olcart = document.querySelector('ol.cart__items');
@@ -63,7 +60,9 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 async function addToCart(event) {
   fetch(
-    `https://api.mercadolibre.com/items/${getSkuFromProductItem(event.target.parentElement)}`,
+    `https://api.mercadolibre.com/items/${getSkuFromProductItem(
+      event.target.parentElement,
+    )}`,
   ).then(response =>
     response.json().then((data) => {
       const obj = {};
@@ -101,13 +100,11 @@ function fetchML() {
       const items = document.getElementsByClassName('items')[0];
       data2.map(each =>
         items.appendChild(
-          createProductItemElement(
-            ({
-              sku: each.id,
-              name: each.title,
-              image: each.thumbnail,
-            }),
-          ),
+          createProductItemElement({
+            sku: each.id,
+            name: each.title,
+            image: each.thumbnail,
+          }),
         ),
       );
     });
