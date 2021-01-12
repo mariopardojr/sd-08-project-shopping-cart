@@ -88,10 +88,18 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function fetchML() {
+  const load = document.createElement('div');
+  load.className = 'loading';
+  load.innerText = 'loading...'
+  const loadfather = document.getElementsByClassName('container')[0];
+  loadfather.appendChild(load);
+
   return fetch(
     'https://api.mercadolibre.com/sites/MLB/search?q=computador',
   ).then((response) => {
     response.json().then((data) => {
+      const loading = document.getElementsByClassName('loading')[0];
+      loading.remove();
       const data2 = Object.values(data.results);
       const items = document.getElementsByClassName('items')[0];
       data2.map(each =>
