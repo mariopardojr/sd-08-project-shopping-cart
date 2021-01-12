@@ -34,7 +34,7 @@ function createTotal() {
 
   if (value !== 0) {
     section.className = 'total-price';
-    section.innerHTML = value.toFixed(0);
+    section.innerHTML = value.toFixed(2);
     cartFather.appendChild(section);
   } else {
     section.className = 'total-price';
