@@ -90,7 +90,7 @@ function createProductItemElement({ sku, name, image }) {
 function fetchML() {
   const load = document.createElement('div');
   load.className = 'loading';
-  load.innerText = 'loading...'
+  load.innerText = 'loading...';
   const loadfather = document.getElementsByClassName('container')[0];
   loadfather.appendChild(load);
 
