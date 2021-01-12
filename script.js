@@ -17,45 +17,40 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-async function createTotal(value) {
+  function createTotal() {
   const cartFather = document.getElementsByClassName('cart')[0];
   const section = document.createElement('section');
-
-  const findTotalOld = document.getElementsByClassName('totalPrice')[0];
-  if (findTotalOld) {
-    findTotalOld.remove();
-  }
-
-  if (value !== 0) {
-    section.className = 'totalPrice';
-    section.innerHTML = value.toFixed(2);
-    cartFather.classList.add('total-price');
-    cartFather.appendChild(section);
-  } else {
-    section.className = 'totalPrice';
-    section.innerHTML = '0,00';
-    cartFather.classList.add('total-price');
-    cartFather.appendChild(section);
-  }
-}
-
-async function sum() {
   const getItens = document.getElementsByClassName('cart__item');
+  const findTotalOld = document.getElementsByClassName('total-price')[0];
+  
   let value = 0;
-
   for (let i = 0; i < getItens.length; i += 1) {
     const get = getItens[i].innerText;
     const price = parseFloat(get.slice(get.indexOf('$') + 1));
     value += parseFloat(price);
   }
-  return value;
+
+  if (findTotalOld) {
+    findTotalOld.remove();
+  }
+
+  if (value !== 0) {
+    section.className = 'total-price';
+    section.innerHTML = value.toFixed(2);
+    cartFather.appendChild(section);
+  } else {
+    section.className = 'total-price';
+    section.innerHTML = '0,00';
+    cartFather.appendChild(section);
+  }
 }
+
 
 async function cartItemClickListener(event) {
   event.target.remove();
   const olcart = document.querySelector('ol.cart__items');
   localStorage.setItem('cart', olcart.innerHTML);
-  createTotal(sum());
+  createTotal();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -77,7 +72,7 @@ async function addToCart(event) {
       obj.salePrice = data.price;
       const olcart = document.querySelector('ol.cart__items');
       olcart.appendChild(createCartItemElement(obj));
-      createTotal(sum());
+      createTotal();
       localStorage.setItem('cart', olcart.innerHTML);
     }),
   );
@@ -138,7 +133,7 @@ function emptyCart() {
     for (let i = 0; i < itemsCart.length; i += 0) {
       itemsCart[i].remove();
     }
-    createTotal(0);
+    createTotal();
     localStorage.removeItem('cart');
   });
 }
@@ -148,6 +143,6 @@ window.onload = async function onload() {
   if (localStorage.length !== 0) {
     loadCartStorage();
   }
-  createTotal(sum());
+  createTotal();
   emptyCart();
 };
