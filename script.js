@@ -1,16 +1,16 @@
-function savedStorage() {
-  const cartItems = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', cartItems);
-}
+// function savedStorage() {
+//   const cartItems = document.querySelector('.cart__items').innerHTML;
+//   localStorage.setItem('cart', cartItems);
+// }
 
-function finalPrice() {
-  const cartList = document.querySelectorAll('.cart__item');
-  let finalAmount = 0;
-  cartList.forEach((valor) => {
-    finalAmount += parseFloat(valor.innerHTML.split('$')[1]);
-  });
-  finalAmount = document.querySelector('.total-price').innerHTML;
-}
+// function finalPrice() {
+//   const cartList = document.querySelectorAll('.cart__item');
+//   let finalAmount = 0;
+//   cartList.forEach((valor) => {
+//     finalAmount += parseFloat(valor.innerHTML.split('$')[1]);
+//   });
+//   finalAmount = document.querySelector('.total-price').innerHTML;
+// }
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -32,8 +32,8 @@ function cartItemClickListener(event) {
   //   document.querySelector('.cart__items').removeChild(event.target);
   // });
   event.target.remove();
-  savedStorage();
-  finalPrice();
+  // savedStorage();
+  // finalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -62,8 +62,8 @@ function createProductItemElement({ sku, name, image }) {
       };
       const cart = document.querySelector('.cart__items');
       cart.appendChild(createCartItemElement(itemObj));
-      savedStorage();
-      finalPrice();
+      // savedStorage();
+      // finalPrice();
     });
   });
   section.appendChild(btn);
@@ -99,8 +99,8 @@ function removeAllItems() {
   btnRemove.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
   });
-  savedStorage();
-  finalPrice();
+  // savedStorage();
+  // finalPrice();
 }
 
 function getItemsFromLocalStorage() {
@@ -112,7 +112,7 @@ function getItemsFromLocalStorage() {
       cartItemClickListener(event);
     }
   });
-  finalPrice();
+  // finalPrice();
 }
 
 window.onload = function onload() {
