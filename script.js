@@ -122,5 +122,4 @@ window.onload = function onload() {
   addProductCartItems();
   getListCartItemsLocalStorage();
   emptyCart();
-  searchProduct();
 };
