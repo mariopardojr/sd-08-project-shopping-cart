@@ -12,6 +12,11 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function saveListItemsCartLocalStorage() {
+  const cartItems = document.querySelector('.cart__items');
+  localStorage.setItem('list', cartItems.innerHTML);
+}
+
 async function sumPrices() {
   const cartItem = document.querySelectorAll('.cart__item');
   let total = 0;
@@ -20,11 +25,6 @@ async function sumPrices() {
   });
   const totalPrice = document.querySelector('.total-price');
   totalPrice.innerText = total;
-}
-
-function saveListItemsCartLocalStorage() {
-  const cartItems = document.querySelector('.cart__items');
-  localStorage.setItem('list', cartItems.innerHTML);
 }
 
 function cartItemClickListener(event) {
