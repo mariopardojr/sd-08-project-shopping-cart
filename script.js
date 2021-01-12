@@ -47,14 +47,14 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function getItemsFromLocalStorage() {
   if (localStorage.length !== 0) {
-  const values = Object.values(localStorage);
-  const localCart = document.querySelector('.cart__items');
-  values.forEach((data) => {
-    const localItem = document.createElement('li');
-    localItem.className = 'cart__item';
-    localItem.innerText = data;
-    localItem.addEventListener('click', cartItemClickListener);
-    localCart.appendChild(localItem);
+    const values = Object.values(localStorage);
+    const localCart = document.querySelector('.cart__items');
+    values.forEach((data) => {
+      const localItem = document.createElement('li');
+      localItem.className = 'cart__item';
+      localItem.innerText = data;
+      localItem.addEventListener('click', cartItemClickListener);
+      localCart.appendChild(localItem);
     });
   }
 }
