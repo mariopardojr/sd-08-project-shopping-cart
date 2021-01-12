@@ -16,7 +16,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function createTotal() {
+async function createTotal() {
   const cartFather = document.getElementsByClassName('cart')[0];
   const section = document.createElement('section');
   const getItens = document.getElementsByClassName('cart__item');
@@ -31,16 +31,12 @@ function createTotal() {
   if (findTotalOld) {
     findTotalOld.remove();
   }
-
+  section.innerHTML = '0,00';
+  section.className = 'total-price';
   if (value !== 0) {
-    section.className = 'total-price';
-    section.innerHTML = value.toFixed(2);
-    cartFather.appendChild(section);
-  } else {
-    section.className = 'total-price';
-    section.innerHTML = '0';
-    cartFather.appendChild(section);
+    section.innerHTML = value;
   }
+  cartFather.appendChild(section);
 }
 
 async function cartItemClickListener(event) {
