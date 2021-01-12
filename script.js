@@ -1,7 +1,16 @@
-// function savedStorage() {
-//   const cartItems = document.querySelector('.cart__items').innerHTML;
-//   localStorage.setItem('itens', cartItems);
-// }
+function savedStorage() {
+  const cartItems = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', cartItems);
+}
+
+function finalPrice() {
+  const cartList = document.querySelectorAll('.cart__item');
+  let finalAmount = 0;
+  cartList.forEach((valor) => {
+    finalAmount += parseFloat(valor.innerHTML.split('$')[1]);
+  });
+  finalAmount = document.querySelector('.total-price').innerHTML;
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -18,10 +27,13 @@ function createCustomElement(element, className, innerText) {
 }
 
 function cartItemClickListener(event) {
-  const removeItem = document.getElementsByTagName('ol')[0];
-  removeItem.addEventListener('click', () => {
-    document.querySelector('.cart__items').removeChild(event.target);
-  });
+  // const removeItem = document.getElementsByTagName('ol')[0];
+  // removeItem.addEventListener('click', () => {
+  //   document.querySelector('.cart__items').removeChild(event.target);
+  // });
+  event.target.remove();
+  savedStorage();
+  finalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -50,6 +62,8 @@ function createProductItemElement({ sku, name, image }) {
       };
       const cart = document.querySelector('.cart__items');
       cart.appendChild(createCartItemElement(itemObj));
+      savedStorage();
+      finalPrice();
     });
   });
   section.appendChild(btn);
@@ -85,9 +99,24 @@ function removeAllItems() {
   btnRemove.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
   });
+  savedStorage();
+  finalPrice();
+}
+
+function getItemsFromLocalStorage() {
+  const loadedCart = localStorage.getItem('cart');
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = loadedCart;
+  cartList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  });
+  finalPrice();
 }
 
 window.onload = function onload() {
   getApi();
   removeAllItems();
+  getItemsFromLocalStorage();
 };
