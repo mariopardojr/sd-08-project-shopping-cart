@@ -43,7 +43,6 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-
 function cartItemClickListener() {
   const list = document.querySelector('.cart__items');
   list.addEventListener('click', (event) => {
@@ -81,6 +80,7 @@ async function fetchAndFormateProducts() {
   try {
     const data = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
     const { results } = await data.json();
+    document.querySelector('.loading').remove();
     results.forEach((product) => {
       const createObjectItem = createProductItemElement(product);
       document.querySelector('.items').appendChild(createObjectItem);
