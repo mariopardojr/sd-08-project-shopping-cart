@@ -30,7 +30,7 @@ function createProductItemElement({ sku, name, image }) {
 
 const filterResultObject = (array) => {
   const idNameImageProducts = array
-  .map(({ id, title, thumbnail}) => ({ sku: id, name: title, image: thumbnail}))
+  .map(({ id, title, thumbnail }) => ({ sku: id, name: title, image: thumbnail }))
   .forEach((element) => {
     const addItens = document.querySelector('.items');
     addItens.appendChild(createProductItemElement(element));
@@ -42,13 +42,13 @@ const filterResultObject = (array) => {
 //   // coloque seu código aqui
 // }
 
-const fetchProducts = product => {
+const fetchProducts = (product) => {
   const productByCategory = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
 
   fetch(productByCategory)
     .then(response => response.json())
-    .then(object => {
-      if(object.error) {
+    .then((object) => {
+      if (object.error) {
         throw new Error(object.error);
       } else {
         filterResultObject(object.results);
@@ -65,5 +65,5 @@ const fetchProducts = product => {
 // }
 
 window.onload = function onload() {
-  fetchProducts('computador')
+  fetchProducts('computador');
 };
