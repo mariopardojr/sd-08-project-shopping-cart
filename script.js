@@ -14,6 +14,7 @@ function saveAtLocalStorage() {
 
 function showShoppingHistory() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('myShopping');
+  sumAllPrices();
 }
 
 function createProductImageElement(imageSource) {
@@ -35,6 +36,7 @@ function cartItemClickListener() {
   const list = document.querySelector('.cart__items');
   list.addEventListener('click', (event) => {
     event.target.remove();
+    sumAllPrices();
     saveAtLocalStorage();
   });
 }
