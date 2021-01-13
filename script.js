@@ -1,6 +1,6 @@
 function saveAtLocalStorage() {
   const list = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('myShopping', list)
+  localStorage.setItem('myShopping', list);
 }
 
 function showShoppingHistory() {
