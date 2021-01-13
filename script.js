@@ -3,7 +3,7 @@ function sumAllPrices() {
   document.querySelectorAll('.cart__item')
   .forEach((item) => {
     counter += parseFloat(item.innerHTML.split('$')[1]);
-  })
+  });
   document.querySelector('.total-price').innerHTML = counter;
 }
 
@@ -88,7 +88,7 @@ function addElementToShoppingCart() {
         const addItem = { sku: data.id, name: data.title, salePrice: data.price };
         const createdElementInCart = createCartItemElement(addItem);
         document.querySelector('.cart__items').appendChild(createdElementInCart);
-        sumAllPrices()
+        sumAllPrices();
         saveAtLocalStorage();
       });
     }
