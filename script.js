@@ -1,6 +1,4 @@
 
-
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -56,6 +54,6 @@ async function fetchAndFormateProducts() {
   }
 }
 
-window.onload = function onload() { 
+window.onload = function onload() {
   fetchAndFormateProducts();
 };
