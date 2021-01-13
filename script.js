@@ -1,17 +1,33 @@
 const errorAlert = (error) => {
   window.alert(error);
 };
-
 const saveCartList = () => {
   localStorage.clear();
-
   const ol = document.querySelector('.cart__items');
   localStorage.setItem('cartList', ol.innerHTML);
+};
+const createLoading = () => {
+  const loading = document.createElement('p');
+  loading.className = 'loading';
+  loading.innerText = 'loading...';
+  return loading;
+};
+
+const subPrice = (price) => {
+  const textItem = price.innerText;
+  const lastString = textItem.substring(textItem.lastIndexOf('$') + 1);
+  // ref: https://pt.stackoverflow.com/questions/314079/pegar-a-ultima-ocorr%C3%AAncia-num-string-javascript#:~:text=Basta%20usar%20lastIndexOf%20que%20retorna,substring(texto.
+  const priceItem = parseInt(lastString, 10);
+  const total = document.querySelector('.price');
+  const numberTotal = parseInt(total.innerText, 10);
+  const totalPrice = numberTotal - priceItem;
+  total.innerHTML = totalPrice;
 };
 
 function cartItemClickListener(event) {
   const cartOL = document.querySelector('.cart__items');
   cartOL.removeChild(event.target);
+  subPrice(event.target);
   saveCartList();
 }
 
@@ -35,18 +51,29 @@ const fetchAPIByID = (itemID) => {
     })
     .catch(error => errorAlert(error));
 };
+
+const sumPrice = async (price) => {
+  const total = document.querySelector('.price');
+  const numberTotal = parseInt(total.innerText, 10);
+  const totalPrice = numberTotal + price;
+  total.innerHTML = totalPrice;
+};
+
 const fetchItemByID = async (event) => {
   const clickedElementParent = event.target.parentNode;
   const idItem = getSkuFromProductItem(clickedElementParent);
+  const cartList = document.querySelector('.cart__items');
+  cartList.appendChild(createLoading());
   const objectItemID = await fetchAPIByID(idItem);
+  const loading = document.querySelector('.loading');
+  cartList.removeChild(loading);
   const { id: sku, title: name, price: salePrice } = objectItemID;
   const cartItemList = createCartItemElement({ sku, name, salePrice });
-  const cartList = document.querySelector('.cart__items');
   cartList.appendChild(cartItemList);
+  await sumPrice(objectItemID.price);
   saveCartList();
   // referência projeto Rafael Guimarães
 };
-
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -89,14 +116,21 @@ const fetchProducts = (product) => {
         throw new Error(object.error);
       } else {
         filterResultsObject(object.results);
+        const addItems = document.querySelector('.items');
+        const loading = document.querySelector('.loading');
+        addItems.removeChild(loading);
       }
     });
 };
+
 const removeAllItems = () => {
   const ol = document.querySelector('.cart__items');
+  const total = document.querySelector('.price');
+
   while (ol.firstChild) {
     ol.removeChild(ol.firstChild);
   }
+  total.innerHTML = 0;
   saveCartList();
 };
 
@@ -104,13 +138,16 @@ const clearCartButton = () => {
   const clearAllButton = document.querySelector('.empty-cart');
   clearAllButton.addEventListener('click', removeAllItems);
 };
-
 const newSession = () => {
   const ol = document.querySelector('.cart__items');
   ol.innerHTML = localStorage.getItem('cartList');
 };
-
+const callLoading = () => {
+  const addItems = document.querySelector('.items');
+  addItems.appendChild(createLoading());
+};
 window.onload = function onload() {
+  callLoading();
   fetchProducts('computador');
   clearCartButton();
   newSession();
