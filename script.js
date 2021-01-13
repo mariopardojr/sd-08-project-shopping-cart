@@ -14,7 +14,7 @@ function saveAtLocalStorage() {
 }
 
 function clearShoppingCart() {
-  document.querySelector('.cart__items').innerHTML = "";
+  document.querySelector('.cart__items').innerHTML = '';
   document.querySelector('.total-price').innerHTML = 0;
   saveAtLocalStorage();
 }
