@@ -1,17 +1,3 @@
-// function savedStorage() {
-//   const cartItems = document.querySelector('.cart__items').innerHTML;
-//   localStorage.setItem('cart', cartItems);
-// }
-
-// function finalPrice() {
-//   const cartList = document.querySelectorAll('.cart__item');
-//   let finalAmount = 0;
-//   cartList.forEach((valor) => {
-//     finalAmount += parseFloat(valor.innerHTML.split('$')[1]);
-//   });
-//   finalAmount = document.querySelector('.total-price').innerHTML;
-// }
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -26,17 +12,16 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function cartItemClickListener(event) {
+async function cartItemClickListener(event) {
   // const removeItem = document.getElementsByTagName('ol')[0];
   // removeItem.addEventListener('click', () => {
   //   document.querySelector('.cart__items').removeChild(event.target);
   // });
   event.target.remove();
-  // savedStorage();
-  // finalPrice();
+  totalPrice();
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+  function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
@@ -77,8 +62,7 @@ function createProductItemElement({ sku, name, image }) {
       };
       const cart = document.querySelector('.cart__items');
       cart.appendChild(createCartItemElement(itemObj));
-      // savedStorage();
-      // finalPrice();
+      totalPrice();
     });
   });
   section.appendChild(btn);
@@ -114,12 +98,29 @@ function removeAllItems() {
   btnRemove.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
   });
-  // savedStorage();
-  // finalPrice();
+  localStorage.clear();
 }
 
-window.onload = function onload() {
+function totalPrice() {
+  let finalPrice = 0;
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach((data) => {
+    finalPrice += parseFloat(data.innerHTML.split('$')[1]);
+  });
+  const cartLocal = document.querySelector('.cart');
+  if (cartLocal.lastChild.className === 'total-price') {
+    cartLocal.lastChild.innerText = finalPrice;
+  } else {
+    const span = document.createElement('span');
+    span.className = 'total-price';
+    span.innerText = finalPrice;
+    cartLocal.appendChild(span);
+  }
+}
+
+window.onload = async function onload() {
   getApi();
-  removeAllItems();
+  await removeAllItems();
   getItemsFromLocalStorage();
+  await totalPrice();
 };
