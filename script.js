@@ -1,3 +1,20 @@
+function totalPrice() {
+  let finalPrice = 0;
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach((data) => {
+    finalPrice += parseFloat(data.innerHTML.split('$')[1]);
+  });
+  const cartLocal = document.querySelector('.cart');
+  if (cartLocal.lastChild.className === 'total-price') {
+    cartLocal.lastChild.innerText = finalPrice;
+  } else {
+    const span = document.createElement('span');
+    span.className = 'total-price';
+    span.innerText = finalPrice;
+    cartLocal.appendChild(span);
+  }
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -12,7 +29,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-async function cartItemClickListener(event) {
+function cartItemClickListener(event) {
   // const removeItem = document.getElementsByTagName('ol')[0];
   // removeItem.addEventListener('click', () => {
   //   document.querySelector('.cart__items').removeChild(event.target);
@@ -21,7 +38,7 @@ async function cartItemClickListener(event) {
   totalPrice();
 }
 
-  function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
@@ -40,6 +57,7 @@ function getItemsFromLocalStorage() {
       localItem.innerText = data;
       localItem.addEventListener('click', cartItemClickListener);
       localCart.appendChild(localItem);
+      totalPrice();
     });
   }
 }
@@ -97,30 +115,12 @@ function removeAllItems() {
   const btnRemove = document.getElementsByClassName('empty-cart')[0];
   btnRemove.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
+    totalPrice();
   });
-  localStorage.clear();
 }
 
-function totalPrice() {
-  let finalPrice = 0;
-  const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach((data) => {
-    finalPrice += parseFloat(data.innerHTML.split('$')[1]);
-  });
-  const cartLocal = document.querySelector('.cart');
-  if (cartLocal.lastChild.className === 'total-price') {
-    cartLocal.lastChild.innerText = finalPrice;
-  } else {
-    const span = document.createElement('span');
-    span.className = 'total-price';
-    span.innerText = finalPrice;
-    cartLocal.appendChild(span);
-  }
-}
-
-window.onload = async function onload() {
+window.onload = function onload() {
   getApi();
-  await removeAllItems();
+  removeAllItems();
   getItemsFromLocalStorage();
-  await totalPrice();
 };
