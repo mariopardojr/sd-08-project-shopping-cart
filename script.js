@@ -12,25 +12,23 @@ const createLoading = () => {
   loading.innerText = 'loading...';
   return loading;
 };
-
-const subPrice = (price) => {
-  const textItem = price.innerText;
-  const lastString = textItem.substring(textItem.lastIndexOf('$') + 1);
-  // ref: https://pt.stackoverflow.com/questions/314079/pegar-a-ultima-ocorr%C3%AAncia-num-string-javascript#:~:text=Basta%20usar%20lastIndexOf%20que%20retorna,substring(texto.
-  const priceItem = parseInt(lastString, 10);
-  const total = document.querySelector('.price');
-  const numberTotal = parseInt(total.innerText, 10);
-  const totalPrice = numberTotal - priceItem;
-  total.innerHTML = totalPrice;
+const sumOfItems = async () => {
+  const cart = document.querySelector('.cart__items').childNodes;
+  let totalSum = 0;
+  cart.forEach((item) => {
+    const itemValue = item.innerText.split('$');
+    console.log(itemValue);
+    totalSum += parseFloat(itemValue[1]);
+  });
+  const divSumAllItems = document.querySelector('.total-price');
+  divSumAllItems.innerHTML = totalSum;
 };
-
 function cartItemClickListener(event) {
   const cartOL = document.querySelector('.cart__items');
   cartOL.removeChild(event.target);
-  subPrice(event.target);
+  sumOfItems();
   saveCartList();
 }
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -51,14 +49,6 @@ const fetchAPIByID = (itemID) => {
     })
     .catch(error => errorAlert(error));
 };
-
-const sumPrice = async (price) => {
-  const total = document.querySelector('.price');
-  const numberTotal = parseInt(total.innerText, 10);
-  const totalPrice = numberTotal + price;
-  total.innerHTML = totalPrice;
-};
-
 const fetchItemByID = async (event) => {
   const clickedElementParent = event.target.parentNode;
   const idItem = getSkuFromProductItem(clickedElementParent);
@@ -70,7 +60,7 @@ const fetchItemByID = async (event) => {
   const { id: sku, title: name, price: salePrice } = objectItemID;
   const cartItemList = createCartItemElement({ sku, name, salePrice });
   cartList.appendChild(cartItemList);
-  await sumPrice(objectItemID.price);
+  sumOfItems();
   saveCartList();
   // referência projeto Rafael Guimarães
 };
@@ -122,18 +112,14 @@ const fetchProducts = (product) => {
       }
     });
 };
-
 const removeAllItems = () => {
   const ol = document.querySelector('.cart__items');
-  const total = document.querySelector('.price');
-
   while (ol.firstChild) {
     ol.removeChild(ol.firstChild);
   }
-  total.innerHTML = 0;
+  sumOfItems();
   saveCartList();
 };
-
 const clearCartButton = () => {
   const clearAllButton = document.querySelector('.empty-cart');
   clearAllButton.addEventListener('click', removeAllItems);
