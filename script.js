@@ -1,5 +1,7 @@
 window.onload = function onload() { };
 
+const dados = fetch('https://api.mercadolibre.com/sites/MLB/search?q=computer');
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
