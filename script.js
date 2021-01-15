@@ -1,6 +1,4 @@
-window.onload = function onload() { };
 
-const dados = fetch('https://api.mercadolibre.com/sites/MLB/search?q=computer');
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -33,7 +31,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -43,3 +41,27 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function displayItems() {
+  const secao = document.querySelector('.items');
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computer')
+  .then(r => r.json())
+  .then((r) => {
+    const data = {};
+    Object.assign(data, r);
+    const products = r.results;
+    products.forEach((each) => {
+      const sku = each.id;
+      const name = each.title;
+      const image = each.thumbnail;
+      const info = {sku: sku, name: name, image: image};
+      secao.appendChild(createProductItemElement(info));
+    });
+  })
+  //return secao.appendChild(createProductItemElement(produtoTeste));
+}
+
+window.onload = function onload() {
+  // fetchAndRetrieveProducts()
+  displayItems();
+};
