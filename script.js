@@ -1,4 +1,11 @@
-
+function returnInfo(json) {
+  const id = json.id;
+  const title = json.title;
+  const thumb = json.thumbnail;
+  const price = json.price;
+  const info = { sku: id, name: title, image: thumb, salePrice: price };
+  return info;
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -49,10 +56,7 @@ function addToCart(event) {
   fetch(`https://api.mercadolibre.com/items/${sku}`)
   .then(r => r.json())
   .then((r) => {
-    const id = r.id;
-    const title = r.title;
-    const price = r.price;
-    const info = { sku: id, name: title, salePrice: price };
+    const info = returnInfo(r);
     cart.appendChild(createCartItemElement(info));
   });
 }
@@ -66,23 +70,17 @@ function displayItems() {
     Object.assign(data, r);
     const products = r.results;
     products.forEach((each) => {
-      const id = each.id;
-      const title = each.title;
-      const thumb = each.thumbnail;
-      const info = { sku: id, name: title, image: thumb };
+      const info = returnInfo(each);
       secao.appendChild(createProductItemElement(info));
     });
   })
   .then(() => {
     const button = document.querySelectorAll('button.item__add');
-    button.forEach(each => {
-      each.addEventListener('click', addToCart);
-    })
-  })
+    button.forEach(each => each.addEventListener('click', addToCart));
+  });
 }
 
 window.onload = function onload() {
   // fetchAndRetrieveProducts()
   displayItems();
 };
-
