@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  
+// funcao
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -51,14 +51,14 @@ function displayItems() {
     Object.assign(data, r);
     const products = r.results;
     products.forEach((each) => {
-      const sku = each.id;
-      const name = each.title;
-      const image = each.thumbnail;
-      const info = {sku: sku, name: name, image: image};
+      const id = each.id;
+      const title = each.title;
+      const thumb = each.thumbnail;
+      const info = { sku: id, name: title, image: thumb };
       secao.appendChild(createProductItemElement(info));
     });
-  })
-  //return secao.appendChild(createProductItemElement(produtoTeste));
+  });
+  //  return secao.appendChild(createProductItemElement(produtoTeste));
 }
 
 window.onload = function onload() {
