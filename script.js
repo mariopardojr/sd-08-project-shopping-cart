@@ -55,13 +55,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-async function sumPrice() {
-  
-}
+// async function sumPrice() {
 
-function showPrice() {
+// }
 
-}
+// function showPrice() {
+
+// }
 
 function loadData() {
   const lastList = localStorage.getItem('cart');
