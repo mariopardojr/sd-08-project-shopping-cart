@@ -91,7 +91,7 @@ function displayItems() {
   .then(() => {
     const button = document.querySelectorAll('button.item__add');
     button.forEach(each => each.addEventListener('click', addToCart));
-  })
+  });
 }
 
 function emptyCart() {
