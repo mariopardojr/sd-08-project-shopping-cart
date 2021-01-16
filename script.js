@@ -45,7 +45,7 @@ function getSkuFromProductItem(item) {
 async function showPrice() {
   const total = document.querySelector('p.total-price');
   const price = await new Promise((resolve) => {
-      setTimeout(() => {
+    setTimeout(() => {
         const originalCartList = document.querySelectorAll('li.cart__item');
         if (originalCartList.length === 0) {
           return resolve(0);
@@ -59,7 +59,7 @@ async function showPrice() {
         const totalCost = prices.reduce((acc, num) => acc + num);
         return resolve(totalCost);
       }, 500);
-    });
+  });
   total.innerText = price;
 }
 
