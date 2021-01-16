@@ -43,17 +43,17 @@ function getSkuFromProductItem(item) {
 }
 
 async function showPrice() {
-  const total = document.querySelector("p.total-price");
+  const total = document.querySelector('p.total-price');
   const price = await new Promise((resolve) => {
     setTimeout(() => {
-      const originalCartList = document.querySelectorAll("li.cart__item");
+      const originalCartList = document.querySelectorAll('li.cart__item');
       if (originalCartList.length === 0) {
         return resolve(0);
       }
       const cartListCopy = [...originalCartList];
       const prices = cartListCopy.map((each) => {
         const string = each.innerText;
-        const itemPrice = string.split("$");
+        const itemPrice = string.split('$');
         return parseInt(itemPrice[1], 10);
       });
       const totalCost = prices.reduce((acc, num) => acc + num);
