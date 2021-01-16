@@ -118,7 +118,7 @@ function displayItems() {
   .then(() => {
     const loading = document.querySelector('h1.loading');
     loading.style.display = 'none';
-  })
+  });
 }
 
 function emptyCart() {
