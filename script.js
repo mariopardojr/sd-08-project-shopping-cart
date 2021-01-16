@@ -114,7 +114,11 @@ function displayItems() {
   .then(() => {
     const button = document.querySelectorAll('button.item__add');
     button.forEach(each => each.addEventListener('click', addToCart));
-  });
+  })
+  .then(() => {
+    const loading = document.querySelector('h1.loading');
+    loading.style.display = 'none';
+  })
 }
 
 function emptyCart() {
