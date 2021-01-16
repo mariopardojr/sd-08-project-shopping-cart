@@ -54,7 +54,7 @@ async function showPrice() {
       const prices = cartListCopy.map((each) => {
         const string = each.innerText;
         const itemPrice = string.split('$');
-        return parseInt(itemPrice[1], 10);
+        return parseFloat(itemPrice[1], 10);
       });
       const totalCost = prices.reduce((acc, num) => acc + num);
       return resolve(totalCost);
