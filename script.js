@@ -42,42 +42,23 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const sumPrice = () => {
-  setTimeout(() => {
-  const originalCartList = document.querySelectorAll('li.cart__item');
-  if (originalCartList.length === 0) {
-    return 0;
-  }
-  const cartListCopy = [...originalCartList];
-  const prices = cartListCopy.map((each) => {
-    const string = each.innerText;
-    const itemPrice = string.split('$');
-    console.log(parseInt(itemPrice[1]));
-    return parseInt(itemPrice[1]);
-  });
-  const totalCost = prices.reduce((acc, num) => acc + num);
-  console.log(totalCost);
-  return totalCost;
-  }, 500)
-}
-
 async function showPrice() {
   const total = document.querySelector('p.total-price');
   const price = await new Promise((resolve) => {
       setTimeout(() => {
-      const originalCartList = document.querySelectorAll('li.cart__item');
-      if (originalCartList.length === 0) {
-        return resolve(0);
-      }
-      const cartListCopy = [...originalCartList];
-      const prices = cartListCopy.map((each) => {
-        const string = each.innerText;
-        const itemPrice = string.split('$');
-        return parseInt(itemPrice[1]);
-      });
-      const totalCost = prices.reduce((acc, num) => acc + num);
-      return resolve(totalCost);
-      }, 500)
+        const originalCartList = document.querySelectorAll('li.cart__item');
+        if (originalCartList.length === 0) {
+          return resolve(0);
+        }
+        const cartListCopy = [...originalCartList];
+        const prices = cartListCopy.map((each) => {
+          const string = each.innerText;
+          const itemPrice = string.split('$');
+          return parseInt(itemPrice[1], 10);
+        });
+        const totalCost = prices.reduce((acc, num) => acc + num);
+        return resolve(totalCost);
+      }, 500);
     });
   total.innerText = price;
 }
