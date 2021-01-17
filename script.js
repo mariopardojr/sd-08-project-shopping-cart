@@ -1,7 +1,7 @@
 
 let shoppingCart = [];
 
-const getItemPromise = ((item) => {
+function getItemPromise(item) {
   const loader = document.createElement('div');
   loader.className = 'loading';
   loader.innerHTML = 'loading...';
@@ -14,27 +14,20 @@ const getItemPromise = ((item) => {
 
   document.querySelector('.cart__items').removeChild(loader);
   return result;
-});
+}
 
 async function getTotalPrice() {
-  const cartItems = document.querySelector('.cart');
+  const totalPrice = document.querySelector('.total-price');
 
-  if (document.querySelector('.total-price')) {
-    cartItems.removeChild(document.querySelector('.total-price'));
-  }
-
-  const totalPrice = document.createElement('div');
-  totalPrice.className = 'total-price';
   const itemsPromises = shoppingCart.map(item => getItemPromise(item));
-
   const results = await Promise.all(itemsPromises);
-  totalPrice.innerText = results.reduce((total, currentItem) => total + currentItem.price, 0);
-
-  cartItems.appendChild(totalPrice);
+  const total = results.reduce((accumulator, currentItem) => accumulator + currentItem.price, 0);
+  totalPrice.innerText = `R$ ${total.toFixed(2)}`;
 }
 
 function localStorageUpdate() {
   localStorage.setItem('savedCart', JSON.stringify(shoppingCart));
+  getTotalPrice();
 }
 
 function cartItemClickListener(event) {
@@ -49,9 +42,8 @@ function cartItemClickListener(event) {
   } else {
     shoppingCart = shoppingCart.filter((currentItem, index) => index !== productIndex);
   }
-  localStorageUpdate();
 
-  getTotalPrice();
+  localStorageUpdate();
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
@@ -64,9 +56,7 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 
   ol.appendChild(li);
   shoppingCart.push(sku);
-  localStorageUpdate();
 
-  getTotalPrice();
   return li;
 }
 
@@ -74,8 +64,8 @@ async function starterShoppingCart(savedCart) {
   const itemsPromises = savedCart.map(item => getItemPromise(item));
   const results = await Promise.all(itemsPromises);
 
-  localStorage.setItem('savedCart', '');
   results.map(produto => createCartItemElement(produto));
+  localStorageUpdate();
 }
 
 function createProductImageElement(imageSource) {
@@ -102,6 +92,7 @@ async function getItemToCart(event) {
   const results = await getItemPromise(itemId);
 
   createCartItemElement(results);
+  localStorageUpdate();
 }
 
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
@@ -140,7 +131,6 @@ function emptyCart() {
   shoppingCart = [];
   localStorageUpdate();
   document.querySelector('.cart__items').innerText = '';
-  getTotalPrice();
 }
 
 window.onload = function onload() {
