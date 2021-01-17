@@ -22,7 +22,7 @@ async function getTotalPrice() {
   const itemsPromises = shoppingCart.map(item => getItemPromise(item));
   const results = await Promise.all(itemsPromises);
   const total = results.reduce((accumulator, currentItem) => accumulator + currentItem.price, 0);
-  totalPrice.innerText = `R$ ${total.toFixed()}`;
+  totalPrice.innerText = `${total.toFixed()}`;
 }
 
 function localStorageUpdate() {
