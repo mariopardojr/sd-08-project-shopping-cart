@@ -72,12 +72,12 @@ async function selectItem() {
         .querySelector('.item__sku')
         .innerText;
       await fetch(`https://api.mercadolibre.com/items/${elementID}`)
-        .then((result) => result.json())
+        .then(result => result.json())
         .then((computer) => {
           const info = {
-            sku : computer.id,
-            name : computer.title,
-            salePrice : computer.price
+            sku: computer.id,
+            name: computer.title,
+            salePrice: computer.price,
           };
           cartItems.appendChild(createCartItemElement(info));
         });
