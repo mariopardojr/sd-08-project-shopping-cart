@@ -2,7 +2,7 @@ let totalPrice = 0;
 
 function addValue() {
   const totalPriceElement = document.querySelector('.total-price');
-  totalPriceElement.innerHTML = totalPrice;
+  totalPriceElement.innerHTML = totalPrice.toFixed(2);
 }
 
 function sum(value) {
