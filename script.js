@@ -1,5 +1,10 @@
 let totalPrice = 0;
 
+function addValue() {
+  const totalPriceElement = document.querySelector('.total-price');
+  totalPriceElement.innerHTML = totalPrice;
+}
+
 function sum(value) {
   totalPrice += value;
   addValue();
@@ -116,11 +121,6 @@ function getItemsLocalStorage() {
   cartItems.forEach((element) => {
     element.addEventListener('click', cartItemClickListener);
   });
-}
-
-function addValue() {
-  const totalPriceElement = document.querySelector('.total-price');
-  totalPriceElement.innerHTML = totalPrice;
 }
 
 window.onload = async function onload() {
