@@ -10,6 +10,38 @@ function saveItems() {
 // e depois eu adiciono a função saveitems na função cartItemClickListener
 // assim qdo eu clico ele salva tbm
 // continua no final - task4 continuação
+// codeclimate reclamou, hoisting nao funcionou por isso ela ta aqui em cima do codigo.
+
+function totalPriceCart() {
+  const itemsAddToCart = document.querySelectorAll('.cart__item');
+  let total = 0;
+  itemsAddToCart.forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = Math.round(total * 100) / 100;
+}
+
+// task5. Some o valor total dos itens do carrinho de compras de forma assíncrona
+// dessa maneira ficou menos complexo do q com async await - Plantão Massaki
+// Cada vez que se adicionar um item ao carrinho de compras será necessário somar seus valores
+// fazer um Preço Total, como no exemplo do readme-git.
+// e apresentá-los na página principal do projeto. Faço uma classe <p> no html
+// <p>Preço Total: $<span class="total-price"></span></p>
+// como fazer a soma -> o item é uma string, "sku, name , price"
+// function totalPriceCart() -> pegar cada item, quebrar a string e pegar só o numero do price.
+// const itemsAddToCart=document.querySelectorAll('.cart__items') pego todos os items do cart
+// me retorna em formato de array
+// atraves da Hof - itemsAddToCart.forEach para poder iterar sob os elementos do array
+// para cada item eu pego o innerHTML que me retorna só o texto, uma string,
+// usando o .split('$'), entrega um array de todas posições do item até o $ na posição[0]
+// e na posição 1 ele me entrega o número
+// utilizo a parseFloat pq eu quero pegar cada item de numero com as suas virgulas
+// iterando o total item a item.
+// e depois adiciono as funções que estão o saveitems e no loaditems, pq dae ele mantem a soma
+// qdo eu adiciono e qdo eu retiro item.
+// o tofixed(2) para trabalhar o total em no máximo 2 casas após a virgula - codeclimate acusou
+// então uso do MAth roud resolveu.
+// codeclimate reclamou, hoisting nao funcionou por isso ela ta aqui em cima do codigo.
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -56,6 +88,7 @@ function cartItemClickListener(event) {
   const parentElement = event.target.parentElement;
   parentElement.removeChild(event.target);
   saveItems();
+  totalPriceCart();
 }
 
 // task 3- criar um evento quando clica em um item da lista, no caso remover o item clicado
@@ -83,7 +116,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 function generateItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(data =>
+    .then((data) => {
+      document.querySelector('.loading').remove();
       data.results.forEach((item) => {
         const obj = {
           sku: item.id,
@@ -91,8 +125,8 @@ function generateItemsList() {
           image: item.thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(obj));
-      }),
-    );
+      });
+    });
 }
 
 // task1 - função para fazer um fetch da api, que recebe uma resposta - Plantão Massaki
@@ -105,6 +139,14 @@ function generateItemsList() {
 // e esses itens vao gerando a lista, baseados nessas caracteristicas daquele item
 // crio o item, e esse item vai ser jogado (appendChild) numa lista que cria o elemento
 // createProductitemelemnt
+
+// task7 Adicionar um texto de "loading" durante uma requisição à API
+// crio um item no html, <h2 class="loading"></h2> que tem q ser carregado e removido qdo
+// termina de carregar.
+// fazendo um document.queryselector('.loading) to selecionando essa classe,
+// posicionado ela logo apos o carregamento da pagina pelo fetch, eu ja posso remove-la
+// pelo .remove();
+
 
 function addItemToCart() {
   document.querySelector('.items').addEventListener('click', (event) => {
@@ -121,6 +163,7 @@ function addItemToCart() {
           };
           document.querySelector('.cart__items').appendChild(createCartItemElement(skuObj));
           saveItems();
+          totalPriceCart();
         });
     }
   });
@@ -163,6 +206,7 @@ function loadItems() {
       cartItemClickListener(event);
     }
   });
+  totalPriceCart();
 }
 
 // continuação task4
@@ -178,8 +222,28 @@ function loadItems() {
 // onde existe meu evento click, que qdo eu clicar no item ele vai executar a minha função
 // cartItemclickListener(event), quando eu clico eu ele executa o evento e retorna o item q eu clic
 
+function emptyCart() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveItems();
+    totalPriceCart();
+  });
+}
+
+// task6. Botão para limpar carrinho de compras
+// Crie um botão para remover todos os itens do carrinho de compras
+// Ele deve, **obrigatóriamente**, ter a classe `empty-cart`.
+// Para funcionalizar o botão, crio um document.query selector nessa class empty cart
+// que qdo eu clicar, atraves do addeventlistener, click e a declaração da func anonima()
+// executa a documentqueryslector na class cart items, os seus innerhtml serão removidos
+// uso a saveitems e a totalpricecart chamando as tbm, para q qdo eu clique ele limpe e nao
+// fique salvo os itens colocados somados e nem localstorage.
+
+// invocação das funçoes na ordem especificada no onload.
 window.onload = function onload() {
   loadItems();
   generateItemsList();
   addItemToCart();
+  totalPriceCart();
+  emptyCart();
 };
