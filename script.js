@@ -1,5 +1,16 @@
 let totalPrice = 0;
 
+function sum(value) {
+  totalPrice += value;
+  addValue();
+}
+
+function sub(value) {
+  totalPrice -= value;
+  if (totalPrice < 0) totalPrice = 0;
+  addValue();
+}
+
 function saveItemsLocalStorgae() {
   const cartItemsValue = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('computer', cartItemsValue);
@@ -110,17 +121,6 @@ function getItemsLocalStorage() {
 function addValue() {
   const totalPriceElement = document.querySelector('.total-price');
   totalPriceElement.innerHTML = totalPrice;
-}
-
-function sum(value) {
-  totalPrice += value;
-  addValue();
-}
-
-function sub(value) {
-  totalPrice -= value;
-  if(totalPrice < 0) totalPrice = 0;
-  addValue();
 }
 
 window.onload = async function onload() {
