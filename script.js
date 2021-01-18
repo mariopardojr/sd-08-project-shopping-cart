@@ -2,7 +2,7 @@ let totalPrice = 0;
 
 function addValue() {
   const totalPriceElement = document.querySelector('.total-price');
-  totalPriceElement.innerHTML = totalPrice.toFixed(2);
+  totalPriceElement.innerHTML = totalPrice;
 }
 
 function sum(value) {
@@ -71,6 +71,7 @@ async function consumeAPI(computador) {
   await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${computador}`)
     .then(result => result.json())
     .then((objectJSON) => {
+      document.querySelector('.loading').remove();
       objectJSON.results.forEach((element) => {
         const sku = element.id;
         const name = element.title;
