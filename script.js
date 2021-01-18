@@ -1,3 +1,8 @@
+function saveItemsLocalStorgae() {
+  const cartItemsValue = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('computer', cartItemsValue);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -87,27 +92,19 @@ async function selectItem() {
   });
 }
 
-function saveItemsLocalStorgae() {
-  const cartItemsValue = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('computer', cartItemsValue);
-}
-
-function getItemsLocalStorage(){
+function getItemsLocalStorage() {
   const items = localStorage.getItem('computer');
   const cart = document.querySelector('.cart__items');
   cart.innerHTML = items;
   const cartItems = document.querySelectorAll('.cart__item');
   console.log(cartItems);
-
   cartItems.forEach((element) => {
     element.addEventListener('click', cartItemClickListener);
-  })
-
+  });
 }
 
 window.onload = async function onload() {
   getItemsLocalStorage();
-
   await consumeAPI('computador');
   selectItem();
 };
