@@ -49,7 +49,7 @@ function cartItemClickListener(event) {
   const parentElement = event.target.parentElement;
   parentElement.removeChild(event.target);
   localStorageItems();
-  totalPrice()
+  totalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -59,7 +59,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   ol.appendChild(li);
   localStorageItems();
-  totalPrice()
+  totalPrice();
   return li;
 }
 
@@ -107,7 +107,7 @@ function loadCartItems() {
       cartItemClickListener(event);
     }
   });
-  totalPrice()
+  totalPrice();
 }
 
 function empty() {
