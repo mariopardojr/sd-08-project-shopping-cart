@@ -55,7 +55,38 @@ async function consumeAPI(computador) {
     });
 }
 
+function selectAllItems() {
+  const elementList = document.querySelectorAll('.item');
+  return elementList;
+}
 
-window.onload = function onload() {
-  consumeAPI('computador');
+async function selectItem() {
+  const elementList = await selectAllItems();
+  const cartItems = document.querySelector('.cart__items');
+  elementList.forEach((element) => {
+    // const elementID = element.querySelector('.item__sku').innerHTML;
+    const elementButton = element.querySelector('.item__add');
+    elementButton.addEventListener('click', async (event) => {
+      const elementID = event.target
+        .parentElement
+        .querySelector('.item__sku')
+        .innerText;
+      await fetch(`https://api.mercadolibre.com/items/${elementID}`)
+        .then(result => result.json())
+        .then(computer => {
+          const sku = computer.id;
+          const name = computer.title;
+          const salePrice = computer.price;
+          const info = {sku, name, salePrice};
+          cartItems.appendChild(createCartItemElement(info));
+        })
+    })
+  })
+}
+
+
+window.onload = async function onload() {
+  await consumeAPI('computador');
+  selectItem();
+
 };
