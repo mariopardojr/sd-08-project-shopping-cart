@@ -123,7 +123,7 @@ function clearItems() {
 
 async function endLoading() {
   // console.log('entrou');
-  await generateItemsList();
+  await addItemShoppingList()
   document.querySelector('.loading').remove();
   // console.log(result);
   // console.log('saiu')
