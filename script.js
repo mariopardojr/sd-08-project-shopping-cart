@@ -18,7 +18,7 @@ function removeLoading() {
 }
 
 function getPrice(item) {
-  return parseFloat(item.innerText.split('PRICE: $'));
+  return parseFloat(item.innerText.split('PRICE: $')[1]);
 }
 
 function updateTotalPrice() {
