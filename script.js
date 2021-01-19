@@ -44,6 +44,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+// projeto feito  com o apoio de https://trybecourse.slack.com/archives/C01A9A2N93R/p1608237982190300
 
 function generateItemsList() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
@@ -59,6 +60,30 @@ function generateItemsList() {
   }));
 }
 
+function addItemShoppingList() {
+  document.querySelector('.items').addEventListener('click',
+  (event) => {
+    if (event.target.classList.contains('item__add')) {
+      const parentElement = event.target.parentElement;
+      const sku = getSkuFromProductItem(parentElement);
+      fetch(`https://api.mercadolibre.com/items/${sku}`)
+      .then(response => response.json())
+      .then((data) => {
+        const objeto = {
+          sku: data.id,
+          name: data.title,
+          salePrice: data.price,
+        };
+        document.querySelector('.cart__items').appendChild(
+        createCartItemElement(objeto));
+      });
+    },
+  }
+  );
+}
+
+
 window.onload = function onload() {
   generateItemsList();
+  addItemShoppingList();
 };
