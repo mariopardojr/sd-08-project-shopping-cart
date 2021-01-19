@@ -1,6 +1,7 @@
 function savingItems() {
   const itemsSaved = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('items', itemsSaved);
+  priceTotal();
 }
 
 window.onload = function onload() { };
@@ -100,7 +101,10 @@ function loadingItems() {
 }
 
 function priceTotal(){
-
+  const cartList = document.querySelectorAll('cart__items');
+  cartList.forEach((produto) => {
+    console.log( (produto.innerHTML.split('$')[1]) );
+  })
 }
 
 
