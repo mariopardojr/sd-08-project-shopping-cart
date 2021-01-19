@@ -70,7 +70,7 @@ function addItemShoppingList() {
       .then(response => response.json())
       .then((data) => {
         const obj = {
-          sku: data.id,
+          sku,
           name: data.title,
           salePrice: data.price,
         };
