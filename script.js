@@ -125,6 +125,7 @@ function clearItems() {
 window.onload = function onload() {
   loadingItems();
   generateItemsList();
+  document.querySelector('.loading').remove();
   addItemShoppingList();
   clearItems();
 };
