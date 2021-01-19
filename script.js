@@ -121,11 +121,18 @@ function clearItems() {
   //  const cartList = document.querySelectorAll('.cart__items')
 }
 
+async function endLoading() {
+  // console.log('entrou');
+  await generateItemsList();
+  document.querySelector('.loading').remove();
+  // console.log(result);
+  // console.log('saiu')
+}
 
 window.onload = function onload() {
   loadingItems();
   generateItemsList();
-  document.querySelector('.loading').innerHTML = '';
+  endLoading();
   addItemShoppingList();
   clearItems();
 };
