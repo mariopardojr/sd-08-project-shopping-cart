@@ -1,8 +1,10 @@
 function priceTotal() {
-  const cartList = document.querySelectorAll('cart__items');
+  const cartList = document.querySelectorAll('.cart__item');
+  let priceTotal = 0;
   cartList.forEach((produto) => {
-    console.log( produto.innerHTML.split('$') );
-  })
+    priceTotal += parseFloat(produto.innerHTML.split('$')[1]);
+  });
+  // console.log(priceTotal);
 }
 
 function savingItems() {
