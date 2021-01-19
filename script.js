@@ -118,14 +118,25 @@ function getItemsLocalStorage() {
   const cart = document.querySelector('.cart__items');
   cart.innerHTML = items;
   const cartItems = document.querySelectorAll('.cart__item');
-  console.log(cartItems);
   cartItems.forEach((element) => {
     element.addEventListener('click', cartItemClickListener);
   });
+}
+
+function removeAll() {
+  const removeButton = document.querySelector('.empty-cart');
+  removeButton.addEventListener('click', () => {
+    const allItemsArray = document.querySelectorAll('.cart__item');
+    allItemsArray.forEach((element) => element.remove());
+    console.log('cliquei');
+    totalPrice = 0;
+    addValue();
+  })
 }
 
 window.onload = async function onload() {
   getItemsLocalStorage();
   await consumeAPI('computador');
   selectItem();
+  removeAll();
 };
