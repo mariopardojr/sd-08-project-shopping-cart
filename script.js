@@ -51,8 +51,8 @@ const addItem = async (id, parent) => {
 const addItemToCart = (event) => {
   if (event.target.classList.contains('.item__add')) {
     const cart = document.querySelector('.cart__items');
-    const father = event.target.parentNode;
-    const id = getSkuFromProductItem(father);
+    const parent = event.target.parentNode;
+    const id = getSkuFromProductItem(parent);
     addItem(id, cart);
   }
 };
@@ -63,9 +63,7 @@ async function fetchAndRenderizeProducts() {
     const { results } = await response.json();
     results.forEach((product) => {
       const productItem = createProductItemElement(product);
-      const cart = document.querySelector('.items').appendChild(productItem);
-      productItem.addEventListener('click', addItemToCart);
-      cart.appendChild(productItem);
+      document.querySelector('.items').appendChild(productItem);
     });
   } catch (error) {
     console.log('erro aqui', error);
