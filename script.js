@@ -77,8 +77,8 @@ function addItemShoppingList() {
         document.querySelector('.cart__items').appendChild(
         createCartItemElement(objeto));
       });
-    },
-  }
+    }
+  },
   );
 }
 
