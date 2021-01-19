@@ -86,7 +86,6 @@ function addItemShoppingList() {
     }
   },
   );
-
 }
 
 function loadingItems() {
