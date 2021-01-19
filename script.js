@@ -132,7 +132,7 @@ async function endLoading() {
 window.onload = function onload() {
   loadingItems();
   generateItemsList();
-  endLoading();
   addItemShoppingList();
   clearItems();
+  endLoading();
 };
