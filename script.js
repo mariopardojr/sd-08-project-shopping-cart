@@ -109,10 +109,22 @@ function loadingItems() {
       cartItemClickListener(event);
     }
   });
+  priceTotal();
 }
+
+function clearItems() {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    savingItems();
+    priceTotal();
+  });
+  //  const cartList = document.querySelectorAll('.cart__items')
+}
+
 
 window.onload = function onload() {
   loadingItems();
   generateItemsList();
   addItemShoppingList();
+  clearItems();
 };
