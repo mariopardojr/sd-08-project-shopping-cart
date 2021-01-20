@@ -21,15 +21,16 @@ function createCustomElement(element, className, innerText) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
-function sumPrices() {
+async function sumPrices() {
   let sum = 0;
-  const products = document.querySelector('.cart__item');
+  const products = document.querySelectorAll('.cart__item');
   const price = document.querySelector('.total-price');
   products.forEach((item) => {
     sum += parseFloat(item.innerHTML.split('$')[1]);
   });
   price.innerHTML = Math.round(sum * 100) / 100;
 }
+
 
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
