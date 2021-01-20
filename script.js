@@ -5,10 +5,11 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function createCustomElement(element, className, innerText) {
+function createCustomElement(element, className, innerText, id) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
+  id ? e.id = id : e.id = null;
   return e;
 }
 
@@ -19,7 +20,18 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  const botaoComprar = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
+  botaoComprar.addEventListener('click', () => {
+    fetch(`https://api.mercadolibre.com/items/${sku}`)
+      .then(result => result.json())
+      .then(data => {
+        const { id, title, price } = data;
+        const elementoCarrinho = createCartItemElement(
+          { sku: id, name: title, salePrice: price }
+        );
+      })
+  })
+
 
   return section;
 }
@@ -37,6 +49,28 @@ const listagem = () =>
         });
       })
       .catch(error => reject(error));
+  });
+
+const botaoComprar = () =>
+  new Promise((resolve, reject) => {
+    const elementos = document.getElementsByClassName('item__sku');
+    for (let i = 0; i < elementos.length; i++) {
+      const idElemento = elementos[i].innerText;
+      const btn = document.getElementById(`${idElemento}`);
+      btn.addEventListener('click',
+        fetch(`https://api.mercadolibre.com/items/${idElemento}`)
+          .then(result => result.json())
+          .then((data) => {
+            const { id, title, price } = data;
+            const elementoCarrinho = createCartItemElement(
+              { sku: id, name: title, salePrice: price }
+            );
+            const itemsCarrinho = document.querySelector('.cart__items');
+            itemsCarrinho.appendChild(elementoCarrinho);
+          })
+          .catch(error => reject(error))
+      );
+    };
   });
 
 function getSkuFromProductItem(item) {
@@ -57,4 +91,5 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 window.onload = function onload() {
   listagem();
+  botaoComprar();
 };
