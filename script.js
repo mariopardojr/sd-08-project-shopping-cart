@@ -19,7 +19,11 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  const button = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
+  const button = createCustomElement(
+    'button',
+    'item__add',
+    'Adicionar ao carrinho!'
+  );
   button.addEventListener('click', addProductToCart);
   section.appendChild(button);
 
@@ -80,12 +84,11 @@ async function addProductToCart(event) {
 
 async function priceSum(newValue) {
   try {
-  let total = parseFloat(document.querySelector('.total-price').innerText);
-  total += newValue;
-  document.querySelector('.total-price').innerHTML =  total;
-  console.log(total);
-  }
-  catch (error) {
+    let total = parseFloat(document.querySelector('.total-price').innerText);
+    total += newValue;
+    document.querySelector('.total-price').innerHTML = total;
+    console.log(total);
+  } catch (error) {
     console.log('falha no carregamento', error);
   }
 }
