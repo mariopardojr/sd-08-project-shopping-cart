@@ -5,6 +5,11 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function localStorageItems() {
+  const itemsCart = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', itemsCart);
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -18,6 +23,7 @@ function createCustomElement(element, className, innerText) {
 
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
+  localStorageItems();
 }
 
 function createCartItemElement(product) {
@@ -26,6 +32,7 @@ function createCartItemElement(product) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
   li.addEventListener('click', cartItemClickListener);
+  localStorageItems();
   return li;
 }
 
@@ -46,8 +53,10 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   button = section.querySelector('.item__add');
   button.addEventListener('click', addItemToCart);
+  localStorageItems();
   return section;
 }
+
 
 async function fetchAndRenderizeProducts() {
   try {
@@ -64,4 +73,5 @@ async function fetchAndRenderizeProducts() {
 
 window.onload = function onload() {
   fetchAndRenderizeProducts();
+  localStorageItems();
 };
