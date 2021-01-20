@@ -15,7 +15,6 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -75,15 +74,18 @@ async function addProductToCart(event) {
   }
 }
 
-function calcPrice(newValue) {
+function calcPrice() {
     let total = 0;
-    //total += parseFloat(document.querySelectorAll('.cart__items').innerText.split('$')[1]);
     document.querySelectorAll('.cart__item').forEach(item => {
       total += parseFloat(item.innerText.split('$')[1])
       console.log(total)
     })    
     document.querySelector('.total-price').innerHTML = total;
 }
+
+document.querySelector('.empty-cart').addEventListener('click', () => {
+  document.querySelector('.cart__items').innerHTML = '';
+});
 
 window.onload = function onload() {
   fetchProducts();
