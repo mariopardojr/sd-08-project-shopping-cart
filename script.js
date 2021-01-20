@@ -30,11 +30,10 @@ function localStorageUpdate() {
 
 function cartItemClickListener(event) {
   const item = event.target;
-  const itemId = item.innerText.match(/(SKU: )([^\s]+)(\s)/, '$2')[2];
   const parent = item.parentNode;
 
   parent.removeChild(item);
-  const productIndex = shoppingCart.findIndex(product => product === itemId);
+  const productIndex = shoppingCart.findIndex(product => product === item.innerText);
   if (shoppingCart.length === 1) {
     shoppingCart.pop();
   } else {
