@@ -48,7 +48,7 @@ window.onload = function onload() {
   .then((data) => {
     data.results.forEach((element) => {
       const obj = { sku: element.id, name: element.title, image: element.thumbnail };
-      document.querySelector('.item').appendChild(createProductItemElement(obj));
+      document.querySelector('.items').appendChild(createProductItemElement(obj));
     });
   });
 };
