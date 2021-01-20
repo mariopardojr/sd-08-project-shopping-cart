@@ -19,11 +19,7 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  const button = createCustomElement(
-    'button',
-    'item__add',
-    'Adicionar ao carrinho!'
-  );
+  const button = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   button.addEventListener('click', addProductToCart);
   section.appendChild(button);
 
@@ -37,8 +33,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
   //salvar
-  const subtract = -1 * parseFloat(event.target.innerText.split('$')[1]);
-  priceSum(subtract);
+  calcPrice();
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
@@ -74,23 +69,20 @@ async function addProductToCart(event) {
     const liItem = createCartItemElement(item);
     document.querySelector('.cart__items').appendChild(liItem);
     //salvar
-    const addValue = parseFloat(event.target.innerText.split('$')[1]);
-    console.log(addValue);
-    priceSum(addValue);
+    calcPrice();
   } catch (error) {
     console.log('falha no carregamento', error);
   }
 }
 
-async function priceSum(newValue) {
-  try {
-    let total = parseFloat(document.querySelector('.total-price').innerText);
-    total += newValue;
+function calcPrice(newValue) {
+    let total = 0;
+    //total += parseFloat(document.querySelectorAll('.cart__items').innerText.split('$')[1]);
+    document.querySelectorAll('.cart__item').forEach(item => {
+      total += parseFloat(item.innerText.split('$')[1])
+      console.log(total)
+    })    
     document.querySelector('.total-price').innerHTML = total;
-    console.log(total);
-  } catch (error) {
-    console.log('falha no carregamento', error);
-  }
 }
 
 window.onload = function onload() {
