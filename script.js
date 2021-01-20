@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -26,6 +24,21 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+const listagem = () => {
+  return new Promise((resolve, reject) => {
+    fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+      .then(result => result.json())
+      .then((data) => {
+        data.results.forEach((computador) => {
+          const { id, title, thumbnail } = computador;
+          const elemento = createProductItemElement({ sku: id, name: title, image: thumbnail });
+          const items = document.querySelector('.items');
+          items.appendChild(elemento);
+        });
+      });
+  });
+};
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
@@ -41,4 +54,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-// ASKAPOKA
+
+window.onload = function onload() {
+  listagem();
+};
