@@ -55,7 +55,6 @@ async function addItemToCart(event) {
   const cartList = document.querySelector('.cart__items');
   cartList.appendChild(createCartItemElement(result));
   localStorageItems();
-  sumPrices();
 }
 
 function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
@@ -68,7 +67,6 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   button = section.querySelector('.item__add');
   button.addEventListener('click', addItemToCart);
   localStorageItems();
-  sumPrices();
   return section;
 }
 
@@ -91,14 +89,13 @@ function emptyCart() {
   const cart = document.querySelector('.cart__items');
   emptyBtn.addEventListener('click', () => {
     cart.innerHTML = '';
-    sumPrices();
     localStorageItems();
+    sumPrices();
   });
 }
 
 window.onload = function onload() {
   fetchAndRenderizeProducts();
-  cartItemClickListener();
   localStorageItems();
   emptyCart();
 };
