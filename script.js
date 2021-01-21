@@ -68,7 +68,7 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   );
   button.addEventListener('click', addProductToCart);
   section.appendChild(button);
-
+  document.querySelector('.loading').innerText = '';
   return section;
 }
 
