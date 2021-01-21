@@ -95,11 +95,13 @@ function emptyCart() {
   });
 }
 
+function returnData() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('.cart');
+}
 
 window.onload = function onload() {
   fetchAndRenderizeProducts();
-  addItemToCart();
-  cartItemClickListener();
   sumPrices();
   emptyCart();
+  returnData();
 };
