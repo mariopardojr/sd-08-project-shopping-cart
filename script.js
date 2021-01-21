@@ -44,6 +44,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 function fetchData() {
+  const loading = document.querySelector('.loading');
+  loading.innerText = 'loading...';
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then((response) => {
       response.json()
@@ -55,6 +57,7 @@ function fetchData() {
               name: item.title,
               image: item.thumbnail,
             };
+            loading.innerText = '';
             return document.querySelector('.items').appendChild(createProductItemElement(product));
           });
         });
@@ -81,6 +84,7 @@ function addToCart() {
     }
   });
 }
+// Dei uma olhada no requisito 2 do vídeo de passo a passo que fizeram https://trybecourse.slack.com/archives/C01A9A2N93R/p1608237982190300 , porque não estava conseguindo acertar o addEventListener, peguei a dica de adicionar um só para todo o container e depois isolar os botões.
 
 function emptyCart() {
   const cart = document.querySelector('.empty-cart');
