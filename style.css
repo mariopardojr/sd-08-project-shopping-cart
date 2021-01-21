@@ -78,3 +78,7 @@
 .loading {
   display: inline;
 }
+
+.hidden {
+  display: none;
+}
