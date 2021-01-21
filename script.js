@@ -1,4 +1,6 @@
-window.onload = function onload() {};
+window.onload = function onload() {
+  searchShopping();
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -51,5 +53,3 @@ async function searchShopping() {
     document.querySelector('items').appendChild(searchItem);
   });
 }
-
-searchShopping();
