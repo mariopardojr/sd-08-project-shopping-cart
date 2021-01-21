@@ -41,7 +41,7 @@ function createProductItemElement({ sku, name, image }) {
             sku: data.id,
             name: data.title,
             salePrice: data.price,
-          }))
+          })),
         );
       });
   });
