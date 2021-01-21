@@ -57,7 +57,7 @@ function fetchData() {
               name: item.title,
               image: item.thumbnail,
             };
-            loading.innerText = '';
+            loading.remove();
             return document.querySelector('.items').appendChild(createProductItemElement(product));
           });
         });
