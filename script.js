@@ -1,6 +1,10 @@
 const startLoading = () => {
-  const loading = document.querySelector('.loading');
-  loading.classList.remove('hidden');
+  const e = document.createElement('div');
+  e.className = 'loading';
+  e.innerText = 'Carregando...';
+  document.querySelector('.items').appendChild(e);
+  // const loading = document.querySelector('.loading');
+  // loading.classList.remove('hidden');
   // const loadingSpan = document.querySelector('.loading');
   // if (loadingSpan) {
   //   loadingSpan.style.display = 'inline';
@@ -14,9 +18,10 @@ const startLoading = () => {
 };
 
 const endLoading = () => {
-  const loading = document.querySelector('.loading');
+  document.querySelector('.loading').remove();
+  // const loading = document.querySelector('.loading');
   // const sectionCart = document.querySelector('.items');
-  loading.classList.add('hidden');
+  // loading.classList.add('hidden');
   // loadingSpan.style.display = 'none';
 };
 
