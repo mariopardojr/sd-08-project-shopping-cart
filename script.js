@@ -34,7 +34,7 @@ function cartItemClickListener() {
     if (event.target.className === 'cart__item') {
       cartItems.removeChild(event.target);
     }
-  })
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -57,7 +57,7 @@ function fetchData() {
               name: item.title,
               image: item.thumbnail,
             };
-            document.querySelector('.items').appendChild(createProductItemElement(product));
+            return document.querySelector('.items').appendChild(createProductItemElement(product));
           });
         });
     });
@@ -71,11 +71,11 @@ function addToCart() {
       fetch(`https://api.mercadolibre.com/items/${itemSku}`)
         .then((response) => {
           response.json()
-            .then(((item) => {
+            .then(((productData) => {
               itemData = {
-                sku: item.id,
-                name: item.title,
-                salePrice: item.price,
+                sku: productData.id,
+                name: productData.title,
+                salePrice: productData.price,
               };
               document.querySelector('.cart__items').appendChild(createCartItemElement(itemData));
             }));
