@@ -103,7 +103,7 @@ function limparCarrinho() {
 }
 
 window.onload = function onload() {
+  fetchBodyItems();
   localStorageCheck();
   limparCarrinho();
-  fetchBodyItems();
 };
