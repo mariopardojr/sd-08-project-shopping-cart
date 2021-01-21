@@ -142,7 +142,7 @@ document.querySelector('.empty-cart').addEventListener('click', () => {
 });
 
 window.onload = function onload() {
-  //startLoading();
+  // startLoading();
   listagem();
   getLocalStorage();
 };
