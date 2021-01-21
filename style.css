@@ -130,17 +130,6 @@ body {
   cursor: pointer;
 }
 
-.loading {
-  color: rgb( 44, 44, 44 );
-  border-radius: 10px;
-  font-size: x-large;
-  height: 30px;
-  margin-top: 200px;
-  padding: 100px;
-  text-align: center;
-  width: 160px;
-}
-
 .hidden {
   display: none;
 }
