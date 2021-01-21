@@ -14,11 +14,11 @@
 const endLoading = () => {
   const loading = document.querySelector('.loading');
   // const sectionCart = document.querySelector('.items');
-    loading.remove();
-    const allComputers = document.querySelectorAll('.hidden');
-    allComputers.forEach(e => {
-      e.classList.remove('hidden')
-    })
+  loading.remove();
+  const allComputers = document.querySelectorAll('.item');
+  allComputers.forEach(e => {
+    e.classList.remove('hidden')
+  });
   // loadingSpan.style.display = 'none';
 };
 
@@ -140,8 +140,7 @@ const listagem = () => {
     .then(() => {
       console.log('Entrei na remoção');
       endLoading();
-    }
-    );
+    });
 };
 
 document.querySelector('.empty-cart').addEventListener('click', () => {
