@@ -28,7 +28,7 @@ function recover() {
 
 function cartItemClickListener(event) {
   event.target.remove();
-  setlocalStorage();
+  save()
   valorTotalCarrinho();
 }
 
@@ -100,6 +100,7 @@ function localStorageCheck() {
   try {
     document.querySelector('ol').innerHTML = localStorage.getItem('cartItems');
   } catch (error) {
+    console.log(error)
     console.log(error);
   }
   const list = document.querySelector('ol');
@@ -116,6 +117,7 @@ function limparCarrinho() {
   botao.addEventListener('click', (event) => {
     if (event.target.classList.contains('empty-cart')) {
       document.querySelector('ol').innerHTML = '';
+      save();
       valorTotalCarrinho();
     }
   });
