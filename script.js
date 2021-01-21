@@ -24,7 +24,23 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-async function fetchData() {
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
+function cartItemClickListener() {
+  // coloque seu código aqui
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+function fetchData() {
   return new Promise((resolve, reject) => {
     fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
       .then((response) => {
@@ -46,22 +62,29 @@ async function fetchData() {
   });
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener() {
-  // coloque seu código aqui
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
+function addToCart() {
+  const items = document.querySelector('.items');
+  items.addEventListener('click', (event) => {
+    if(event.target.className === 'item__add') {
+      const itemSku = event.target.parentElement.querySelector('.item__sku').innerText;
+      fetch(`https://api.mercadolibre.com/items/${itemSku}`)
+        .then((response) => {
+          response.json()
+            .then((item => {
+              itemData = {
+                sku: item.id,
+                name: item.title,
+                salePrice: item.price,
+              };
+              document.querySelector('.cart__items').appendChild(createCartItemElement(itemData));
+            }))
+        })
+    }
+  })
+  
 }
 
 window.onload = function onload() {
   fetchData();
+  addToCart();
 };
