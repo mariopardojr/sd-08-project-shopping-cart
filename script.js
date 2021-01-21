@@ -14,9 +14,11 @@
 const endLoading = () => {
   const loading = document.querySelector('.loading');
   // const sectionCart = document.querySelector('.items');
-  setTimeout(() => {
     loading.remove();
-  }, 500);
+    const allComputers = document.querySelectorAll('.hidden');
+    allComputers.forEach(e => {
+      e.classList.remove('hidden')
+    })
   // loadingSpan.style.display = 'none';
 };
 
@@ -70,7 +72,7 @@ function createCustomElement(element, className, innerText) {
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
-  section.className = 'item';
+  section.className = 'item hidden';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
