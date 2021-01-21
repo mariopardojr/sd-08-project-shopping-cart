@@ -111,7 +111,7 @@ function clearCart() {
 
 setTimeout(() => {
   document.querySelector('.loading').remove();
-  firsLoading('computador');
+  firstLoading = document.querySelector('computador');
 }, 3000);
 
 function loadFromLocal() {
