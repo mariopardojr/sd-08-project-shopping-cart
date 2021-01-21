@@ -3,18 +3,18 @@ const startLoading = () => {
   // if (loadingSpan) {
   //   loadingSpan.style.display = 'inline';
   // } else {
-  const loading = document.createElement('span');
-  loading.className = 'loading';
-  loading.textContent = 'Loanding...';
-  loading.style.display = 'inline';
-  document.querySelector('.items').appendChild(loading);
+  // const loading = document.createElement('span');
+  // loading.className = 'loading';
+  // loading.textContent = 'Loanding...';
+  // loading.style.display = 'inline';
+  // document.querySelector('.items').appendChild(loading);
   // }
 };
 
 const endLoading = () => {
-  const loadingSpan = document.querySelector('.loading');
-  const sectionCart = document.querySelector('.items');
-  sectionCart.removeChild(loadingSpan);
+  const loading = document.querySelector('.loading');
+  // const sectionCart = document.querySelector('.items');
+  loading.remove();
   // loadingSpan.style.display = 'none';
 };
 
