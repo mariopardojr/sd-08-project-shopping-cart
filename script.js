@@ -92,7 +92,7 @@ function localStorageCheck() {
   valorTotalCarrinho();
 }
 function limparCarrinho() {
-  const botao= document.querySelector('.empty-cart');
+  const botao = document.querySelector('.empty-cart');
   botao.addEventListener('click', (event) => {
     if (event.target.classList.contains('empty-cart')) {
       document.querySelector('ol').innerHTML = '';
@@ -106,5 +106,4 @@ window.onload = function onload() {
   localStorageCheck();
   limparCarrinho();
   fetchBodyItems();
-}
-
+};
