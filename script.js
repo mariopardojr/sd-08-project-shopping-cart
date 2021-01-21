@@ -15,11 +15,11 @@ function valorTotalCarrinho() {
 }
 function localStorage() {
   const cartItens = document.querySelector('ol').innerHTML;
-try{
-localStorage.setItem('cartItens', cartItens);
-}catch(error){
-console.log(error)
-}  
+  try {
+    localStorage.setItem('cartItens', cartItens);
+  } catch (error) {
+    console.log(error)
+  }
 }
 function cartItemClickListener(event) {
   event.target.remove();
@@ -86,12 +86,11 @@ function fetchBodyItems() {
     });
 }
 function localStorageCheck() {
-try{
-  document.querySelector('ol').innerHTML = localStorage.getItem('cartItens');
-
-} catch (error){
-  console.log(error)
-}  
+  try {
+    document.querySelector('ol').innerHTML = localStorage.getItem('cartItens');
+  } catch (error) {
+    console.log(error)
+  }
   const list = document.querySelector('ol');
   list.addEventListener('click', (event) => {
     if (event.target.classList.contains('cart__item')) {
@@ -112,7 +111,7 @@ function limparCarrinho() {
 }
 
 window.onload = function onload() {
-  fetchBodyItems();
-  limparCarrinho();
   localStorageCheck();
+  limparCarrinho();
+  fetchBodyItems();
 };
