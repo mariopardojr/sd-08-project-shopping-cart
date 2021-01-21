@@ -68,9 +68,10 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   );
   button.addEventListener('click', addProductToCart);
   section.appendChild(button);
-  document.querySelector('.loading').innerText = '';
+
   return section;
 }
+document.querySelector('.loading').innerText = 'loading...';
 
 async function fetchProducts() {
   try {
@@ -81,6 +82,7 @@ async function fetchProducts() {
     results.forEach(product => {
       const productItem = createProductItemElement(product);
       document.querySelector('.items').appendChild(productItem);
+      document.querySelector('.loading').innerText = '';
     });
   } catch (error) {
     console.log('falha no carregamento', error);
@@ -104,7 +106,6 @@ function getFromLocalStorage() {
 }
 
 window.onload = function onload() {
-  document.querySelector('.loading').innerText = 'loading...';
   fetchProducts();
   getFromLocalStorage();
 };
