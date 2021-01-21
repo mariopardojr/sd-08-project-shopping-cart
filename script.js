@@ -18,7 +18,7 @@ function localStorage() {
   try {
     localStorage.setItem('cartItens', cartItens);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 function cartItemClickListener(event) {
@@ -89,7 +89,7 @@ function localStorageCheck() {
   try {
     document.querySelector('ol').innerHTML = localStorage.getItem('cartItens');
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
   const list = document.querySelector('ol');
   list.addEventListener('click', (event) => {
