@@ -95,9 +95,6 @@ function emptyCart() {
   });
 }
 
-function returnData() {
-  document.querySelector('.cart__items').innerHTML = localStorage.getItem('.cart');
-}
 
 window.onload = function onload() {
   fetchAndRenderizeProducts();
@@ -105,5 +102,4 @@ window.onload = function onload() {
   cartItemClickListener();
   sumPrices();
   emptyCart();
-  returnData();
 };
