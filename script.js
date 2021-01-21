@@ -82,7 +82,17 @@ function addToCart() {
   });
 }
 
+function emptyCart() {
+  const cart = document.querySelector('.empty-cart');
+  cart.addEventListener('click', () => {
+    document.querySelectorAll('.cart__item').forEach((element) => {
+      element.remove();
+    });
+  });
+}
+
 window.onload = function onload() {
   fetchData();
   addToCart();
+  emptyCart();
 };
