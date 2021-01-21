@@ -72,10 +72,6 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   return section;
 }
 
-// function getSkuFromProductItem(item) {
-//   return item.querySelector('span.item__sku').innerText;
-// }
-
 async function fetchProducts() {
   try {
     const response = await fetch(
@@ -108,6 +104,7 @@ function getFromLocalStorage() {
 }
 
 window.onload = function onload() {
+  document.querySelector('.loading').innerText = 'loading...';
   fetchProducts();
   getFromLocalStorage();
 };
