@@ -6,3 +6,4 @@ node_modules/
 cypress/reports
 .eslintrc
 .prettierignore
+fileTest.js
