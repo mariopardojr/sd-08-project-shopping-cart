@@ -51,7 +51,6 @@ function fetchItem(event) {
         salePrice: dado.price,
       };
       document.querySelector('ol').appendChild(createCartItemElement(cartItem));
-      //localStorage();
       save();
       valorTotalCarrinho();
     });
@@ -124,7 +123,7 @@ function limparCarrinho() {
 
 window.onload = function onload() {
   recover();
-  localStorageCheck();  
+  localStorageCheck();
   limparCarrinho();
   fetchBodyItems();
   valorTotalCarrinho();
