@@ -17,7 +17,7 @@ const endLoading = () => {
   loading.remove();
   const allComputers = document.querySelectorAll('.item');
   allComputers.forEach(e => {
-    e.classList.remove('hidden')
+    e.classList.remove('hidden');
   });
   // loadingSpan.style.display = 'none';
 };
