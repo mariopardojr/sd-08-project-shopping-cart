@@ -26,8 +26,8 @@ function addLocalStorage() {
 }
 
 function getLocalStorage() {
-  const completedList = document.querySelector('.cart__items');
-  completedList.innerHTML = localStorage.getItem('eachItem');
+  const compList = document.querySelector('.cart__items');
+  compList.innerHTML = localStorage.getItem('eachItem');
   totalPrice();
 }
 
