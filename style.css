@@ -37,7 +37,7 @@ body {
 
 .item {
   border-radius: 5px;
-  border: 2px solid rgb(204, 204, 204);
+  border: 2px solid rgb( 204, 204, 204 );
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -74,9 +74,9 @@ body {
 
 .item .item__add {
   align-self: center;
-  background-color: rgb(9, 141, 9);
+  background-color: rgb( 9, 141, 9 );
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.397);
+  border: 1px solid rgba( 0, 0, 0, 0.397 );
   color: white;
   cursor: pointer;
   font-weight: 600;
@@ -86,7 +86,7 @@ body {
 }
 
 .item .item__add:hover {
-  background-color: rgb(19, 160, 19);
+  background-color: rgb( 19, 160, 19 );
 }
 
 .cart {
@@ -99,14 +99,14 @@ body {
   width: 60%;
   align-self: center;
   padding: 8px;
-  background-color: rgb(236, 236, 236);
+  background-color: rgb( 236, 236, 236 );
   border-radius: 6px;
   cursor: pointer;
-  border: 1px solid rgba(46, 46, 46, 0.349);
+  border: 1px solid rgba( 46, 46, 46, 0.349 );
 }
 
 .empty-cart:hover {
-  background-color: rgb(216, 216, 216);
+  background-color: rgb( 216, 216, 216 );
 }
 
 .cart .cart__title {
@@ -131,7 +131,7 @@ body {
 }
 
 .loading {
-  color: rgb(44, 44, 44);
+  color: rgb( 44, 44, 44 );
   border-radius: 10px;
   font-size: x-large;
   height: 30px;
