@@ -74,5 +74,5 @@ window.onload = function onload() {
   fetchItens();
   const emptyCart = document.querySelector('.empty-cart');
   emptyCart.addEventListener('click', () =>
-  document.querySelector('.cart__items').innerHTML = '');
+  (document.querySelector('.cart__items').innerHTML = ''));
 };
