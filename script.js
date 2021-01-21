@@ -1,8 +1,7 @@
 function calcPrice() {
   let total = 0;
   document.querySelectorAll('.cart__item').forEach(item => {
-    total += parseFloat(item.innerText.split('$')[1]);
-    console.log(total);
+    total += parseFloat(item.innerText.split('$')[1]);    
   });
   document.querySelector('.total-price').innerHTML = total;
 }
@@ -82,8 +81,11 @@ async function fetchProducts() {
     results.forEach(product => {
       const productItem = createProductItemElement(product);
       document.querySelector('.items').appendChild(productItem);
-      document.querySelector('.loading').innerText = '';
     });
+    document.querySelector('.loading').innerText = '';
+      const eraseLoading = document.querySelector('.loading');
+      eraseLoading.remove();
+      console.log(document.querySelector('.loading'));
   } catch (error) {
     console.log('falha no carregamento', error);
   }
@@ -91,6 +93,7 @@ async function fetchProducts() {
 
 document.querySelector('.empty-cart').addEventListener('click', () => {
   document.querySelector('.cart__items').innerHTML = '';
+    
   calcPrice();
   addToLocalStorage();
 });
