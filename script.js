@@ -1,19 +1,21 @@
 const startLoading = () => {
-  const loadingSpan = document.querySelector('.loading');
-  if (loadingSpan) {
-    loadingSpan.style.display = 'inline';
-  } else {
-    const loading = document.createElement('span');
-    loading.className = 'loading';
-    loading.textContent = 'loanding...';
-    loading.style.display = 'inline';
-    document.querySelector('.cart').appendChild(loading);
-  }
+  // const loadingSpan = document.querySelector('.loading');
+  // if (loadingSpan) {
+  //   loadingSpan.style.display = 'inline';
+  // } else {
+  const loading = document.createElement('span');
+  loading.className = 'loading';
+  loading.textContent = 'Loanding...';
+  loading.style.display = 'inline';
+  document.querySelector('.items').appendChild(loading);
+  // }
 };
 
 const endLoading = () => {
   const loadingSpan = document.querySelector('.loading');
-  loadingSpan.style.display = 'none';
+  const sectionCart = document.querySelector('.items');
+  sectionCart.removeChild(loadingSpan);
+  // loadingSpan.style.display = 'none';
 };
 
 function totalPrice() {
@@ -77,7 +79,6 @@ function createProductItemElement({ sku, name, image }) {
     'Adicionar ao carrinho!',
   );
   botaoComprar.addEventListener('click', () => {
-    startLoading();
     fetch(`https://api.mercadolibre.com/items/${sku}`)
       .then(result => result.json())
       .then(data => {
@@ -90,7 +91,6 @@ function createProductItemElement({ sku, name, image }) {
         document.querySelector('.cart__items').appendChild(elementoCarrinho);
         totalPrice();
         addLocalStorage();
-        endLoading();
       });
   });
   section.appendChild(botaoComprar);
@@ -99,7 +99,6 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 const listagem = () => {
-  startLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(result => result.json())
     .then(data => {
@@ -112,9 +111,9 @@ const listagem = () => {
         });
         const items = document.querySelector('.items');
         items.appendChild(elemento);
-        endLoading();
       });
-    });
+    })
+    .then(endLoading());
 };
 
 document.querySelector('.empty-cart').addEventListener('click', () => {
@@ -124,6 +123,7 @@ document.querySelector('.empty-cart').addEventListener('click', () => {
 });
 
 window.onload = function onload() {
+  startLoading();
   listagem();
   getLocalStorage();
 };
