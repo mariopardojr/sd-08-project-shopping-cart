@@ -14,7 +14,7 @@ const startLoading = () => {
 const endLoading = () => {
   const loading = document.querySelector('.loading');
   // const sectionCart = document.querySelector('.items');
-  loading.remove();
+  loading.style.display = 'none';
   // loadingSpan.style.display = 'none';
 };
 
