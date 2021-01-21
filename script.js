@@ -86,5 +86,4 @@ function addToCart() {
 window.onload = function onload() {
   fetchData();
   addToCart();
-  getSkuFromProductItem();
 };
