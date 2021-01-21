@@ -1,12 +1,19 @@
-const loading = document.querySelector('.loading');
 const startLoading = () => {
-  loading.style.display = 'inline';
-  console.log(loading);
+  const loadingSpan = document.querySelector('.loading');
+  if (loadingSpan) {
+    loadingSpan.style.display = 'inline';
+  } else {
+    const loading = document.createElement('span');
+    loading.className = 'loading';
+    loading.textContent = 'loanding...';
+    loading.style.display = 'inline';
+    document.querySelector('.cart').appendChild(loading);
+  }
 };
 
 const endLoading = () => {
-  loading.style.display = 'none';
-  console.log(loading);
+  const loadingSpan = document.querySelector('.loading');
+  loadingSpan.style.display = 'none';
 };
 
 function totalPrice() {
