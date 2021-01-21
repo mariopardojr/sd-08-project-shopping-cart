@@ -1,6 +1,4 @@
-window.onload = function onload() {
-  searchShopping();
-};
+window.onload = function onload() {};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
