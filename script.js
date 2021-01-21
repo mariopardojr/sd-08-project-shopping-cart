@@ -3,18 +3,6 @@ const startLoading = () => {
   e.className = 'loading';
   e.innerText = 'Carregando...';
   document.querySelector('.items').appendChild(e);
-  // const loading = document.querySelector('.loading');
-  // loading.classList.remove('hidden');
-  // const loadingSpan = document.querySelector('.loading');
-  // if (loadingSpan) {
-  //   loadingSpan.style.display = 'inline';
-  // } else {
-  // const loading = document.createElement('span');
-  // loading.className = 'loading';
-  // loading.textContent = 'Loanding...';
-  // loading.style.display = 'inline';
-  // document.querySelector('.items').appendChild(loading);
-  // }
 };
 
 const endLoading = () => {
@@ -23,6 +11,9 @@ const endLoading = () => {
   // const sectionCart = document.querySelector('.items');
   // loading.classList.add('hidden');
   // loadingSpan.style.display = 'none';
+  document
+    .querySelectorAll('.item')
+    .forEach(i => i.classList.remove('hidden'));
 };
 
 function totalPrice() {
@@ -38,8 +29,8 @@ const addLocalStorage = () => {
   localStorage.setItem('eachItem', completedList.innerHTML);
 };
 
-function cartItemClickListener(mariola) {
-  mariola.target.remove();
+function cartItemClickListener(e) {
+  e.target.remove();
   totalPrice();
   addLocalStorage();
 }
@@ -75,7 +66,7 @@ function createCustomElement(element, className, innerText) {
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
-  section.className = 'item';
+  section.className = 'item hidden';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
