@@ -71,6 +71,7 @@ async function totalPrice() {
 function localStorageSavedInfo() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('saveCart');
   totalPrice();
+  cartItemClickListener();
 }
 
 function cartItemClickListener() {
