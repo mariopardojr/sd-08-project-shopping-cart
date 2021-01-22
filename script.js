@@ -46,4 +46,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+async function getItem(id) {
+  return fetch(`https://api.mercadolibre.com/items/${id}`)
+  .then(response => response.json())
+  .then(data => data);
+}
+
 window.onload = function onload() { };
