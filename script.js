@@ -1,3 +1,7 @@
+function saveAtLocalStorage() {
+  localStorage.setItem('saveCart', document.querySelector('.cart__items').innerHTML);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -58,10 +62,15 @@ async function totalPrice() {
     totalCartPrice += findPrice;
     return Math.round(totalCartPrice.toFixed(2));
   });
-  // Dei uma olhada no PR do Beto (https://github.com/tryber/sd-08-project-shopping-cart/blob/26d633b07336901530f9a7c78634e692112463af/script.js) para ver se conseguia uma dica de como arredondar esse valor porque já cansei de refatorar e tentar métodos diferentes de arredondamento.
+  // Dei uma olhada no PR do Beto (https://github.com/tryber/sd-08-project-shopping-cart/blob/26d633b07336901530f9a7c78634e692112463af/script.js) para ver se conseguia uma dica de como arredondar esse valor porque já cansei de refatorar e tentar métodos diferentes de arredondamento. Eu já tinha refatorado para unificar a contagem de valores em um lugar só (antes estava uma bagunça...), mas estava tentando arredondar os valores a serem somados e não o total (essa foi a dica que peguei no PR). Realmente faz muito mais sentido assim, o jeito que eu estava tentando gerava acúmulo de erros. Finalmente funcionou! \o/
 
   const actualPrice = document.querySelector('.total-price');
   actualPrice.innerText = totalCartPrice;
+}
+
+function localStorageSavedInfo() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('saveCart');
+  totalPrice();
 }
 
 function cartItemClickListener() {
@@ -69,6 +78,7 @@ function cartItemClickListener() {
   cartItems.addEventListener('click', (event) => {
     event.target.remove();
     totalPrice();
+    saveAtlocalStorage();
   });
 }
 
@@ -96,6 +106,7 @@ function addToCart() {
               };
               document.querySelector('.cart__items').appendChild(createCartItemElement(itemData));
               totalPrice();
+              saveAtLocalStorage();
             }));
         });
     }
@@ -108,7 +119,9 @@ function emptyCart() {
   cart.addEventListener('click', () => {
     document.querySelectorAll('.cart__item').forEach((element) => {
       element.remove();
+      totalPrice();
     });
+    saveAtlocalStorage();
   });
 }
 
@@ -116,4 +129,5 @@ window.onload = function onload() {
   fetchData();
   addToCart();
   emptyCart();
+  localStorageSavedInfo();
 };
