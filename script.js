@@ -1,3 +1,14 @@
+const endLoading = () => {
+  const loading = document.querySelector('.loading');
+  // const sectionCart = document.querySelector('.items');
+  loading.remove();
+  const allComputers = document.querySelectorAll('.item');
+  allComputers.forEach(e => {
+    e.classList.remove('hidden');
+  });
+  // loadingSpan.style.display = 'none';
+};
+
 function totalPrice() {
   let total = 0;
   document.querySelectorAll('.cart__item').forEach(item => {
@@ -48,7 +59,7 @@ function createCustomElement(element, className, innerText) {
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
-  section.className = 'item';
+  section.className = 'item hidden';
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
@@ -78,6 +89,25 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+// const listagem = async () => {
+//   const itemsList = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+//     .then(result => result.json())
+//     .then(data => data.results);
+
+//   const itemsContainer = document.querySelector('.items');
+//   itemsContainer.innerHTML = '';
+
+//   itemsList.forEach(computador => {
+//     const { id, title, thumbnail } = computador;
+//     const elemento = createProductItemElement({
+//       sku: id,
+//       name: title,
+//       image: thumbnail,
+//     });
+//     itemsContainer.appendChild(elemento);
+//   });
+// };
+
 const listagem = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(result => result.json())
@@ -91,7 +121,12 @@ const listagem = () => {
         });
         const items = document.querySelector('.items');
         items.appendChild(elemento);
+        console.log('Entrei na criação');
       });
+    })
+    .then(() => {
+      console.log('Entrei na remoção');
+      endLoading();
     });
 };
 
@@ -102,6 +137,7 @@ document.querySelector('.empty-cart').addEventListener('click', () => {
 });
 
 window.onload = function onload() {
+  // startLoading();
   listagem();
   getLocalStorage();
 };
