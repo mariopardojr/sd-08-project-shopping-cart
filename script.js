@@ -77,10 +77,10 @@ const fetchItens = () => {
   fetchApi(url).then((data) => {
     data.results.map((items) => {
       const product = {
-          sku: items.id,
-          name: items.title,
-          image: items.thumbnail,
-        };
+        sku: items.id,
+        name: items.title,
+        image: items.thumbnail,
+      };
       return list.appendChild(createProductItemElement(product));
     });
   });
