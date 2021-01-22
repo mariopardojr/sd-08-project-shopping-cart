@@ -67,7 +67,7 @@ function cartItemClickListener() {
     event.target.remove();
   });
   const findText = event.target.innerText.split('$');
-  const findPrice = -(parseInt(findText[1], 10));
+  const findPrice = -(Math.floor(parseInt(findText[1], 10)));
   totalPrice(findPrice);
 }
 
@@ -94,7 +94,7 @@ function addToCart() {
                 salePrice: productData.price,
               };
               document.querySelector('.cart__items').appendChild(createCartItemElement(itemData));
-              totalPrice(itemData.salePrice);
+              totalPrice(Math.floor(itemData.salePrice));
             }));
         });
     }
