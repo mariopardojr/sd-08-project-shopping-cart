@@ -91,7 +91,7 @@ async function fetchAndLoadProducts() {
       const loadProduct = createProductItemElement(product);
       document.querySelector('.items').appendChild(loadProduct);
     });
-    document.querySelector('.loading').innerHTML = '';
+    document.querySelector('.loading').remove();
   } catch (error) {
     console.log('Deu erro no load', error);
   }
