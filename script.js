@@ -30,7 +30,7 @@ async function totalPrice() {
     return sumPrices;
   });
   saveCartInLocalStorage();
-  document.querySelector('.total-price').innerHTML = `Preço total: R$ ${sumPrices}`;
+  document.querySelector('.total-price').innerHTML = `${sumPrices}`;
 }
 
 function cartItemClickListener(event) {
