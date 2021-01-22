@@ -1,11 +1,3 @@
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -36,7 +28,7 @@ const calculatePriceCart = async () => {
   classcartItems.forEach((item) => {
     const itemInfo = item.innerText;
     const price = Number(itemInfo.split('$')[1]);
-    totalPrice = totalPrice + price;
+    totalPrice += price;
   });
   const classtotalPrice = document.querySelector('.total-price');
   classtotalPrice.innerText = totalPrice;
@@ -57,6 +49,14 @@ function cartItemClickListener(event) {
   classcartItems.removeChild(itemRemove);
   localStorage.removeItem(positionSku);
   calculatePriceCart();
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
 }
 
 const sendProductToCart = (productRecovered) => {
@@ -82,15 +82,16 @@ const handleListProduct = (crudeProductList) => {
   const classitems = document.querySelector('.items');
 
   crudeProductList.forEach((product) => {
-  const { id: sku, thumbnail: image, title: name } = product;
-  const productCard = createProductItemElement({ sku, name, image });
+    const { id: sku, thumbnail: image, title: name } = product;
+    const productCard = createProductItemElement({ sku, name, image });
 
-  productCard.lastChild.addEventListener('click', function () {
-  const skuToSend = productCard.firstChild.innerText;
-  solicitationProductOfCart(skuToSend);
+    productCard.lastChild.addEventListener('click', function () {
+      const skuToSend = productCard.firstChild.innerText;
+
+      solicitationProductOfCart(skuToSend);
     });
-      classitems.appendChild(productCard);
-    });
+    classitems.appendChild(productCard);
+  });
 };
 
 const fetchCartFromStorage = () => {
