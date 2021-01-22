@@ -77,14 +77,9 @@ function cartItemClickListener() {
 }
 
 function localStorageSavedInfo() {
-  const savedData = document.querySelector('.cart__items');
-  savedData.innerHTML = localStorage.getItem('saveCart');
-  savedData.addEventListener('click', (event) => {
-    if (event.target.className === 'cart__item') {
-      cartItemClickListener(event);
-    }
-  });
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('saveCart');
   totalPrice();
+  cartItemClickListener();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
