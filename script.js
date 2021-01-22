@@ -101,7 +101,7 @@ window.onload = function onload() {
     document.querySelector('.cart__items').innerHTML = '';
     localStorage.clear();
     updatePrice();
-  })
+  });
   console.log(localStorage.getItem('cartItems'));
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('cartItems');
   updatePrice();
