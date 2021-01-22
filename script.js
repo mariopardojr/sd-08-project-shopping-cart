@@ -115,11 +115,13 @@ function clickToEmpty() {
 function recoverCart() {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = localStorage.getItem('cartItems');
+  sumTotalPrice();
 }
 
 window.onload = async function () {
   recoverCart();
   const items = await responseFetch();
+  document.querySelector('.loading').remove();
   createItems(items);
   addItems();
   clickToEmpty();
