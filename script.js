@@ -104,8 +104,8 @@ function loadFromLocal() {
   cart.innerHTML = localStorage.getItem('cart');
 }
 window.onload = function onload() {
+  listProducts();
   cartItens();
   clearCart();
   loadFromLocal();
-  listProducts();
 };
