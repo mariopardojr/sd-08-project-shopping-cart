@@ -35,7 +35,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -97,7 +97,7 @@ function addItems() {
       removeItems();
       saveCart();
     }
-  })
+  });
 }
 
 function emptyCart() {
@@ -117,7 +117,6 @@ function recoverCart() {
   cartItems.innerHTML = localStorage.getItem('cartItems');
 }
 
-
 window.onload = async function () {
   recoverCart();
   const items = await responseFetch();
@@ -125,5 +124,4 @@ window.onload = async function () {
   addItems();
   clickToEmpty();
   sumTotalPrice();
-  
 };
