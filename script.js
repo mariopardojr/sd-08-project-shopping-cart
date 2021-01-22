@@ -49,9 +49,20 @@ async function onClick(sku) {
     const addItemToCart = createCartItemElement(results);
     document.querySelector('.cart__items').appendChild(addItemToCart);
     addItemToCart.addEventListener('click', cartItemClickListener);
+    totalPrice();
   } catch (error) {
     console.log('Deu erro no item', error);
   }
+};
+
+async function totalPrice() {
+  let sumPrices = 0;
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.childNodes.forEach(child => {
+    const price = child.innerText.split('$')[1];
+    sumPrices += Number(price);
+  })
+  document.querySelector('.total-price').innerHTML = `Preço total: R$ ${sumPrices}`;
 };
 
 function getSkuFromProductItem(item) {
@@ -61,8 +72,17 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   const targetItem = event.target;
   targetItem.parentNode.removeChild(targetItem);
+  totalPrice();
 }
 
+function removeAllCartItems() {
+  const removeButton = document.querySelector('.empty-cart');
+  removeButton.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    totalPrice();
+  })
+}
+removeAllCartItems()
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
