@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  searchShopping();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -58,3 +54,7 @@ function searchShopping() {
     });
   });
 }
+
+window.onload = function onload() {
+  searchShopping();
+};
