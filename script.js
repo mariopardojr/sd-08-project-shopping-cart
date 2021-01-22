@@ -55,9 +55,10 @@ async function totalPrice() {
 
   await cartItems.forEach((item) => {
     const findPrice = parseFloat(item.innerText.split('$')[1]);
-    totalCartPrice += parseFloat(findPrice.toFixed(1));
-    return totalCartPrice;
+    totalCartPrice += findPrice;
+    return Math.round(totalCartPrice.toFixed(2));
   });
+  // Dei uma olhada no PR do Beto (https://github.com/tryber/sd-08-project-shopping-cart/blob/26d633b07336901530f9a7c78634e692112463af/script.js) para ver se conseguia uma dica de como arredondar esse valor porque já cansei de refatorar e tentar métodos diferentes de arredondamento.
 
   const actualPrice = document.querySelector('.total-price');
   actualPrice.innerText = totalCartPrice;
