@@ -68,7 +68,7 @@ async function sumTotalPrice() {
     total += parseFloat(element.innerText.split('$')[1]);
   });
   const shoppingCart = document.querySelector('.total_price');
-  shoppingCart.innerHTML = `$ ${total}`;
+  shoppingCart.innerHTML = total;
 }
 
 function removeItems() {
