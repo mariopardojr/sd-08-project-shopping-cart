@@ -27,11 +27,10 @@ async function totalPrice() {
   cartItems.childNodes.forEach((child) => {
     const price = child.innerText.split('$')[1];
     sumPrices += Number(price);
+    return sumPrices;
   });
   saveCartInLocalStorage();
-  const addTotalPriceToCart = document.querySelector('.total-price').innerHTML;
-  addTotalPriceToCart = `Preço total: R$ ${sumPrices}`;
-  return addTotalPriceToCart;
+  document.querySelector('.total-price').innerHTML = `Preço total: R$ ${sumPrices}`;
 }
 
 function cartItemClickListener(event) {
