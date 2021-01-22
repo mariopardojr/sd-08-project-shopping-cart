@@ -71,6 +71,14 @@ async function sumTotalPrice() {
   shoppingCart.innerHTML = `$ ${total}`;
 }
 
+function removeItems() {
+  document.body.addEventListener('click', async (event) => {
+    if (event.target.matches('.cart__item')) {
+      sumTotalPrice();
+    }
+  });
+}
+
 function saveCart() {
   const cartItems = document.querySelector('.cart__items');
   localStorage.setItem('cartItems', cartItems.innerHTML);
@@ -86,9 +94,22 @@ function addItems() {
       const cartItems = document.querySelector('.cart__items');
       cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
       sumTotalPrice();
+      removeItems();
       saveCart();
     }
   })
+}
+
+function emptyCart() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = '';
+  sumTotalPrice();
+}
+
+function clickToEmpty() {
+  const emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', emptyCart);
+  sumTotalPrice();
 }
 
 function recoverCart() {
@@ -96,11 +117,13 @@ function recoverCart() {
   cartItems.innerHTML = localStorage.getItem('cartItems');
 }
 
+
 window.onload = async function () {
   recoverCart();
   const items = await responseFetch();
   createItems(items);
   addItems();
+  clickToEmpty();
   sumTotalPrice();
   
 };
