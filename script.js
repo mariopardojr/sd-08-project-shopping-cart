@@ -57,9 +57,9 @@ function searchShopping() {
 
 function addProduct() {
   document.querySelector('.items').addEventListener('click', (Event) => {
-    if(Event.target.classList.contains('item__add')) {
+    if (Event.target.classList.contains('item__add')) {
       const sku = getSkuFromProductItem(Event.target.parentNode);
-      fetch('https://api.mercadolibre.com/items/${sku}')
+      fetch("https://api.mercadolibre.com/items/${sku}")
       .then(Response => Response.json())
       .then((data) => {
         const item = {
