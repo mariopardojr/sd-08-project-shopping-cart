@@ -1,6 +1,7 @@
 async function fetchApi(url) {
   const result = await fetch(url)
     .then(response => response.json());
+  document.querySelector('.loading').remove();
   return result;
 }
 
@@ -103,6 +104,11 @@ window.onload = function onload() {
     updatePrice();
   });
   console.log(localStorage.getItem('cartItems'));
-  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cartItems');
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cartItems');
+  for (let index = 0; index < cartList.childNodes.length; index += 1) {
+    cartList.childNodes[index].addEventListener('click', cartItemClickListener);
+  }
+  console.log(document.querySelector('.cart__items'));
   updatePrice();
 };
