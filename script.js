@@ -1,7 +1,9 @@
 async function fetchApi(url) {
   const result = await fetch(url)
     .then(response => response.json());
-  document.querySelector('.loading').remove();
+  if (document.querySelector('.loading') != null) {
+    document.querySelector('.loading').remove();
+  }
   return result;
 }
 
