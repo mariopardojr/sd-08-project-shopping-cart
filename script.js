@@ -74,7 +74,6 @@ function addProduct() {
           salePrice: data.price,
         };
         document.querySelector('.cart__items').appendChild(createCartItemElement(item));
-        removeItem();
       });
     }
   });
@@ -88,4 +87,5 @@ function removeItem() {
 window.onload = function onload() {
   searchShopping();
   addProduct();
+  removeItem();
 };
